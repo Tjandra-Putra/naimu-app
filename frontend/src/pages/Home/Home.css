@@ -83,10 +83,11 @@
 
 .home-wrapper .the-essentials .img-wrapper {
   position: relative;
+  border-radius: 5px !important;
 }
 
 .home-wrapper .the-essentials .img-wrapper img {
-  border-radius: 5px;
+  border-radius: 5px !important;
 }
 
 .home-wrapper .the-essentials .img-wrapper .content {
@@ -97,6 +98,7 @@
   bottom: 0;
   padding: 1rem;
   line-height: 2.5rem;
+  border-radius: 5px;
 }
 
 .home-wrapper .the-essentials .img-wrapper .title {
@@ -117,7 +119,7 @@
 
 .home-wrapper .stories {
   margin-top: 50px;
-  background-color: #fffde8;
+  /* background-color: #fffde8; */
   padding: 30px;
 }
 

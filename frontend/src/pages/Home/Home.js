@@ -227,28 +227,30 @@ const Home = () => {
             <div className="col">
               <div className="img-wrapper">
                 <img
-                  src="https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/h_700,c_limit/d62ad2b8-9231-4fdb-9f4a-3ff76a34b26b/nike-just-do-it.png"
+                  // src="https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/h_700,c_limit/d62ad2b8-9231-4fdb-9f4a-3ff76a34b26b/nike-just-do-it.png"
+                  src="https://images.pexels.com/photos/1698359/pexels-photo-1698359.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt=""
                   className="img-fluid"
                 />
                 <div className="content">
                   <div className="subtitle">Nike Tiger Woods '13</div>
-                  <div className="title">App Early Access</div>
-                  <button className="btn btn-light rounded-5">Get It First</button>
+                  <div className="title">Summer Special</div>
+                  <button className="btn btn-light rounded-5 mt-3">Get It First</button>
                 </div>
               </div>
             </div>
             <div className="col">
               <div className="img-wrapper">
                 <img
-                  src="https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/h_700,c_limit/2e0a5721-ef33-4d38-a8a8-132f72df955a/nike-just-do-it.png"
+                  src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  // src="https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/h_700,c_limit/2e0a5721-ef33-4d38-a8a8-132f72df955a/nike-just-do-it.png"
                   alt=""
                   className="img-fluid"
                 />
                 <div className="content">
-                  <div className="subtitle">Nike Tiger Woods '13</div>
+                  <div className="subtitle">Nike App Track</div>
                   <div className="title">App Early Access</div>
-                  <button className="btn btn-light rounded-5">Learn More</button>
+                  <button className="btn btn-light rounded-5 mt-3">Learn More</button>
                 </div>
               </div>
             </div>
