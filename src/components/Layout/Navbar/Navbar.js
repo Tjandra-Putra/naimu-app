@@ -22,7 +22,7 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item dropdown px-3">
+              <li className="nav-item dropdown px-2">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
@@ -50,34 +50,39 @@ const Navbar = () => {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item px-3">
+              <li className="nav-item px-2">
                 <a className="nav-link" aria-current="page" href="#">
                   Best Selling
                 </a>
               </li>
-              <li className="nav-item px-3">
+              <li className="nav-item px-2">
                 <a className="nav-link" aria-current="page" href="#">
                   Products
                 </a>
               </li>
-              <li className="nav-item px-3">
+              <li className="nav-item px-2">
                 <a className="nav-link" aria-current="page" href="#">
                   Events
                 </a>
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item px-3">
+              <li className="nav-item px-2">
+                <a className="nav-link" aria-current="page" href="#">
+                  <i class="fas fa-search fa-lg pe-2"></i> Search
+                </a>
+              </li>
+              <li className="nav-item px-2">
                 <a className="nav-link" aria-current="page" href="#">
                   <i class="fa-regular fa-heart fa-lg pe-2"></i> Favourite
                 </a>
               </li>
-              <li className="nav-item px-3">
+              <li className="nav-item px-2">
                 <a className="nav-link" aria-current="page" href="#">
-                  <i class="fa-solid fa-cart-shopping pe-2"></i> Cart
+                  <i class="fas fa-shopping-cart pe-2"></i> Cart
                 </a>
               </li>
-              <li className="nav-item ps-3">
+              <li className="nav-item ps-2">
                 <a className="nav-link" aria-current="page" href="#">
                   <i class="fa-regular fa-user fa-lg pe-2"></i> Account
                 </a>
