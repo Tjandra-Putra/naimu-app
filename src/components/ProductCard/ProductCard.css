@@ -1,3 +1,12 @@
+.productcard-wrapper .card {
+  min-height: 460px !important;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+}
+
+/* .productcard-wrapper .card:hover {
+  border: 1px solid #000 !important;
+} */
+
 .productcard-wrapper .tag {
   background-color: #dddddd6e;
   padding: 7px;
@@ -26,14 +35,6 @@
   color: #777777;
   font-weight: 500;
 }
-
-.productcard-wrapper .card {
-  min-height: 430px !important;
-}
-
-/* .productcard-wrapper .card:hover {
-  border: 1px solid #000 !important;
-} */
 
 .productcard-wrapper .img-wrapper {
   position: relative;
