@@ -1,0 +1,29 @@
+.footer-wrapper {
+  padding: 2rem;
+  background-color: #eef1f3;
+}
+
+.footer-wrapper .heading {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.footer-wrapper .brand {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.footer-wrapper ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-wrapper ul li {
+  margin-top: 0.5rem;
+}
+
+.footer-wrapper .payment-card-img {
+  width: 40px;
+  height: 40x;
+  margin-right: 1rem;
+}

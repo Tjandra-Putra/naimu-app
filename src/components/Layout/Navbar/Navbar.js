@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -6,9 +8,10 @@ const Navbar = () => {
     <div className="navbar-wrapper">
       <nav className="navbar navbar-expand-lg">
         <div className="container">
-          <a className="navbar-brand" href="#">
-            NAIMU
-          </a>
+          <Link className="navbar-brand" to="/">
+            NAIMU.
+          </Link>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -51,41 +54,41 @@ const Navbar = () => {
                 </ul>
               </li>
               <li className="nav-item px-2">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" to="/products">
                   Best Selling
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" to="/products">
                   Products
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" to="/products">
                   Events
-                </a>
+                </Link>
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item px-2">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" to="/cart">
                   <i class="fas fa-search fa-lg pe-2"></i> Search
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2">
-                <a className="nav-link" aria-current="page" href="#">
-                  <i class="fa-regular fa-heart fa-lg pe-2"></i> Favourite
-                </a>
+                <Link className="nav-link" to="/cart">
+                  <i class="fa-regular fa-heart fa-lg pe-2"></i> Wishlist
+                </Link>
               </li>
               <li className="nav-item px-2">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" to="/cart">
                   <i class="fas fa-shopping-cart pe-2"></i> Cart
-                </a>
+                </Link>
               </li>
               <li className="nav-item ps-2">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" to="/cart">
                   <i class="fa-regular fa-user fa-lg pe-2"></i> Account
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

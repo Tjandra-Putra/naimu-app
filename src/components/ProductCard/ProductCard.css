@@ -10,6 +10,8 @@
   text-transform: capitalize !important;
   font-size: 1rem;
   font-weight: 500 !important;
+  line-height: 1.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .productcard-wrapper .category {
@@ -19,13 +21,19 @@
   font-weight: 500;
 }
 
+.productcard-wrapper .sold {
+  font-size: 0.8rem;
+  color: #777777;
+  font-weight: 500;
+}
+
 .productcard-wrapper .card {
   min-height: 430px !important;
 }
 
-.productcard-wrapper .card:hover {
+/* .productcard-wrapper .card:hover {
   border: 1px solid #000 !important;
-}
+} */
 
 .productcard-wrapper .img-wrapper {
   position: relative;

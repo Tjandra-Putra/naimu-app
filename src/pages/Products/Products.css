@@ -1,0 +1,33 @@
+.products-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.products-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.products-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.products-wrapper .filter-badge {
+  color: #000000;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  margin-left: 0.6rem;
+  text-transform: capitalize;
+}
+
+.products-wrapper .btn-sort {
+  background-color: white;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+}
