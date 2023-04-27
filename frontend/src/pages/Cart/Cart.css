@@ -1,4 +1,101 @@
 .cart-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
   height: 100%;
   min-height: calc(100vh - 70px);
+}
+
+.cart-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.cart-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.cart-wrapper .title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.cart-wrapper .product-title {
+  font-weight: 500;
+}
+
+.cart-wrapper .product-id,
+.cart-wrapper .product-price {
+  color: #888787;
+}
+
+.cart-wrapper .product-img {
+  width: 135px;
+  height: 135px;
+  border-radius: 5px;
+}
+
+.cart-wrapper .product-store {
+  color: #9e3500;
+}
+
+.cart-wrapper .product-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 135px;
+}
+
+.cart-wrapper .size-select {
+  width: 115px;
+  margin-top: 8px;
+}
+
+.cart-wrapper .btn-delete {
+  background-color: transparent;
+  border: none;
+  color: #00000084;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.cart-wrapper .btn-delete:hover {
+  color: red;
+}
+
+.cart-wrapper tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-wrapper tbody td {
+  height: 170px;
+  padding-top: 25px;
+}
+
+.cart-wrapper .card {
+  padding: 2rem;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  min-height: 30rem;
+}
+
+.cart-wrapper .summary .title {
+  margin-bottom: 40px;
+}
+
+.cart-wrapper .summary .summary-row {
+  margin-bottom: 10px;
+  line-height: 25px;
+}
+
+.cart-wrapper .summary-total {
+  font-weight: 600 !important;
+  line-height: 45px;
+  border-top: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.cart-wrapper .summary .form-control {
+  border: 1px solid #000;
+  border-radius: 5px;
 }
