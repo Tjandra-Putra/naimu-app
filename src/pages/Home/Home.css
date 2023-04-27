@@ -1,0 +1,144 @@
+.home-wrapper {
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.home-wrapper .img-banner {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 70px);
+  object-fit: cover;
+}
+
+.home-wrapper .banner-container {
+  position: relative;
+  color: white;
+}
+
+.home-wrapper .banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.home-wrapper .banner-content .title {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 3.5rem;
+}
+
+.home-wrapper .banner-content .subtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 2rem;
+  max-width: 40%;
+}
+
+.home-wrapper .buttons .btn {
+  text-transform: capitalize;
+  border-radius: 5px !important;
+}
+
+.home-wrapper .featured-products {
+  /* height: 100%;
+  min-height: 100vh; */
+  margin-top: 50px;
+}
+.home-wrapper .featured-products .title {
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.home-wrapper .the-essentials {
+  /* height: 100%;
+  min-height: 100vh; */
+  margin-top: 50px;
+}
+
+.home-wrapper .the-essentials .title {
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.home-wrapper .the-essentials .img-wrapper {
+  position: relative;
+}
+
+.home-wrapper .the-essentials .img-wrapper img {
+  border-radius: 5px;
+}
+
+.home-wrapper .the-essentials .img-wrapper .content {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 1rem;
+  line-height: 2.5rem;
+}
+
+.home-wrapper .the-essentials .img-wrapper .title {
+  font-size: 2rem;
+  color: white;
+}
+
+.home-wrapper .the-essentials .img-wrapper .subtitle {
+  font-size: 1rem;
+  color: white;
+}
+
+.home-wrapper .the-essentials .img-wrapper .btn {
+  font-size: 1rem;
+  font-weight: 500;
+  width: 130px;
+}
+
+.home-wrapper .stories {
+  margin-top: 50px;
+  background-color: #f5f5f5;
+  padding: 30px;
+}
+
+.home-wrapper .stories .title {
+  text-transform: capitalize;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.home-wrapper .membership {
+  background-color: #000000;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-wrapper .membership .title {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 600;
+  color: White;
+}
+
+.home-wrapper .membership .btn {
+  text-transform: uppercase;
+  font-weight: 500;
+}

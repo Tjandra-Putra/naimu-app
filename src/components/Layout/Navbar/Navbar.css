@@ -1,0 +1,18 @@
+.navbar-wrapper .navbar {
+  height: 70px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  /* margin-bottom: 1.2rem; */
+}
+
+.navbar-wrapper .navbar-brand {
+  font-weight: 600;
+}
+.navbar-wrapper .nav-link {
+  border-radius: 5px !important;
+}
+
+.navbar-wrapper .nav-link:hover {
+  background-color: #dddddd6e;
+  border-radius: 5px !important;
+  font-weight: 500;
+}
