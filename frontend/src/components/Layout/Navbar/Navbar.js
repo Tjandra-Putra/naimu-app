@@ -75,6 +75,11 @@ const Navbar = () => {
                   <i class="fas fa-search fa-lg pe-2"></i> Search
                 </Link>
               </li>
+              <li className="nav-item ps-2">
+                <Link className="nav-link" to="/cart">
+                  <i class="fa-regular fa-user fa-lg pe-2"></i> Account
+                </Link>
+              </li>
               <li className="nav-item px-2">
                 <Link className="nav-link" to="/cart">
                   <i class="fa-regular fa-heart fa-lg pe-2"></i> Wishlist
@@ -83,11 +88,6 @@ const Navbar = () => {
               <li className="nav-item px-2">
                 <Link className="nav-link" to="/cart">
                   <i class="fas fa-shopping-cart pe-2"></i> Cart
-                </Link>
-              </li>
-              <li className="nav-item ps-2">
-                <Link className="nav-link" to="/cart">
-                  <i class="fa-regular fa-user fa-lg pe-2"></i> Account
                 </Link>
               </li>
             </ul>
