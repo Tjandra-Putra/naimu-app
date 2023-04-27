@@ -31,6 +31,15 @@
   align-items: center;
 }
 
+.home-wrapper .banner-arrow {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  color: #ffffff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 .home-wrapper .banner-content .title {
   font-size: 3rem;
   font-weight: 600;

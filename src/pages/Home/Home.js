@@ -3,12 +3,40 @@ import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-2988
 import bannerImage2 from "../../assets/images/marketing/pexels-danik-prihodko-15759583.jpeg";
 import bannerImage3 from "../../assets/images/marketing/pexels-godisable-jacob-982010.jpeg";
 
+import arrowLeft from "../../assets/images/left-chevron.png";
+import arrowRight from "../../assets/images/chevron.png";
+
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 const Home = () => {
   return (
     <div className="home-wrapper">
       <div id="carouselExampleIndicators" class="carousel slide">
+        <div className="banner-arrow">
+          <div class="btn-group">
+            <button
+              class="btn btn-light bg-white active"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span class="">
+                <img src={arrowLeft} alt="" style={{ width: "30px" }} />
+              </span>
+            </button>
+
+            <button
+              class="btn btn-light bg-white active"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span class="">
+                <img src={arrowRight} alt="" style={{ width: "30px" }} />
+              </span>
+            </button>
+          </div>
+        </div>
         <div class="carousel-indicators">
           <button
             type="button"
@@ -50,6 +78,31 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              {/* <div className="banner-arrow">
+                <div class="btn-group">
+                  <button
+                    class="btn btn-light active"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev"
+                  >
+                    <span class="">
+                      <img src={arrowLeft} alt="" style={{ width: "30px" }} />
+                    </span>
+                  </button>
+
+                  <button
+                    class="btn btn-light"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next"
+                  >
+                    <span class="">
+                      <img src={arrowRight} alt="" style={{ width: "30px" }} />
+                    </span>
+                  </button>
+                </div>
+              </div> */}
             </div>
           </div>
           <div class="carousel-item">
@@ -102,6 +155,7 @@ const Home = () => {
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
+
         <button
           class="carousel-control-next"
           type="button"
@@ -112,24 +166,6 @@ const Home = () => {
           <span class="visually-hidden">Next</span>
         </button> */}
       </div>
-      {/* <div className="banner-container">
-        <img src={bannerImage} alt="banner" className="img-banner" />
-        <div className="banner-content">
-          <div className="container">
-            <div className="title">
-              Slay Your Style. <br />
-              Own Your Confidence.
-            </div>
-            <div className="subtitle">
-              Are you ready to take your style game to the next level? Our fashion e-commerce site is the perfect place
-              to find the latest fashion trends, unique styles, and eye-catching accessories.
-            </div>
-            <div className="buttons">
-              <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       <div className="container">
         <section className="featured-products">
