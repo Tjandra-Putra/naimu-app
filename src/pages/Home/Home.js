@@ -1,11 +1,118 @@
 import "./Home.css";
-import bannerImage from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
+import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
+import bannerImage2 from "../../assets/images/marketing/pexels-danik-prihodko-15759583.jpeg";
+import bannerImage3 from "../../assets/images/marketing/pexels-godisable-jacob-982010.jpeg";
+
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 const Home = () => {
   return (
     <div className="home-wrapper">
-      <div className="banner-container">
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div className="banner-container">
+              <img src={bannerImage1} alt="banner" className="img-banner" />
+              <div className="banner-content">
+                <div className="container">
+                  <div className="title">
+                    Slay Your Style. <br />
+                    Own Your Confidence.
+                  </div>
+                  <div className="subtitle">
+                    Are you ready to take your style game to the next level? Our fashion e-commerce site is the perfect
+                    place to find the latest fashion trends, unique styles, and eye-catching accessories.
+                  </div>
+                  <div className="buttons">
+                    <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div className="banner-container">
+              <img src={bannerImage2} alt="banner" className="img-banner" />
+              <div className="banner-content">
+                <div className="container">
+                  <div className="title">
+                    Elevate Your Look. <br />
+                    Boost Your Confidence.
+                  </div>
+                  <div className="subtitle">
+                    Looking to upgrade your wardrobe? Our fashion e-commerce store is the ideal destination for
+                    discovering the hottest trends, distinctive styles, and striking accessories.
+                  </div>
+                  <div className="buttons">
+                    <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div className="banner-container">
+              <img src={bannerImage3} alt="banner" className="img-banner" />
+              <div className="banner-content">
+                <div className="container">
+                  <div className="title">
+                    Embrace Your Style Evolution. <br />
+                    Command Your Confidence.
+                  </div>
+                  <div className="subtitle">
+                    Are you ready to take your style game to the next level? Our fashion e-commerce site is the perfect
+                    place to find the latest fashion trends, unique styles, and eye-catching accessories.
+                  </div>
+                  <div className="buttons">
+                    <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button> */}
+      </div>
+      {/* <div className="banner-container">
         <img src={bannerImage} alt="banner" className="img-banner" />
         <div className="banner-content">
           <div className="container">
@@ -22,7 +129,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="container">
         <section className="featured-products">
