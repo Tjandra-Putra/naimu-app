@@ -1,16 +1,23 @@
 .footer-wrapper {
   padding: 2rem;
-  background-color: #eef1f3;
+  /* background-color: #eef1f3; */
+  background-color: #070606;
 }
 
 .footer-wrapper .heading {
   text-transform: uppercase;
   font-weight: 600;
+  color: #ffffff;
 }
 
 .footer-wrapper .brand {
   font-weight: 600;
   font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.footer-wrapper .description {
+  color: #b9b9b9;
 }
 
 .footer-wrapper ul {
@@ -20,10 +27,15 @@
 
 .footer-wrapper ul li {
   margin-top: 0.5rem;
+  color: #b9b9b9;
 }
 
 .footer-wrapper .payment-card-img {
-  width: 40px;
-  height: 40x;
+  width: 30px;
+  height: 30px;
   margin-right: 1rem;
+  background-color: #ffffff;
+  padding: 2px;
+  border-radius: 5px;
+  margin-top: 0.5rem;
 }
