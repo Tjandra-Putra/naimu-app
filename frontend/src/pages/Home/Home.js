@@ -305,7 +305,7 @@ const Home = () => {
 
       <section className="membership">
         <div className="title">BECOME A MEMBER & GET 15% OFF</div>
-        <button className="btn btn-light btn-lg rounded-2 ms-3">
+        <button className="btn btn-light btn-lg rounded-2 ms-3 btn-register">
           Sign Up For Free <i class="fas fa-arrow-right fa-lg ms-2"></i>
         </button>
       </section>
