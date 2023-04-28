@@ -70,24 +70,37 @@ const Navbar = () => {
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item px-2">
-                <Link className="nav-link" to="/cart">
+              <li className="nav-item pe-4">
+                <div class="input-group search-group">
+                  <span class="input-group-text search-input border-0" id="basic-addon1">
+                    <i class="fas fa-search fa-lg"></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control search-input border-0"
+                    placeholder="Search"
+                    aria-label="search"
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+
+                {/* <Link className="nav-link" to="/cart">
                   <i class="fas fa-search fa-lg pe-2"></i> Search
-                </Link>
+                </Link> */}
               </li>
               <li className="nav-item ps-2">
                 <Link className="nav-link" to="/cart">
-                  <i class="fa-regular fa-user fa-lg pe-2"></i> Account
+                  <i class="fa-regular fa-user fa-lg pe-1"></i>
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link className="nav-link" to="/cart">
-                  <i class="fa-regular fa-heart fa-lg pe-2"></i> Wishlist
+                  <i class="fa-regular fa-heart fa-lg ps-1"></i>
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link className="nav-link" to="/cart">
-                  <i class="fas fa-shopping-cart pe-2"></i> Cart
+                  <i class="fas fa-shopping-cart ps-0"></i>
                 </Link>
               </li>
             </ul>

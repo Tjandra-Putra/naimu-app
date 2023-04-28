@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Layout/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import Products from "./pages/Products/Products";
+import Product from "./pages/Product/Product";
 import Footer from "./components/Layout/Footer/Footer";
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<Product />} />
       </Routes>
       <Footer />
     </BrowserRouter>

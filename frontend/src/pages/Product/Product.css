@@ -1,0 +1,90 @@
+.product-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.product-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.product-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.product-wrapper .product-title {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.5rem;
+}
+
+.product-wrapper .img-gallery .col-md-6 {
+  padding: 2px;
+}
+
+.product-wrapper .product-store-name {
+  color: #9e3500;
+  font-weight: 500;
+}
+
+.product-wrapper .product-description {
+  margin-top: 0.8rem;
+}
+
+.select-size-label {
+  margin-right: 1rem;
+}
+
+.product-wrapper input[type="radio"] {
+  display: none;
+}
+
+.product-wrapper input[type="radio"] + label {
+  display: inline-flex;
+  padding: 20px 12px;
+  margin-top: 0.5rem;
+  margin-right: 0.3rem;
+  border: 1.5px solid #ddd;
+  height: 3rem;
+  width: 4.6rem;
+  text-align: center;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-wrapper input[type="radio"] + label:hover {
+  transition: 0.3s ease-in;
+  cursor: pointer;
+  border: 1.5px solid #000000;
+}
+
+.product-wrapper input[type="radio"]:checked + label {
+  border: 1.5px solid #000000;
+}
+
+.product-wrapper .size-info {
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.product-wrapper .left-wrapper {
+  border: 1px solid #eceff1;
+}
+
+.product-wrapper .accordion-header {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.product-wrapper .accordion-header button {
+  font-weight: 600 !important;
+}
+
+.product-wrapper .accordion-item-review {
+  position: absolute;
+  right: 7%;
+}

@@ -16,3 +16,11 @@
   border-radius: 5px !important;
   font-weight: 500;
 }
+
+.navbar-wrapper .search-input {
+  background-color: #f5f4f4 !important;
+}
+
+.navbar-wrapper .search-group {
+  width: 12rem;
+}

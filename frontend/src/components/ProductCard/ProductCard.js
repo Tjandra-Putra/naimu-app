@@ -1,5 +1,5 @@
 import "./ProductCard.css";
-import Review from "../Review/Review";
+import Review from "../Rating/Rating";
 
 const ProductCard = ({ productImageUrl, productTitle, productPrice, productCategory, productStore, productSold }) => {
   return (

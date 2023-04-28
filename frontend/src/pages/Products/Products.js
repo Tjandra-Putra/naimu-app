@@ -24,7 +24,7 @@ const Products = () => {
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button
-                    class="accordion-button"
+                    class="accordion-button collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseOne"
@@ -214,67 +214,52 @@ const Products = () => {
             <div className="product-listing mt-4">
               <div className="row">
                 <div className="col-md-4">
-                  <ProductCard
-                    productStore="Adidas"
-                    productTitle="Adidas Rekive Woven Track Pants"
-                    productPrice={139}
-                    productSold={24}
-                    productCategory="Pants"
-                    productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                  />
+                  <Link to="/products/abcd" className="text-decoration-none">
+                    <ProductCard
+                      productStore="Adidas"
+                      productTitle="Adidas Rekive Woven Track Pants"
+                      productPrice={139}
+                      productSold={24}
+                      productCategory="Pants"
+                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
+                    />
+                  </Link>
                 </div>
                 <div className="col-md-4">
-                  <ProductCard
-                    productStore="Adidas"
-                    productTitle="Adidas Rekive Woven Track Pants"
-                    productPrice={139}
-                    productSold={24}
-                    productCategory="Pants"
-                    productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                  />
+                  <Link to="/products/abcd" className="text-decoration-none">
+                    <ProductCard
+                      productStore="Adidas"
+                      productTitle="Adidas Rekive Woven Track Pants"
+                      productPrice={139}
+                      productSold={24}
+                      productCategory="Pants"
+                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
+                    />
+                  </Link>
                 </div>
                 <div className="col-md-4">
-                  <ProductCard
-                    productStore="Adidas"
-                    productTitle="Adidas Rekive Woven Track Pants"
-                    productPrice={139}
-                    productSold={24}
-                    productCategory="Pants"
-                    productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                  />
+                  <Link to="/products/abcd" className="text-decoration-none">
+                    <ProductCard
+                      productStore="Adidas"
+                      productTitle="Adidas Rekive Woven Track Pants"
+                      productPrice={139}
+                      productSold={24}
+                      productCategory="Pants"
+                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
+                    />
+                  </Link>
                 </div>
-
                 <div className="col-md-4">
-                  <ProductCard
-                    productStore="Adidas"
-                    productTitle="Adidas Rekive Woven Track Pants"
-                    productPrice={139}
-                    productSold={24}
-                    productCategory="Pants"
-                    productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                  />
-                </div>
-
-                <div className="col-md-4">
-                  <ProductCard
-                    productStore="Adidas"
-                    productTitle="Adidas Rekive Woven Track Pants"
-                    productPrice={139}
-                    productSold={24}
-                    productCategory="Pants"
-                    productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                  />
-                </div>
-
-                <div className="col-md-4">
-                  <ProductCard
-                    productStore="Adidas"
-                    productTitle="Adidas Rekive Woven Track Pants"
-                    productPrice={139}
-                    productSold={24}
-                    productCategory="Pants"
-                    productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                  />
+                  <Link to="/products/abcd" className="text-decoration-none">
+                    <ProductCard
+                      productStore="Adidas"
+                      productTitle="Adidas Rekive Woven Track Pants"
+                      productPrice={139}
+                      productSold={24}
+                      productCategory="Pants"
+                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
