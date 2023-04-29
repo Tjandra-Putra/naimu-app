@@ -88,3 +88,10 @@
   position: absolute;
   right: 7%;
 }
+
+.product-wrapper .right-wrapper {
+  position: sticky;
+  top: 25px;
+  z-index: 999;
+  height: 100%;
+}

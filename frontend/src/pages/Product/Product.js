@@ -135,7 +135,7 @@ const Product = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-item ">
+                  <div class="accordion-item">
                     <h2 class="accordion-header">
                       <button
                         class="accordion-button collapsed"
@@ -166,7 +166,8 @@ const Product = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 px-4">
+            {/* ====== Right Side ====== */}
+            <div className="col-md-4 px-4 right-wrapper">
               <div className="product-store-info">
                 <div className="d-flex flex-row justify-content-between">
                   <div className="product-store-name">Adidas</div>

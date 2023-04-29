@@ -77,7 +77,7 @@ const Navbar = () => {
                   </span>
                   <input
                     type="text"
-                    class="form-control search-input border-0"
+                    class="form-control search-input border-0 shadow-none"
                     placeholder="Search"
                     aria-label="search"
                     aria-describedby="basic-addon1"

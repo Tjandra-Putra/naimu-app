@@ -168,7 +168,7 @@ const Products = () => {
                 Sort by
                 <div class="dropdown-center d-inline ms-2">
                   <a
-                    class="btn btn-light btn-sort dropdown-toggle "
+                    class="btn btn-light btn-sort dropdown-toggle"
                     href="#"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -225,7 +225,7 @@ const Products = () => {
                     />
                   </Link>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 d-flex">
                   <Link to="/products/abcd" className="text-decoration-none">
                     <ProductCard
                       productStore="Adidas"
