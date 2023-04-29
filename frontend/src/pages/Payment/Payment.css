@@ -1,0 +1,114 @@
+.payment-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.payment-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.payment-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.payment-wrapper .card {
+  padding: 2rem;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  min-height: 30rem;
+}
+
+.payment-wrapper .title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.payment-wrapper .summary {
+  position: sticky;
+  top: 25px;
+  z-index: 999;
+  height: 10px;
+}
+
+.payment-wrapper .summary .title {
+  margin-bottom: 40px;
+}
+
+.payment-wrapper .summary .summary-row {
+  margin-bottom: 10px;
+  line-height: 25px;
+}
+
+.payment-wrapper .summary-total {
+  font-weight: 600 !important;
+  line-height: 45px;
+  border-top: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.payment-wrapper .form-control {
+  /* border-color: #000000; */
+}
+
+.payment-wrapper .product-title {
+  font-weight: 500;
+}
+
+.payment-wrapper .product-id,
+.payment-wrapper .product-price {
+  color: #888787;
+}
+
+.payment-wrapper .product-img {
+  width: 135px;
+  height: 135px;
+  border-radius: 5px;
+}
+
+.payment-wrapper .product-store {
+  color: #9e3500;
+}
+
+.payment-wrapper .product-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 135px;
+}
+
+.payment-wrapper tbody td {
+  height: 170px;
+  padding-bottom: 25px;
+}
+
+.payment-wrapper .form-select {
+  /* border-color: #000000; */
+  border: none;
+  margin-top: 5px;
+}
+
+.payment-wrapper .accordion-button:hover {
+  cursor: default;
+}
+
+.payment-wrapper .form-check-input {
+  cursor: pointer;
+}
+
+.payment-wrapper .accordion-button::after {
+  background-image: initial;
+}
+
+.payment-wrapper .accordion-item {
+  border-color: black;
+}
+
+.payment-wrapper .acknowledgement-checkbox {
+  border-color: #000000;
+  border-width: 1.5px;
+  border-radius: 0px;
+}

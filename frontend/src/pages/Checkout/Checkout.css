@@ -27,6 +27,13 @@
   font-weight: 500;
 }
 
+.checkout-wrapper .summary {
+  position: sticky;
+  top: 25px;
+  z-index: 999;
+  height: 10px;
+}
+
 .checkout-wrapper .summary .title {
   margin-bottom: 40px;
 }

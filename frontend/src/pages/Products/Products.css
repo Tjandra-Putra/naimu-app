@@ -35,3 +35,7 @@
 .products-wrapper .product-listing .col-md-4 {
   margin-bottom: 2rem;
 }
+
+.products-wrapper .accordion-item {
+  border-color: black;
+}

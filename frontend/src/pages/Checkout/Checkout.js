@@ -26,7 +26,7 @@ const Checkout = () => {
         <div className="row">
           <div className="col-md-8">
             <div className="card">
-              <div className="title">Shipping Address</div>
+              <div className="title">Billing Address</div>
 
               <div className="row">
                 <div className="col">
@@ -82,7 +82,7 @@ const Checkout = () => {
 
             <div className="card mt-4">
               <div className="d-flex flex-row justify-content-between">
-                <div className="title">Cart Items</div>
+                <div className="title">Order Details</div>
                 <div className="edit">
                   <Link to="/cart" className="text-decoration-none">
                     Edit
@@ -96,16 +96,10 @@ const Checkout = () => {
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="product-action">
-                      <div className="btn-delete">
-                        <i class="fas fa-times fa-lg"></i>
-                      </div>
-                    </td>
                     <td className="product-img">
                       <img
                         src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
@@ -154,11 +148,6 @@ const Checkout = () => {
                   </tr>
 
                   <tr>
-                    <td className="product-action">
-                      <div className="btn-delete">
-                        <i class="fas fa-times fa-lg"></i>
-                      </div>
-                    </td>
                     <td className="product-img">
                       <img
                         src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
@@ -239,7 +228,7 @@ const Checkout = () => {
                       Apply code
                     </button>
 
-                    <Link to="/products" class="btn btn-dark btn-lg mt-1 rounded-1" type="button">
+                    <Link to="/payment" class="btn btn-dark btn-lg mt-1 rounded-1" type="button">
                       Review and Pay
                     </Link>
                   </div>
