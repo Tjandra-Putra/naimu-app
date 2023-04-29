@@ -147,7 +147,7 @@ const Cart = () => {
                 <div className="title">Summary</div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>1 item</div>
+                  <div>Items x2</div>
                   <div>$139</div>
                 </div>
 

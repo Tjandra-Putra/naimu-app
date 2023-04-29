@@ -220,6 +220,7 @@ const Payment = () => {
                       placeholder="John Doe"
                       required
                       disabled
+                      value="Tjandra Putra"
                     />
                     <label for="floatingInput">Full name *</label>
                   </div>
@@ -233,6 +234,7 @@ const Payment = () => {
                       placeholder="name@example.com"
                       required
                       disabled
+                      value="Tjandra@gmail.com"
                     />
                     <label for="floatingInput">Email address *</label>
                   </div>
@@ -248,6 +250,7 @@ const Payment = () => {
                       placeholder="John Doe"
                       required
                       disabled
+                      value="Novena"
                     />
                     <label for="floatingInput">Adress 1 *</label>
                   </div>
@@ -263,6 +266,7 @@ const Payment = () => {
                       placeholder="John Doe"
                       required
                       disabled
+                      value="322189"
                     />
                     <label for="floatingInput">Postal code *</label>
                   </div>
@@ -278,6 +282,7 @@ const Payment = () => {
                       placeholder="John Doe"
                       required
                       disabled
+                      value="12345678"
                     />
                     <label for="floatingInput">Phone number *</label>
                   </div>
@@ -291,6 +296,7 @@ const Payment = () => {
                       placeholder="John Doe"
                       required
                       disabled
+                      value="Indonesia"
                     />
                     <label for="floatingInput">Country *</label>
                   </div>
@@ -430,7 +436,7 @@ const Payment = () => {
                 <div className="title">Summary</div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>1 item</div>
+                  <div>Items x2</div>
                   <div>$139</div>
                 </div>
 
@@ -445,12 +451,19 @@ const Payment = () => {
                 </div>
 
                 <div class="input-promo form-floating my-3">
-                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled />
-                  <label for="floatingInput">Promocode: #5478fh324</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                    disabled
+                    value="#5478fh324"
+                  />
+                  <label for="floatingInput">Promocode</label>
                 </div>
                 <div className="buttons">
                   <div class="d-grid gap-2">
-                    <Link to="/payment" class="btn btn-dark btn-lg mt-1 rounded-1" type="button">
+                    <Link to="/orders/123" class="btn btn-dark btn-lg mt-1 rounded-1" type="button">
                       Place Order
                     </Link>
                   </div>

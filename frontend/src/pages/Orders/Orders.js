@@ -29,6 +29,7 @@ const Orders = () => {
                   <thead>
                     <tr>
                       <th scope="col">Order ID</th>
+                      <th scope="col">Date</th>
                       <th scope="col">Status</th>
                       <th scope="col">Items Qty</th>
                       <th scope="col">Total</th>
@@ -38,6 +39,7 @@ const Orders = () => {
                   <tbody>
                     <tr>
                       <td>#1324dsf</td>
+                      <td>12/12/2021</td>
                       <td>Processing</td>
                       <td>2</td>
                       <td>$56</td>
@@ -49,6 +51,7 @@ const Orders = () => {
                     </tr>
                     <tr>
                       <td>#1324dsf</td>
+                      <td>12/12/2021</td>
                       <td>Processing</td>
                       <td>2</td>
                       <td>$56</td>
