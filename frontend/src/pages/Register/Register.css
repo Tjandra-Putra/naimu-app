@@ -1,4 +1,4 @@
-.login-wrapper {
+.register-wrapper {
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
   height: 100%;
@@ -8,23 +8,23 @@
   align-items: center;
 }
 
-.login-wrapper .title {
+.register-wrapper .title {
   text-transform: uppercase;
 }
 
-.login-wrapper .login-input,
-.login-wrapper {
+.register-wrapper .register-input,
+.register-wrapper {
   height: 45px;
   border-radius: 5px;
   border-color: #000000;
 }
 
-.login-wrapper .login-input,
-.login-wrapper .remember-me,
-.login-wrapper .login-button {
+.register-wrapper .register-input,
+.register-wrapper .remember-me,
+.register-wrapper .register-button {
   margin-bottom: 1.5rem;
 }
 
-.login-wrapper .policy {
+.register-wrapper .policy {
   color: #000000;
 }

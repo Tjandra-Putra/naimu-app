@@ -89,7 +89,7 @@ const Navbar = () => {
                 </Link> */}
               </li>
               <li className="nav-item ps-2">
-                <Link className="nav-link" to="/cart">
+                <Link className="nav-link" to="/login">
                   <i class="fa-regular fa-user fa-lg pe-1"></i>
                 </Link>
               </li>

@@ -54,9 +54,10 @@
 .cart-wrapper .btn-delete {
   background-color: transparent;
   border: none;
-  color: #00000084;
+  color: #000000;
   font-size: 1.2rem;
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .cart-wrapper .btn-delete:hover {
@@ -64,7 +65,7 @@
 }
 
 .cart-wrapper tbody tr {
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
 }
 
 .cart-wrapper tbody td {
@@ -96,6 +97,11 @@
 }
 
 .cart-wrapper .summary .form-control {
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
+  border-color: #000000;
   border-radius: 5px;
+}
+
+.cart-wrapper .form-select {
+  border-color: #000000;
 }

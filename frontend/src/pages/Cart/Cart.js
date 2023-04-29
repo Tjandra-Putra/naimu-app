@@ -52,7 +52,7 @@ const Cart = () => {
                         <div className="product-store">Adidas</div>
                         <div className="d-flex flex-row">
                           <div className="product-size">
-                            <select class="size-select form-select " aria-label="Default select example">
+                            <select class="size-select form-select" aria-label="Default select example">
                               <option disabled selected value="">
                                 Size
                               </option>
@@ -63,7 +63,7 @@ const Cart = () => {
                             </select>
                           </div>
                           <div className="product-quantity ms-3">
-                            <select class="size-select form-select " aria-label="Default select example">
+                            <select class="size-select form-select" aria-label="Default select example">
                               <option disabled selected value="">
                                 Quantity
                               </option>
