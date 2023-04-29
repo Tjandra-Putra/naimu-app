@@ -10,6 +10,13 @@
   object-fit: cover;
 }
 
+.home-wrapper .video-banner {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 70px);
+  object-fit: cover;
+}
+
 .home-wrapper .banner-container {
   position: relative;
   color: white;

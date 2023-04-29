@@ -2,6 +2,8 @@ import "./Home.css";
 import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
 import bannerImage2 from "../../assets/images/marketing/pexels-danik-prihodko-15759583.jpeg";
 import bannerImage3 from "../../assets/images/marketing/pexels-godisable-jacob-982010.jpeg";
+import bannerVideo1 from "../../assets/videos/pexels-cottonbro-studio-3205917-1920x1080-25fps.mp4";
+import bannerVideo2 from "../../assets/videos/possibilities-are-born.mp4";
 
 import arrowLeft from "../../assets/images/left-chevron.png";
 import arrowRight from "../../assets/images/chevron.png";
@@ -62,7 +64,9 @@ const Home = () => {
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div className="banner-container">
-              <img src={bannerImage1} alt="banner" className="img-banner" />
+              {/* <img src={bannerImage1} alt="banner" className="img-banner" /> */}
+              <video src={bannerVideo2} autoPlay muted loop className="video-banner"></video>
+
               <div className="banner-content">
                 <div className="container">
                   <div className="title">
