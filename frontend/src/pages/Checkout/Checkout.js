@@ -1,26 +1,94 @@
 import { Link } from "react-router-dom";
 
-import "./Cart.css";
+import "./Checkout.css";
 
-const Cart = () => {
+const Checkout = () => {
   return (
-    <div className="cart-wrapper">
+    <div className="checkout-wrapper">
       <div className="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item">
-              Home
-            </Link>
-            <li class="breadcrumb-item active" aria-current="page">
+            <Link to="/cart" class="breadcrumb-item text-dark fw-medium">
               Cart
-            </li>
+            </Link>
+            <Link to="/checkout" class="breadcrumb-item text-dark fw-medium">
+              Checkout
+            </Link>
+            <Link to="/payment" class="breadcrumb-item text-muted">
+              Payment
+            </Link>
+            <Link to="/order-complete" class="breadcrumb-item text-muted">
+              Order Complete
+            </Link>
           </ol>
         </nav>
 
         <div className="row">
           <div className="col-md-8">
             <div className="card">
-              <div className="title">Shopping Cart</div>
+              <div className="title">Shipping Address</div>
+
+              <div className="row">
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="John Doe" required />
+                    <label for="floatingInput">Full name *</label>
+                  </div>
+                </div>
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                      required
+                    />
+                    <label for="floatingInput">Email address *</label>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="John Doe" required />
+                    <label for="floatingInput">Adress 1 *</label>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="John Doe" required />
+                    <label for="floatingInput">Postal code *</label>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="John Doe" required />
+                    <label for="floatingInput">Phone number *</label>
+                  </div>
+                </div>
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="John Doe" required />
+                    <label for="floatingInput">Country *</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="card mt-4">
+              <div className="d-flex flex-row justify-content-between">
+                <div className="title">Cart Items</div>
+                <div className="edit">
+                  <Link to="/cart" className="text-decoration-none">
+                    Edit
+                  </Link>
+                </div>
+              </div>
 
               <table class="table table-borderless">
                 <thead>
@@ -52,7 +120,7 @@ const Cart = () => {
                         <div className="product-store">Adidas</div>
                         <div className="d-flex flex-row">
                           <div className="product-size">
-                            <select class="size-select form-select" aria-label="Default select example">
+                            <select class="size-select form-select" aria-label="Default select example" disabled>
                               <option disabled selected value="">
                                 Size
                               </option>
@@ -63,7 +131,7 @@ const Cart = () => {
                             </select>
                           </div>
                           <div className="product-quantity ms-3">
-                            <select class="size-select form-select" aria-label="Default select example">
+                            <select class="size-select form-select" aria-label="Default select example" disabled>
                               <option disabled selected value="">
                                 Quantity
                               </option>
@@ -105,7 +173,7 @@ const Cart = () => {
                         <div className="product-store">Adidas</div>
                         <div className="d-flex flex-row">
                           <div className="product-size">
-                            <select class="size-select form-select " aria-label="Default select example">
+                            <select class="size-select form-select " aria-label="Default select example" disabled>
                               <option disabled selected value="">
                                 Size
                               </option>
@@ -116,7 +184,7 @@ const Cart = () => {
                             </select>
                           </div>
                           <div className="product-quantity ms-3">
-                            <select class="size-select form-select " aria-label="Default select example">
+                            <select class="size-select form-select " aria-label="Default select example" disabled>
                               <option disabled selected value="">
                                 Quantity
                               </option>
@@ -161,18 +229,18 @@ const Cart = () => {
                   <div>$139</div>
                 </div>
 
-                {/* <div class="input-promo form-floating my-3">
+                <div class="input-promo form-floating my-3">
                   <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" />
                   <label for="floatingInput">Enter your promo code</label>
-                </div> */}
-                <div className="buttons my-3">
+                </div>
+                <div className="buttons">
                   <div class="d-grid gap-2">
-                    <Link to="/checkout" class="btn btn-dark btn-lg rounded-1">
-                      Checkout
-                    </Link>
+                    <button class="btn btn-secondary btn-lg rounded-1" type="submit">
+                      Apply code
+                    </button>
 
-                    <Link to="/products" class="btn btn-outline-dark btn-lg mt-1 rounded-1" type="button">
-                      Continue Browsing
+                    <Link to="/products" class="btn btn-dark btn-lg mt-1 rounded-1" type="button">
+                      Review and Pay
                     </Link>
                   </div>
                 </div>
@@ -185,4 +253,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Checkout;
