@@ -28,3 +28,9 @@
 .login-wrapper .policy {
   color: #000000;
 }
+
+.login-wrapper .acknowledgement-checkbox {
+  border-color: #000000;
+  border-width: 1.5px;
+  border-radius: 3px;
+}

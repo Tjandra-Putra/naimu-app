@@ -1,8 +1,13 @@
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className="login-wrapper">
       <div className="container">
@@ -18,38 +23,64 @@ const Login = () => {
                 </p>
               </div>
 
-              <div className="form-wrapper mt-4">
+              <form className="form-wrapper mt-4">
                 <input
                   type="email"
+                  name="email"
                   class="form-control login-input"
-                  id="exampleFormControlInput1"
                   placeholder="Email address"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <input
-                  type="password"
-                  class="form-control login-input"
-                  id="exampleFormControlInput1"
-                  placeholder="Password"
-                />
+                <div class="input-group mb-3">
+                  <input
+                    type={visible ? "text" : "password"}
+                    name="password"
+                    class="form-control login-input"
+                    placeholder="Password"
+                    autoComplete="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                  />
+                  {visible ? (
+                    <span class="input-group-text login-input" id="basic-addon1" onClick={() => setVisible(false)}>
+                      <i class="far fa-eye"></i>
+                    </span>
+                  ) : (
+                    <span class="input-group-text login-input" id="basic-addon1" onClick={() => setVisible(true)}>
+                      <i class="far fa-eye-slash"></i>
+                    </span>
+                  )}
+                </div>
 
                 <div className="remember-me d-flex flex-row justify-content-between form-check">
                   <div>
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    <input
+                      className="form-check-input acknowledgement-checkbox"
+                      type="checkbox"
+                      value=""
+                      name="remember-me"
+                    />
                     <label className="form-check-label" for="flexCheckDefault">
                       Remember me
                     </label>
                   </div>
                   <div>
-                    <a href="#" className="text-decoration-none text-muted">
+                    <Link to="/password-reset" className="text-decoration-none text-muted">
                       Forgot Password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
                 <div className="buttons">
                   <div class="d-grid gap-2">
-                    <button class="btn btn-dark btn-lg rounded-1 login-button" type="button">
+                    <button class="btn btn-dark btn-lg rounded-1 login-button" type="submit">
                       Sign In
                     </button>
                   </div>
@@ -63,7 +94,7 @@ const Login = () => {
                     </Link>
                   </p>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
           <div className="col-md-4"></div>

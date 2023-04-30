@@ -182,6 +182,7 @@ const Home = () => {
           <div className="row">
             <div className="col">
               <ProductCard
+                productId="123"
                 productStore="Adidas"
                 productTitle="Adidas Rekive Woven Track Pants"
                 productPrice={139}
@@ -192,6 +193,7 @@ const Home = () => {
             </div>
             <div className="col">
               <ProductCard
+                productId="123"
                 productStore="Adidas"
                 productTitle="Island Club Adilette Premium Slides"
                 productPrice={99}
@@ -202,6 +204,7 @@ const Home = () => {
             </div>
             <div className="col">
               <ProductCard
+                productId="123"
                 productStore="Adidas"
                 productTitle="X-city heat.rdy shorts"
                 productPrice={79}
@@ -212,6 +215,7 @@ const Home = () => {
             </div>
             <div className="col">
               <ProductCard
+                productId="123"
                 productStore="Adidas"
                 productTitle="Adidas Basketball Crew Sweatshirt"
                 productPrice={109}
