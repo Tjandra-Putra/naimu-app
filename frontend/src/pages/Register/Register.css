@@ -28,3 +28,31 @@
 .register-wrapper .policy {
   color: #000000;
 }
+
+.register-wrapper .acknowledgement-checkbox {
+  border-color: #000000;
+  border-width: 1.5px;
+  border-radius: 3px;
+}
+
+.register-wrapper .avatar-file-upload {
+  border: 1.5px dashed #000000;
+  height: 45px;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  width: 100%;
+  margin-left: 10px;
+  background-color: #0000000e;
+}
+
+.register-wrapper .profile-image {
+  width: 55px;
+  border-radius: 3px;
+  border: 1.5px solid #000000;
+}
+
+.register-wrapper input[type="file"] {
+  display: none;
+}

@@ -50,11 +50,11 @@ const Login = () => {
                   />
                   {visible ? (
                     <span class="input-group-text login-input" id="basic-addon1" onClick={() => setVisible(false)}>
-                      <i class="far fa-eye"></i>
+                      <i class="far fa-eye fa-sm"></i>
                     </span>
                   ) : (
                     <span class="input-group-text login-input" id="basic-addon1" onClick={() => setVisible(true)}>
-                      <i class="far fa-eye-slash"></i>
+                      <i class="far fa-eye-slash fa-sm"></i>
                     </span>
                   )}
                 </div>
