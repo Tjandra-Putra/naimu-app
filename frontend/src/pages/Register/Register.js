@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./Register.css";
 import profileImage from "../../assets/images/user.png";
+import { server } from "../../server";
 
 const Register = () => {
-  const [fullname, setFullname] = useState("");
+  const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -13,14 +15,37 @@ const Register = () => {
   const [birthday, setBirthday] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  // submit form handler
-  const handleSubmit = (e) => {
-    console.log("submit");
-  };
-
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
+  };
+
+  // submit form handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const newForm = new FormData();
+
+    newForm.append("avatarFile", avatar);
+    newForm.append("fullName", fullName);
+    newForm.append("email", email);
+    newForm.append("password", password);
+    newForm.append("birthday", birthday);
+
+    axios
+      .post(`${server}/user/create-user`, newForm, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -38,7 +63,7 @@ const Register = () => {
                 </p>
               </div> */}
 
-              <form className="form-wrapper mt-3">
+              <form className="form-wrapper mt-3" onSubmit={handleSubmit}>
                 <input
                   type="text"
                   name="fullname"
@@ -46,7 +71,7 @@ const Register = () => {
                   placeholder="Full name"
                   autoComplete="fullname"
                   required
-                  value={fullname}
+                  value={fullName}
                   onChange={(e) => setFullname(e.target.value)}
                 />
 
