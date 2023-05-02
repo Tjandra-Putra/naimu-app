@@ -22,6 +22,15 @@ const Register = () => {
   const notify_success = (message) => toast.success(message);
   const notify_error = (message) => toast.error(message);
 
+  const requiredFields = {
+    fullName: "Please enter your full name",
+    email: "Please enter your email",
+    password: "Please enter your password",
+    passwordConfirm: "Please confirm your password",
+    birthday: "Please enter your birthday",
+    avatar: "Please upload your profile image",
+  };
+
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -30,6 +39,19 @@ const Register = () => {
   // submit form handler
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // validation
+    if (password !== passwordConfirm) {
+      notify_error("Password and confirm password do not match");
+      return;
+    }
+    // fields must not be empty
+    for (const field in requiredFields) {
+      if (!eval(field)) {
+        notify_error(requiredFields[field]);
+        return;
+      }
+    }
 
     const config = {
       headers: {
@@ -51,7 +73,7 @@ const Register = () => {
         notify_success(res.data.message);
         setTimeout(() => {
           navigate("/login");
-        }, 3000);
+        }, 4000);
       })
       .catch((err) => {
         console.log(err);
@@ -84,7 +106,6 @@ const Register = () => {
                   className="form-control register-input"
                   placeholder="Full name"
                   autoComplete="fullname"
-                  required
                   value={fullName}
                   onChange={(e) => setFullname(e.target.value)}
                 />
@@ -95,7 +116,6 @@ const Register = () => {
                   className="form-control register-input"
                   placeholder="Email address"
                   autoComplete="email"
-                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -107,7 +127,6 @@ const Register = () => {
                     className="form-control register-input"
                     placeholder="Password"
                     autoComplete="password"
-                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     aria-label="Username"
@@ -138,7 +157,6 @@ const Register = () => {
                   className="form-control register-input"
                   placeholder="Confirm password"
                   autoComplete="password-confirm"
-                  required
                   value={passwordConfirm}
                   onChange={(e) => setPasswordConfirm(e.target.value)}
                 />
@@ -149,7 +167,6 @@ const Register = () => {
                   className="form-control register-input"
                   placeholder="Date of Birth (DD/MM/YYYY)"
                   autoComplete="birthday"
-                  required
                   value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
                 />
@@ -173,7 +190,6 @@ const Register = () => {
                       name="avatar"
                       className="ms-3 avatar-input"
                       autoComplete="avatar"
-                      required
                       accept=".jpg,.jpeg,.png"
                       onChange={handleFileInputChange}
                     />
