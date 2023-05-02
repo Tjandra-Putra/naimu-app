@@ -10,5 +10,6 @@ import Orders from "./pages/Orders/Orders";
 import Order from "./pages/Order/Order";
 import Checkout from "./pages/Checkout/Checkout";
 import Payment from "./pages/Payment/Payment";
+import Activate from "./pages/Activate/Activate";
 
-export { Navbar, Home, Cart, Products, Product, Footer, Login, Register, Orders, Order, Checkout, Payment };    
+export { Navbar, Home, Cart, Products, Product, Footer, Login, Register, Orders, Order, Checkout, Payment, Activate };

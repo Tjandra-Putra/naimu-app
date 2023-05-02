@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 import "./Register.css";
@@ -7,6 +8,8 @@ import profileImage from "../../assets/images/user.png";
 import { server } from "../../server";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +17,10 @@ const Register = () => {
   const [visible, setVisible] = useState(false);
   const [birthday, setBirthday] = useState("");
   const [avatar, setAvatar] = useState("");
+
+  // toast component
+  const notify_success = (message) => toast.success(message);
+  const notify_error = (message) => toast.error(message);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -41,15 +48,22 @@ const Register = () => {
     axios
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
-        console.log(res);
+        notify_success(res.data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
+        notify_error(err.response.data.message);
+        console.log(err.response.data.message);
       });
   };
 
   return (
     <div className="register-wrapper">
+      <Toaster />
+
       <div className="container">
         <div className="row">
           <div className="col-md-4"></div>
@@ -67,7 +81,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="fullname"
-                  class="form-control register-input"
+                  className="form-control register-input"
                   placeholder="Full name"
                   autoComplete="fullname"
                   required
@@ -78,7 +92,7 @@ const Register = () => {
                 <input
                   type="email"
                   name="email"
-                  class="form-control register-input"
+                  className="form-control register-input"
                   placeholder="Email address"
                   autoComplete="email"
                   required
@@ -86,11 +100,11 @@ const Register = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <div class="input-group">
+                <div className="input-group">
                   <input
                     type={visible ? "text" : "password"}
                     name="password"
-                    class="form-control register-input"
+                    className="form-control register-input"
                     placeholder="Password"
                     autoComplete="password"
                     required
@@ -100,12 +114,20 @@ const Register = () => {
                     aria-describedby="basic-addon1"
                   />
                   {visible ? (
-                    <span class="input-group-text register-input" id="basic-addon1" onClick={() => setVisible(false)}>
-                      <i class="far fa-eye fa-sm"></i>
+                    <span
+                      className="input-group-text register-input"
+                      id="basic-addon1"
+                      onClick={() => setVisible(false)}
+                    >
+                      <i className="far fa-eye fa-sm"></i>
                     </span>
                   ) : (
-                    <span class="input-group-text register-input" id="basic-addon1" onClick={() => setVisible(true)}>
-                      <i class="far fa-eye-slash fa-sm"></i>
+                    <span
+                      className="input-group-text register-input"
+                      id="basic-addon1"
+                      onClick={() => setVisible(true)}
+                    >
+                      <i className="far fa-eye-slash fa-sm"></i>
                     </span>
                   )}
                 </div>
@@ -113,7 +135,7 @@ const Register = () => {
                 <input
                   type="password"
                   name="password-confirm"
-                  class="form-control register-input"
+                  className="form-control register-input"
                   placeholder="Confirm password"
                   autoComplete="password-confirm"
                   required
@@ -124,7 +146,7 @@ const Register = () => {
                 <input
                   type="date"
                   name="birthday"
-                  class="form-control register-input"
+                  className="form-control register-input"
                   placeholder="Date of Birth (DD/MM/YYYY)"
                   autoComplete="birthday"
                   required
@@ -135,12 +157,16 @@ const Register = () => {
                 <div className="d-flex flex-row mb-2">
                   <div className="avatar-preview">
                     {avatar ? (
-                      <img src={URL.createObjectURL(avatar)} class="profile-image img-thumbnail rounded" alt="avatar" />
+                      <img
+                        src={URL.createObjectURL(avatar)}
+                        className="profile-image img-thumbnail rounded"
+                        alt="avatar"
+                      />
                     ) : (
                       <img src={profileImage} alt="" className="profile-image img-thumbnail rounded" />
                     )}
                   </div>
-                  <label class="avatar-file-upload mb-3">
+                  <label className="avatar-file-upload mb-3">
                     <input
                       type="file"
                       id="file-input"
@@ -158,15 +184,15 @@ const Register = () => {
                 <div className="remember-me d-flex flex-row justify-content-between form-check">
                   <div>
                     <input className="form-check-input acknowledgement-checkbox" type="checkbox" value="" />
-                    <label className="form-check-label" for="flexCheckDefault">
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
                       Sign up for emails to get updates from NAIMU on products, offers and your Member benefits
                     </label>
                   </div>
                 </div>
 
                 <div className="buttons">
-                  <div class="d-grid gap-2">
-                    <button class="btn btn-dark btn-lg rounded-1 register-button" type="submit">
+                  <div className="d-grid gap-2">
+                    <button className="btn btn-dark btn-lg rounded-1 register-button" type="submit">
                       Register
                     </button>
                   </div>

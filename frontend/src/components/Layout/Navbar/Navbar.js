@@ -71,13 +71,13 @@ const Navbar = () => {
             </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item pe-4">
-                <div class="input-group search-group">
-                  <span class="input-group-text search-input border-0" id="basic-addon1">
-                    <i class="fas fa-search fa-lg"></i>
+                <div className="input-group search-group">
+                  <span className="input-group-text search-input border-0" id="basic-addon1">
+                    <i className="fas fa-search fa-lg"></i>
                   </span>
                   <input
                     type="text"
-                    class="form-control search-input border-0 shadow-none"
+                    className="form-control search-input border-0 shadow-none"
                     placeholder="Search"
                     aria-label="search"
                     aria-describedby="basic-addon1"
@@ -85,22 +85,22 @@ const Navbar = () => {
                 </div>
 
                 {/* <Link className="nav-link" to="/cart">
-                  <i class="fas fa-search fa-lg pe-2"></i> Search
+                  <i className="fas fa-search fa-lg pe-2"></i> Search
                 </Link> */}
               </li>
               <li className="nav-item ps-2">
                 <Link className="nav-link" to="/login">
-                  <i class="fa-regular fa-user fa-lg pe-1"></i>
+                  <i className="fa-regular fa-user fa-lg pe-1"></i>
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link className="nav-link" to="/cart">
-                  <i class="fa-regular fa-heart fa-lg ps-1"></i>
+                  <i className="fa-regular fa-heart fa-lg ps-1"></i>
                 </Link>
               </li>
               <li className="nav-item px-2">
                 <Link className="nav-link" to="/cart">
-                  <i class="fas fa-shopping-cart ps-0"></i>
+                  <i className="fas fa-shopping-cart ps-0"></i>
                 </Link>
               </li>
             </ul>

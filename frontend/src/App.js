@@ -13,6 +13,7 @@ import {
   Checkout,
   Payment,
   Footer,
+  Activate,
 } from "./routes.js";
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
         <Route path="/orders/:id" element={<Order />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment" element={<Payment />} />
+
+        {/* apis */}
+        <Route path="/activate/:activation_token" element={<Activate />} />
       </Routes>
       <Footer />
     </BrowserRouter>
