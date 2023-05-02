@@ -10,6 +10,7 @@ const sendToken = require("../utils/jwtToken");
 const sendMail = require("../utils/sendMail");
 const catchAsyncError = require("../middleware/catchAsyncError");
 
+// =============================== send email confirmation before create ===============================
 router.post("/user/create-user", upload.single("avatarFile"), async (req, res, next) => {
   try {
     const { fullName, email, password, birthday } = req.body; // coming from frontend, these propertieshave to follow client side
@@ -69,16 +70,6 @@ router.post("/user/create-user", upload.single("avatarFile"), async (req, res, n
     } catch (error) {
       return next(new ErrorHandler(error.message, 400));
     }
-
-    // console.log(user);
-
-    // const newUser = await User.create(user);
-
-    // res.status(201).json({
-    //   success: true,
-    //   message: "Please check your email to activate your account",
-    //   newUser,
-    // });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
@@ -89,7 +80,7 @@ const createActivationToken = (payload) => {
   return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, { expiresIn: "5m" });
 };
 
-// activate user account
+// =============================== activate user account ===============================
 router.post(
   "/user/activate",
   catchAsyncError(async (req, res, next) => {
@@ -125,6 +116,60 @@ router.post(
         birthday,
         avatar,
       });
+
+      sendToken(user, 201, res);
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// =============================== login user ===============================
+router.post(
+  "/user/login",
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const { email, password } = req.body; // coming from frontend, these properties have to follow client side
+
+      if (!email || !password) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "Please enter email and password",
+        });
+
+        return next(new ErrorHandler("Please enter email and password", 400));
+      }
+
+      const user = await User.findOne({ email }).select("+password");
+
+      if (!user) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "User does not exist.",
+        });
+
+        return next(new ErrorHandler("User does not exist.", 400));
+      }
+
+      const isPasswordValid = await user.comparePassword(password); // this "comparePassword" is a custom method from model/user.js
+
+      if (!isPasswordValid) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "Invalid password.",
+        });
+
+        return next(new ErrorHandler("Invalid password.", 400));
+      }
+
+      // note: SUCCESSFUL CASE
+      // res.status(201).json({
+      //   success: true,
+      //   message: "Login successful.",
+      // });
 
       sendToken(user, 201, res);
     } catch (error) {

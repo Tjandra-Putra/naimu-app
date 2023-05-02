@@ -1,15 +1,53 @@
 import { React, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Login.css";
+import axios from "axios";
+import { server } from "../../server";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const navigate = useNavigate();
+
+  // toast component
+  const notify_success = (message) => toast.success(message, { duration: 5000 });
+  const notify_error = (message) => toast.error(message, { duration: 5000 });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post(
+        `${server}/user/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        notify_success("Login successful");
+
+        console.log(res.data);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      })
+      .catch((err) => {
+        notify_error(err.response.data.message);
+        console.log(err);
+      });
+  };
+
   return (
     <div className="login-wrapper">
+      <Toaster />
+
       <div className="container">
         <div className="row">
           <div className="col-md-4"></div>
@@ -23,7 +61,7 @@ const Login = () => {
                 </p>
               </div>
 
-              <form className="form-wrapper mt-4">
+              <form className="form-wrapper mt-4" onSubmit={handleSubmit}>
                 <input
                   type="email"
                   name="email"
