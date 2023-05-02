@@ -19,8 +19,8 @@ const Register = () => {
   const [avatar, setAvatar] = useState("");
 
   // toast component
-  const notify_success = (message) => toast.success(message, { duration: 5000 });
-  const notify_error = (message) => toast.error(message, { duration: 5000 });
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const requiredFields = {
     fullName: "Please enter your full name",
@@ -42,13 +42,13 @@ const Register = () => {
 
     // validation
     if (password !== passwordConfirm) {
-      notify_error("Password and confirm password do not match");
+      notifyError("Password and confirm password do not match");
       return;
     }
     // fields must not be empty
     for (const field in requiredFields) {
       if (!eval(field)) {
-        notify_error(requiredFields[field]);
+        notifyError(requiredFields[field]);
         return;
       }
     }
@@ -70,7 +70,7 @@ const Register = () => {
     axios
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
-        notify_success(res.data.message);
+        notifySuccess(res.data.message);
 
         // set form fields to empty
         setFullname("");
@@ -82,7 +82,7 @@ const Register = () => {
       })
       .catch((err) => {
         console.log(err);
-        notify_error(err.response.data.message);
+        notifyError(err.response.data.message);
         console.log(err.response.data.message);
       });
   };

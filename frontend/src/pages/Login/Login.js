@@ -14,8 +14,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   // toast component
-  const notify_success = (message) => toast.success(message, { duration: 5000 });
-  const notify_error = (message) => toast.error(message, { duration: 5000 });
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        notify_success("Login successful");
+        notifySuccess("Login successful");
 
         console.log(res.data);
 
@@ -39,7 +39,7 @@ const Login = () => {
         }, 2000);
       })
       .catch((err) => {
-        notify_error(err.response.data.message);
+        notifyError(err.response.data.message);
         console.log(err);
       });
   };

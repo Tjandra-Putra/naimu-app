@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   Navbar,
@@ -15,10 +16,31 @@ import {
   Footer,
   Activate,
 } from "./routes.js";
+import { useEffect } from "react";
+import axios from "axios";
+import { server } from "./server.js";
 
-function App() {
+const App = () => {
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  useEffect(() => {
+    axios
+      .get(`${server}/user/load-user`, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        notifyError(err.response.data.message);
+      });
+  }, []);
+
   return (
     <BrowserRouter>
+      <Toaster />
+
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -38,6 +60,6 @@ function App() {
       <Footer />
     </BrowserRouter>
   );
-}
+};
 
 export default App;
