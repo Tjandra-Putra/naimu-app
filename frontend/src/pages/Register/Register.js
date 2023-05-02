@@ -19,8 +19,8 @@ const Register = () => {
   const [avatar, setAvatar] = useState("");
 
   // toast component
-  const notify_success = (message) => toast.success(message);
-  const notify_error = (message) => toast.error(message);
+  const notify_success = (message) => toast.success(message, { duration: 5000 });
+  const notify_error = (message) => toast.error(message, { duration: 5000 });
 
   const requiredFields = {
     fullName: "Please enter your full name",
@@ -71,9 +71,14 @@ const Register = () => {
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
         notify_success(res.data.message);
-        setTimeout(() => {
-          navigate("/login");
-        }, 4000);
+
+        // set form fields to empty
+        setFullname("");
+        setEmail("");
+        setPassword("");
+        setPasswordConfirm("");
+        setBirthday("");
+        setAvatar("");
       })
       .catch((err) => {
         console.log(err);
