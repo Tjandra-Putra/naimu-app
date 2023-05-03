@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
@@ -6,9 +6,15 @@ import axios from "axios";
 import "./Register.css";
 import profileImage from "../../assets/images/user.png";
 import { server } from "../../server";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, []);
 
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");

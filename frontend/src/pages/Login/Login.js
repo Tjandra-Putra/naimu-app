@@ -1,17 +1,23 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./Login.css";
 import axios from "axios";
 import { server } from "../../server";
 import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-
-  const navigate = useNavigate();
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
