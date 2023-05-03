@@ -4,6 +4,49 @@ import "./Orders.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 
 const Orders = () => {
+  const ordersList = [
+    {
+      _id: "a13b8cf8-e70a-11ed-a05b-0242ac120003",
+      createdAt: "2021-09-12T14:48:00.000Z",
+      orderItems: [
+        {
+          _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+          product_title: "Adidas Rekive Woven Track Pants",
+          product_quantity: 1,
+          product_image_url:
+            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
+          product_price: 100,
+        },
+        {
+          _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+          product_title: "Adidas Rekive Woven Track Pants",
+          product_quantity: 1,
+          product_image_url:
+            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
+          product_price: 100,
+        },
+      ],
+      orderStatus: "Processing",
+      orderTotal: 100,
+    },
+    {
+      _id: "a13b8cf8-e70a-11ed-a05b-0242ac120003",
+      createdAt: "2021-09-12T14:48:00.000Z",
+      orderItems: [
+        {
+          _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+          product_title: "Adidas Rekive Woven Track Pants",
+          product_quantity: 1,
+          product_image_url:
+            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
+          product_price: 100,
+        },
+      ],
+      orderStatus: "Processing",
+      orderTotal: 100,
+    },
+  ];
+
   return (
     <div className="orders-wrapper">
       <div className="container">
@@ -31,36 +74,28 @@ const Orders = () => {
                       <th scope="col">Order ID</th>
                       <th scope="col">Date</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Items Qty</th>
+                      <th scope="col">Quantity</th>
                       <th scope="col">Total</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>#1324dsf</td>
-                      <td>12/12/2021</td>
-                      <td>Processing</td>
-                      <td>2</td>
-                      <td>$56</td>
-                      <td>
-                        <Link to="/orders/123" className="text-decoration-none text-dark">
-                          <i class="fas fa-arrow-right fa-lg"></i>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#1324dsf</td>
-                      <td>12/12/2021</td>
-                      <td>Processing</td>
-                      <td>2</td>
-                      <td>$56</td>
-                      <td>
-                        <Link to="/orders/123" className="text-decoration-none text-dark">
-                          <i class="fas fa-arrow-right fa-lg"></i>
-                        </Link>{" "}
-                      </td>
-                    </tr>
+                    {ordersList
+                      ? ordersList.map((order, index) => (
+                          <tr>
+                            <td>{order._id}</td>
+                            <td>{order.createdAt}</td>
+                            <td>{order.orderStatus}</td>
+                            <td>{order.orderItems.length}</td>
+                            <td>${order.orderTotal}</td>
+                            <td>
+                              <Link to="/orders/123" className="text-decoration-none text-dark">
+                                <i class="fas fa-arrow-right fa-lg"></i>
+                              </Link>
+                            </td>
+                          </tr>
+                        ))
+                      : null}
                   </tbody>
                 </table>
 
