@@ -13,38 +13,38 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 const Home = () => {
   return (
     <div className="home-wrapper">
-      <div id="carouselExampleIndicators" class="carousel slide">
+      <div id="carouselExampleIndicators" className="carousel slide">
         <div className="banner-arrow">
-          <div class="btn-group">
+          <div className="btn-group">
             <button
-              class="btn btn-light bg-white active"
+              className="btn btn-light bg-white active"
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="prev"
             >
-              <span class="">
+              <span className="">
                 <img src={arrowLeft} alt="" style={{ width: "30px" }} />
               </span>
             </button>
 
             <button
-              class="btn btn-light bg-white active"
+              className="btn btn-light bg-white active"
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="next"
             >
-              <span class="">
+              <span className="">
                 <img src={arrowRight} alt="" style={{ width: "30px" }} />
               </span>
             </button>
           </div>
         </div>
-        <div class="carousel-indicators">
+        <div className="carousel-indicators">
           <button
             type="button"
             data-bs-target="#carouselExampleIndicators"
             data-bs-slide-to="0"
-            class="active"
+            className="active"
             aria-current="true"
             aria-label="Slide 1"
           ></button>
@@ -61,8 +61,8 @@ const Home = () => {
             aria-label="Slide 3"
           ></button>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
+        <div className="carousel-inner">
+          <div className="carousel-item active">
             <div className="banner-container">
               {/* <img src={bannerImage1} alt="banner" className="img-banner" /> */}
               <video src={bannerVideo2} autoPlay muted loop className="video-banner"></video>
@@ -83,25 +83,25 @@ const Home = () => {
                 </div>
               </div>
               {/* <div className="banner-arrow">
-                <div class="btn-group">
+                <div className="btn-group">
                   <button
-                    class="btn btn-light active"
+                    className="btn btn-light active"
                     type="button"
                     data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="prev"
                   >
-                    <span class="">
+                    <span className="">
                       <img src={arrowLeft} alt="" style={{ width: "30px" }} />
                     </span>
                   </button>
 
                   <button
-                    class="btn btn-light"
+                    className="btn btn-light"
                     type="button"
                     data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="next"
                   >
-                    <span class="">
+                    <span className="">
                       <img src={arrowRight} alt="" style={{ width: "30px" }} />
                     </span>
                   </button>
@@ -109,7 +109,7 @@ const Home = () => {
               </div> */}
             </div>
           </div>
-          <div class="carousel-item">
+          <div className="carousel-item">
             <div className="banner-container">
               <img src={bannerImage2} alt="banner" className="img-banner" />
               <div className="banner-content">
@@ -129,7 +129,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div class="carousel-item">
+          <div className="carousel-item">
             <div className="banner-container">
               <img src={bannerImage3} alt="banner" className="img-banner" />
               <div className="banner-content">
@@ -151,23 +151,23 @@ const Home = () => {
           </div>
         </div>
         {/* <button
-          class="carousel-control-prev"
+          className="carousel-control-prev"
           type="button"
           data-bs-target="#carouselExampleIndicators"
           data-bs-slide="prev"
         >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
         </button>
 
         <button
-          class="carousel-control-next"
+          className="carousel-control-next"
           type="button"
           data-bs-target="#carouselExampleIndicators"
           data-bs-slide="next"
         >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
         </button> */}
       </div>
 
@@ -176,7 +176,7 @@ const Home = () => {
           <div className="d-flex flex-row justify-content-between">
             <div className="featured-products-title">Shop our featured products</div>
             <div className="featured-products-title">
-              View all <i class="fas fa-arrow-right fa-lg"></i>
+              View all <i className="fas fa-arrow-right fa-lg"></i>
             </div>
           </div>
           <div className="row">
@@ -314,7 +314,7 @@ const Home = () => {
       <section className="membership">
         <div className="title">BECOME A MEMBER & GET 15% OFF</div>
         <button className="btn btn-light btn-lg rounded-2 ms-3 btn-register">
-          Sign Up For Free <i class="fas fa-arrow-right fa-lg ms-2"></i>
+          Sign Up For Free <i className="fas fa-arrow-right fa-lg ms-2"></i>
         </button>
       </section>
     </div>

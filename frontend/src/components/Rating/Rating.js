@@ -3,11 +3,11 @@ import "./Rating.css";
 const Review = ({ showCount }) => {
   return (
     <div className="rating-wrapper">
-      <i class="fa-solid fa-star"></i>
-      <i class="fa-solid fa-star"></i>
-      <i class="fa-solid fa-star"></i>
-      <i class="fa-solid fa-star"></i>
-      <i class="fa-regular fa-star"></i>
+      <i className="fa-solid fa-star"></i>
+      <i className="fa-solid fa-star"></i>
+      <i className="fa-solid fa-star"></i>
+      <i className="fa-solid fa-star"></i>
+      <i className="fa-regular fa-star"></i>
       {showCount && <span className="rating-count">(89)</span>}
     </div>
   );

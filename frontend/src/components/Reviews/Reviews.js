@@ -8,7 +8,7 @@ const Reviews = () => {
       <div className="box">
         <div className="d-flex flex-row">
           <div className="reviewer-image me-4">
-            <i class="fas fa-user-circle fa-lg text-secondary"></i>
+            <i className="fas fa-user-circle fa-lg text-secondary"></i>
           </div>
           <div className="reviewer-info w-100">
             <div className="d-flex flex-row justify-content-between">
@@ -29,7 +29,7 @@ const Reviews = () => {
       <div className="box">
         <div className="d-flex flex-row">
           <div className="reviewer-image me-4">
-            <i class="fas fa-user-circle fa-lg text-secondary"></i>
+            <i className="fas fa-user-circle fa-lg text-secondary"></i>
           </div>
           <div className="reviewer-info w-100">
             <div className="d-flex flex-row justify-content-between">

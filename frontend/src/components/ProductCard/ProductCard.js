@@ -9,7 +9,7 @@ const ProductCard = ({ productImageUrl, productTitle, productPrice, productCateg
           <img src={productImageUrl} className="card-img-top" alt="..." />
           <div className="favourite">
             <div className="icon">
-              <i class="fa-regular fa-heart fa-lg pe-2"></i>
+              <i className="fa-regular fa-heart fa-lg pe-2"></i>
             </div>
           </div>
         </div>
