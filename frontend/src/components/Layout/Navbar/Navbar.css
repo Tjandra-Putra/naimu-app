@@ -1,7 +1,8 @@
 .navbar-wrapper .navbar {
   height: 70px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-  /* margin-bottom: 1.2rem; */
+  position: relative;
+  z-index: 1000;
 }
 
 .navbar-wrapper .navbar-brand {
@@ -16,11 +17,56 @@
   border-radius: 5px !important;
   font-weight: 500;
 }
-
-.navbar-wrapper .search-input {
+.navbar-wrapper .search-icon {
+  border-radius: 50px 0px 0px 50px !important;
   background-color: #f5f4f4 !important;
 }
 
+.navbar-wrapper .search-input {
+  background-color: #f5f4f4 !important;
+  border: none;
+  border-radius: 0px 50px 50px 0px !important;
+}
+
 .navbar-wrapper .search-group {
-  width: 12rem;
+  width: 15rem;
+  margin-top: 2.5px;
+}
+
+.navbar-wrapper .search-results {
+  position: absolute;
+  top: 149%;
+  right: 0;
+  background-color: white;
+  padding: 2rem;
+  z-index: 9999;
+  width: 30rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px !important;
+}
+
+.navbar-wrapper .header {
+  text-transform: uppercase;
+  font-weight: 600;
+  position: absolute;
+  left: 2rem;
+  top: 1rem;
+}
+
+.navbar-wrapper .search-result-img {
+  width: 100px;
+  border-radius: 5px;
+}
+
+.navbar-wrapper .search-result-item-title {
+  color: #000000;
+  font-weight: 500;
+}
+
+.navbar-wrapper .search-result-item-category {
+  color: #9e3500;
+}
+
+.navbar-wrapper .search-result-item-price {
+  color: #000000;
 }

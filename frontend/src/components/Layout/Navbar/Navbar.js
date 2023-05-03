@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Navbar.css";
@@ -6,18 +6,19 @@ import { productList } from "../../../data/data";
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchProduct, setSearchProduct] = React.useState(null);
+  const [searchResults, setSearchResults] = React.useState([]);
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+    let term = e.target.value;
+    setSearchTerm(term);
 
     const filteredProducts =
       productList &&
       productList.filter((product) => product.product_title.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    console.log(filteredProducts);
+    setSearchResults(filteredProducts);
 
-    setSearchProduct(filteredProducts);
+    if (term === "") setSearchResults([]);
   };
 
   return (
@@ -88,18 +89,52 @@ const Navbar = () => {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item pe-4">
                 <div className="input-group search-group">
-                  <span className="input-group-text search-input border-0" id="basic-addon1">
+                  <span className="input-group-text search-icon border-0" id="basic-addon1">
                     <i className="fas fa-search fa-lg"></i>
                   </span>
                   <input
                     type="text"
-                    className="form-control search-input border-0 shadow-none"
+                    className="form-control search-input shadow-none"
                     placeholder="Search"
-                    value={searchProduct}
+                    value={searchTerm}
                     onChange={handleSearchChange}
                   />
+
+                  {searchResults && searchResults.length > 0 ? (
+                    <div className="search-results">
+                      <div className="header">Products</div>
+                      {searchResults &&
+                        searchResults.map((result, index) => {
+                          const productTitle = result.product_title.replace(/\s+/g, "-");
+                          return (
+                            <Link
+                              to={`/products/${productTitle}`}
+                              key={index}
+                              className="text-decoration-none"
+                              onClick={() => setSearchResults([])}
+                            >
+                              <div className="row mt-3">
+                                <div className="col-md-4">
+                                  <img
+                                    src={result.product_image_url[0].url}
+                                    alt={result.product_title}
+                                    className="img-fluid search-result-img"
+                                  />
+                                </div>
+                                <div className="col-md-8">
+                                  <div className="search-result-item-title">{result.product_title}</div>
+                                  <div className="search-result-item-category">{result.product_category}</div>
+                                  <div className="search-result-item-price">${result.product_price}</div>
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                    </div>
+                  ) : null}
                 </div>
               </li>
+
               <li className="nav-item ps-2">
                 <Link className="nav-link" to="/login">
                   <i className="fa-regular fa-user fa-lg pe-1"></i>
