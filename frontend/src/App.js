@@ -1,5 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import axios from "axios";
+import { server } from "./server.js";
+import Store from "./redux/store.js";
+import { loadUser } from "./redux/actions/user.js";
 
 import {
   Navbar,
@@ -16,9 +21,6 @@ import {
   Footer,
   Activate,
 } from "./routes.js";
-import { useEffect } from "react";
-import axios from "axios";
-import { server } from "./server.js";
 
 const App = () => {
   // toast component
@@ -26,15 +28,7 @@ const App = () => {
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   useEffect(() => {
-    axios
-      .get(`${server}/user/load-user`, { withCredentials: true })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        notifyError(err.response.data.message);
-      });
+    Store.dispatch(loadUser());
   }, []);
 
   return (
