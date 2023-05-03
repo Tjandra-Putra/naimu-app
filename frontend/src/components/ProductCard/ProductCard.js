@@ -16,7 +16,7 @@ const ProductCard = ({ productImageUrl, productTitle, productPrice, productCateg
         <div className="card-body">
           <div className="d-flex flex-row justify-content-between">
             <div className="category">{productStore}</div>
-            <div className="sold">24 sold</div>
+            <div className="sold">{productSold} sold</div>
           </div>
 
           <div className="title">{productTitle}</div>

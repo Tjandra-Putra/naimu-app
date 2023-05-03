@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom";
+
 import "./Home.css";
 import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
 import bannerImage2 from "../../assets/images/marketing/pexels-danik-prihodko-15759583.jpeg";
 import bannerImage3 from "../../assets/images/marketing/pexels-godisable-jacob-982010.jpeg";
 import bannerVideo1 from "../../assets/videos/pexels-cottonbro-studio-3205917-1920x1080-25fps.mp4";
 import bannerVideo2 from "../../assets/videos/possibilities-are-born.mp4";
-
 import arrowLeft from "../../assets/images/left-chevron.png";
 import arrowRight from "../../assets/images/chevron.png";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { productList } from "../../data/data";
 
 const Home = () => {
   return (
@@ -78,7 +80,9 @@ const Home = () => {
                     place to find the latest fashion trends, unique styles, and eye-catching accessories.
                   </div>
                   <div className="buttons">
-                    <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
+                    <Link className="btn btn-light btn-lg rounded-2" to="/products">
+                      Shop Now
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -123,7 +127,9 @@ const Home = () => {
                     discovering the hottest trends, distinctive styles, and striking accessories.
                   </div>
                   <div className="buttons">
-                    <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
+                    <Link className="btn btn-light btn-lg rounded-2" to="/products">
+                      Shop Now
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -143,87 +149,41 @@ const Home = () => {
                     place to find the latest fashion trends, unique styles, and eye-catching accessories.
                   </div>
                   <div className="buttons">
-                    <button className="btn btn-light btn-lg rounded-2">Shop Now</button>
+                    <Link className="btn btn-light btn-lg rounded-2" to="/products">
+                      Shop Now
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev"
-        >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next"
-        >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
-        </button> */}
       </div>
 
       <div className="container">
         <section className="featured-products">
           <div className="d-flex flex-row justify-content-between">
             <div className="featured-products-title">Shop our featured products</div>
-            <div className="featured-products-title">
-              View all <i className="fas fa-arrow-right fa-lg"></i>
-            </div>
+            <Link className="featured-products-title text-decoration-none text-dark" to="/products">
+              View all <i className="fas fa-arrow-right fa-lg ps-1"></i>
+            </Link>
           </div>
           <div className="row">
-            <div className="col">
-              <ProductCard
-                productId="123"
-                productStore="Adidas"
-                productTitle="Adidas Rekive Woven Track Pants"
-                productPrice={139}
-                productSold={24}
-                productCategory="Pants"
-                productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-              />
-            </div>
-            <div className="col">
-              <ProductCard
-                productId="123"
-                productStore="Adidas"
-                productTitle="Island Club Adilette Premium Slides"
-                productPrice={99}
-                productSold={24}
-                productCategory="Slides"
-                productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/06aaccf76fde4c35ae48afc700fc1548_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM1.jpg"
-              />
-            </div>
-            <div className="col">
-              <ProductCard
-                productId="123"
-                productStore="Adidas"
-                productTitle="X-city heat.rdy shorts"
-                productPrice={79}
-                productSold={24}
-                productCategory="Shorts"
-                productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/cb963f36178c49c884c5af7200c6a9ba_9366/X-City_HEAT.RDY_Shorts_Black_HN0789_21_model.jpg"
-              />
-            </div>
-            <div className="col">
-              <ProductCard
-                productId="123"
-                productStore="Adidas"
-                productTitle="Adidas Basketball Crew Sweatshirt"
-                productPrice={109}
-                productSold={24}
-                productCategory="Sweatshirts"
-                productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/1777da19a81f41ac87a3af6d0157688d_faec/adidas_Basketball_Crew_Sweatshirt_Grey_IA3435_HM1.jpg"
-              />
-            </div>
+            {productList && productList.length > 0
+              ? productList.slice(0, 4).map((item, index) => (
+                  <div className="col-md-3">
+                    <ProductCard
+                      productId={item.product_id}
+                      productStore={item.shop.name}
+                      productTitle={item.product_title}
+                      productPrice={item.product_price}
+                      productSold={item.product_unit_sold}
+                      productCategory={item.product_category}
+                      productImageUrl={item.product_image_url[0].url}
+                    />
+                  </div>
+                ))
+              : null}
           </div>
         </section>
 
@@ -313,9 +273,9 @@ const Home = () => {
 
       <section className="membership">
         <div className="title">BECOME A MEMBER & GET 15% OFF</div>
-        <button className="btn btn-light btn-lg rounded-2 ms-3 btn-register">
+        <Link className="btn btn-light btn-lg rounded-2 ms-3 btn-register" to="/register">
           Sign Up For Free <i className="fas fa-arrow-right fa-lg ms-2"></i>
-        </button>
+        </Link>
       </section>
     </div>
   );
