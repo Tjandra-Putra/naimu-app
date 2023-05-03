@@ -3,6 +3,29 @@ import { Link } from "react-router-dom";
 import "./Cart.css";
 
 const Cart = () => {
+  const cartItems = [
+    {
+      product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+      product_title: "Adidas Rekive Woven Track Pants",
+      product_image_url:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
+      product_price: 139,
+      product_shop_name: "Adidas",
+      product_size: "M",
+      product_quantity: 3,
+    },
+    {
+      product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+      product_title: "Adidas Rekive Woven Track Shirts",
+      product_image_url:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
+      product_price: 150,
+      product_shop_name: "Adidas",
+      product_size: "XS",
+      product_quantity: 1,
+    },
+  ];
+
   return (
     <div className="cart-wrapper">
       <div className="container">
@@ -32,111 +55,87 @@ const Cart = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="product-action">
-                      <div className="btn-delete">
-                        <i class="fas fa-times fa-lg"></i>
-                      </div>
-                    </td>
-                    <td className="product-img">
-                      <img
-                        src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </td>
-                    <td className="product-description">
-                      <div className="d-flex flex-column">
-                        <div className="product-title">Adidas Rekive Woven Track Pants</div>
-                        <div className="product-id">Product ID: 462178</div>
-                        <div className="product-store">Adidas</div>
-                        <div className="d-flex flex-row">
-                          <div className="product-size">
-                            <select class="size-select form-select" aria-label="Default select example">
-                              <option disabled selected value="">
-                                Size
-                              </option>
-                              <option value="0">XS</option>
-                              <option value="1">S</option>
-                              <option value="2">M</option>
-                              <option value="3">XL</option>
-                            </select>
+                  {cartItems ? (
+                    cartItems.map((item, index) => (
+                      <tr key={index}>
+                        <td className="product-action">
+                          <div className="btn-delete">
+                            <i class="fas fa-times fa-lg"></i>
                           </div>
-                          <div className="product-quantity ms-3">
-                            <select class="size-select form-select" aria-label="Default select example">
-                              <option disabled selected value="">
-                                Quantity
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                            </select>
+                        </td>
+                        <td className="product-img">
+                          <Link to={`/products/${item.product_id}`}>
+                            <img src={item.product_image_url} alt="" className="img-fluid" />
+                          </Link>
+                        </td>
+                        <td className="product-description">
+                          <div className="d-flex flex-column">
+                            <div className="product-title">{item.product_title}</div>
+                            <div className="product-id">Product ID: {item.product_id}</div>
+                            <div className="product-store">{item.product_shop_name}</div>
+                            <div className="d-flex flex-row">
+                              <div className="product-size">
+                                <select class="size-select form-select" aria-label="Default select example">
+                                  <option disabled>Size</option>
+                                  {/* select size according to cartItems */}
+                                  <option value="XS" selected={item.product_size === "XS"}>
+                                    XS
+                                  </option>
+                                  <option value="S" selected={item.product_size === "S"}>
+                                    S
+                                  </option>
+                                  <option value="M" selected={item.product_size === "M"}>
+                                    M
+                                  </option>
+                                  <option value="XL" selected={item.product_size === "XL"}>
+                                    XL
+                                  </option>
+                                </select>
+                              </div>
+                              <div className="product-quantity ms-3">
+                                <select class="size-select form-select" aria-label="Default select example">
+                                  <option disabled>Quantity</option>
+                                  <option value="1" selected={item.product_quantity === "1"}>
+                                    1
+                                  </option>
+                                  <option value="2" selected={item.product_quantity === "2"}>
+                                    2
+                                  </option>
+                                  <option value="3" selected={item.product_quantity.toString() === "3"}>
+                                    3
+                                  </option>
+                                  <option value="4" selected={item.product_quantity.toString() === "4"}>
+                                    4
+                                  </option>
+                                  <option value="5" selected={item.product_quantity.toString() === "5"}>
+                                    5
+                                  </option>
+                                  <option value="6" selected={item.product_quantity.toString() === "6"}>
+                                    6
+                                  </option>
+                                  <option value="7" selected={item.product_quantity.toString() === "7"}>
+                                    7
+                                  </option>
+                                  <option value="8" selected={item.product_quantity.toString() === "8"}>
+                                    8
+                                  </option>
+                                  <option value="9" selected={item.product_quantity.toString() === "9"}>
+                                    9
+                                  </option>
+                                  <option value="10" selected={item.product_quantity.toString() === "10"}>
+                                    10
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>$139</td>
-                  </tr>
-
-                  <tr>
-                    <td className="product-action">
-                      <div className="btn-delete">
-                        <i class="fas fa-times fa-lg"></i>
-                      </div>
-                    </td>
-                    <td className="product-img">
-                      <img
-                        src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </td>
-                    <td className="product-description">
-                      <div className="d-flex flex-column">
-                        <div className="product-title">Adidas Rekive Woven Track Pants</div>
-                        <div className="product-id">Product ID: 462178</div>
-                        <div className="product-store">Adidas</div>
-                        <div className="d-flex flex-row">
-                          <div className="product-size">
-                            <select class="size-select form-select " aria-label="Default select example">
-                              <option disabled selected value="">
-                                Size
-                              </option>
-                              <option value="0">XS</option>
-                              <option value="1">S</option>
-                              <option value="2">M</option>
-                              <option value="3">XL</option>
-                            </select>
-                          </div>
-                          <div className="product-quantity ms-3">
-                            <select class="size-select form-select " aria-label="Default select example">
-                              <option disabled selected value="">
-                                Quantity
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>$139</td>
-                  </tr>
+                        </td>
+                        <td>${item.product_price * item.product_quantity}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <p>Cart is empty.</p>
+                  )}
                 </tbody>
               </table>
             </div>
