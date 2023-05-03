@@ -28,7 +28,7 @@ export const productList = [
     product_discount_price: 10,
     product_rating: 4.5,
     product_unit_sold: 35,
-    quantity_in_stock: 10,
+    quantity_in_stock: 0,
   },
   {
     product_id: "a11b90a4-e70a-11ed-a05b-0242ac12000a",

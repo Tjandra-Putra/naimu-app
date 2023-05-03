@@ -204,6 +204,10 @@ const Product = () => {
                     )}
                   %
                 </span>
+                {product.quantity_in_stock < 10 && product.quantity_in_stock !== 0 ? (
+                  <span className="stock-status-low">low in stock</span>
+                ) : null}
+                {product.quantity_in_stock === 0 ? <span className="stock-status-none">sold out</span> : null}
               </div>
 
               <div className="size-info d-flex flex-row justify-content-between">
@@ -229,9 +233,11 @@ const Product = () => {
               </div>
 
               <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-dark btn-lg rounded-1" type="button">
-                  Add to Cart
-                </button>
+                {product.quantity_in_stock > 0 ? (
+                  <button class="btn btn-dark btn-lg rounded-1" type="button">
+                    Add to Cart
+                  </button>
+                ) : null}
 
                 <button class="btn btn-outline-dark btn-lg rounded-1 mt-1" type="button">
                   Add to Wishlist

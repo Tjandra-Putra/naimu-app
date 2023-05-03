@@ -47,7 +47,29 @@
   color: #ffffff;
   padding: 0.5rem;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-style: italic;
+}
+
+.product-wrapper .stock-status-low {
+  background-color: #ff7300;
+  color: #ffffff;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-style: italic;
+}
+
+.product-wrapper .stock-status-none {
+  background-color: #00000055;
+  color: #ffffff;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   margin-left: 10px;
   border-radius: 5px;
   font-style: italic;
