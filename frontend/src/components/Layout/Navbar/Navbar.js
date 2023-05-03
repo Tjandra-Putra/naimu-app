@@ -2,8 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Navbar.css";
+import { productList } from "../../../data/data";
 
 const Navbar = () => {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchProduct, setSearchProduct] = React.useState(null);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+
+    const filteredProducts =
+      productList &&
+      productList.filter((product) => product.product_title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    console.log(filteredProducts);
+
+    setSearchProduct(filteredProducts);
+  };
+
   return (
     <div className="navbar-wrapper">
       <nav className="navbar navbar-expand-lg">
@@ -79,14 +95,10 @@ const Navbar = () => {
                     type="text"
                     className="form-control search-input border-0 shadow-none"
                     placeholder="Search"
-                    aria-label="search"
-                    aria-describedby="basic-addon1"
+                    value={searchProduct}
+                    onChange={handleSearchChange}
                   />
                 </div>
-
-                {/* <Link className="nav-link" to="/cart">
-                  <i className="fas fa-search fa-lg pe-2"></i> Search
-                </Link> */}
               </li>
               <li className="nav-item ps-2">
                 <Link className="nav-link" to="/login">
