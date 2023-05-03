@@ -8,11 +8,11 @@ const Products = () => {
     <div className="products-wrapper">
       <div className="container">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item">
+          <ol className="breadcrumb">
+            <Link to="/" className="breadcrumb-item">
               Home
             </Link>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li className="breadcrumb-item active" aria-current="page">
               Browse Products
             </li>
           </ol>
@@ -20,11 +20,11 @@ const Products = () => {
 
         <div className="row">
           <div className="col-md-3">
-            <div class="accordion" id="accordionExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header">
+            <div className="accordion" id="accordionExample">
+              <div className="accordion-item">
+                <h2 className="accordion-header">
                   <button
-                    class="accordion-button collapsed"
+                    className="accordion-button collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseOne"
@@ -34,27 +34,27 @@ const Products = () => {
                     Category
                   </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                  <div className="accordion-body">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Men
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Women
                       </label>
                     </li>
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
+              <div className="accordion-item">
+                <h2 className="accordion-header">
                   <button
-                    class="accordion-button collapsed"
+                    className="accordion-button collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseTwo"
@@ -64,27 +64,27 @@ const Products = () => {
                     Brands
                   </button>
                 </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                <div id="collapseTwo" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                  <div className="accordion-body">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Adidas
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Nike
                       </label>
                     </li>
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
+              <div className="accordion-item">
+                <h2 className="accordion-header">
                   <button
-                    class="accordion-button collapsed"
+                    className="accordion-button collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseThree"
@@ -94,27 +94,27 @@ const Products = () => {
                     Price
                   </button>
                 </h2>
-                <div id="collapseThree" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                <div id="collapseThree" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                  <div className="accordion-body">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         $20 - $50
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         $51 - $100
                       </label>
                     </li>
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
+              <div className="accordion-item">
+                <h2 className="accordion-header">
                   <button
-                    class="accordion-button collapsed"
+                    className="accordion-button collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseFour"
@@ -124,35 +124,35 @@ const Products = () => {
                     Size
                   </button>
                 </h2>
-                <div id="collapseFour" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                <div id="collapseFour" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                  <div className="accordion-body">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Extra Small
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Small
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Medium
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Large
                       </label>
                     </li>
-                    <li class="list-group-item mb-2">
-                      <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label class="form-check-label ms-2" for="firstCheckbox">
+                    <li className="list-group-item mb-2">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
+                      <label className="form-check-label ms-2" for="firstCheckbox">
                         Extra Large
                       </label>
                     </li>
@@ -166,9 +166,9 @@ const Products = () => {
               <div className="result-info">Showing 9 results for "tops"</div>
               <div className="filter-btn d-inline">
                 Sort by
-                <div class="dropdown-center d-inline ms-2">
+                <div className="dropdown-center d-inline ms-2">
                   <a
-                    class="btn btn-light btn-sort dropdown-toggle"
+                    className="btn btn-light btn-sort dropdown-toggle"
                     href="#"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -177,19 +177,19 @@ const Products = () => {
                     Popularity
                   </a>
 
-                  <ul class="dropdown-menu">
+                  <ul className="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a className="dropdown-item" href="#">
                         Action
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a className="dropdown-item" href="#">
                         Another action
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a className="dropdown-item" href="#">
                         Something else here
                       </a>
                     </li>
@@ -200,14 +200,14 @@ const Products = () => {
 
             <div className="applied-filter d-flex flex-row">
               Applied Filters:
-              <span class="filter-badge">
-                Pants <i class="fa-solid fa-xmark"></i>
+              <span className="filter-badge">
+                Pants <i className="fa-solid fa-xmark"></i>
               </span>
-              <span class="filter-badge">
-                $20 - $50 <i class="fa-solid fa-xmark"></i>
+              <span className="filter-badge">
+                $20 - $50 <i className="fa-solid fa-xmark"></i>
               </span>
-              <span class="filter-badge">
-                Medium <i class="fa-solid fa-xmark"></i>
+              <span className="filter-badge">
+                Medium <i className="fa-solid fa-xmark"></i>
               </span>
             </div>
 
@@ -265,27 +265,27 @@ const Products = () => {
             </div>
 
             <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center mt-3">
-                <li class="page-item disabled">
-                  <a class="page-link text-dark">Previous</a>
+              <ul className="pagination justify-content-center mt-3">
+                <li className="page-item disabled">
+                  <a className="page-link text-dark">Previous</a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link text-dark" href="#">
+                <li className="page-item">
+                  <a className="page-link text-dark" href="#">
                     1
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link text-dark" href="#">
+                <li className="page-item">
+                  <a className="page-link text-dark" href="#">
                     2
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link text-dark" href="#">
+                <li className="page-item">
+                  <a className="page-link text-dark" href="#">
                     3
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link text-dark" href="#">
+                <li className="page-item">
+                  <a className="page-link text-dark" href="#">
                     Next
                   </a>
                 </li>

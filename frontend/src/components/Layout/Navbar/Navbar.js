@@ -43,31 +43,24 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item dropdown px-2">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Categories
-                </a>
+                </Link>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
-                  </li>
+                  {productList && productList.length > 0
+                    ? productList.map((item, index) => (
+                        <li key={index}>
+                          <Link className="dropdown-item" to={`/products/${item.product_category}`}>
+                            {item.product_category}
+                          </Link>
+                        </li>
+                      ))
+                    : null}
                 </ul>
               </li>
               <li className="nav-item px-2">
