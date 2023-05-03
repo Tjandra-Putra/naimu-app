@@ -13,6 +13,8 @@ const Profile = () => {
   const [avatar, setAvatar] = useState(user && user.user.avatar);
   const [userId, setUserId] = useState(user && user.user._id);
 
+  console.log(user);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
@@ -59,20 +61,67 @@ const Profile = () => {
                           </label>
                           <input type="text" name="email" id="email" className="form-control" value={email} />
                         </div>
-
                         <div className="col-md-6 mb-4">
-                          <label htmlFor="email" className="form-label">
-                            Birthday
+                          <label htmlFor="phone-number" className="form-label">
+                            Phone Number
                           </label>
-                          <input type="date" name="email" id="email" className="form-control" value={birthday} />
+                          <input
+                            type="text"
+                            name="phone-number"
+                            id="phone-number"
+                            className="form-control"
+                            value={""}
+                          />
                         </div>
 
                         <div className="col-md-6 mb-4">
+                          <label htmlFor="postal-code" className="form-label">
+                            Postal Code
+                          </label>
+                          <input type="text" name="postal-code" id="postal-code" className="form-control" value={""} />
+                        </div>
+
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="birthday" className="form-label">
+                            Birthday
+                          </label>
+                          <input type="date" name="birthday" id="birthday" className="form-control" value={birthday} />
+                        </div>
+
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="address-one" className="form-label">
+                            Address 1
+                          </label>
+                          <input type="text" name="address-one" id="address-one" className="form-control" value={""} />
+                        </div>
+
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="country" className="form-label">
+                            Country
+                          </label>
+                          <input type="text" name="country" id="country" className="form-control" value={""} />
+                        </div>
+
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="password" className="form-label">
+                            Password
+                          </label>
+                          <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            className="form-control"
+                            value="password"
+                            disabled
+                          />
+                        </div>
+
+                        {/* <div className="col-md-6 mb-4">
                           <label htmlFor="email" className="form-label">
                             Customer ID
                           </label>
                           <input type="text" name="email" id="email" className="form-control" value={userId} disabled />
-                        </div>
+                        </div> */}
                       </div>
                       <button className="btn btn-dark btn-success" type="submit">
                         Save Changes
