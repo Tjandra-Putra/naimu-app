@@ -109,7 +109,7 @@ const Navbar = () => {
                               className="text-decoration-none"
                               onClick={() => setSearchResults([])}
                             >
-                              <div className="row mt-3">
+                              <div className="row py-2">
                                 <div className="col-md-4">
                                   <img
                                     src={result.product_image_url[0].url}

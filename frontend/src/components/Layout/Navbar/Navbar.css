@@ -45,10 +45,20 @@
   right: 0;
   background-color: white;
   padding: 2rem;
+  padding-top: 2.5rem;
   z-index: 9999;
   width: 30rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 5px !important;
+
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+.navbar-wrapper .search-results .row:hover {
+  transition: 0.5s ease;
+  transform: translateX(10px);
+  border-radius: 5px;
 }
 
 .navbar-wrapper .header {
@@ -62,6 +72,8 @@
 .navbar-wrapper .search-result-img {
   width: 100px;
   border-radius: 5px;
+  object-fit: cover;
+  height: 100px;
 }
 
 .navbar-wrapper .search-result-item-title {
