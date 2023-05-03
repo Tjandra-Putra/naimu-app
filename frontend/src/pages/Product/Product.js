@@ -194,14 +194,11 @@ const Product = () => {
               <div className="product-title">{product.product_title}</div>
 
               <div className="product-price">
-                <span className="discounted-price">SGD ${product.product_price - product.product_discount_price}</span>
+                <span className="discounted-price">SGD ${product.product_discount_price}</span>
                 <span className="original-price">SGD ${product.product_price}</span>
                 <span className="discount-tag">
                   -
-                  {100 -
-                    Math.round(
-                      ((product.product_price - product.product_discount_price) / product.product_price) * 100
-                    )}
+                  {Math.round(((product.product_price - product.product_discount_price) / product.product_price) * 100)}
                   %
                 </span>
                 {product.quantity_in_stock < 10 && product.quantity_in_stock !== 0 ? (
