@@ -128,19 +128,20 @@ const Navbar = () => {
                 </div>
               </li>
 
-              <li className="nav-item ps-2">
+              <li className="nav-item nav-link-size">
                 <Link className="nav-link" to="/login">
                   <i className="fa-regular fa-user fa-lg pe-1"></i>
                 </Link>
               </li>
-              <li className="nav-item px-2">
+              <li className="nav-item nav-link-size">
                 <Link className="nav-link" to="/cart">
                   <i className="fa-regular fa-heart fa-lg ps-1"></i>
                 </Link>
               </li>
-              <li className="nav-item px-2">
-                <Link className="nav-link" to="/cart">
+              <li className="nav-item nav-link-size">
+                <Link class="nav-link position-relative" to="/cart">
                   <i className="fas fa-shopping-cart ps-0"></i>
+                  <span class="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">2</span>
                 </Link>
               </li>
             </ul>

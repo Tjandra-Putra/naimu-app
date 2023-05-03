@@ -12,11 +12,17 @@
   border-radius: 5px !important;
 }
 
+.navbar-wrapper .nav-link-size {
+  width: 3rem;
+  text-align: center;
+}
+
 .navbar-wrapper .nav-link:hover {
   background-color: #dddddd6e;
   border-radius: 5px !important;
   font-weight: 500;
 }
+
 .navbar-wrapper .search-icon {
   border-radius: 50px 0px 0px 50px !important;
   background-color: #f5f4f4 !important;
@@ -69,4 +75,12 @@
 
 .navbar-wrapper .search-result-item-price {
   color: #000000;
+}
+
+.navbar-wrapper .cart-quantity {
+  font-size: 0.7rem;
+  text-decoration: none;
+  font-weight: 700;
+  left: 35px;
+  background-color: #0071ae;
 }
