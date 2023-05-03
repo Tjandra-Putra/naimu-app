@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./Navbar.css";
 import { productList } from "../../../data/data";
 
 const Navbar = () => {
+  const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
 
@@ -131,13 +134,25 @@ const Navbar = () => {
                 </div>
               </li>
 
+              {isAuthenticated && user.user.avatar ? (
+                <li className="nav-item nav-link-size">
+                  <Link className="nav-link" to="/orders">
+                    <img
+                      src={`http://localhost:8000/${user.user.avatar}`}
+                      alt={user.user.avatar}
+                      className="img-fluid profile-img"
+                    />
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link className="nav-link" to="/login">
+                    <i className="fa-regular fa-user fa-lg pe-1"></i>
+                  </Link>
+                </li>
+              )}
               <li className="nav-item nav-link-size">
-                <Link className="nav-link" to="/login">
-                  <i className="fa-regular fa-user fa-lg pe-1"></i>
-                </Link>
-              </li>
-              <li className="nav-item nav-link-size">
-                <Link className="nav-link" to="/cart">
+                <Link className="nav-link" to="/favourite">
                   <i className="fa-regular fa-heart fa-lg ps-1"></i>
                 </Link>
               </li>

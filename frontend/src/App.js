@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import axios from "axios";
-import { server } from "./server.js";
 import Store from "./redux/store.js";
 import { loadUser } from "./redux/actions/user.js";
+import { useSelector } from "react-redux";
+import React from "react";
+
+import Loader from "./components/Layout/Loader/Loader.js";
 
 import {
   Navbar,
@@ -23,36 +25,40 @@ import {
 } from "./routes.js";
 
 const App = () => {
-  // toast component
-  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
-  const notifyError = (message) => toast.error(message, { duration: 5000 });
+  const { loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
     Store.dispatch(loadUser());
   }, []);
 
   return (
-    <BrowserRouter>
-      <Toaster />
+    <React.Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
+        <BrowserRouter>
+          <Toaster />
 
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<Product />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/orders/:id" element={<Order />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/payment" element={<Payment />} />
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<Product />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:id" element={<Order />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/payment" element={<Payment />} />
 
-        {/* apis */}
-        <Route path="/activate/:activation_token" element={<Activate />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+            {/* apis */}
+            <Route path="/activate/:activation_token" element={<Activate />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      )}
+    </React.Fragment>
   );
 };
 

@@ -96,3 +96,10 @@
   left: 35px;
   background-color: #0071ae;
 }
+
+.navbar-wrapper .profile-img {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  object-fit: cover;
+}

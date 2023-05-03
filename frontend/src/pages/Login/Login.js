@@ -36,6 +36,7 @@ const Login = () => {
 
         setTimeout(() => {
           navigate("/");
+          window.location.reload();
         }, 2000);
       })
       .catch((err) => {
