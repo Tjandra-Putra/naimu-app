@@ -5,6 +5,10 @@
   min-height: calc(100vh - 70px);
 }
 
+.product-wrapper .product-store-info {
+  margin-bottom: 1rem;
+}
+
 .product-wrapper .breadcrumb-item {
   text-decoration: none;
   color: #000000;
@@ -17,17 +21,53 @@
 
 .product-wrapper .product-title {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 2.5rem;
+  text-transform: capitalize;
+}
+
+.product-wrapper .product-price {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  color: #9e3500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.product-wrapper .original-price {
+  margin-left: 10px;
+  color: #000000;
+  text-decoration: line-through;
+  text-transform: uppercase;
+}
+
+.product-wrapper .discount-tag {
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-style: italic;
 }
 
 .product-wrapper .img-gallery .col-md-6 {
   padding: 2px;
 }
 
-.product-wrapper .product-store-name {
-  color: #9e3500;
+.product-wrapper .product-shop-name {
+  border-radius: 50px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
   font-weight: 500;
+  background-color: #000000;
+  font-size: 0.8rem;
 }
 
 .product-wrapper .product-description {
@@ -94,4 +134,9 @@
   top: 25px;
   z-index: 999;
   height: 100%;
+}
+
+.product-wrapper .store-img {
+  width: 25px;
+  height: 25px;
 }

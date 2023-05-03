@@ -31,16 +31,19 @@ const Product = () => {
       <div className="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item">
+            <Link to="/" class="breadcrumb-item text-muted">
               Home
             </Link>
-            <Link to="/" class="breadcrumb-item">
+            <Link to="/" class="breadcrumb-item text-muted">
               Adidas
             </Link>
-            <Link to="/products" class="breadcrumb-item">
+            <Link to="/products" class="breadcrumb-item text-muted">
               Browse
             </Link>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li class="breadcrumb-item text-muted" aria-current="page">
+              {product.product_category}
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
               {product.product_title}
             </li>
           </ol>
@@ -77,7 +80,7 @@ const Product = () => {
                     </h2>
                     <div
                       id="flush-collapseOne"
-                      class="accordion-collapse collapse"
+                      class="accordion-collapse collapse show"
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">{product.product_description}</div>
@@ -134,11 +137,43 @@ const Product = () => {
                     </h2>
                     <div
                       id="flush-collapseThree"
-                      class="accordion-collapse collapse show"
+                      class="accordion-collapse collapse"
                       data-bs-parent="#accordionFlushExample"
                     >
                       <div class="accordion-body">
                         <Reviews />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFour"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseFour"
+                      >
+                        <div className="d-flex flex-row justify-content-between">
+                          <span className="me-2">Store Info</span>
+                          <div className="accordion-item-review">
+                            <img src={product.shop.shop_avatar.url} alt="" className="store-img pe-2" />
+                            <span>
+                              {product.shop.name} ({product.shop.ratings})
+                            </span>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseFour"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        <button className="btn btn-outline-dark">Send a message</button>
                       </div>
                     </div>
                   </div>
@@ -149,13 +184,27 @@ const Product = () => {
             <div className="col-md-4 px-4 right-wrapper">
               <div className="product-store-info">
                 <div className="d-flex flex-row justify-content-between">
-                  <div className="product-store-name"> {product.shop.name}</div>
+                  <div className="product-shop-name">{product.shop.name}</div>
                   <div className="rating">
                     <Rating showCount={true} />
                   </div>
                 </div>
               </div>
+
               <div className="product-title">{product.product_title}</div>
+
+              <div className="product-price">
+                <span className="discounted-price">SGD ${product.product_price - product.product_discount_price}</span>
+                <span className="original-price">SGD ${product.product_price}</span>
+                <span className="discount-tag">
+                  -
+                  {100 -
+                    Math.round(
+                      ((product.product_price - product.product_discount_price) / product.product_price) * 100
+                    )}
+                  %
+                </span>
+              </div>
 
               <div className="size-info d-flex flex-row justify-content-between">
                 <div className="select-size-label">Select Size:</div>
