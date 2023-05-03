@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./Products.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { productList } from "../../data/data";
 
 const Products = () => {
   return (
@@ -36,18 +37,21 @@ const Products = () => {
                 </h2>
                 <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
-                    <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
-                        Men
-                      </label>
-                    </li>
-                    <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
-                        Women
-                      </label>
-                    </li>
+                    {productList && productList.length > 0
+                      ? productList.map((item, index) => (
+                          <li className="list-group-item mb-2" key={index}>
+                            <input
+                              className="form-check-input me-1"
+                              type="checkbox"
+                              value={item.product_category}
+                              name="category"
+                            />
+                            <label className="form-check-label ms-2" for="firstCheckbox">
+                              {item.product_category}
+                            </label>
+                          </li>
+                        ))
+                      : null}
                   </div>
                 </div>
               </div>
@@ -213,54 +217,21 @@ const Products = () => {
 
             <div className="product-listing mt-4">
               <div className="row">
-                <div className="col-md-4">
-                  <Link to="/products/abcd" className="text-decoration-none">
-                    <ProductCard
-                      productStore="Adidas"
-                      productTitle="Adidas Rekive Woven Track Pants"
-                      productPrice={139}
-                      productSold={24}
-                      productCategory="Pants"
-                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    />
-                  </Link>
-                </div>
-                <div className="col-md-4 d-flex">
-                  <Link to="/products/abcd" className="text-decoration-none">
-                    <ProductCard
-                      productStore="Adidas"
-                      productTitle="Adidas Rekive Woven Track Pants"
-                      productPrice={139}
-                      productSold={24}
-                      productCategory="Pants"
-                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    />
-                  </Link>
-                </div>
-                <div className="col-md-4">
-                  <Link to="/products/abcd" className="text-decoration-none">
-                    <ProductCard
-                      productStore="Adidas"
-                      productTitle="Adidas Rekive Woven Track Pants"
-                      productPrice={139}
-                      productSold={24}
-                      productCategory="Pants"
-                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    />
-                  </Link>
-                </div>
-                <div className="col-md-4">
-                  <Link to="/products/abcd" className="text-decoration-none">
-                    <ProductCard
-                      productStore="Adidas"
-                      productTitle="Adidas Rekive Woven Track Pants"
-                      productPrice={139}
-                      productSold={24}
-                      productCategory="Pants"
-                      productImageUrl="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    />
-                  </Link>
-                </div>
+                {productList && productList.length > 0
+                  ? productList.map((item, index) => (
+                      <div className="col-md-4" key={index}>
+                        <ProductCard
+                          productId={item.product_id}
+                          productStore={item.shop.name}
+                          productTitle={item.product_title}
+                          productPrice={item.product_price}
+                          productSold={item.product_unit_sold}
+                          productCategory={item.product_category}
+                          productImageUrl={item.product_image_url[0].url}
+                        />
+                      </div>
+                    ))
+                  : null}
               </div>
             </div>
 

@@ -5,6 +5,7 @@ import { useState } from "react";
 import "./Product.css";
 import Rating from "../../components/Rating/Rating";
 import Reviews from "../../components/Reviews/Reviews";
+import { productList } from "../../data/data";
 
 const Product = () => {
   // get product id from route parameter
@@ -17,6 +18,9 @@ const Product = () => {
     { id: 4, size: "L" },
     { id: 5, size: "XL" },
   ];
+
+  // get specific product from productList
+  const product = productList.find((item) => item.product_id === id);
 
   const setSizeHandler = (size) => {
     setSelectedSize(size);
@@ -33,11 +37,11 @@ const Product = () => {
             <Link to="/" class="breadcrumb-item">
               Adidas
             </Link>
-            <Link to="/" class="breadcrumb-item">
-              Pants
+            <Link to="/products" class="breadcrumb-item">
+              Browse
             </Link>
             <li class="breadcrumb-item active" aria-current="page">
-              {id}
+              {product.product_title}
             </li>
           </ol>
         </nav>
@@ -46,34 +50,14 @@ const Product = () => {
           <div className="row">
             <div className="left-wrapper col-md-8">
               <div className="img-gallery row">
-                <div className="col-md-6">
-                  <img
-                    src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    alt=""
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-6">
-                  <img
-                    src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    alt=""
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-6">
-                  <img
-                    src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    alt=""
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-6">
-                  <img
-                    src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                    alt=""
-                    className="img-fluid"
-                  />
-                </div>
+                {/* product images */}
+                {product && productList.length > 0
+                  ? product.product_image_url.map((item, index) => (
+                      <div className="col-md-6">
+                        <img src={item.url} alt={item.url} className="img-fluid" />
+                      </div>
+                    ))
+                  : null}
               </div>
 
               <div className="product-info">
@@ -96,12 +80,7 @@ const Product = () => {
                       class="accordion-collapse collapse"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
-                        Go full-on fresh, day after day. With a mix of angles and contrasting hues, these adidas track
-                        pants let you play around with style while keeping it classic, too. A smooth weave drapes
-                        perfectly and keeps its shape thanks to ribbed cuffs. Mesh lining puts comfort first, and front
-                        zip pockets (plus an open pocket in the back) invite you to bring along the essentials.
-                      </div>
+                      <div class="accordion-body">{product.product_description}</div>
                     </div>
                   </div>
                   <div class="accordion-item">
@@ -170,13 +149,13 @@ const Product = () => {
             <div className="col-md-4 px-4 right-wrapper">
               <div className="product-store-info">
                 <div className="d-flex flex-row justify-content-between">
-                  <div className="product-store-name">Adidas</div>
+                  <div className="product-store-name"> {product.shop.name}</div>
                   <div className="rating">
                     <Rating showCount={true} />
                   </div>
                 </div>
               </div>
-              <div className="product-title">Adidas Rekive Woven Track Pants</div>
+              <div className="product-title">{product.product_title}</div>
 
               <div className="size-info d-flex flex-row justify-content-between">
                 <div className="select-size-label">Select Size:</div>

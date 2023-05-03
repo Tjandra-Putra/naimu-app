@@ -31,7 +31,7 @@ export const productList = [
     quantity_in_stock: 10,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003",
+    product_id: "a11b90a4-e70a-11ed-a05b-0242ac12000a",
     product_category: "Jacket",
     product_title: "Adidas Rekive Woven Track Jacket",
     product_description:
@@ -69,15 +69,35 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003",
+    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003b",
     product_category: "Slides",
     product_title: "Island Club Adilette Premium Slides",
     product_description:
-      "This adidas track jacket adds a touch of retro style to your everyday look with archive-inspired cut lines. Ripstop overlays meet our signature 3-Stripes and Trefoil logo for a modern take on heritage style. The loose fit and mesh lining create added comfort so you can head out looking and feeling great.",
+      "The Island Club collection conjures feelings of an endless summer. Poolside or not, everyday feels like a vacation in the playful yet chic collection that mixes pastel hues and vivid color-blocking with tonal head-to-toe 'fits. The collection is heavy on nostalgia and good vibes. \n Made with elevated materials, the Island Club Adilette Premium Slides are the perfect summertime companion. Go from laid-back settings to high-heat nights, thanks to the cork footbed and leather upper delivering a more refined look and feel. The bandage-style design hints at textural 3-Stripes, while a Trefoil logo near the heel adds a discreet sporty edge.",
     product_image_url: [
       {
         public_id: "test",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/06aaccf76fde4c35ae48afc700fc1548_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM1.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/bfba4221032a427297e4e51e43ff1e68_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM3_hover.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/2ebc55c0f5694572b922afc700fc299e_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM4.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/f88f1ed2d0104a6e961cafc700fc3da0_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM5.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/e6f9378d1b0e4a868c461dc365774526_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM6.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/05cfb544782a4cdfbf710df180ad733d_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM7.jpg",
       },
     ],
     shop: {
@@ -95,15 +115,27 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003",
+    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003c",
     product_category: "Shorts",
     product_title: "X-city heat.rdy shorts",
     product_description:
-      "This adidas track jacket adds a touch of retro style to your everyday look with archive-inspired cut lines. Ripstop overlays meet our signature 3-Stripes and Trefoil logo for a modern take on heritage style. The loose fit and mesh lining create added comfort so you can head out looking and feeling great.",
+      "When the heat haze shimmers above the street, run right through it in these adidas running shorts. HEAT.RDY tech keeps you going in hot conditions, and the lightweight build has a slim fit that doesn't get in the way of your stride. Pockets stash essentials like your key and gel so you can focus on your pace.",
     product_image_url: [
       {
         public_id: "test",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/cb963f36178c49c884c5af7200c6a9ba_9366/X-City_HEAT.RDY_Shorts_Black_HN0789_21_model.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/99d11865d06641e9a06aaf7200c72d03_9366/X-City_HEAT.RDY_Shorts_Black_HN0789_01_laydown.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/f24bd3a4ce6641ab95ecaf7200c6e052_9366/X-City_HEAT.RDY_Shorts_Black_HN0789_25_model.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/02ac91af5c1f4b5696b0af7200c6f8e4_9366/X-City_HEAT.RDY_Shorts_Black_HN0789_41_detail.jpg",
       },
     ],
     shop: {
@@ -121,7 +153,7 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003",
+    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003d",
     product_category: "Sweatshirts",
     product_title: "Adidas Basketball Crew Sweatshirt",
     product_description:
@@ -130,6 +162,18 @@ export const productList = [
       {
         public_id: "test",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/1777da19a81f41ac87a3af6d0157688d_faec/adidas_Basketball_Crew_Sweatshirt_Grey_IA3435_HM1.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/87d1bae305be45f6af28af5e01791342_faec/adidas_Basketball_Crew_Sweatshirt_White_IA3436_HM3_hover.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b40408245c0b46ac9b4eafa30168dd29_faec/adidas_Basketball_Crew_Sweatshirt_White_IA3436_HM17.jpg",
+      },
+      {
+        public_id: "test",
+        url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/877c60ef4ddc4c0d8b58afa301691d46_faec/adidas_Basketball_Crew_Sweatshirt_White_IA3436_HM16.jpg",
       },
     ],
     shop: {

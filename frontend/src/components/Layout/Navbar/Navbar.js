@@ -104,7 +104,7 @@ const Navbar = () => {
                           const productTitle = result.product_title.replace(/\s+/g, "-");
                           return (
                             <Link
-                              to={`/products/${productTitle}`}
+                              to={`/products/${result.product_id}`}
                               key={index}
                               className="text-decoration-none"
                               onClick={() => setSearchResults([])}
