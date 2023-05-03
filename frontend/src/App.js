@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import Store from "./redux/store.js";
 import { loadUser } from "./redux/actions/user.js";
 import { useSelector } from "react-redux";
 import React from "react";
 
+import Store from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 import {
   Navbar,
@@ -24,7 +25,7 @@ import {
   Activate,
   Profile,
   Refunds,
-} from "./routes.js";
+} from "./routes/Routes";
 
 const App = () => {
   const { loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
@@ -49,12 +50,40 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<Product />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/orders/:id" element={<Order />} />
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orders/:id"
+              element={
+                <ProtectedRoute>
+                  <Order />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/payment" element={<Payment />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/refunds" element={<Refunds />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/refunds"
+              element={
+                <ProtectedRoute>
+                  <Refunds />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/activate/:activation_token" element={<Activate />} />
           </Routes>
