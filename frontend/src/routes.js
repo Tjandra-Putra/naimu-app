@@ -12,6 +12,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import Payment from "./pages/Payment/Payment";
 import Activate from "./pages/Activate/Activate";
 import Profile from "./pages/Profile/Profile";
+import Refunds from "./pages/Refunds/Refunds";
 
 export {
   Navbar,
@@ -28,4 +29,5 @@ export {
   Payment,
   Activate,
   Profile,
+  Refunds,
 };

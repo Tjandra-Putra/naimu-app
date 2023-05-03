@@ -1,0 +1,40 @@
+.refunds-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.refunds-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.refunds-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.refunds-wrapper .title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.refunds-wrapper .card {
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  min-height: 36.4rem;
+  /* padding: 2rem; */
+}
+
+.refunds-wrapper th {
+  padding: 1rem 2rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.refunds-wrapper td {
+  padding: 2rem;
+  text-align: center;
+}

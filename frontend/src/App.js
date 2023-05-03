@@ -23,6 +23,7 @@ import {
   Footer,
   Activate,
   Profile,
+  Refunds,
 } from "./routes.js";
 
 const App = () => {
@@ -53,8 +54,8 @@ const App = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/refunds" element={<Refunds />} />
 
-            {/* apis */}
             <Route path="/activate/:activation_token" element={<Activate />} />
           </Routes>
           <Footer />
