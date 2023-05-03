@@ -11,5 +11,21 @@ import Order from "./pages/Order/Order";
 import Checkout from "./pages/Checkout/Checkout";
 import Payment from "./pages/Payment/Payment";
 import Activate from "./pages/Activate/Activate";
+import Profile from "./pages/Profile/Profile";
 
-export { Navbar, Home, Cart, Products, Product, Footer, Login, Register, Orders, Order, Checkout, Payment, Activate };
+export {
+  Navbar,
+  Home,
+  Cart,
+  Products,
+  Product,
+  Footer,
+  Login,
+  Register,
+  Orders,
+  Order,
+  Checkout,
+  Payment,
+  Activate,
+  Profile,
+};

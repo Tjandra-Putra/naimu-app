@@ -21,7 +21,7 @@ const Orders = () => {
         <div className="orders">
           <div className="row">
             <div className="col-md-3">
-              <SideNavbar />
+              <SideNavbar activeLink="orders" />
             </div>
             <div className="col-md-9">
               <div className="card">
