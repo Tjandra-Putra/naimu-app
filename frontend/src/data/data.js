@@ -190,4 +190,42 @@ export const productList = [
     product_unit_sold: 320,
     quantity_in_stock: 3,
   },
+  {
+    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003e",
+    product_category: "T-shirts",
+    product_title: "Nike Sportswear",
+    product_description:
+      "Drape yourself in comfortable, loose cotton. A patchwork bear graphic on the back celebrates the Nike logos of the past.",
+    product_image_url: [
+      {
+        public_id: "test",
+        url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f57c76d1-0aa3-4bd3-9a2a-3dda917abfa5/sportswear-t-shirt-8xf1GD.png",
+      },
+      {
+        public_id: "test",
+        url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/53d4d0da-e704-4824-af2e-c6e66bcc4e10/sportswear-t-shirt-8xf1GD.png",
+      },
+      {
+        public_id: "test",
+        url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/9092d78f-7a9f-44f6-bae4-2b13b31dd28c/sportswear-t-shirt-8xf1GD.png",
+      },
+      {
+        public_id: "test",
+        url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8489126d-1054-44a9-b79a-9a701d05b13b/sportswear-t-shirt-8xf1GD.png",
+      },
+    ],
+    shop: {
+      name: "Nike",
+      shop_avatar: {
+        public_id: "test",
+        url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
+      },
+      ratings: 4.8,
+    },
+    product_price: 59,
+    product_discount_price: 130,
+    product_rating: 5,
+    product_unit_sold: 320,
+    quantity_in_stock: 3,
+  },
 ];
