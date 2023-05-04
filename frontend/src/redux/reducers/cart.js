@@ -15,13 +15,7 @@ export const cartReducer = createReducer(initialState, (builder) => {
       const item = action.payload; // taken from actions. Which ever component dispatches the action, the payload will be the item.
       const itemExist = state.cart.find((i) => i._id === item._id && i.product_size === item.product_size);
 
-      // if (itemExist) {
-      //   return {
-      //     ...state,
-      //     cart: state.cart.map((i) =>
-      //       i._id === itemExist._id && i.product_size === itemExist.product_size ? item : i
-      //     ),
-      //   };
+      // update quantity if item already exists in cart
       if (itemExist) {
         return {
           ...state,

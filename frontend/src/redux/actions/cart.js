@@ -2,9 +2,8 @@
 export const addToCart = (data) => async (dispatch, getState) => {
   dispatch({ type: "AddToCart", payload: data });
 
-  // localStorage.setItem("cartItems", JSON.stringify(getState().cart));
+  localStorage.setItem("cartItems", JSON.stringify(getState().cartReducer.cart));
 
-  console.log("===== actions =====");
   return data;
 };
 
