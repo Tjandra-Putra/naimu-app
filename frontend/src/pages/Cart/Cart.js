@@ -56,7 +56,10 @@ const Cart = () => {
                     cartItems.map((item, index) => (
                       <tr key={index}>
                         <td className="product-action">
-                          <div className="btn-delete" onClick={() => dispatch(removeFromCart(item._id))}>
+                          <div
+                            className="btn-delete"
+                            onClick={() => dispatch(removeFromCart({ _id: item._id, product_size: item.product_size }))}
+                          >
                             <i class="fas fa-times fa-lg"></i>
                           </div>
                         </td>
@@ -84,6 +87,9 @@ const Cart = () => {
                                   <option value="M" selected={item.product_size === "M"}>
                                     M
                                   </option>
+                                  <option value="L" selected={item.product_size === "L"}>
+                                    L
+                                  </option>
                                   <option value="XL" selected={item.product_size === "XL"}>
                                     XL
                                   </option>
@@ -92,10 +98,10 @@ const Cart = () => {
                               <div className="product-quantity ms-3">
                                 <select class="size-select form-select" aria-label="Default select example">
                                   <option disabled>Quantity</option>
-                                  <option value="1" selected={item.product_quantity === "1"}>
+                                  <option value="1" selected={item.product_quantity.toString() === "1"}>
                                     1
                                   </option>
-                                  <option value="2" selected={item.product_quantity === "2"}>
+                                  <option value="2" selected={item.product_quantity.toString() === "2"}>
                                     2
                                   </option>
                                   <option value="3" selected={item.product_quantity.toString() === "3"}>

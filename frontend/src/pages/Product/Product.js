@@ -49,7 +49,7 @@ const Product = () => {
       _id: product._id,
       product_title: product.product_title,
       product_image_url: product.product_image_url[0].url,
-      product_price: product.product_price,
+      product_price: product.product_discount_price,
       product_size: availableSizes[selectedSize - 1].size,
       product_quantity: 1,
       product_shop_name: product.shop.name,
