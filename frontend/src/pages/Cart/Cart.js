@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addToCart, removeFromCart } from "../../redux/actions/cart";
+import { addToCart, removeFromCart, updateCart } from "../../redux/actions/cart";
 import "./Cart.css";
 
 const Cart = () => {
@@ -9,6 +9,40 @@ const Cart = () => {
 
   const { cart } = useSelector((state) => state.cartReducer);
   const cartItems = cart;
+
+  const sizeChangeHandler = (event, _id, product_size) => {
+    const updatedProductSize = event.target.value;
+
+    // notify cannot update size if size already exists in cart
+    const itemExist = cartItems.find((i) => i._id === _id && i.product_size === updatedProductSize);
+    if (itemExist) {
+      alert("Cannot update size. Size already exists in cart.");
+
+      event.target.value = product_size;
+
+      return;
+    }
+
+    dispatch(
+      updateCart({
+        _id: _id,
+        product_size: product_size,
+        updatedProductSize: updatedProductSize,
+      })
+    );
+  };
+
+  const quantityChangeHandler = (event, _id, product_size, product_quantity) => {
+    const updatedProductQuantity = event.target.value;
+
+    dispatch(
+      updateCart({
+        _id: _id,
+        product_size: product_size,
+        product_quantity: Number.parseInt(updatedProductQuantity),
+      })
+    );
+  };
 
   // const cartItems = [
   //   {
@@ -75,7 +109,13 @@ const Cart = () => {
                             <div className="product-store">{item.product_shop_name}</div>
                             <div className="d-flex flex-row">
                               <div className="product-size">
-                                <select class="size-select form-select" aria-label="Default select example">
+                                <select
+                                  class="size-select form-select"
+                                  aria-label="Default select example"
+                                  onChange={(event) =>
+                                    sizeChangeHandler(event, item._id, item.product_size, item.product_quantity)
+                                  }
+                                >
                                   <option disabled>Size</option>
                                   {/* select size according to cartItems */}
                                   <option value="XS" selected={item.product_size === "XS"}>
@@ -96,7 +136,13 @@ const Cart = () => {
                                 </select>
                               </div>
                               <div className="product-quantity ms-3">
-                                <select class="size-select form-select" aria-label="Default select example">
+                                <select
+                                  class="size-select form-select"
+                                  aria-label="Default select example"
+                                  onChange={(event) =>
+                                    quantityChangeHandler(event, item._id, item.product_size, item.product_quantity)
+                                  }
+                                >
                                   <option disabled>Quantity</option>
                                   <option value="1" selected={item.product_quantity.toString() === "1"}>
                                     1
