@@ -107,7 +107,7 @@ const Navbar = () => {
                           const productTitle = result.product_title.replace(/\s+/g, "-");
                           return (
                             <Link
-                              to={`/products/${result.product_id}`}
+                              to={`/products/${result._id}`}
                               key={index}
                               className="text-decoration-none"
                               onClick={() => setSearchResults([])}
@@ -157,9 +157,9 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item nav-link-size">
-                <Link class="nav-link position-relative" to="/cart">
+                <Link className="nav-link position-relative" to="/cart">
                   <i className="fas fa-shopping-cart ps-0"></i>
-                  <span class="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">2</span>
+                  <span className="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">2</span>
                 </Link>
               </li>
             </ul>

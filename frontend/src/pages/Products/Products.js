@@ -221,7 +221,7 @@ const Products = () => {
                   ? productList.map((item, index) => (
                       <div className="col-md-4" key={index}>
                         <ProductCard
-                          productId={item.product_id}
+                          productId={item._id}
                           productStore={item.shop.name}
                           productTitle={item.product_title}
                           productPrice={item.product_price}

@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 
 import "./Product.css";
 import Rating from "../../components/Rating/Rating";
 import Reviews from "../../components/Reviews/Reviews";
 import { productList } from "../../data/data";
+import { addToCart } from "../../redux/actions/cart";
 
 const Product = () => {
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  // redux state
+  const { cart } = useSelector((state) => state.cartReducer);
+  const dispatch = useDispatch();
+
   // get product id from route parameter
   const { id } = useParams();
   const [selectedSize, setSelectedSize] = useState(null);
@@ -20,30 +31,62 @@ const Product = () => {
   ];
 
   // get specific product from productList
-  const product = productList.find((item) => item.product_id === id);
+  const product = productList.find((item) => item._id === id);
 
   const setSizeHandler = (size) => {
     setSelectedSize(size);
   };
 
+  const addToCartHandler = () => {
+    // if size is not selected, alert user
+    if (!selectedSize) {
+      notifyError("Please select a size");
+      return;
+    }
+
+    // if size is selected, add to cart
+    const newCart = {
+      _id: product._id,
+      product_title: product.product_title,
+      product_image_url: product.product_image_url[0].url,
+      product_price: product.product_price,
+      product_size: availableSizes[selectedSize - 1].size,
+      product_quantity: 1,
+    };
+
+    const itemExist =
+      cart && cart.find((item) => item._id === product._id && item.product_size === newCart.product_size);
+    if (itemExist) {
+      // if item in cart, update qty only
+      dispatch(addToCart(newCart));
+      notifyError("Existing item has been updated in cart");
+      return;
+    } else {
+      dispatch(addToCart(newCart));
+      notifySuccess("Item added to cart");
+    }
+  };
+
   return (
     <div className="product-wrapper">
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="container">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item text-muted">
+          <ol className="breadcrumb">
+            <Link to="/" className="breadcrumb-item text-muted">
               Home
             </Link>
-            <Link to="/" class="breadcrumb-item text-muted">
+            <Link to="/" className="breadcrumb-item text-muted">
               Adidas
             </Link>
-            <Link to="/products" class="breadcrumb-item text-muted">
+            <Link to="/products" className="breadcrumb-item text-muted">
               Browse
             </Link>
-            <li class="breadcrumb-item text-muted" aria-current="page">
+            <li className="breadcrumb-item text-muted" aria-current="page">
               {product.product_category}
             </li>
-            <li class="breadcrumb-item" aria-current="page">
+            <li className="breadcrumb-item" aria-current="page">
               {product.product_title}
             </li>
           </ol>
@@ -64,11 +107,11 @@ const Product = () => {
               </div>
 
               <div className="product-info">
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
+                <div className="accordion accordion-flush" id="accordionFlushExample">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne"
@@ -80,16 +123,16 @@ const Product = () => {
                     </h2>
                     <div
                       id="flush-collapseOne"
-                      class="accordion-collapse collapse show"
+                      className="accordion-collapse collapse show"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">{product.product_description}</div>
+                      <div className="accordion-body">{product.product_description}</div>
                     </div>
                   </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseTwo"
@@ -102,10 +145,10 @@ const Product = () => {
                     </h2>
                     <div
                       id="flush-collapseTwo"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         <p>Your order of S$75 or more gets free standard delivery.</p>
                         <ul>
                           <li>Standard delivered 1-3 Business Days</li>
@@ -117,10 +160,10 @@ const Product = () => {
                       </div>
                     </div>
                   </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree"
@@ -137,19 +180,19 @@ const Product = () => {
                     </h2>
                     <div
                       id="flush-collapseThree"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         <Reviews />
                       </div>
                     </div>
                   </div>
 
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseFour"
@@ -169,10 +212,10 @@ const Product = () => {
                     </h2>
                     <div
                       id="flush-collapseFour"
-                      class="accordion-collapse collapse"
+                      className="accordion-collapse collapse"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         <button className="btn btn-outline-dark">Send a message</button>
                       </div>
                     </div>
@@ -229,14 +272,14 @@ const Product = () => {
                 </div>
               </div>
 
-              <div class="d-grid gap-2 mt-3">
+              <div className="d-grid gap-2 mt-3">
                 {product.quantity_in_stock > 0 ? (
-                  <button class="btn btn-dark btn-lg rounded-1" type="button">
+                  <button className="btn btn-dark btn-lg rounded-1" onClick={() => addToCartHandler()}>
                     Add to Cart
                   </button>
                 ) : null}
 
-                <button class="btn btn-outline-dark btn-lg rounded-1 mt-1" type="button">
+                <button className="btn btn-outline-dark btn-lg rounded-1 mt-1" type="button">
                   Add to Wishlist
                 </button>
               </div>

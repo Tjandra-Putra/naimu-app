@@ -1,7 +1,7 @@
 // product Data
 export const productList = [
   {
-    product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+    _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
     product_category: "Pants",
     product_title: "Adidas Rekive Woven Track Pants",
     product_description:
@@ -31,7 +31,7 @@ export const productList = [
     quantity_in_stock: 0,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac12000a",
+    _id: "a11b90a4-e70a-11ed-a05b-0242ac12000a",
     product_category: "Jacket",
     product_title: "Adidas Rekive Woven Track Jacket",
     product_description:
@@ -69,7 +69,7 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003b",
+    _id: "a11b90a4-e70a-11ed-a05b-0242ac120003b",
     product_category: "Slides",
     product_title: "Island Club Adilette Premium Slides",
     product_description:
@@ -115,7 +115,7 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003c",
+    _id: "a11b90a4-e70a-11ed-a05b-0242ac120003c",
     product_category: "Shorts",
     product_title: "X-city heat.rdy shorts",
     product_description:
@@ -153,7 +153,7 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003d",
+    _id: "a11b90a4-e70a-11ed-a05b-0242ac120003d",
     product_category: "Sweatshirts",
     product_title: "Adidas Basketball Crew Sweatshirt",
     product_description:
@@ -191,7 +191,7 @@ export const productList = [
     quantity_in_stock: 3,
   },
   {
-    product_id: "a11b90a4-e70a-11ed-a05b-0242ac120003e",
+    _id: "a11b90a4-e70a-11ed-a05b-0242ac120003e",
     product_category: "T-shirts",
     product_title: "Nike Sportswear",
     product_description:

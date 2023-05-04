@@ -173,7 +173,7 @@ const Home = () => {
               ? productList.slice(0, 4).map((item, index) => (
                   <div className="col-md-3">
                     <ProductCard
-                      productId={item.product_id}
+                      productId={item._id}
                       productStore={item.shop.name}
                       productTitle={item.product_title}
                       productPrice={item.product_price}
