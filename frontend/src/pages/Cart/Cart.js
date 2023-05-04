@@ -53,6 +53,14 @@ const Cart = () => {
     notifySuccess("Quantity updated.");
   };
 
+  // compute total price
+  let totalPrice = 0;
+  if (cartItems) {
+    totalPrice = cart.reduce((acc, item) => {
+      return acc + item.product_price * item.product_quantity;
+    }, 0);
+  }
+
   // const cartItems = [
   //   {
   //     product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
@@ -204,8 +212,8 @@ const Cart = () => {
                 <div className="title">Summary</div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>Items x2</div>
-                  <div>$139</div>
+                  <div>Items x{cartItems && cartItems.length}</div>
+                  <div>${totalPrice}</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
@@ -215,7 +223,7 @@ const Cart = () => {
 
                 <div className="summary-total d-flex flex-row justify-content-between">
                   <div>Total</div>
-                  <div>$139</div>
+                  <div>${totalPrice}</div>
                 </div>
 
                 {/* <div class="input-promo form-floating my-3">
