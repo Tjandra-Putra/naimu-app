@@ -1,30 +1,27 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import { addToCart, removeFromCart } from "../../redux/actions/cart";
 import "./Cart.css";
 
 const Cart = () => {
-  const cartItems = [
-    {
-      product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
-      product_title: "Adidas Rekive Woven Track Pants",
-      product_image_url:
-        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
-      product_price: 139,
-      product_shop_name: "Adidas",
-      product_size: "M",
-      product_quantity: 3,
-    },
-    {
-      product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
-      product_title: "Adidas Rekive Woven Track Shirts",
-      product_image_url:
-        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
-      product_price: 150,
-      product_shop_name: "Adidas",
-      product_size: "XS",
-      product_quantity: 1,
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const { cart } = useSelector((state) => state.cartReducer);
+  const cartItems = cart;
+
+  // const cartItems = [
+  //   {
+  //     product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
+  //     product_title: "Adidas Rekive Woven Track Pants",
+  //     product_image_url:
+  //       "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
+  //     product_price: 139,
+  //     product_shop_name: "Adidas",
+  //     product_size: "M",
+  //     product_quantity: 3,
+  //   }
+  // ];
 
   return (
     <div className="cart-wrapper">
@@ -59,19 +56,19 @@ const Cart = () => {
                     cartItems.map((item, index) => (
                       <tr key={index}>
                         <td className="product-action">
-                          <div className="btn-delete">
+                          <div className="btn-delete" onClick={() => dispatch(removeFromCart(item._id))}>
                             <i class="fas fa-times fa-lg"></i>
                           </div>
                         </td>
                         <td className="product-img">
-                          <Link to={`/products/${item.product_id}`}>
+                          <Link to={`/products/${item._id}`}>
                             <img src={item.product_image_url} alt="" className="img-fluid" />
                           </Link>
                         </td>
                         <td className="product-description">
                           <div className="d-flex flex-column">
                             <div className="product-title">{item.product_title}</div>
-                            <div className="product-id">Product ID: {item.product_id}</div>
+                            <div className="product-id">Product ID: {item._id}</div>
                             <div className="product-store">{item.product_shop_name}</div>
                             <div className="d-flex flex-row">
                               <div className="product-size">

@@ -7,6 +7,7 @@ import { productList } from "../../../data/data";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+  const { cart } = useSelector((state) => state.cartReducer);
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
@@ -159,7 +160,9 @@ const Navbar = () => {
               <li className="nav-item nav-link-size">
                 <Link className="nav-link position-relative" to="/cart">
                   <i className="fas fa-shopping-cart ps-0"></i>
-                  <span className="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">2</span>
+                  <span className="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">
+                    {cart.length}
+                  </span>
                 </Link>
               </li>
             </ul>

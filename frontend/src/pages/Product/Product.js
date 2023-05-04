@@ -52,6 +52,7 @@ const Product = () => {
       product_price: product.product_price,
       product_size: availableSizes[selectedSize - 1].size,
       product_quantity: 1,
+      product_shop_name: product.shop.name,
     };
 
     const itemExist =
@@ -59,7 +60,7 @@ const Product = () => {
     if (itemExist) {
       // if item in cart, update qty only
       dispatch(addToCart(newCart));
-      notifyError("Existing item has been updated in cart");
+      notifySuccess("Item quantity updated in cart");
       return;
     } else {
       dispatch(addToCart(newCart));
@@ -99,7 +100,7 @@ const Product = () => {
                 {/* product images */}
                 {product && productList.length > 0
                   ? product.product_image_url.map((item, index) => (
-                      <div className="col-md-6">
+                      <div className="col-md-6" key={index}>
                         <img src={item.url} alt={item.url} className="img-fluid" />
                       </div>
                     ))
