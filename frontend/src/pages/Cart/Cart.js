@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 
-import { addToCart, removeFromCart, updateCart } from "../../redux/actions/cart";
+import { removeFromCart, updateCart } from "../../redux/actions/cart";
 import "./Cart.css";
 
 const Cart = () => {
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
   const dispatch = useDispatch();
 
   const { cart } = useSelector((state) => state.cartReducer);
@@ -16,7 +21,7 @@ const Cart = () => {
     // notify cannot update size if size already exists in cart
     const itemExist = cartItems.find((i) => i._id === _id && i.product_size === updatedProductSize);
     if (itemExist) {
-      alert("Cannot update size. Size already exists in cart.");
+      notifyError("Cannot update size. Size already exists in cart.");
 
       event.target.value = product_size;
 
@@ -30,6 +35,8 @@ const Cart = () => {
         updatedProductSize: updatedProductSize,
       })
     );
+
+    notifySuccess("Size updated.");
   };
 
   const quantityChangeHandler = (event, _id, product_size, product_quantity) => {
@@ -42,6 +49,8 @@ const Cart = () => {
         product_quantity: Number.parseInt(updatedProductQuantity),
       })
     );
+
+    notifySuccess("Quantity updated.");
   };
 
   // const cartItems = [
