@@ -248,7 +248,7 @@ const Product = () => {
                   %
                 </span>
                 {product.quantity_in_stock < 10 && product.quantity_in_stock !== 0 ? (
-                  <span className="stock-status-low">low in stock</span>
+                  <span className="stock-status-low">only {product.quantity_in_stock} left</span>
                 ) : null}
                 {product.quantity_in_stock === 0 ? <span className="stock-status-none">sold out</span> : null}
               </div>

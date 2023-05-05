@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import { removeFromCart, updateCart } from "../../redux/actions/cart";
+import { productList } from "../../data/data";
 import shoppingCartImage from "../../assets/images/shopping-cart.png";
 import "./Cart.css";
 
@@ -40,8 +41,18 @@ const Cart = () => {
     notifySuccess("Size updated.");
   };
 
-  const quantityChangeHandler = (event, _id, product_size) => {
+  const quantityChangeHandler = (event, _id, product_size, product_quantity) => {
     const updatedProductQuantity = event.target.value;
+
+    // check if exceeds stock
+    const product = productList.find((i) => i._id === _id);
+    if (updatedProductQuantity > product.quantity_in_stock) {
+      notifyError("Cannot update quantity. Quantity exceeds stock.");
+
+      event.target.value = product_quantity;
+
+      return;
+    }
 
     dispatch(
       updateCart({
