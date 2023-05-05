@@ -161,7 +161,7 @@ const Navbar = () => {
                 <Link className="nav-link position-relative" to="/cart">
                   <i className="fas fa-shopping-cart ps-0"></i>
                   <span className="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">
-                    {cart.length}
+                    {cart && cart.length}
                   </span>
                 </Link>
               </li>
