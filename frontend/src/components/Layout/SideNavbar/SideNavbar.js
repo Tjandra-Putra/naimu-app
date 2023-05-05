@@ -47,12 +47,12 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Address
         </Link>
-        <Link to="/logout" class={`list-group-item ${activeLink === "logout" ? "active" : ""}`}>
+        <div to="/logout" class={`list-group-item ${activeLink === "logout" ? "active" : ""}`}>
           <span>
             <i class="fas fa-sign-out me-3"></i>
           </span>
           Logout
-        </Link>
+        </div>
       </ul>
     </div>
   );

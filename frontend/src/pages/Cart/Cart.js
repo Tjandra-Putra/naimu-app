@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import { removeFromCart, updateCart } from "../../redux/actions/cart";
+import shoppingCartImage from "../../assets/images/shopping-cart.png";
 import "./Cart.css";
 
 const Cart = () => {
@@ -39,7 +40,7 @@ const Cart = () => {
     notifySuccess("Size updated.");
   };
 
-  const quantityChangeHandler = (event, _id, product_size, product_quantity) => {
+  const quantityChangeHandler = (event, _id, product_size) => {
     const updatedProductQuantity = event.target.value;
 
     dispatch(
@@ -93,18 +94,18 @@ const Cart = () => {
             <div className="card">
               <div className="title">Shopping Cart</div>
 
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cartItems ? (
-                    cartItems.map((item, index) => (
+              {cartItems ? (
+                cartItems.map((item, index) => (
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       <tr key={index}>
                         <td className="product-action">
                           <div
@@ -198,12 +199,23 @@ const Cart = () => {
                         </td>
                         <td>${item.product_price * item.product_quantity}</td>
                       </tr>
-                    ))
-                  ) : (
-                    <p>Cart is empty.</p>
-                  )}
-                </tbody>
-              </table>
+                    </tbody>
+                  </table>
+                ))
+              ) : (
+                <h2>Cart is empty.</h2>
+              )}
+
+              {cartItems.length === 0 ? (
+                <div className="cart-empty">
+                  <img src={shoppingCartImage} alt={shoppingCartImage} className="img-fluid cart-icon" />
+                  <div className="text">Your cart is empty</div>
+                  <div className="sub-text">Add something to make me happy :)</div>
+                  <Link to="/products" className="btn btn-browse">
+                    Continue shopping
+                  </Link>
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="col-md-4">
@@ -226,10 +238,6 @@ const Cart = () => {
                   <div>${totalPrice}</div>
                 </div>
 
-                {/* <div class="input-promo form-floating my-3">
-                  <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" />
-                  <label for="floatingInput">Enter your promo code</label>
-                </div> */}
                 <div className="buttons my-3">
                   <div class="d-grid gap-2">
                     <Link to="/checkout" class="btn btn-dark btn-lg rounded-1">

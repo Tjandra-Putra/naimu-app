@@ -12,6 +12,7 @@ const ProtectedRoute = ({ children }) => {
       notifyError("Please login to access this page");
       return <Navigate to="/login" replace />;
     }
+
     return children;
   }
 };
