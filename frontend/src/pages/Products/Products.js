@@ -1,10 +1,24 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./Products.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { productList } from "../../data/data";
+// import { productList } from "../../data/data";
 
 const Products = () => {
+  const [productList, setProductList] = useState([]); // [state, setState]
+
+  // import product from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get("http://localhost:8000/api/v2/product/all-products");
+      setProductList(data.products);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div className="products-wrapper">
       <div className="container">
