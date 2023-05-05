@@ -123,7 +123,7 @@ const Profile = () => {
                           <input type="text" name="email" id="email" className="form-control" value={userId} disabled />
                         </div> */}
                       </div>
-                      <button className="btn btn-dark btn-success" type="submit">
+                      <button className="btn btn-save btn-success" type="submit">
                         Save Changes
                       </button>
                     </div>

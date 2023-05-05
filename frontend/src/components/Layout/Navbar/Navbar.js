@@ -137,7 +137,7 @@ const Navbar = () => {
 
               {isAuthenticated && user.user.avatar ? (
                 <li className="nav-item nav-link-size">
-                  <Link className="nav-link" to="/orders">
+                  <Link className="nav-link" to="/profile">
                     <img
                       src={`http://localhost:8000/${user.user.avatar}`}
                       alt={user.user.avatar}

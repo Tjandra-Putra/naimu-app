@@ -22,4 +22,6 @@
 
 .side-navbar-wrapper .active {
   background-color: #1c1d1c;
+  /* background-color: #0071ae; */
+  font-weight: 500;
 }

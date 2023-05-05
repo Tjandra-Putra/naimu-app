@@ -41,3 +41,12 @@
 .profile-wrapper .form-label {
   font-weight: 500;
 }
+
+.profile-wrapper .form-control {
+  border: 1px solid #000000;
+}
+
+.profile-wrapper .btn-save {
+  background-color: #0071ae;
+  font-weight: 500;
+}
