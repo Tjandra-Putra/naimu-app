@@ -101,7 +101,9 @@ const Product = () => {
                 {product && productList.length > 0
                   ? product.product_image_url.map((item, index) => (
                       <div className="col-md-6" key={index}>
-                        <img src={item.url} alt={item.url} className="img-fluid" />
+                        <div className="product-img-container">
+                          <img src={item.url} alt={item.url} className="img-fluid product-img" />
+                        </div>
                       </div>
                     ))
                   : null}
