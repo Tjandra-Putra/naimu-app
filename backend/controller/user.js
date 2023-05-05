@@ -81,7 +81,7 @@ const createActivationToken = (payload) => {
   return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, { expiresIn: "5m" });
 };
 
-// =============================== activate user account ===============================
+// =============================== activate and create user account ===============================
 router.post(
   "/user/activate",
   catchAsyncError(async (req, res, next) => {
@@ -220,6 +220,23 @@ router.get(
       res.status(200).json({
         success: true,
         message: "Logged out.",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// =============================== get all users ===============================
+router.get(
+  "/user/users",
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const users = await User.find();
+
+      res.status(200).json({
+        success: true,
+        users,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));

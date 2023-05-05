@@ -27,8 +27,10 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 
 // import routes from controller
 const user = require("./controller/user"); // user/create-user
+const product = require("./controller/product"); // products
 
 app.use("/api/v2", user); // localhost:8000/api/v2/user/create-user
+app.use("/api/v2", product); // localhost:8000/api/v2/products
 
 // app error handler
 app.use(ErrorHandler);
