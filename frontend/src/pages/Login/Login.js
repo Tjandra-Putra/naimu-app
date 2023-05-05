@@ -53,8 +53,6 @@ const Login = () => {
 
   return (
     <div className="login-wrapper">
-      <Toaster />
-
       <div className="container">
         <div className="row">
           <div className="col-md-4"></div>
