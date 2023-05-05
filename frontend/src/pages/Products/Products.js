@@ -45,8 +45,9 @@ const Products = () => {
                               type="checkbox"
                               value={item.product_category}
                               name="category"
+                              id={item.product_category}
                             />
-                            <label className="form-check-label ms-2" for="firstCheckbox">
+                            <label className="form-check-label ms-2" for={item.product_category}>
                               {item.product_category}
                             </label>
                           </li>
@@ -71,14 +72,14 @@ const Products = () => {
                 <div id="collapseTwo" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="adidas" />
+                      <label className="form-check-label ms-2" for="adidas">
                         Adidas
                       </label>
                     </li>
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="nike" />
+                      <label className="form-check-label ms-2" for="nike">
                         Nike
                       </label>
                     </li>
@@ -101,14 +102,14 @@ const Products = () => {
                 <div id="collapseThree" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="$20 - $50" />
+                      <label className="form-check-label ms-2" for="$20 - $50">
                         $20 - $50
                       </label>
                     </li>
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="$20 - $50" />
+                      <label className="form-check-label ms-2" for="$51 - $100">
                         $51 - $100
                       </label>
                     </li>
@@ -131,32 +132,32 @@ const Products = () => {
                 <div id="collapseFour" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="xs" />
+                      <label className="form-check-label ms-2" for="xs">
                         Extra Small
                       </label>
                     </li>
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="s" />
+                      <label className="form-check-label ms-2" for="s">
                         Small
                       </label>
                     </li>
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="m" />
+                      <label className="form-check-label ms-2" for="m">
                         Medium
                       </label>
                     </li>
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="" id="l" />
+                      <label className="form-check-label ms-2" for="l">
                         Large
                       </label>
                     </li>
                     <li className="list-group-item mb-2">
-                      <input className="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" />
-                      <label className="form-check-label ms-2" for="firstCheckbox">
+                      <input className="form-check-input me-1" type="checkbox" value="xl" />
+                      <label className="form-check-label ms-2" for="xl">
                         Extra Large
                       </label>
                     </li>

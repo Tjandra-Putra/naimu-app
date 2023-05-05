@@ -3,10 +3,6 @@
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 }
 
-/* .productcard-wrapper .card:hover {
-  border: 1px solid #000 !important;
-} */
-
 .productcard-wrapper .tag {
   background-color: #dddddd6e;
   padding: 7px;
@@ -14,13 +10,17 @@
 }
 
 .productcard-wrapper .title,
-.price,
-.category {
+.productcard-wrapper .category,
+.productcard-wrapper .price {
   text-transform: capitalize !important;
   font-size: 1rem;
   font-weight: 500 !important;
   line-height: 1.3rem;
   margin-bottom: 0.5rem;
+}
+
+.productcard-wrapper .price {
+  margin-top: 0.5rem;
 }
 
 .productcard-wrapper .category {
@@ -60,7 +60,6 @@
 
 .productcard-wrapper .card-img-top {
   width: 100%;
-
   height: 300px;
   object-fit: cover;
 }
