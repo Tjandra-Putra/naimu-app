@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { loadUser } from "./redux/actions/user.js";
 import { useSelector } from "react-redux";
 import React from "react";
+import { PersistGate } from "redux-persist/integration/react"; // import PersistGate
 
-import Store from "./redux/store.js";
+import { store, persistor } from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -31,17 +32,14 @@ const App = () => {
   const { loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
-    Store.dispatch(loadUser());
+    store.dispatch(loadUser());
   }, []);
 
   return (
     <React.Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
-        <BrowserRouter>
-          <Toaster />
-
+      <BrowserRouter>
+        <Toaster />
+        <PersistGate loading={<Loader />} persistor={persistor}>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -88,8 +86,8 @@ const App = () => {
             <Route path="/activate/:activation_token" element={<Activate />} />
           </Routes>
           <Footer />
-        </BrowserRouter>
-      )}
+        </PersistGate>
+      </BrowserRouter>
     </React.Fragment>
   );
 };

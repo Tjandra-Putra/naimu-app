@@ -20,3 +20,28 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+
+// Update user profile
+export const updateProfile =
+  ({ email, password, phoneNumber, fullName }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: "UpdateProfileRequest" });
+
+      const { data } = await axios.put(
+        `${server}/user/update-profile`,
+        { email, password, phoneNumber, fullName },
+        { withCredentials: true }
+      );
+
+      dispatch({
+        type: "UpdateProfileSuccess",
+        payload: data.user,
+      });
+    } catch (error) {
+      dispatch({
+        type: "UpdateProfileFail",
+        payload: error.response.data.message,
+      });
+    }
+  };

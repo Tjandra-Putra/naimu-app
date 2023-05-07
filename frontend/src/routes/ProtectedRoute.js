@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const ProtectedRoute = ({ children }) => {
   const { loading, isAuthenticated } = useSelector((state) => state.userReducer);
@@ -12,9 +12,9 @@ const ProtectedRoute = ({ children }) => {
       notifyError("Please login to access this page");
       return <Navigate to="/login" replace />;
     }
-
-    return children;
   }
+
+  return children;
 };
 
 export default ProtectedRoute;

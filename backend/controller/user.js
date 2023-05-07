@@ -245,3 +245,51 @@ router.get(
 );
 
 module.exports = router;
+
+// =============================== update user profile ===============================
+router.put(
+  "/user/update-profile",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const { email, password, phoneNumber, fullName } = req.body; // coming from frontend, these properties have to follow client side
+
+      const user = await User.findOne({ email }).select("+password"); // .select("+password") is a Mongoose method that specifies that the password field should be included in the retrieved document
+
+      if (!user) {
+        res.status(404).json({
+          success: false,
+          message: "User not found.",
+        });
+
+        return next(new ErrorHandler("User not found.", 404));
+      }
+
+      const isPasswordValid = await user.comparePassword(password); // this "comparePassword" is a custom method from model/user.js
+
+      if (!isPasswordValid) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "Invalid password.",
+        });
+
+        return next(new ErrorHandler("Invalid password.", 400));
+      }
+
+      user.email = email;
+      user.password = password;
+      user.phoneNumber = phoneNumber;
+      user.fullName = fullName;
+
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        user,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);

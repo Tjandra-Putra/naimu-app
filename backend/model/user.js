@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   phoneNumber: {
-    type: Number,
+    type: String,
+    default: "",
   },
   addresses: [
     {
@@ -73,7 +74,7 @@ userSchema.methods.getJwtToken = function () {
 
 // comapre password
 userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return await bcrypt.compare(enteredPassword, this.password); // this.password refers to the password value that is being hashed in the userSchema.pre("save")
 };
 
 module.exports = mongoose.model("User", userSchema);

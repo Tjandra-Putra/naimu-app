@@ -4,7 +4,8 @@ import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
   //  if it exists and is a valid JSON string. If it doesn't exist or is not a valid JSON string, it initializes cart as an empty array:
-  cart: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
+  // cart: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
+  cart: [],
   totalPrice: 0,
 };
 

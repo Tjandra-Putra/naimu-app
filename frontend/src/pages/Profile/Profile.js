@@ -1,23 +1,47 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import "./Profile.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { updateProfile } from "../../redux/actions/user";
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  const dispatch = useDispatch();
+
+  const { user, error } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+
   const [fullName, setFullName] = useState(user && user.user.fullName);
   const [email, setEmail] = useState(user && user.user.email);
+  const [phoneNumber, setPhoneNumber] = useState(user && user.user.phoneNumber);
+  const [password, setPassword] = useState(user && user.user.password);
   const [birthday, setBirthday] = useState(user && new Date(user.user.birthday).toISOString().substring(0, 10));
   const [avatar, setAvatar] = useState(user && user.user.avatar);
   const [userId, setUserId] = useState(user && user.user._id);
 
-  console.log(user);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
+
+    console.log(password);
+
+    if (!password) {
+      notifyError("Please enter your password");
+      return;
+    }
+
+    const data = {
+      email,
+      password,
+      phoneNumber,
+      fullName,
+    };
+
+    dispatch(updateProfile(data));
   };
 
   return (
@@ -53,13 +77,28 @@ const Profile = () => {
                           <label htmlFor="name" className="form-label">
                             Full Name
                           </label>
-                          <input type="text" name="name" id="name" className="form-control" value={fullName} />
+                          <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            className="form-control"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                          />
                         </div>
                         <div className="col-md-6 mb-4">
                           <label htmlFor="email" className="form-label">
                             Email
                           </label>
-                          <input type="text" name="email" id="email" className="form-control" value={email} />
+                          <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            disabled
+                          />
                         </div>
                         <div className="col-md-6 mb-4">
                           <label htmlFor="phone-number" className="form-label">
@@ -70,7 +109,8 @@ const Profile = () => {
                             name="phone-number"
                             id="phone-number"
                             className="form-control"
-                            value={""}
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
                           />
                         </div>
 
@@ -85,7 +125,14 @@ const Profile = () => {
                           <label htmlFor="birthday" className="form-label">
                             Birthday
                           </label>
-                          <input type="date" name="birthday" id="birthday" className="form-control" value={birthday} />
+                          <input
+                            type="date"
+                            name="birthday"
+                            id="birthday"
+                            className="form-control"
+                            value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)}
+                          />
                         </div>
 
                         <div className="col-md-6 mb-4">
@@ -111,8 +158,8 @@ const Profile = () => {
                             name="password"
                             id="password"
                             className="form-control"
-                            value="password"
-                            disabled
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                           />
                         </div>
 
