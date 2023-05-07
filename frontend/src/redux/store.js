@@ -17,7 +17,14 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleware = [...getDefaultMiddleware(), logger];
+const middleware = [
+  ...getDefaultMiddleware({
+    thunk: true,
+    immutableCheck: true,
+    serializableCheck: false,
+  }),
+  logger,
+];
 
 const store = configureStore({
   reducer: persistedReducer,

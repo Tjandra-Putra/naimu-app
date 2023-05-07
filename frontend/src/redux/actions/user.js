@@ -31,12 +31,18 @@ export const updateProfile =
       const { data } = await axios.put(
         `${server}/user/update-profile`,
         { email, password, phoneNumber, fullName },
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
       );
 
       dispatch({
         type: "UpdateProfileSuccess",
-        payload: data.user,
+        payload: data,
+        successMessage: "Profile updated successfully",
       });
     } catch (error) {
       dispatch({

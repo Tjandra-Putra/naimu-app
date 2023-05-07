@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import "./Profile.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 import { updateProfile } from "../../redux/actions/user";
+import Loader from "../../components/Layout/Loader/Loader";
 
 const Profile = () => {
   // toast component
@@ -14,23 +15,34 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const { user, error } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+  const { user, error, success, loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
-  const [fullName, setFullName] = useState(user && user.user.fullName);
-  const [email, setEmail] = useState(user && user.user.email);
-  const [phoneNumber, setPhoneNumber] = useState(user && user.user.phoneNumber);
-  const [password, setPassword] = useState(user && user.user.password);
-  const [birthday, setBirthday] = useState(user && new Date(user.user.birthday).toISOString().substring(0, 10));
-  const [avatar, setAvatar] = useState(user && user.user.avatar);
-  const [userId, setUserId] = useState(user && user.user._id);
+  const [fullName, setFullName] = useState((user && user.user.fullName) || "");
+  const [email, setEmail] = useState((user && user.user.email) || "");
+  const [phoneNumber, setPhoneNumber] = useState((user && user.user.phoneNumber) || "");
+  const [password, setPassword] = useState("");
+  const [birthday, setBirthday] = useState((user && new Date(user.user.birthday).toISOString().substring(0, 10)) || "");
+  const [avatar, setAvatar] = useState((user && user.user.avatar) || "");
+
+  useEffect(() => {
+    console.log(success);
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (success) {
+      notifySuccess(success);
+
+      setPassword("");
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [success, error, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(password);
-
     if (!password) {
-      notifyError("Please enter your password");
+      notifyError("Please enter password");
       return;
     }
 
@@ -46,6 +58,7 @@ const Profile = () => {
 
   return (
     <div className="profile-wrapper">
+      {loading && <Loader />}
       <div className="container">
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
@@ -162,13 +175,6 @@ const Profile = () => {
                             onChange={(e) => setPassword(e.target.value)}
                           />
                         </div>
-
-                        {/* <div className="col-md-6 mb-4">
-                          <label htmlFor="email" className="form-label">
-                            Customer ID
-                          </label>
-                          <input type="text" name="email" id="email" className="form-control" value={userId} disabled />
-                        </div> */}
                       </div>
                       <button className="btn btn-save btn-success" type="submit">
                         Save Changes

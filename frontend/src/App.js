@@ -41,6 +41,7 @@ const App = () => {
         <Toaster />
         <PersistGate loading={<Loader />} persistor={persistor}>
           <Navbar />
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

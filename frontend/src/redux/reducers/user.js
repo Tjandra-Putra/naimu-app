@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   user: null,
   error: null,
+  success: null,
 };
 
 export const userReducer = createReducer(initialState, (builder) => {
@@ -33,6 +34,7 @@ export const userReducer = createReducer(initialState, (builder) => {
     .addCase("UpdateProfileSuccess", (state, action) => {
       state.loading = false;
       state.user = action.payload;
+      state.success = action.successMessage;
     })
 
     .addCase("UpdateProfileFail", (state, action) => {
@@ -42,5 +44,9 @@ export const userReducer = createReducer(initialState, (builder) => {
 
     .addCase("ClearErrors", (state) => {
       state.error = null;
+    })
+
+    .addCase("ClearSuccess", (state) => {
+      state.success = null;
     });
 });

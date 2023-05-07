@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 import "./Navbar.css";
-import { productList } from "../../../data/data";
+import Loader from "../Loader/Loader";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
@@ -11,6 +12,17 @@ const Navbar = () => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
+  const [productList, setProductList] = useState([]); // [state, setState]
+
+  // import product from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get("http://localhost:8000/api/v2/product/all-products");
+      setProductList(data.products);
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleSearchChange = (e) => {
     let term = e.target.value;
@@ -135,7 +147,7 @@ const Navbar = () => {
                 </div>
               </li>
 
-              {isAuthenticated && user.user.avatar ? (
+              {isAuthenticated && user ? (
                 <li className="nav-item nav-link-size">
                   <Link className="nav-link" to="/profile">
                     <img
