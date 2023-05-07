@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const ProtectedRoute = ({ children }) => {
-  const { loading, isAuthenticated } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+
+  const { loading, isAuthenticated, error } = useSelector((state) => state.userReducer);
 
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
@@ -13,6 +15,8 @@ const ProtectedRoute = ({ children }) => {
       return <Navigate to="/login" replace />;
     }
   }
+
+  dispatch({ type: "ClearErrors" });
 
   return children;
 };

@@ -25,7 +25,6 @@ const Profile = () => {
   const [avatar, setAvatar] = useState((user && user.user.avatar) || "");
 
   useEffect(() => {
-    console.log(success);
     if (error) {
       notifyError(error);
       dispatch({ type: "ClearErrors" });
