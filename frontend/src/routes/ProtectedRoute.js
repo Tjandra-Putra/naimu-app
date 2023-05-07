@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
 
-  const { loading, isAuthenticated, error } = useSelector((state) => state.userReducer);
+  const { loading, isAuthenticated } = useSelector((state) => state.userReducer);
 
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
