@@ -8,7 +8,7 @@ import { PersistGate } from "redux-persist/integration/react"; // import Persist
 
 import { store, persistor } from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
-import ProtectedRoute from "./routes/ProtectedRoute";
+import ProtectedRoute from "./routes/protectedRoute.js";
 
 import {
   Navbar,
@@ -26,7 +26,7 @@ import {
   Activate,
   Profile,
   Refunds,
-} from "./routes/Routes";
+} from "./routes/routes.js";
 
 const App = () => {
   const { loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
