@@ -8,7 +8,7 @@ import { PersistGate } from "redux-persist/integration/react"; // import Persist
 
 import { store, persistor } from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
-import ProtectedRoute from "./routes/protectedRoute.js";
+import ProtectedRoute from "./routes/protectedRoutes.js";
 
 import {
   Navbar,
