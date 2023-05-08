@@ -1,19 +1,26 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 import "./Product.css";
 import Rating from "../../components/Rating/Rating";
 import Reviews from "../../components/Reviews/Reviews";
-import { productList } from "../../data/data";
+import Loader from "../../components/Layout/Loader/Loader";
+
 import { addToCart } from "../../redux/actions/cart";
+import { server } from "../../server";
 
 const Product = () => {
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  const [productList, setProductList] = useState([]); // [state, setState]
+  const [isLoading, setIsLoading] = useState(true);
+  const [product, setProduct] = useState(null);
 
   // redux state
   const { cart } = useSelector((state) => state.cartReducer);
@@ -22,16 +29,31 @@ const Product = () => {
   // get product id from route parameter
   const { id } = useParams();
   const [selectedSize, setSelectedSize] = useState(null);
-  const availableSizes = [
+  const [availableSizes] = useState([
     { id: 1, size: "XS" },
     { id: 2, size: "S" },
     { id: 3, size: "M" },
     { id: 4, size: "L" },
     { id: 5, size: "XL" },
-  ];
+  ]);
+
+  // import product from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+
+      const { data } = await axios.get(`${server}/product/all-products`);
+      // setProductList(data.products);
+      setProduct(data.products.find((item) => item._id === id));
+
+      setIsLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
 
   // get specific product from productList
-  const product = productList.find((item) => item._id === id);
+  // const product = productList.find((item) => item._id === id);
 
   const setSizeHandler = (size) => {
     setSelectedSize(size);
@@ -68,10 +90,10 @@ const Product = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="product-wrapper">
-      <Toaster position="top-center" reverseOrder={false} />
-
       <div className="container">
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
@@ -98,7 +120,7 @@ const Product = () => {
             <div className="left-wrapper col-md-8">
               <div className="img-gallery row">
                 {/* product images */}
-                {product && productList.length > 0
+                {product
                   ? product.product_image_url.map((item, index) => (
                       <div className="col-md-6" key={index}>
                         <div className="product-img-container">
