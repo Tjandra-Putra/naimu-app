@@ -5,6 +5,7 @@ import axios from "axios";
 
 import "./Navbar.css";
 import Loader from "../Loader/Loader";
+import { server } from "../../../server";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
@@ -17,7 +18,7 @@ const Navbar = () => {
   // import product from backend
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get("http://localhost:8000/api/v2/product/all-products");
+      const { data } = await axios.get(`${server}/product/all-products`);
       setProductList(data.products);
     };
 

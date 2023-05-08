@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use("/", express.static("public/uploads"));
-app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" })); // extracts the body of an incoming HTTP request and makes it available in the req.body object of the subsequent handlers.
 
 // config
 if (process.env.NODE_ENV !== "PRODUCTION") {
@@ -29,8 +29,8 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 const user = require("./controller/user"); // user/create-user
 const product = require("./controller/product"); // products
 
-app.use("/api/v2", user); // localhost:8000/api/v2/user/create-user
-app.use("/api/v2", product); // localhost:8000/api/v2/products
+app.use("/api/v1", user); // localhost:8000/api/v1/user/create-user
+app.use("/api/v1", product); // localhost:8000/api/v1/products
 
 // app error handler
 app.use(ErrorHandler);

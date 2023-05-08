@@ -5,6 +5,7 @@ import axios from "axios";
 import "./Products.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Loader from "../../components/Layout/Loader/Loader";
+import { server } from "../../server";
 
 const Products = () => {
   const [productList, setProductList] = useState([]); // [state, setState]
@@ -15,7 +16,7 @@ const Products = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
 
-      const { data } = await axios.get("http://localhost:8000/api/v2/product/all-products");
+      const { data } = await axios.get(`${server}/product/all-products`);
       setProductList(data.products);
 
       setIsLoading(false);

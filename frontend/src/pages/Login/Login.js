@@ -41,7 +41,7 @@ const Login = () => {
         console.log(res.data);
 
         setTimeout(() => {
-          navigate("/");
+          navigate("/products");
           window.location.reload();
         }, 2000);
       })

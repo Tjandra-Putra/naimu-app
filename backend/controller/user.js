@@ -229,7 +229,7 @@ router.get(
 
 // =============================== get all users ===============================
 router.get(
-  "/user/users",
+  "/user/all-users",
   catchAsyncError(async (req, res, next) => {
     try {
       const users = await User.find();

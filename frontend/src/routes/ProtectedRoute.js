@@ -1,22 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { loading, isAuthenticated } = useSelector((state) => state.userReducer);
 
-  const notifyError = (message) => toast.error(message, { duration: 5000 });
-
   if (!loading) {
     if (!isAuthenticated) {
-      notifyError("Please login to access this page");
+      dispatch({ type: "ClearErrors" });
+
       return <Navigate to="/login" replace />;
     }
   }
 
-  dispatch({ type: "ClearErrors" });
+  // clear errors on the redux when user was trying to access a protected route
 
   return children;
 };
