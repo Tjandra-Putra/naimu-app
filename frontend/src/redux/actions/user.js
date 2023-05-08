@@ -51,3 +51,22 @@ export const updateProfile =
       });
     }
   };
+
+// logout user
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({ type: "LogoutRequest" });
+
+    // backend logout
+    await axios.get(`${server}/user/logout`, { withCredentials: true });
+
+    dispatch({
+      type: "LogoutSuccess",
+    });
+  } catch (error) {
+    dispatch({
+      type: "LogoutFail",
+      payload: error.response.data.message,
+    });
+  }
+};

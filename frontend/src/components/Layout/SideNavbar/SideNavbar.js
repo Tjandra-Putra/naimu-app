@@ -1,7 +1,31 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+
 import "./SideNavbar.css";
-import { Link } from "react-router-dom";
+import { logout } from "../../../redux/actions/user";
+import { useEffect } from "react";
 
 const SideNavbar = ({ activeLink }) => {
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // logout user
+  const logoutHandler = () => {
+    notifySuccess("Logged out successfully");
+    dispatch(logout());
+
+    // // redirect to login page after 2 seconds
+    setTimeout(() => {
+      navigate("/login");
+      window.location.reload();
+    }, 2000);
+  };
+
   return (
     <div className="side-navbar-wrapper">
       <ul class="list-group">
@@ -47,12 +71,12 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Address
         </Link>
-        <div to="/logout" class={`list-group-item ${activeLink === "logout" ? "active" : ""}`}>
+        <Link onClick={logoutHandler} class={`list-group-item ${activeLink === "logout" ? "active" : ""}`}>
           <span>
             <i class="fas fa-sign-out me-3"></i>
           </span>
           Logout
-        </div>
+        </Link>
       </ul>
     </div>
   );

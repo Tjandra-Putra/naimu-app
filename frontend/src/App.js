@@ -32,7 +32,7 @@ const App = () => {
   const { loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
-    store.dispatch(loadUser());
+    store.dispatch(loadUser()); // syntax is typically used when you're dispatching an action from outside of a React component (e.g. from a Redux thunk/middleware).
   }, []);
 
   return (

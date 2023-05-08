@@ -6,9 +6,11 @@ import axios from "axios";
 import { server } from "../../server";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
@@ -38,8 +40,7 @@ const Login = () => {
       .then((res) => {
         notifySuccess("Login successful");
 
-        console.log(res.data);
-
+        // redirect to home page after 2 seconds
         setTimeout(() => {
           navigate("/products");
           window.location.reload();
@@ -47,7 +48,6 @@ const Login = () => {
       })
       .catch((err) => {
         notifyError(err.response.data.message);
-        console.log(err);
       });
   };
 
