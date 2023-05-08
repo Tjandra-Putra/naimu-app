@@ -18,7 +18,6 @@ const Product = () => {
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
-  const [productList, setProductList] = useState([]); // [state, setState]
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState(null);
 
@@ -50,10 +49,9 @@ const Product = () => {
     };
 
     fetchProducts();
-  }, []);
 
-  // get specific product from productList
-  // const product = productList.find((item) => item._id === id);
+    // it is important to put id in the dependency array because if not, the product will not be updated when the id changes
+  }, [id]);
 
   const setSizeHandler = (size) => {
     setSelectedSize(size);

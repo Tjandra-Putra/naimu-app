@@ -11,6 +11,7 @@ const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
   const { cart } = useSelector((state) => state.cartReducer);
 
+  const [isLoading, setIsLoading] = useState(false); // [state, setState
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
   const [productList, setProductList] = useState([]); // [state, setState]
@@ -18,8 +19,10 @@ const Navbar = () => {
   // import product from backend
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       const { data } = await axios.get(`${server}/product/all-products`);
       setProductList(data.products);
+      setIsLoading(false);
     };
 
     fetchProducts();
@@ -30,15 +33,16 @@ const Navbar = () => {
     setSearchTerm(term);
 
     const filteredProducts =
-      productList &&
-      productList.filter((product) => product.product_title.toLowerCase().includes(searchTerm.toLowerCase()));
+      productList && productList.filter((product) => product.product_title.toLowerCase().includes(term.toLowerCase()));
 
     setSearchResults(filteredProducts);
 
     if (term === "") setSearchResults([]);
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="navbar-wrapper">
       <nav className="navbar navbar-expand-lg">
         <div className="container">

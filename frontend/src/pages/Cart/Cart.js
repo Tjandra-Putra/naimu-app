@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { server } from "../../server";
+import axios from "axios";
 
 import { removeFromCart, updateCart } from "../../redux/actions/cart";
-import { productList } from "../../data/data";
+import Loader from "../../components/Layout/Loader/Loader";
 import shoppingCartImage from "../../assets/images/shopping-cart.png";
 import "./Cart.css";
 
@@ -13,15 +16,29 @@ const Cart = () => {
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const dispatch = useDispatch();
-
   const { cart } = useSelector((state) => state.cartReducer);
-  const cartItems = cart;
+  const [productList, setProductList] = useState([]); // [state, setState]
+  const [isLoading, setIsLoading] = useState(true);
+
+  // import product from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+
+      const { data } = await axios.get(`${server}/product/all-products`);
+      setProductList(data.products);
+
+      setIsLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
 
   const sizeChangeHandler = (event, _id, product_size) => {
     const updatedProductSize = event.target.value;
 
     // notify cannot update size if size already exists in cart
-    const itemExist = cartItems.find((i) => i._id === _id && i.product_size === updatedProductSize);
+    const itemExist = cart.find((i) => i._id === _id && i.product_size === updatedProductSize);
     if (itemExist) {
       notifyError("Cannot update size. Size already exists in cart.");
 
@@ -67,26 +84,15 @@ const Cart = () => {
 
   // compute total price
   let totalPrice = 0;
-  if (cartItems) {
+  if (cart) {
     totalPrice = cart.reduce((acc, item) => {
       return acc + item.product_price * item.product_quantity;
     }, 0);
   }
 
-  // const cartItems = [
-  //   {
-  //     product_id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
-  //     product_title: "Adidas Rekive Woven Track Pants",
-  //     product_image_url:
-  //       "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
-  //     product_price: 139,
-  //     product_shop_name: "Adidas",
-  //     product_size: "M",
-  //     product_quantity: 3,
-  //   }
-  // ];
-
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="cart-wrapper">
       <div className="container">
         <nav aria-label="breadcrumb">
@@ -105,8 +111,8 @@ const Cart = () => {
             <div className="card">
               <div className="title">Shopping Cart</div>
 
-              {cartItems ? (
-                cartItems.map((item, index) => (
+              {cart ? (
+                cart.map((item, index) => (
                   <table class="table table-borderless">
                     <thead>
                       <tr>
@@ -146,7 +152,7 @@ const Cart = () => {
                                   }
                                 >
                                   <option disabled>Size</option>
-                                  {/* select size according to cartItems */}
+                                  {/* select size according to cart */}
                                   <option value="XS" selected={item.product_size === "XS"}>
                                     XS
                                   </option>
@@ -217,7 +223,7 @@ const Cart = () => {
                 <h2>Cart is empty.</h2>
               )}
 
-              {cartItems.length === 0 ? (
+              {cart.length === 0 ? (
                 <div className="cart-empty">
                   <img src={shoppingCartImage} alt={shoppingCartImage} className="img-fluid cart-icon" />
                   <div className="text">Your cart is empty</div>
@@ -235,7 +241,7 @@ const Cart = () => {
                 <div className="title">Summary</div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>Items x{cartItems && cartItems.length}</div>
+                  <div>Items x{cart && cart.length}</div>
                   <div>${totalPrice}</div>
                 </div>
 
