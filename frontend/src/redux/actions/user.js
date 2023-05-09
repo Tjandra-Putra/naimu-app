@@ -23,14 +23,14 @@ export const loadUser = () => async (dispatch) => {
 
 // Update user profile
 export const updateProfile =
-  ({ email, password, phoneNumber, fullName }) =>
+  ({ email, password, phoneNumber, fullName, birthday }) =>
   async (dispatch) => {
     try {
       dispatch({ type: "UpdateProfileRequest" });
 
       const { data } = await axios.put(
         `${server}/user/update-profile`,
-        { email, password, phoneNumber, fullName },
+        { email, password, phoneNumber, fullName, birthday },
         {
           withCredentials: true,
           headers: {

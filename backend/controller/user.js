@@ -252,7 +252,7 @@ router.put(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      const { email, password, phoneNumber, fullName } = req.body; // coming from frontend, these properties have to follow client side
+      const { email, password, phoneNumber, fullName, birthday } = req.body; // coming from frontend, these properties have to follow client side
 
       const user = await User.findOne({ email }).select("+password"); // .select("+password") is a Mongoose method that specifies that the password field should be included in the retrieved document
 
@@ -281,6 +281,7 @@ router.put(
       user.password = password;
       user.phoneNumber = phoneNumber;
       user.fullName = fullName;
+      user.birthday = birthday;
 
       await user.save();
 

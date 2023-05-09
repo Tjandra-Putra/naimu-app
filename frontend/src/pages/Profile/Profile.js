@@ -50,6 +50,7 @@ const Profile = () => {
       password,
       phoneNumber,
       fullName,
+      birthday
     };
 
     dispatch(updateProfile(data));
