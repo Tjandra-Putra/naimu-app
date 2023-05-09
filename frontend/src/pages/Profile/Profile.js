@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 import "./Profile.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 import { updateProfile } from "../../redux/actions/user";
 import Loader from "../../components/Layout/Loader/Loader";
+import { server } from "../../server";
 
 const Profile = () => {
   // toast component
@@ -22,7 +24,7 @@ const Profile = () => {
   const [phoneNumber, setPhoneNumber] = useState((user && user.user.phoneNumber) || "");
   const [password, setPassword] = useState("");
   const [birthday, setBirthday] = useState((user && new Date(user.user.birthday).toISOString().substring(0, 10)) || "");
-  const [avatar, setAvatar] = useState((user && user.user.avatar) || "");
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     if (error) {
@@ -56,6 +58,34 @@ const Profile = () => {
     dispatch(updateProfile(data));
   };
 
+  // update avatar
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+
+    const formData = new FormData();
+    formData.append("avatarFile", file);
+
+    await axios
+      .put(`${server}/user/update-avatar`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.data.success) {
+          // wait for 2 seconds, notify then reload
+          notifySuccess(res.data.message);
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        notifyError(err.response.data.message);
+      });
+  };
+
   return (
     <div className="profile-wrapper">
       {loading && <Loader />}
@@ -80,7 +110,18 @@ const Profile = () => {
               <div className="card">
                 <div className="title">Edit Profile</div>
 
-                <img src={`http://localhost:8000/${avatar}`} alt={avatar} className="img-fluid profile-img" />
+                {/* <img src={`http://localhost:8000/${avatar}`} alt={avatar} className="img-fluid profile-img" /> */}
+
+                <div className="profile-image-upload">
+                  <input type="file" accept="image/*" id="profile-img-input" onChange={handleAvatarChange} hidden />
+                  <label htmlFor="profile-img-input" className="profile-img-label">
+                    <img
+                      src={`http://localhost:8000/${user.user.avatar}`}
+                      alt={user.user.avatar}
+                      className="img-fluid profile-img"
+                    />
+                  </label>
+                </div>
 
                 <div className="card-body">
                   <form onSubmit={handleSubmit}>
