@@ -295,7 +295,7 @@ router.put(
   })
 );
 
-// update user avatar
+// =============================== update user avatar ===============================
 router.put(
   "/user/update-avatar",
   isAuthenticatedUser,
@@ -316,6 +316,48 @@ router.put(
         user,
       });
     } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// =============================== update user address ===============================
+router.put(
+  "/user/update-addresses",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user.id);
+      const addressTypeExist = user.addresses.find((address) => address.addressType === req.body.addressType);
+
+      // if addressTypeExist is true, then it means that the addressType already exists
+      if (addressTypeExist) {
+        return next(new ErrorHandler(`${req.body.addressType} address already exists.`, 400));
+      }
+
+      const addressExist = user.addresses.find((address) => address._id === req.body._id);
+
+      // if addressExist is true, update existing address
+      if (addressExist) {
+        Object.assign(addressExist, req.body);
+        return next(new ErrorHandler("Existing address has been updated.", 400));
+      } else {
+        // add new address to the array
+        user.addresses.push(req.body);
+      }
+
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Address updated.",
+        user,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
       return next(new ErrorHandler(error.message, 500));
     }
   })

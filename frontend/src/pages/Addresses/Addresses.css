@@ -1,0 +1,47 @@
+.addresses-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.addresses-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.addresses-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.addresses-wrapper .title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.addresses-wrapper .card {
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  min-height: 36.4rem;
+  padding: 2rem;
+}
+
+.addresses-wrapper .address-box {
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.addresses-wrapper .is-default {
+  font-weight: 500;
+}
+
+.addresses-wrapper .btn-add {
+  font-weight: 500;
+}

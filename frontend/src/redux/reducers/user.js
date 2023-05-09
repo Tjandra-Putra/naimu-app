@@ -12,6 +12,7 @@ const initialState = {
 
 export const userReducer = createReducer(initialState, (builder) => {
   builder
+    // ============================= Load User =============================
     .addCase("LoadUserRequest", (state) => {
       state.loading = true;
     })
@@ -26,7 +27,7 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.error = action.payload;
     })
 
-    // update user information
+    // ============================= Update User Information =============================
     .addCase("UpdateProfileRequest", (state) => {
       state.loading = true;
     })
@@ -42,15 +43,23 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.error = action.payload;
     })
 
-    .addCase("ClearErrors", (state) => {
-      state.error = null;
+    // ============================= Update User Address =============================
+    .addCase("UpdateAddressRequest", (state) => {
+      state.loading = true;
     })
 
-    .addCase("ClearSuccess", (state) => {
-      state.success = null;
+    .addCase("UpdateAddressSuccess", (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.success = action.successMessage;
     })
 
-    // logout user
+    .addCase("UpdateAddressFail", (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+
+    // ============================= Logout User =============================
     .addCase("LogoutRequest", (state) => {
       state.loading = true;
     })
@@ -63,5 +72,14 @@ export const userReducer = createReducer(initialState, (builder) => {
 
     .addCase("LogoutFail", (state, action) => {
       state.error = action.payload;
+    })
+
+    // ============================= Clear Errors =============================
+    .addCase("ClearErrors", (state) => {
+      state.error = null;
+    })
+
+    .addCase("ClearSuccess", (state) => {
+      state.success = null;
     });
 });

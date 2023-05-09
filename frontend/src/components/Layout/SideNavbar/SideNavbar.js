@@ -65,11 +65,11 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Payment Methods
         </Link>
-        <Link to="/address" class={`list-group-item ${activeLink === "address" ? "active" : ""}`}>
+        <Link to="/addresses" class={`list-group-item ${activeLink === "addresses" ? "active" : ""}`}>
           <span>
             <i class="far fa-address-book me-3"></i>
           </span>
-          Address
+          Addresses
         </Link>
         <Link onClick={logoutHandler} class={`list-group-item ${activeLink === "logout" ? "active" : ""}`}>
           <span>

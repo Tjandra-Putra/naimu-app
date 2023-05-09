@@ -26,6 +26,7 @@ import {
   Activate,
   Profile,
   Refunds,
+  Addresses,
 } from "./routes/routes.js";
 
 const App = () => {
@@ -80,6 +81,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Refunds />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/addresses"
+              element={
+                <ProtectedRoute>
+                  <Addresses />
                 </ProtectedRoute>
               }
             />

@@ -13,6 +13,7 @@ import Payment from "../pages/Payment/Payment";
 import Activate from "../pages/Activate/Activate";
 import Profile from "../pages/Profile/Profile";
 import Refunds from "../pages/Refunds/Refunds";
+import Addresses from "../pages/Addresses/Addresses";
 
 export {
   Navbar,
@@ -30,4 +31,5 @@ export {
   Activate,
   Profile,
   Refunds,
+  Addresses,
 };

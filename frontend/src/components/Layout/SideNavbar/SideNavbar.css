@@ -21,7 +21,9 @@
 }
 
 .side-navbar-wrapper .active {
-  background-color: #1c1d1c;
+  background-color: #1c1d1cdb;
+  border: none;
   /* background-color: #0071ae; */
+  /* background-color: #9e3500; */
   font-weight: 500;
 }

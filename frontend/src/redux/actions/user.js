@@ -21,7 +21,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-// Update user profile
+// ============================= Update User Profile =============================
 export const updateProfile =
   ({ email, password, phoneNumber, fullName, birthday }) =>
   async (dispatch) => {
@@ -52,7 +52,7 @@ export const updateProfile =
     }
   };
 
-// logout user
+// ============================= Logout User =============================
 export const logout = () => async (dispatch) => {
   try {
     dispatch({ type: "LogoutRequest" });
@@ -70,3 +70,29 @@ export const logout = () => async (dispatch) => {
     });
   }
 };
+
+// ============================= Update User Address =============================
+export const updateAddress =
+  ({ country, city, address1, postalCode, addressType }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: "UpdateAddressRequest" });
+
+      const { data } = await axios.put(
+        `${server}/user/update-addresses`,
+        { country, city, address1, postalCode, addressType },
+        { withCredentials: true } // need withCredentials: true to send cookie to backend as it is authenticated
+      );
+
+      dispatch({
+        type: "UpdateAddressSuccess",
+        payload: data,
+        successMessage: "Address updated successfully",
+      });
+    } catch (error) {
+      dispatch({
+        type: "UpdateAddressFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
