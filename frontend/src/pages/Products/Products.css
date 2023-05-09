@@ -15,6 +15,11 @@
   color: #00000084;
 }
 
+.products-wrapper .applied-filter {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .products-wrapper .filter-badge {
   color: #000000;
   font-size: 0.8rem;
@@ -25,11 +30,13 @@
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
   margin-left: 0.6rem;
   text-transform: capitalize;
+  margin-bottom: 15px;
 }
 
 .products-wrapper .btn-sort {
   background-color: white;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  font-size: 1rem;
 }
 
 .products-wrapper .product-listing .col-md-4 {
