@@ -32,14 +32,15 @@
   padding: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   border-radius: 5px;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
-.addresses-wrapper .is-default {
-  font-weight: 500;
+.addresses-wrapper .address-type {
+  font-weight: 600;
 }
 
 .addresses-wrapper .btn-add {

@@ -42,13 +42,6 @@ const Addresses = () => {
     if (success) {
       notifySuccess(success);
       dispatch({ type: "ClearSuccess" });
-
-      //clear states
-      setCountry("");
-      setCity("");
-      setAddress1("");
-      setPostalCode("");
-      setAddressType("");
     }
   }, [error, success]);
 
@@ -58,8 +51,15 @@ const Addresses = () => {
     if (addressType === "" || country === "" || city === "") {
       notifyError("Please fill in all the required fields");
     } else {
-      //
+      // dispatch update address
       dispatch(updateAddress({ country, city, address1, postalCode, addressType }));
+
+      //clear states
+      setCountry("");
+      setCity("");
+      setAddress1("");
+      setPostalCode("");
+      setAddressType("");
     }
   };
 
@@ -203,14 +203,17 @@ const Addresses = () => {
                     </div>
                   </div>
                 </div>
-                <div className="address-box">
-                  <div className="is-default">Default</div>
-                  <div className="address">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, !</div>
-                  <div className="phone-number">(65) 88913138</div>
-                  <div className="action">
-                    <i class="fa-solid fa-trash-can text-danger"></i>
-                  </div>
-                </div>
+                {user &&
+                  user.user.addresses.map((item, index) => (
+                    <div className="address-box" key={index}>
+                      <div className="address-type">{item.addressType}</div>
+                      <div className="address">{item.address1}</div>
+                      <div className="phone-number">{user.user.phoneNumber}</div>
+                      <div className="action">
+                        <i class="fa-solid fa-trash-can text-danger"></i>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
