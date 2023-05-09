@@ -50,7 +50,7 @@ const Profile = () => {
       password,
       phoneNumber,
       fullName,
-      birthday
+      birthday,
     };
 
     dispatch(updateProfile(data));
@@ -127,12 +127,12 @@ const Profile = () => {
                           />
                         </div>
 
-                        <div className="col-md-6 mb-4">
+                        {/* <div className="col-md-6 mb-4">
                           <label htmlFor="postal-code" className="form-label">
                             Postal Code
                           </label>
                           <input type="text" name="postal-code" id="postal-code" className="form-control" value={""} />
-                        </div>
+                        </div> */}
 
                         <div className="col-md-6 mb-4">
                           <label htmlFor="birthday" className="form-label">
@@ -147,7 +147,7 @@ const Profile = () => {
                             onChange={(e) => setBirthday(e.target.value)}
                           />
                         </div>
-
+                        {/* 
                         <div className="col-md-6 mb-4">
                           <label htmlFor="address-one" className="form-label">
                             Address 1
@@ -160,11 +160,11 @@ const Profile = () => {
                             Country
                           </label>
                           <input type="text" name="country" id="country" className="form-control" value={""} />
-                        </div>
+                        </div> */}
 
                         <div className="col-md-6 mb-4">
                           <label htmlFor="password" className="form-label">
-                            Password
+                            Enter Password to Confirm
                           </label>
                           <input
                             type="password"
