@@ -73,14 +73,11 @@ const Navbar = () => {
                   Categories
                 </Link>
                 <ul className="dropdown-menu">
-                  {productList && productList.length > 0
-                    ? productList.map((item, index) => (
+                  {productList
+                    ? [...new Set(productList.map((item) => item.product_category))].map((category, index) => (
                         <li key={index}>
-                          <Link
-                            className="dropdown-item"
-                            to={`/products?category=${item.product_category.toLowerCase()}`}
-                          >
-                            {item.product_category}
+                          <Link className="dropdown-item" to={`/products?category=${category.toLowerCase()}`}>
+                            {category}
                           </Link>
                         </li>
                       ))

@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 
 import "./ProductCard.css";
-import Review from "../Rating/Rating";
+import Rating from "../Rating/Rating";
 
 const ProductCard = ({
   productImageUrl,
   productTitle,
   productPrice,
+  productDiscountPrice,
   productCategory,
   productStore,
   productSold,
@@ -32,9 +33,12 @@ const ProductCard = ({
 
             <div className="title">{productTitle}</div>
 
-            <Review />
+            <Rating />
 
-            <div className="price">${productPrice}</div>
+            <div className="prices">
+              <span className="discounted-price">${productDiscountPrice}</span>
+              <span className="original-price">${productPrice}</span>
+            </div>
           </div>
         </div>
       </Link>

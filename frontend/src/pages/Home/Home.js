@@ -177,6 +177,7 @@ const Home = () => {
                       productStore={item.shop.name}
                       productTitle={item.product_title}
                       productPrice={item.product_price}
+                      productDiscountPrice={item.product_discount_price}
                       productSold={item.product_unit_sold}
                       productCategory={item.product_category}
                       productImageUrl={item.product_image_url[0].url}

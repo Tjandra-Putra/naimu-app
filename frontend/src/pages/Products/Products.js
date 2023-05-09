@@ -83,7 +83,7 @@ const Products = () => {
       }
 
       if (price.length) {
-        const productPrice = product.product_price;
+        const productPrice = product.product_discount_price;
 
         const [minPrice, maxPrice] = price[0].split(",");
         if (productPrice < minPrice || productPrice > maxPrice) {
@@ -283,6 +283,7 @@ const Products = () => {
                           productStore={item.shop.name}
                           productTitle={item.product_title}
                           productPrice={item.product_price}
+                          productDiscountPrice={item.product_discount_price}
                           productSold={item.product_unit_sold}
                           productCategory={item.product_category}
                           productImageUrl={item.product_image_url[0].url}

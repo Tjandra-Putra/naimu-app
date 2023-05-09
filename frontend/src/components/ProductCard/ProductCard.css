@@ -11,23 +11,31 @@
 
 .productcard-wrapper .title,
 .productcard-wrapper .category,
-.productcard-wrapper .price {
+.productcard-wrapper .prices {
   text-transform: capitalize !important;
   font-size: 1rem;
-  font-weight: 500 !important;
+  font-weight: 500;
   line-height: 1.3rem;
   margin-bottom: 0.5rem;
 }
 
-.productcard-wrapper .price {
+.productcard-wrapper .prices {
   margin-top: 0.5rem;
+}
+
+.productcard-wrapper .original-price {
+  text-decoration: line-through;
+  font-weight: 300;
+  /* color: #0000008b; */
+  color: #9e3500;
+  padding-left: 5px;
 }
 
 .productcard-wrapper .category {
   font-size: 0.8rem;
   /* color: #777777; */
   color: #9e3500;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .productcard-wrapper .sold {
