@@ -97,8 +97,8 @@ const Cart = () => {
       <div className="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item">
-              Home
+            <Link to="/products" class="breadcrumb-item">
+              Browse Products
             </Link>
             <li class="breadcrumb-item active" aria-current="page">
               Cart

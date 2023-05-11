@@ -32,6 +32,11 @@ const PasswordChange = () => {
         if (res.data.success) {
           notifySuccess("Password changed successfully!");
 
+          // set state to empty
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmNewPassword("");
+
           // redirect to login page
           dispatch(logout());
         }
