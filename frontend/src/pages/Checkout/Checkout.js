@@ -27,8 +27,7 @@ const Checkout = () => {
   const [postalCode, setPostalCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(user && user.user.phoneNumber);
   const [promoCode, setPromoCode] = useState(null);
-  const [promoCodeApplied, setPromoCodeApplied] = useState(null);
-  const [promoCodeDiscount, setPromoCodeDiscount] = useState(0);
+  const [promoCodePercentage, setPromoCodePercentage] = useState(0); // e.g 10% off
 
   // sum of all product price
   const subTotalPrice = cart.reduce((acc, item) => {
@@ -37,22 +36,26 @@ const Checkout = () => {
 
   const deliveryFee = subTotalPrice * 0.1;
 
-  const promoPercentage = promoCodeApplied ? (subTotalPrice * promoCodeApplied.value) / 100 : "";
-
-  const totalPrice = promoCodeApplied
-    ? (subTotalPrice + deliveryFee - promoPercentage).toFixed(2)
+  const totalPrice = promoCodePercentage
+    ? ((subTotalPrice + deliveryFee) * ((100 - promoCodePercentage) / 100)).toFixed(2)
     : (subTotalPrice + deliveryFee).toFixed(2);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.get(`${server}/promo-codes/${promoCode}`).then((res) => {
-      if (res.data.promoCode === null) {
-        notifyError("Invalid promo code");
-        setPromoCode("");
-      }
-      notifySuccess("Promo code applied");
-    });
+    if (promoCode === null) {
+      return notifyError("Please enter a promo code");
+    }
+
+    try {
+      await axios.get(`${server}/promo-code/${promoCode}`).then((res) => {
+        const promoPercentage = res.data.promoCode[0].discount;
+        setPromoCodePercentage(promoPercentage);
+        notifySuccess(`Promo code (${promoPercentage} % OFF) applied successfully!`);
+      });
+    } catch (error) {
+      notifyError(error.response.data.message);
+    }
   };
 
   useEffect(() => {
@@ -317,7 +320,7 @@ const Checkout = () => {
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Discount</div>
-                  <div>- {promoPercentage ? `$ ${promoPercentage.toString()}` : null}</div>
+                  <div>-{promoCodePercentage ? ` ${promoCodePercentage.toString()}%` : null}</div>
                 </div>
 
                 <div className="summary-total d-flex flex-row justify-content-between">

@@ -8,7 +8,7 @@ const promoCodeSchema = new mongoose.Schema({
     unique: true,
   },
   discount: {
-    type: Number,
+    type: Number, // 10% off
     required: true,
   },
   shopId: {
