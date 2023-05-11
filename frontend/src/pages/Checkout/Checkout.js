@@ -40,6 +40,8 @@ const Checkout = () => {
     ? ((subTotalPrice + deliveryFee) * ((100 - promoCodePercentage) / 100)).toFixed(2)
     : (subTotalPrice + deliveryFee).toFixed(2);
 
+  const discountAmount = subTotalPrice - totalPrice;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -319,8 +321,12 @@ const Checkout = () => {
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>Discount</div>
-                  <div>-{promoCodePercentage ? ` ${promoCodePercentage.toString()}%` : null}</div>
+                  <div className={promoCodePercentage && "discount"}>
+                    Discount {`(${promoCodePercentage.toString()}%)`}
+                  </div>
+                  <div className={promoCodePercentage && "discount"}>
+                    -{promoCodePercentage ? ` $${discountAmount.toFixed(2)}` : null}
+                  </div>
                 </div>
 
                 <div className="summary-total d-flex flex-row justify-content-between">

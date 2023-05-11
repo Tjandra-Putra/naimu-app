@@ -123,3 +123,7 @@
   border: none;
   margin-top: 5px;
 }
+
+.checkout-wrapper .discount {
+  color: #9e3500;
+}
