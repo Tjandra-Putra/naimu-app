@@ -5,7 +5,7 @@ const router = express.Router();
 
 // =============================== get all products ===============================
 router.get(
-  "/product/all-products",
+  "/all-products",
   catchAsyncError(async (req, res, next) => {
     try {
       const products = await Product.find();

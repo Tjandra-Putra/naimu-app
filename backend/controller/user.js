@@ -13,7 +13,7 @@ const { isAuthenticatedUser } = require("../middleware/auth");
 const mongoose = require("mongoose");
 
 // =============================== send email confirmation before create ===============================
-router.post("/user/create-user", upload.single("avatarFile"), async (req, res, next) => {
+router.post("/create-user", upload.single("avatarFile"), async (req, res, next) => {
   try {
     const { fullName, email, password, birthday } = req.body; // coming from frontend, these propertieshave to follow client side
     const userEmail = await User.findOne({ email });
@@ -84,7 +84,7 @@ const createActivationToken = (payload) => {
 
 // =============================== activate and create user account ===============================
 router.post(
-  "/user/activate",
+  "/activate",
   catchAsyncError(async (req, res, next) => {
     try {
       const { activation_token } = req.body; // coming from frontend, these properties have to follow client side
@@ -128,7 +128,7 @@ router.post(
 
 // =============================== login user ===============================
 router.post(
-  "/user/login",
+  "/login",
   catchAsyncError(async (req, res, next) => {
     try {
       const { email, password } = req.body; // coming from frontend, these properties have to follow client side
@@ -182,7 +182,7 @@ router.post(
 
 // =============================== load user ===============================
 router.get(
-  "/user/load-user",
+  "/load-user",
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
@@ -209,7 +209,7 @@ router.get(
 
 // =============================== logout user ===============================
 router.get(
-  "/user/logout",
+  "/logout",
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
@@ -230,7 +230,7 @@ router.get(
 
 // =============================== get all users ===============================
 router.get(
-  "/user/all-users",
+  "/all-users",
   catchAsyncError(async (req, res, next) => {
     try {
       const users = await User.find();
@@ -247,7 +247,7 @@ router.get(
 
 // =============================== update user profile ===============================
 router.put(
-  "/user/update-profile",
+  "/update-profile",
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
@@ -296,7 +296,7 @@ router.put(
 
 // =============================== update user avatar ===============================
 router.put(
-  "/user/update-avatar",
+  "/update-avatar",
   isAuthenticatedUser,
   upload.single("avatarFile"),
   catchAsyncError(async (req, res, next) => {
@@ -322,7 +322,7 @@ router.put(
 
 // =============================== update user address ===============================
 router.put(
-  "/user/update-addresses",
+  "/update-addresses",
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
@@ -364,7 +364,7 @@ router.put(
 
 // =============================== delete user address ===============================
 router.delete(
-  "/user/delete-address/:addressId",
+  "/delete-address/:addressId",
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
@@ -394,7 +394,7 @@ router.delete(
 
 // =============================== change password ===============================
 router.put(
-  "/user/change-password",
+  "/change-password",
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {

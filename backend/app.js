@@ -26,11 +26,13 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 }
 
 // import routes from controller
-const user = require("./controller/user"); // user/create-user
-const product = require("./controller/product"); // products
+const user = require("./controller/user");
+const product = require("./controller/product");
+const promoCode = require("./controller/promoCode");
 
-app.use("/api/v1", user); // localhost:8000/api/v1/user/create-user
-app.use("/api/v1", product); // localhost:8000/api/v1/products
+app.use("/api/v1/user", user); // localhost:8000/api/v1/user/create-user
+app.use("/api/v1/product", product); // localhost:8000/api/v1/products
+app.use("/api/v1/promo-code", promoCode); // localhost:8000/api/v1/promo-code
 
 // app error handler
 app.use(ErrorHandler);

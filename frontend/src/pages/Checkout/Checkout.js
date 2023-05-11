@@ -3,10 +3,16 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Country, State } from "country-state-city";
+import axios from "axios";
 
 import "./Checkout.css";
+import { server } from "../../server";
 
 const Checkout = () => {
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
   const { user } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
   const { cart } = useSelector((state) => state.cartReducer) ?? [];
 
@@ -20,8 +26,34 @@ const Checkout = () => {
   const [address2, setAddress2] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(user && user.user.phoneNumber);
-  const [promoCode, setPromoCode] = useState("");
-  const [promoCodeApplied, setPromoCodeApplied] = useState(false);
+  const [promoCode, setPromoCode] = useState(null);
+  const [promoCodeApplied, setPromoCodeApplied] = useState(null);
+  const [promoCodeDiscount, setPromoCodeDiscount] = useState(0);
+
+  // sum of all product price
+  const subTotalPrice = cart.reduce((acc, item) => {
+    return acc + item.product_price * item.product_quantity;
+  }, 0);
+
+  const deliveryFee = subTotalPrice * 0.1;
+
+  const promoPercentage = promoCodeApplied ? (subTotalPrice * promoCodeApplied.value) / 100 : "";
+
+  const totalPrice = promoCodeApplied
+    ? (subTotalPrice + deliveryFee - promoPercentage).toFixed(2)
+    : (subTotalPrice + deliveryFee).toFixed(2);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios.get(`${server}/promo-codes/${promoCode}`).then((res) => {
+      if (res.data.promoCode === null) {
+        notifyError("Invalid promo code");
+        setPromoCode("");
+      }
+      notifySuccess("Promo code applied");
+    });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -274,35 +306,48 @@ const Checkout = () => {
                 <div className="title">Summary</div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>Items x2</div>
-                  <div>$139</div>
+                  <div>Items x{cart && cart.length}</div>
+                  <div>${subTotalPrice}</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Delivery</div>
-                  <div>FREE</div>
+                  <div>${deliveryFee}</div>
+                </div>
+
+                <div className="summary-row d-flex flex-row justify-content-between">
+                  <div>Discount</div>
+                  <div>- {promoPercentage ? `$ ${promoPercentage.toString()}` : null}</div>
                 </div>
 
                 <div className="summary-total d-flex flex-row justify-content-between">
                   <div>Total</div>
-                  <div>$139</div>
+                  <div>${totalPrice}</div>
                 </div>
 
-                <div className="input-promo form-floating my-3">
-                  <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
-                  <label htmlFor="floatingInput">Enter your promo code</label>
-                </div>
-                <div className="buttons">
-                  <div className="d-grid gap-2">
-                    <button className="btn btn-secondary btn-lg rounded-1" type="submit">
-                      Apply code
-                    </button>
-
-                    <Link to="/payment" className="btn btn-dark btn-lg mt-1 rounded-1" type="button">
-                      Review and Pay
-                    </Link>
+                <form onSubmit={handleSubmit}>
+                  <div className="input-promo form-floating my-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="promocode"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                    />
+                    <label htmlFor="promocode">Enter your promo code</label>
                   </div>
-                </div>
+                  <div className="buttons">
+                    <div className="d-grid gap-2">
+                      <button className="btn btn-secondary btn-lg rounded-1" type="submit">
+                        Apply code
+                      </button>
+
+                      <Link to="/payment" className="btn btn-dark btn-lg mt-1 rounded-1" type="button">
+                        Review and Pay
+                      </Link>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
