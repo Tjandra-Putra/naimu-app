@@ -6,7 +6,7 @@ import { Country, State } from "country-state-city";
 
 import "./Addresses.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
-import { updateAddress } from "../../redux/actions/user";
+import { updateAddress, deleteAddress } from "../../redux/actions/user";
 
 const Addresses = () => {
   // toast component
@@ -37,6 +37,7 @@ const Addresses = () => {
   useEffect(() => {
     if (error) {
       notifyError(error);
+      //   console.log(error);
       dispatch({ type: "ClearErrors" });
     }
     if (success) {
@@ -61,6 +62,10 @@ const Addresses = () => {
       setPostalCode("");
       setAddressType("");
     }
+  };
+
+  const handleDelete = (addressId) => {
+    dispatch(deleteAddress(addressId));
   };
 
   return (
@@ -210,7 +215,10 @@ const Addresses = () => {
                       <div className="address">{item.address1}</div>
                       <div className="phone-number">{user.user.phoneNumber}</div>
                       <div className="action">
-                        <i class="fa-solid fa-trash-can text-danger"></i>
+                        <i
+                          class="fa-solid fa-trash-can text-danger bin-icon"
+                          onClick={() => handleDelete(item._id)}
+                        ></i>
                       </div>
                     </div>
                   ))}

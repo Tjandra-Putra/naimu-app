@@ -46,3 +46,7 @@
 .addresses-wrapper .btn-add {
   font-weight: 500;
 }
+
+.addresses-wrapper .bin-icon {
+  cursor: pointer;
+}

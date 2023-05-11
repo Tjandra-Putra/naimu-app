@@ -96,3 +96,23 @@ export const updateAddress =
       });
     }
   };
+
+// ============================= Delete User Address =============================
+export const deleteAddress = (addressId) => async (dispatch) => {
+  try {
+    dispatch({ type: "DeleteAddressRequest" });
+
+    const { data } = await axios.delete(`${server}/user/delete-address/${addressId}`, { withCredentials: true });
+
+    dispatch({
+      type: "DeleteAddressSuccess",
+      payload: data,
+      successMessage: "Address deleted successfully",
+    });
+  } catch (error) {
+    dispatch({
+      type: "DeleteAddressFail",
+      payload: error.response.data.message,
+    });
+  }
+};

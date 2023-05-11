@@ -10,6 +10,7 @@ const sendToken = require("../utils/jwtToken");
 const sendMail = require("../utils/sendMail");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const { isAuthenticatedUser } = require("../middleware/auth");
+const mongoose = require("mongoose");
 
 // =============================== send email confirmation before create ===============================
 router.post("/user/create-user", upload.single("avatarFile"), async (req, res, next) => {
@@ -244,8 +245,6 @@ router.get(
   })
 );
 
-module.exports = router;
-
 // =============================== update user profile ===============================
 router.put(
   "/user/update-profile",
@@ -362,3 +361,35 @@ router.put(
     }
   })
 );
+
+// =============================== delete user address ===============================
+router.delete(
+  "/user/delete-address/:addressId",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const userId = req.user._id;
+      const addressId = req.params.addressId; // note where this is getting from: /user/delete-address/:id
+
+      console.log(addressId);
+
+      if (!mongoose.Types.ObjectId.isValid(addressId)) {
+        return next(new ErrorHandler("Invalid address ID", 400));
+      }
+
+      await User.updateOne({ _id: userId }, { $pull: { addresses: { _id: addressId } } }); //  this code updates a single document in the User collection by removing an address object from the addresses array in the document that matches the userId and addressId values.
+
+      const user = await User.findById(userId);
+
+      res.status(200).json({
+        success: true,
+        message: "Address deleted.",
+        user,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+module.exports = router;

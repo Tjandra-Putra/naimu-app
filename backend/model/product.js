@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const productList = require("../data/product");
 
-console.log("productList: ", productList);
-
 // define the schema
 const productSchema = new mongoose.Schema({
   _id: String,
