@@ -256,11 +256,20 @@ const Cart = () => {
                 </div>
 
                 <div className="buttons my-3">
-                  <div class="d-grid gap-2">
-                    <Link to="/checkout" class="btn btn-dark btn-lg rounded-1">
-                      Checkout
-                    </Link>
-
+                  {cart && cart.length > 0 ? (
+                    <div className="d-grid gap-2">
+                      <Link to="/checkout" class="btn btn-dark btn-lg rounded-1">
+                        Checkout
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="d-grid gap-2">
+                      <button class="btn btn-dark btn-lg rounded-1" disabled>
+                        Checkout
+                      </button>
+                    </div>
+                  )}
+                  <div class="d-grid gap-2 my-2">
                     <Link to="/products" class="btn btn-outline-dark btn-lg mt-1 rounded-1" type="button">
                       Continue Browsing
                     </Link>
