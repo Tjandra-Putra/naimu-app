@@ -112,7 +112,7 @@ const Profile = () => {
                   </label>
                 </div>
 
-                <div className="card-body">
+                <div className="card-body-custom">
                   <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <div className="row">

@@ -392,4 +392,62 @@ router.delete(
   })
 );
 
+// =============================== change password ===============================
+router.put(
+  "/user/change-password",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const { oldPassword, newPassword, confirmNewPassword } = req.body; // coming from frontend, these properties have to follow client side
+      const user = await User.findById(req.user.id).select("+password");
+
+      // check if fields are empty
+      if (!oldPassword || !newPassword || !confirmNewPassword) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "Please enter old password, new password and confirm new password.",
+        });
+
+        return next(new ErrorHandler("Please enter old password, new password and confirm new password.", 400));
+      }
+
+      // check if old password is correct
+      const isPasswordValid = await user.comparePassword(oldPassword); // this "comparePassword" is a custom method from model/user.js
+
+      if (!isPasswordValid) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "Invalid old password.",
+        });
+
+        return next(new ErrorHandler("Invalid old password.", 400));
+      }
+
+      // check if new password and confirm new password are the same
+      if (newPassword !== confirmNewPassword) {
+        // message to the client side via response
+        res.status(400).json({
+          success: false,
+          message: "New password and confirm new password do not match.",
+        });
+
+        return next(new ErrorHandler("New password and confirm new password do not match.", 400));
+      }
+
+      // note: SUCCESSFUL CASE
+      user.password = newPassword;
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Password changed successfully.",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 module.exports = router;
