@@ -1,12 +1,27 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Country, State } from "country-state-city";
 
 import "./Checkout.css";
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
   const { cart } = useSelector((state) => state.cartReducer) ?? [];
+
+  const [userInfo, setUserInfo] = useState(false); // for saved info display hidden and show
+
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [fullName, setFullName] = useState(user && user.user.fullName);
+  const [email, setEmail] = useState(user && user.user.email);
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(user && user.user.phoneNumber);
+  const [promoCode, setPromoCode] = useState("");
+  const [promoCodeApplied, setPromoCodeApplied] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,73 +50,167 @@ const Checkout = () => {
         <div className="row">
           <div className="col-md-8">
             <div className="card">
-              <div className="title">Billing Address</div>
+              <div className="billing-address">
+                <div className="title">Billing Address</div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingInput"
+                        placeholder="John Doe"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                      />
+                      <label htmlFor="floatingInput">Full name *</label>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                        value={email}
+                      />
+                      <label htmlFor="floatingInput">Email address *</label>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="floatingInput"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                      <label htmlFor="floatingInput">Phone number *</label>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingInput"
+                        placeholder="John Doe"
+                        value={postalCode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                      />
+                      <label htmlFor="floatingInput">Postal code *</label>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <select
+                        class="form-select"
+                        id="country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                      >
+                        <option>Select Country</option>
+                        {Country &&
+                          Country.getAllCountries().map((item) => (
+                            <option key={item.isoCode} value={item.isoCode}>
+                              {item.name}
+                            </option>
+                          ))}
+                      </select>
 
-              <div className="row">
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">Full name *</label>
+                      <label for="country" class="form-label">
+                        Country *
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <select class="form-select" id="city" value={city} onChange={(e) => setCity(e.target.value)}>
+                        <option>Select City</option>
+                        {Country &&
+                          State.getStatesOfCountry(country).map((item) => (
+                            <option key={item.isoCode} value={item.isoCode}>
+                              {item.name}
+                            </option>
+                          ))}
+                      </select>
+
+                      <label htmlFor="floatingInput">City *</label>
+                    </div>
                   </div>
                 </div>
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="floatingInput"
-                      placeholder="name@example.com"
-                      required
-                    />
-                    <label htmlFor="floatingInput">Email address *</label>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingInput"
+                        placeholder="John Doe"
+                        value={address1}
+                        onChange={(e) => setAddress1(e.target.value)}
+                      />
+                      <label htmlFor="floatingInput">Adress 1 *</label>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="form-floating my-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingInput"
+                        placeholder="John Doe"
+                        value={address2}
+                        onChange={(e) => setAddress2(e.target.value)}
+                      />
+                      <label htmlFor="floatingInput">Adress 2 *</label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">Phone number *</label>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">Postal code *</label>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">Country *</label>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">City *</label>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">Adress 1 *</label>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="form-floating my-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="John Doe" required />
-                    <label htmlFor="floatingInput">Adress 2 *</label>
-                  </div>
+
+                <div className="saved-info">
+                  <p class="saved-info-text" onClick={() => setUserInfo(!userInfo)}>
+                    Choose from saved info
+                  </p>
+                  {userInfo && (
+                    <div>
+                      {user &&
+                        user.user.addresses.map((item, index) => (
+                          <span key={index}>
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input d-inline"
+                                type="radio"
+                                name="addressType"
+                                id={item.addressType}
+                                value={item.addressType}
+                                onClick={() => {
+                                  setAddress1(item.address1) ||
+                                    setAddress2(item.address2) ||
+                                    setCity(item.city) ||
+                                    setCountry(item.country) ||
+                                    setPostalCode(item.postalCode);
+                                }}
+                              />
+                              <label class="form-check-label" for={item.addressType}>
+                                {item.addressType}
+                              </label>
+                            </div>
+                          </span>
+                        ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
-            <div className="card mt-4">
+            <div className="card mt-4 order-details">
               <div className="d-flex flex-row justify-content-between">
                 <div className="title">Order Details</div>
                 <div className="edit">
