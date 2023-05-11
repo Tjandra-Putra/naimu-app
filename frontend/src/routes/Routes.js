@@ -14,6 +14,7 @@ import Activate from "../pages/Activate/Activate";
 import Profile from "../pages/Profile/Profile";
 import Refunds from "../pages/Refunds/Refunds";
 import Addresses from "../pages/Addresses/Addresses";
+import PasswordChange from "../pages/PasswordChange/PasswordChange";
 
 export {
   Navbar,
@@ -32,4 +33,5 @@ export {
   Profile,
   Refunds,
   Addresses,
+  PasswordChange,
 };

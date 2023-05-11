@@ -59,11 +59,11 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Track Order
         </Link>
-        <Link to="/payment-methods" class={`list-group-item ${activeLink === "payment-methods" ? "active" : ""}`}>
+        <Link to="/password-change" class={`list-group-item ${activeLink === "password-change" ? "active" : ""}`}>
           <span>
-            <i class="far fa-credit-card me-3"></i>
+            <i class="fa-solid fa-lock me-3"></i>
           </span>
-          Payment Methods
+          Change Password
         </Link>
         <Link to="/addresses" class={`list-group-item ${activeLink === "addresses" ? "active" : ""}`}>
           <span>

@@ -71,7 +71,7 @@ const Addresses = () => {
   return (
     <div className="addresses-wrapper">
       <div className="container">
-        <nav aria-label="breadcrumb">
+        {/* <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <Link to="/" class="breadcrumb-item">
               Home
@@ -80,7 +80,7 @@ const Addresses = () => {
               Orders
             </li>
           </ol>
-        </nav>
+        </nav> */}
 
         <div className="addresses">
           <div className="row">
@@ -208,7 +208,7 @@ const Addresses = () => {
                     </div>
                   </div>
                 </div>
-                {user &&
+                {user && user.user.addresses.length > 0 ? (
                   user.user.addresses.map((item, index) => (
                     <div className="address-box" key={index}>
                       <div className="address-type">{item.addressType}</div>
@@ -221,7 +221,12 @@ const Addresses = () => {
                         ></i>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <div className="addresses-empty">
+                    <div className="title">You have no addresses saved</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -90,17 +90,6 @@ const Profile = () => {
     <div className="profile-wrapper">
       {loading && <Loader />}
       <div className="container">
-        <nav aria-label="breadcrumb">
-          <ol className="breadcrumb">
-            <Link to="/" className="breadcrumb-item">
-              Home
-            </Link>
-            <li className="breadcrumb-item active" aria-current="page">
-              Orders
-            </li>
-          </ol>
-        </nav>
-
         <div className="orders">
           <div className="row">
             <div className="col-md-3">

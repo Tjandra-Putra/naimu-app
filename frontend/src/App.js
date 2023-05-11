@@ -27,6 +27,7 @@ import {
   Profile,
   Refunds,
   Addresses,
+  PasswordChange,
 } from "./routes/routes.js";
 
 const App = () => {
@@ -89,6 +90,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Addresses />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/password-change"
+              element={
+                <ProtectedRoute>
+                  <PasswordChange />
                 </ProtectedRoute>
               }
             />

@@ -50,17 +50,6 @@ const Orders = () => {
   return (
     <div className="orders-wrapper">
       <div className="container">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item">
-              Home
-            </Link>
-            <li class="breadcrumb-item active" aria-current="page">
-              Orders
-            </li>
-          </ol>
-        </nav>
-
         <div className="orders">
           <div className="row">
             <div className="col-md-3">
