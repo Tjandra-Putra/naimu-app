@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -9,6 +9,8 @@ import "./Checkout.css";
 import { server } from "../../server";
 
 const Checkout = () => {
+  const navigate = useNavigate();
+
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
@@ -42,22 +44,67 @@ const Checkout = () => {
 
   const discountAmount = subTotalPrice - totalPrice;
 
-  const handleSubmit = async (e) => {
+  const handlePromoCode = async (e) => {
     e.preventDefault();
 
-    if (promoCode === null) {
-      return notifyError("Please enter a promo code");
-    }
+    if (!promoCode) return notifyError("Please enter your promo code");
 
     try {
       await axios.get(`${server}/promo-code/${promoCode}`).then((res) => {
         const promoPercentage = res.data.promoCode[0].discount;
         setPromoCodePercentage(promoPercentage);
+
         notifySuccess(`Promo code (${promoPercentage} % OFF) applied successfully!`);
       });
     } catch (error) {
       notifyError(error.response.data.message);
     }
+  };
+
+  const submitHandler = () => {
+    // if fields empty
+    if (!fullName || !email || !phoneNumber || !postalCode || !country || !city || !address1 || !address2) {
+      return notifyError("Please fill in all fields");
+    }
+
+    // if cart empty
+    if (cart.length === 0) {
+      return notifyError("Your cart is empty");
+    }
+
+    // add to local storage
+    const userInfo = {
+      fullName,
+      email,
+      phoneNumber,
+    };
+
+    const billingInfo = {
+      country,
+      city,
+      address1,
+      address2,
+      postalCode,
+    };
+
+    // latest order info - with updated user info based on the form
+    const orderInfo = {
+      userInfo, // based on the form data
+      billingInfo,
+      cartInfo: cart,
+      amountInfo: {
+        subTotalPrice,
+        deliveryFee,
+        totalPrice,
+        discountAmount,
+        promoCode,
+        promoCodePercentage,
+      },
+    };
+
+    localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+
+    navigate("/payment");
   };
 
   useEffect(() => {
@@ -99,6 +146,7 @@ const Checkout = () => {
                         placeholder="John Doe"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
+                        required
                       />
                       <label htmlFor="floatingInput">Full name *</label>
                     </div>
@@ -111,6 +159,8 @@ const Checkout = () => {
                         id="floatingInput"
                         placeholder="name@example.com"
                         value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                       />
                       <label htmlFor="floatingInput">Email address *</label>
                     </div>
@@ -125,6 +175,7 @@ const Checkout = () => {
                         id="floatingInput"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
+                        required
                       />
                       <label htmlFor="floatingInput">Phone number *</label>
                     </div>
@@ -138,6 +189,7 @@ const Checkout = () => {
                         placeholder="John Doe"
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
+                        required
                       />
                       <label htmlFor="floatingInput">Postal code *</label>
                     </div>
@@ -151,6 +203,7 @@ const Checkout = () => {
                         id="country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
+                        required
                       >
                         <option>Select Country</option>
                         {Country &&
@@ -168,7 +221,13 @@ const Checkout = () => {
                   </div>
                   <div className="col">
                     <div className="form-floating my-3">
-                      <select class="form-select" id="city" value={city} onChange={(e) => setCity(e.target.value)}>
+                      <select
+                        class="form-select"
+                        id="city"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        required
+                      >
                         <option>Select City</option>
                         {Country &&
                           State.getStatesOfCountry(country).map((item) => (
@@ -192,6 +251,7 @@ const Checkout = () => {
                         placeholder="John Doe"
                         value={address1}
                         onChange={(e) => setAddress1(e.target.value)}
+                        required
                       />
                       <label htmlFor="floatingInput">Adress 1 *</label>
                     </div>
@@ -204,6 +264,7 @@ const Checkout = () => {
                         id="floatingInput"
                         placeholder="John Doe"
                         value={address2}
+                        required
                         onChange={(e) => setAddress2(e.target.value)}
                       />
                       <label htmlFor="floatingInput">Adress 2 *</label>
@@ -334,7 +395,7 @@ const Checkout = () => {
                   <div>${totalPrice}</div>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handlePromoCode}>
                   <div className="input-promo form-floating my-3">
                     <input
                       type="text"
@@ -351,9 +412,13 @@ const Checkout = () => {
                         Apply code
                       </button>
 
-                      <Link to="/payment" className="btn btn-dark btn-lg mt-1 rounded-1" type="button">
+                      <button
+                        onClick={() => submitHandler()}
+                        className="btn btn-dark btn-lg mt-1 rounded-1"
+                        type="button"
+                      >
                         Review and Pay
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </form>
