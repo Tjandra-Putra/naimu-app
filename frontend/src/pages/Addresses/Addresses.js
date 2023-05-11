@@ -35,8 +35,6 @@ const Addresses = () => {
     },
   ];
 
-  console.log("Github error");
-
   useEffect(() => {
     if (error) {
       notifyError(error);
