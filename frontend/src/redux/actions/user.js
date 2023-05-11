@@ -73,14 +73,14 @@ export const logout = () => async (dispatch) => {
 
 // ============================= Update User Address =============================
 export const updateAddress =
-  ({ country, city, address1, postalCode, addressType }) =>
+  ({ country, city, address1, address2, postalCode, addressType }) =>
   async (dispatch) => {
     try {
       dispatch({ type: "UpdateAddressRequest" });
 
       const { data } = await axios.put(
         `${server}/user/update-addresses`,
-        { country, city, address1, postalCode, addressType },
+        { country, city, address1, address2, postalCode, addressType },
         { withCredentials: true } // need withCredentials: true to send cookie to backend as it is authenticated
       );
 

@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import "./Payment.css";
 
 const Payment = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="payment-wrapper">
       <div className="container">

@@ -32,6 +32,9 @@ const userSchema = new mongoose.Schema({
       address1: {
         type: String,
       },
+      address2: {
+        type: String,
+      },
       postalCode: {
         type: String,
       },

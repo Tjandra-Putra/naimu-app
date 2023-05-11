@@ -18,6 +18,7 @@ const Addresses = () => {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [addressType, setAddressType] = useState("");
   const { user, error, success } = useSelector((state) => state.userReducer);
@@ -48,17 +49,18 @@ const Addresses = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(country, city, address1, postalCode, addressType);
+    console.log(country, city, address1, address2, postalCode, addressType);
     if (addressType === "" || country === "" || city === "") {
       notifyError("Please fill in all the required fields");
     } else {
       // dispatch update address
-      dispatch(updateAddress({ country, city, address1, postalCode, addressType }));
+      dispatch(updateAddress({ country, city, address1, address2, postalCode, addressType }));
 
       //clear states
       setCountry("");
       setCity("");
       setAddress1("");
+      setAddress2("");
       setPostalCode("");
       setAddressType("");
     }
@@ -153,15 +155,28 @@ const Addresses = () => {
                             </div>
 
                             <div class="mb-3">
-                              <label for="address" class="form-label">
-                                Address
+                              <label for="address1" class="form-label">
+                                Address 1
                               </label>
                               <input
                                 type="text"
                                 class="form-control"
-                                id="address"
+                                id="address1"
                                 value={address1}
                                 onChange={(e) => setAddress1(e.target.value)}
+                              />
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="address2" class="form-label">
+                                Address 2
+                              </label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="address2"
+                                value={address2}
+                                onChange={(e) => setAddress2(e.target.value)}
                               />
                             </div>
 
@@ -212,7 +227,9 @@ const Addresses = () => {
                   user.user.addresses.map((item, index) => (
                     <div className="address-box" key={index}>
                       <div className="address-type">{item.addressType}</div>
-                      <div className="address">{item.address1}</div>
+                      <div className="address">
+                        {item.address1}, {item.address2}
+                      </div>
                       <div className="phone-number">{user.user.phoneNumber}</div>
                       <div className="action">
                         <i

@@ -18,12 +18,6 @@ const SideNavbar = ({ activeLink }) => {
   const logoutHandler = () => {
     notifySuccess("Logged out successfully");
     dispatch(logout());
-
-    // // redirect to login page after 2 seconds
-    setTimeout(() => {
-      navigate("/login");
-      window.location.reload();
-    }, 2000);
   };
 
   return (
