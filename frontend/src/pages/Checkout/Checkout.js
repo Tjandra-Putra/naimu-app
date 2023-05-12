@@ -117,16 +117,18 @@ const Checkout = () => {
       if (orderInfoFromLocalStorage) {
         const { userInfo, billingInfo, amountInfo } = orderInfoFromLocalStorage;
 
-        setCountry(billingInfo.country || "");
-        setCity(billingInfo.city || "");
-        setAddress1(billingInfo.address1 || "");
-        setAddress2(billingInfo.address2 || "");
-        setPostalCode(billingInfo.postalCode || "");
-        setFullName(userInfo.fullName || "");
-        setEmail(userInfo.email || "");
-        setPhoneNumber(userInfo.phoneNumber || "");
-        setPromoCode(amountInfo.promoCode || null);
-        setPromoCodePercentage(amountInfo.promoCodePercentage || 0);
+        // need to fix bug: when prefilled with data from localstorage, cannot change the value using choose from saved info
+
+        // setCountry(billingInfo.country || "");
+        // setCity(billingInfo.city || "");
+        // setAddress1(billingInfo.address1 || "");
+        // setAddress2(billingInfo.address2 || "");
+        // setPostalCode(billingInfo.postalCode || "");
+        // setFullName(userInfo.fullName || "");
+        // setEmail(userInfo.email || "");
+        // setPhoneNumber(userInfo.phoneNumber || "");
+        // setPromoCode(amountInfo.promoCode || null);
+        // setPromoCodePercentage(amountInfo.promoCodePercentage || 0);
       }
     } catch (error) {
       console.log("Error retrieving order info from local storage:", error);

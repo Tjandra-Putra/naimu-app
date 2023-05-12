@@ -50,10 +50,6 @@
   border-bottom: 1px solid #ddd !important;
 }
 
-.payment-wrapper .form-control {
-  /* border-color: #000000; */
-}
-
 .payment-wrapper .product-title {
   font-weight: 500;
 }
@@ -63,10 +59,16 @@
   color: #888787;
 }
 
-.payment-wrapper .product-img {
-  width: 135px;
-  height: 135px;
+.payment-wrapper .size-select {
+  width: 115px;
+  margin-top: 8px;
+}
+
+.payment-wrapper .product-img img {
+  width: 122px;
+  height: 122px !important;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .payment-wrapper .product-store {
@@ -111,4 +113,8 @@
   border-color: #000000;
   border-width: 1.5px;
   border-radius: 0px;
+}
+
+.payment-wrapper .discount {
+  color: #9e3500;
 }

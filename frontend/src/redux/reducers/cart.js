@@ -60,6 +60,14 @@ export const cartReducer = createReducer(initialState, (builder) => {
           }
         }),
       };
+    })
+
+    // empty the cart
+    .addCase("EmptyCart", (state, action) => {
+      return {
+        ...state,
+        cart: [],
+      };
     });
 });
 

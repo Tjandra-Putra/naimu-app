@@ -5,10 +5,14 @@ import { loadUser } from "./redux/actions/user.js";
 import { useSelector } from "react-redux";
 import React from "react";
 import { PersistGate } from "redux-persist/integration/react"; // import PersistGate
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import { store, persistor } from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
 import ProtectedRoute from "./routes/protectedRoutes.js";
+import { server } from "./server.js";
 
 import {
   Navbar,
@@ -31,10 +35,16 @@ import {
 } from "./routes/routes.js";
 
 const App = () => {
-  const { loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+  const [stripeApiKey, setStripeApiKey] = React.useState("");
+
+  const getStripeApiKey = async () => {
+    const { data } = await axios.get(`${server}/payment/stripe-api-key`);
+    setStripeApiKey(data.stripeApiKey);
+  };
 
   useEffect(() => {
     store.dispatch(loadUser()); // syntax is typically used when you're dispatching an action from outside of a React component (e.g. from a Redux thunk/middleware).
+    getStripeApiKey();
   }, []);
 
   return (
@@ -43,6 +53,21 @@ const App = () => {
         <Toaster />
         <PersistGate loading={<Loader />} persistor={persistor}>
           <Navbar />
+
+          {stripeApiKey && (
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <Routes>
+                <Route
+                  path="/payment"
+                  element={
+                    <ProtectedRoute>
+                      <Payment />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </Elements>
+          )}
 
           <Routes>
             <Route path="/" element={<Home />} />
@@ -68,7 +93,7 @@ const App = () => {
               }
             />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/payment" element={<Payment />} />
+            {/* <Route path="/payment" element={<Payment />} /> */}
             <Route
               path="/profile"
               element={

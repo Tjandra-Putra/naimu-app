@@ -24,3 +24,8 @@ export const updateCart = (data) => async (dispatch, getState) => {
   // localStorage.setItem("cartItems", JSON.stringify(getState().cartReducer.cart));
   return data;
 };
+
+// empty cart
+export const emptyCart = () => async (dispatch, getState) => {
+  dispatch({ type: "EmptyCart" });
+};

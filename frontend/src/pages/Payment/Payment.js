@@ -1,14 +1,158 @@
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { FaInfoCircle } from "react-icons/fa";
 
 import "./Payment.css";
+import Loader from "../../components/Layout/Loader/Loader";
+import { server } from "../../server";
+import { emptyCart } from "../../redux/actions/cart";
 
 const Payment = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [orderInfo, setOrderInfo] = useState({}); // for displaying order info
+  const [orderInfoFormatted, setOrderInfoFormatted] = useState({}); // for creating order
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+
+  const stripe = useStripe();
+  const elements = useElements();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // toast component
+  const notifyInfo = (message) =>
+    toast(message, {
+      duration: 5000,
+      icon: <FaInfoCircle size={25} color="grey" />,
+    });
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  // This will set the paymentInfo.amount to 0 if totalPrice or amountInfo does not exist in the orderInfo object.
+  const paymentInfo = {
+    amount: orderInfo?.amountInfo?.totalPrice ? Math.round(orderInfo.amountInfo.totalPrice * 100) : 0, // stripe requires amount in cents hence * 100
+  };
+
+  // on change handler for selected payment method
+  const paymentMethodChangeHandler = (e) => {
+    setSelectedPaymentMethod(e.target.value);
+    notifyInfo(`Payment method changed to ${e.target.value}`);
+  };
+
+  const createOrder = async (data, actions) => {
+    //
+  };
+
+  const onAprove = (data, actions) => {
+    //
+  };
+
+  // for credit/debit card payment
+  const paymentHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (!stripe || !elements) {
+        return;
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(`${server}/payment/create-payment-intent`, paymentInfo, config, {
+        withCredentials: true,
+      });
+
+      const clientSecret = data.clientSecret;
+
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+        },
+      });
+
+      if (result.error) {
+        notifyError(result.error.message);
+      } else {
+        if (result.paymentIntent.status === "succeeded") {
+          orderInfoFormatted.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+            paymentMethod: "Credit/Debit Card",
+          };
+        }
+
+        await axios.post(`${server}/order/create-order`, orderInfoFormatted, config).then((res) => {
+          if (res.data.success) {
+            notifySuccess("Order created successfully");
+
+            // get newly created order _id
+            const orderId = res.data.order._id;
+
+            navigate(`/orders/${orderId}`);
+
+            // remove cookies
+            localStorage.removeItem("orderInfo"); // remove from local storage
+            dispatch(emptyCart()); // remove from redux store persist state
+
+            // additional feature: send email to user about order confirmation
+          }
+        });
+      }
+    } catch (error) {
+      notifyError(error.response.data.message);
+    }
+  };
+
+  // for paypal payment
+  const paypalPaymentHandler = async (paymentInfo) => {
+    // notifyError("Paypal payment is not available at the moment");
+  };
+
+  // for cash on delivery payment
+  const cashOnDeliveryPaymentHandler = async (e) => {
+    e.preventDefault();
+  };
+
+  // place order button
+  const placeOrderHandler = () => {
+    if (!selectedPaymentMethod) {
+      notifyError("Please select a payment method");
+      return;
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // get from local storage
+    const orderInfoFromLocalStorage = JSON.parse(localStorage.getItem("orderInfo")) || {};
+    setOrderInfo(orderInfoFromLocalStorage);
+
+    // { user, orderItems, billingInfo, paymentInfo, totalPrice } need this to create order in the backend
+    const orderInfoFormatted = {
+      user: orderInfoFromLocalStorage.userInfo,
+      orderItems: orderInfoFromLocalStorage.cartInfo,
+      billingInfo: orderInfoFromLocalStorage.billingInfo,
+      paymentInfo: { id: "", status: "", paymentMethod: "" },
+      totalPrice: orderInfoFromLocalStorage.amountInfo.totalPrice,
+    };
+
+    setOrderInfoFormatted(orderInfoFormatted);
+
+    setIsLoading(false);
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="payment-wrapper">
       <div className="container">
         <nav aria-label="breadcrumb">
@@ -45,6 +189,8 @@ const Payment = () => {
                           data-bs-target="#flush-collapseOne"
                           aria-controls="flush-collapseOne"
                           required
+                          value="credit-debit-card"
+                          onChange={paymentMethodChangeHandler}
                         />
                         <h5 class="form-check-label text-uppercase ms-2" for="paymentRadio">
                           Credit/Debit Card
@@ -58,56 +204,74 @@ const Payment = () => {
                     data-bs-parent="#accordionFlushExample"
                   >
                     <div class="accordion-body">
-                      <div class="mb-3">
-                        <label for="name" class="form-label">
-                          Name on card
-                        </label>
-                        <input
-                          type="text"
-                          class="form-control form-control-lg rounded-1 border-dark"
-                          id="name"
-                          placeholder="J. Smith"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="number" class="form-label">
-                          Card number
-                        </label>
-                        <input
-                          type="text"
-                          class="form-control form-control-lg rounded-1 border-dark"
-                          id="number"
-                          placeholder="1234 5678 9012 3456"
-                        />
-                      </div>
-                      <div className="row">
-                        <div className="col">
-                          <div class="mb-3">
-                            <label for="expiry" class="form-label">
-                              Expiry date
-                            </label>
-                            <input
-                              type="text"
-                              class="form-control form-control-lg rounded-1 border-dark"
-                              id="expiry"
-                              placeholder="MM/YY"
-                            />
+                      <form onSubmit={paymentHandler}>
+                        <div class="mb-3">
+                          <label for="name" class="form-label">
+                            Name on card
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control form-control-lg rounded-1 border-dark"
+                            id="name"
+                            placeholder={orderInfo.userInfo.fullName}
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="number" class="form-label">
+                            Card number
+                          </label>
+                          <CardNumberElement
+                            className="form-control form-control-lg rounded-1 border-dark"
+                            options={{
+                              style: {
+                                base: { fontSize: "19px", lineHeight: 1.7 },
+                                empty: { color: "#444" },
+                              },
+                            }}
+                          />
+                        </div>
+                        <div className="row">
+                          <div className="col">
+                            <div className="mb-3">
+                              <label for="expiry" class="form-label">
+                                Expiry date
+                              </label>
+                              <CardExpiryElement
+                                className="form-control form-control-lg rounded-1 border-dark"
+                                options={{
+                                  style: {
+                                    base: { fontSize: "19px", lineHeight: 1.7 },
+                                    empty: { color: "#444" },
+                                  },
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="col">
+                            <div class="mb-3">
+                              <label for="CVC/CVV" class="form-label">
+                                CVC/CVV
+                              </label>
+                              <CardCvcElement
+                                className="form-control form-control-lg rounded-1 border-dark"
+                                options={{
+                                  style: {
+                                    base: { fontSize: "19px", lineHeight: 1.7 },
+                                    empty: { color: "#444" },
+                                  },
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
-                        <div className="col">
-                          <div class="mb-3">
-                            <label for="CVC/CVV" class="form-label">
-                              CVC/CVV
-                            </label>
-                            <input
-                              type="text"
-                              class="form-control form-control-lg rounded-1 border-dark"
-                              id="CVC/CVV"
-                              placeholder="3 digits"
-                            />
+                        <div className="buttons">
+                          <div class="d-grid gap-2">
+                            <button class="btn btn-dark btn-lg mt-1 rounded-1" type="submit">
+                              Place Order
+                            </button>
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -123,6 +287,8 @@ const Payment = () => {
                           data-bs-target="#flush-collapseTwo"
                           aria-controls="flush-collapseTwo"
                           required
+                          value="paypal"
+                          onChange={paymentMethodChangeHandler}
                         />
                         <h5 class="form-check-label text-uppercase ms-2" for="paymentRadio">
                           Paypal
@@ -166,6 +332,8 @@ const Payment = () => {
                           data-bs-target="#flush-collapseThree"
                           aria-controls="flush-collapseThree"
                           required
+                          value="cash-on-delivery"
+                          onChange={paymentMethodChangeHandler}
                         />
                         <h5 class="form-check-label text-uppercase ms-2" for="paymentRadio">
                           Cash on Delivery
@@ -190,13 +358,8 @@ const Payment = () => {
               {/* Acknowledgement checkbox */}
               <div className="acknowledgement mt-3">
                 <div class="form-check">
-                  <input
-                    class="form-check-input acknowledgement-checkbox"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                  <label class="form-check-label" for="flexCheckDefault">
+                  <input class="form-check-input acknowledgement-checkbox" type="checkbox" value="" />
+                  <label class="form-check-label">
                     I acknowledge that I have read and understood the Website Terms and Conditions, Delivery Policy and
                     NAIMU Privacy Policy (as may be updated from time to time), and hereby agree to be bound by such
                     terms.
@@ -225,7 +388,7 @@ const Payment = () => {
                       placeholder="John Doe"
                       required
                       disabled
-                      value="Tjandra Putra"
+                      value={orderInfo.userInfo.fullName}
                     />
                     <label for="floatingInput">Full name *</label>
                   </div>
@@ -236,10 +399,9 @@ const Payment = () => {
                       type="email"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="name@example.com"
                       required
                       disabled
-                      value="Tjandra@gmail.com"
+                      value={orderInfo.userInfo.email}
                     />
                     <label for="floatingInput">Email address *</label>
                   </div>
@@ -252,26 +414,23 @@ const Payment = () => {
                       type="text"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="John Doe"
                       required
                       disabled
-                      value="Novena"
+                      value={orderInfo.userInfo.phoneNumber}
                     />
-                    <label for="floatingInput">Adress 1 *</label>
+                    <label for="floatingInput">Phone number *</label>
                   </div>
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col">
                   <div class="form-floating my-3">
                     <input
                       type="text"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="John Doe"
                       required
                       disabled
-                      value="322189"
+                      value={orderInfo.billingInfo.postalCode}
                     />
                     <label for="floatingInput">Postal code *</label>
                   </div>
@@ -284,12 +443,11 @@ const Payment = () => {
                       type="text"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="John Doe"
                       required
                       disabled
-                      value="12345678"
+                      value={orderInfo.billingInfo.country}
                     />
-                    <label for="floatingInput">Phone number *</label>
+                    <label for="floatingInput">Country *</label>
                   </div>
                 </div>
                 <div className="col">
@@ -298,12 +456,39 @@ const Payment = () => {
                       type="text"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="John Doe"
                       required
                       disabled
-                      value="Indonesia"
+                      value={orderInfo.billingInfo.city}
                     />
-                    <label for="floatingInput">Country *</label>
+                    <label for="floatingInput">City *</label>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      required
+                      disabled
+                      value={orderInfo.billingInfo.address1}
+                    />
+                    <label for="floatingInput">Adress 1 *</label>
+                  </div>
+                </div>
+                <div className="col">
+                  <div class="form-floating my-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="floatingInput"
+                      required
+                      disabled
+                      value={orderInfo.billingInfo.address2}
+                    />
+                    <label for="floatingInput">Adress 2 *</label>
                   </div>
                 </div>
               </div>
@@ -328,109 +513,41 @@ const Payment = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="product-img">
-                      <img
-                        src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </td>
-                    <td className="product-description">
-                      <div className="d-flex flex-column">
-                        <div className="product-title">Adidas Rekive Woven Track Pants</div>
-                        <div className="product-id">Product ID: 462178</div>
-                        <div className="product-store">Adidas</div>
-                        <div className="d-flex flex-row">
-                          <div className="product-size">
-                            <select class="size-select form-select" aria-label="Default select example" disabled>
-                              <option disabled value="XS">
-                                Size
-                              </option>
-                              <option value="0" selected>
-                                XS
-                              </option>
-                              <option value="1">S</option>
-                              <option value="2">M</option>
-                              <option value="3">XL</option>
-                            </select>
-                          </div>
-                          <div className="product-quantity ms-3">
-                            <select class="size-select form-select" aria-label="Default select example" disabled>
-                              <option disabled value="">
-                                Quantity
-                              </option>
-                              <option value="1" selected>
-                                1
-                              </option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>$139</td>
-                  </tr>
+                  {orderInfo.cartInfo.map((item, index) => (
+                    <tr key={index}>
+                      <td className="product-img">
+                        <img src={item.product_image_url} alt="" className="img-fluid" />
+                      </td>
+                      <td className="product-description">
+                        <div className="d-flex flex-column">
+                          <div className="product-title">{item.product_title}</div>
+                          <div className="product-id">Product ID: {item._id}</div>
+                          <div className="product-store">{item.product_shop_name}</div>
+                          <div className="d-flex flex-row">
+                            <div className="product-size">
+                              <select className="size-select form-select" aria-label="Default select example" disabled>
+                                <option selected value={item.product_size}>
+                                  {item.product_size}
+                                </option>
+                              </select>
+                            </div>
+                            <div className="product-quantity ms-3">
+                              <select className="size-select form-select" aria-label="Default select example" disabled>
+                                <option disabled selected value="">
+                                  Quantity
+                                </option>
 
-                  <tr>
-                    <td className="product-img">
-                      <img
-                        src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg"
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </td>
-                    <td className="product-description">
-                      <div className="d-flex flex-column">
-                        <div className="product-title">Adidas Rekive Woven Track Pants</div>
-                        <div className="product-id">Product ID: 462178</div>
-                        <div className="product-store">Adidas</div>
-                        <div className="d-flex flex-row">
-                          <div className="product-size">
-                            <select class="size-select form-select " aria-label="Default select example" disabled>
-                              <option disabled value="">
-                                Size
-                              </option>
-                              <option value="0" selected>
-                                XS
-                              </option>
-                              <option value="1">S</option>
-                              <option value="2">M</option>
-                              <option value="3">XL</option>
-                            </select>
-                          </div>
-                          <div className="product-quantity ms-3">
-                            <select class="size-select form-select " aria-label="Default select example" disabled>
-                              <option disabled value="">
-                                Quantity
-                              </option>
-                              <option value="1" selected>
-                                1
-                              </option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                            </select>
+                                <option selected value={item.product_quantity}>
+                                  {item.product_quantity}
+                                </option>
+                              </select>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>$139</td>
-                  </tr>
+                      </td>
+                      <td>${item.product_price}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -441,18 +558,30 @@ const Payment = () => {
                 <div className="title">Summary</div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>Items x2</div>
-                  <div>$139</div>
+                  <div>Items x{orderInfo.cartInfo.length}</div>
+                  <div>${orderInfo.amountInfo.subTotalPrice}</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Delivery</div>
-                  <div>FREE</div>
+                  <div>${orderInfo.amountInfo.deliveryFee}</div>
+                </div>
+
+                <div className="summary-row d-flex flex-row justify-content-between">
+                  <div className={orderInfo.amountInfo.promoCodePercentage && "discount"}>
+                    Discount {`(${orderInfo.amountInfo.promoCodePercentage.toString()}%)`}
+                  </div>
+                  <div className={orderInfo.amountInfo.promoCodePercentage && "discount"}>
+                    -
+                    {orderInfo.amountInfo.promoCodePercentage
+                      ? ` $${orderInfo.amountInfo.promoCodePercentage.toFixed(2)}`
+                      : null}
+                  </div>
                 </div>
 
                 <div className="summary-total d-flex flex-row justify-content-between">
                   <div>Total</div>
-                  <div>$139</div>
+                  <div>${orderInfo.amountInfo.totalPrice}</div>
                 </div>
 
                 <div class="input-promo form-floating my-3">
@@ -460,18 +589,10 @@ const Payment = () => {
                     type="text"
                     class="form-control"
                     id="floatingInput"
-                    placeholder="name@example.com"
                     disabled
-                    value="#5478fh324"
+                    value={orderInfo.amountInfo.promoCode}
                   />
                   <label for="floatingInput">Promocode</label>
-                </div>
-                <div className="buttons">
-                  <div class="d-grid gap-2">
-                    <Link to="/orders/123" class="btn btn-dark btn-lg mt-1 rounded-1" type="button">
-                      Place Order
-                    </Link>
-                  </div>
                 </div>
               </div>
             </div>
