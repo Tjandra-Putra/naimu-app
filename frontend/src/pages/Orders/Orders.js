@@ -1,51 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import "./Orders.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
+import Loader from "../../components/Layout/Loader/Loader";
+import { server } from "../../server";
+import toast from "react-hot-toast";
 
 const Orders = () => {
-  const ordersList = [
-    {
-      _id: "a13b8cf8-e70a-11ed-a05b-0242ac120003",
-      createdAt: "2021-09-12T14:48:00.000Z",
-      orderItems: [
-        {
-          _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
-          product_title: "Adidas Rekive Woven Track Pants",
-          product_quantity: 1,
-          product_image_url:
-            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
-          product_price: 100,
-        },
-        {
-          _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
-          product_title: "Adidas Rekive Woven Track Pants",
-          product_quantity: 1,
-          product_image_url:
-            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
-          product_price: 100,
-        },
-      ],
-      orderStatus: "Processing",
-      orderTotal: 100,
-    },
-    {
-      _id: "a13b8cf8-e70a-11ed-a05b-0242ac120003",
-      createdAt: "2021-09-12T14:48:00.000Z",
-      orderItems: [
-        {
-          _id: "a11b8cf8-e70a-11ed-a05b-0242ac120003",
-          product_title: "Adidas Rekive Woven Track Pants",
-          product_quantity: 1,
-          product_image_url:
-            "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
-          product_price: 100,
-        },
-      ],
-      orderStatus: "Processing",
-      orderTotal: 100,
-    },
-  ];
+  const navigate = useNavigate();
+  const [ordersList, setOrdersList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useSelector((state) => state.userReducer);
+
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  useEffect(() => {
+    const getOrders = async () => {
+      setIsLoading(true);
+      try {
+        const { data } = await axios.get(`${server}/order/get-orders/${user.user._id}`);
+        setOrdersList(data.orders);
+
+        console.log("orders", data.orders);
+        console.log("user", user.user._id);
+
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+      }
+    };
+    getOrders();
+  }, []);
 
   return (
     <div className="orders-wrapper">
@@ -71,14 +62,14 @@ const Orders = () => {
                   <tbody>
                     {ordersList
                       ? ordersList.map((order, index) => (
-                          <tr>
+                          <tr key={index}>
                             <td>{order._id}</td>
                             <td>{order.createdAt}</td>
                             <td>{order.orderStatus}</td>
                             <td>{order.orderItems.length}</td>
-                            <td>${order.orderTotal}</td>
+                            <td>${order.totalPrice}</td>
                             <td>
-                              <Link to="/orders/123" className="text-decoration-none text-dark">
+                              <Link to={`/orders/${order._id}`} className="text-decoration-none text-dark">
                                 <i class="fas fa-arrow-right fa-lg"></i>
                               </Link>
                             </td>

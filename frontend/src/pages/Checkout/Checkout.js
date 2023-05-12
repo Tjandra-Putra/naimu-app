@@ -22,6 +22,7 @@ const Checkout = () => {
 
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+  const [userId, setUserId] = useState(user && user.user._id);
   const [fullName, setFullName] = useState(user && user.user.fullName);
   const [email, setEmail] = useState(user && user.user.email);
   const [address1, setAddress1] = useState("");
@@ -77,6 +78,7 @@ const Checkout = () => {
       fullName,
       email,
       phoneNumber,
+      _id: userId,
     };
 
     const billingInfo = {

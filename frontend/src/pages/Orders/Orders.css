@@ -38,3 +38,9 @@
   padding: 2rem;
   text-align: center;
 }
+
+.orders-wrapper .table {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
