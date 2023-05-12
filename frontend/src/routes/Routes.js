@@ -15,6 +15,7 @@ import Profile from "../pages/Profile/Profile";
 import Refunds from "../pages/Refunds/Refunds";
 import Addresses from "../pages/Addresses/Addresses";
 import PasswordChange from "../pages/PasswordChange/PasswordChange";
+import NotFound from "../pages/NotFound/NotFound";
 
 export {
   Navbar,
@@ -34,4 +35,5 @@ export {
   Refunds,
   Addresses,
   PasswordChange,
+  NotFound,
 };

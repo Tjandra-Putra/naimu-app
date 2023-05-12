@@ -32,6 +32,7 @@ import {
   Refunds,
   Addresses,
   PasswordChange,
+  NotFound,
 } from "./routes/routes.js";
 
 const App = () => {
@@ -128,6 +129,8 @@ const App = () => {
             />
 
             <Route path="/activate/:activation_token" element={<Activate />} />
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </PersistGate>
