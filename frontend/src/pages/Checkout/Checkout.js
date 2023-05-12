@@ -408,7 +408,7 @@ const Checkout = () => {
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Delivery</div>
-                  <div>${deliveryFee}</div>
+                  <div>FREE</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
