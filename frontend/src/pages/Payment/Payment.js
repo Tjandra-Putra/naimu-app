@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FaInfoCircle } from "react-icons/fa";
 
 import "./Payment.css";
@@ -532,22 +531,20 @@ const Payment = () => {
                           <div className="product-store">{item.product_shop_name}</div>
                           <div className="d-flex flex-row">
                             <div className="product-size">
-                              <select className="size-select form-select" aria-label="Default select example" disabled>
-                                <option selected value={item.product_size}>
-                                  {item.product_size}
-                                </option>
-                              </select>
+                              <input
+                                type="text"
+                                className="form-control size-select border-0"
+                                value={item.product_size}
+                                disabled
+                              />
                             </div>
                             <div className="product-quantity ms-3">
-                              <select className="size-select form-select" aria-label="Default select example" disabled>
-                                <option disabled selected value="">
-                                  Quantity
-                                </option>
-
-                                <option selected value={item.product_quantity}>
-                                  {item.product_quantity}
-                                </option>
-                              </select>
+                              <input
+                                type="text"
+                                className="form-control size-select border-0"
+                                value={item.product_quantity}
+                                disabled
+                              />
                             </div>
                           </div>
                         </div>

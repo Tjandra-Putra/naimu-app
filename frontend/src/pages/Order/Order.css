@@ -59,10 +59,16 @@
   color: #888787;
 }
 
-.order-wrapper .product-img {
-  width: 135px;
-  height: 135px;
+.order-wrapper .size-select {
+  width: 115px;
+  margin-top: 8px;
+}
+
+.order-wrapper .product-img img {
+  width: 122px;
+  height: 122px !important;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .order-wrapper .product-store {
