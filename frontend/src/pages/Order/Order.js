@@ -1,13 +1,17 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Order.css";
 import Loader from "../../components/Layout/Loader/Loader";
 import { server } from "../../server";
 
 const Order = () => {
+  const dispatch = useDispatch();
+  const { error, success } = useSelector((state) => state.userReducer);
+
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -19,14 +23,22 @@ const Order = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (success) {
+      notifySuccess(success);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [success, error]);
+
+  useEffect(() => {
     try {
       setIsLoading(true);
       const getOrders = async () => {
         const { data } = await axios.get(`${server}/order/get-order/${id}`);
         setOrder(data.order);
-
-        console.log("data", data);
-        console.log("user", data.order.user.fullName);
       };
 
       getOrders();

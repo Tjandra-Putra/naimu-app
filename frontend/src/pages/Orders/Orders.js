@@ -1,23 +1,36 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 import "./Orders.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 import Loader from "../../components/Layout/Loader/Loader";
 import { server } from "../../server";
-import toast from "react-hot-toast";
 
 const Orders = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [ordersList, setOrdersList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useSelector((state) => state.userReducer);
+  const { user, error, success } = useSelector((state) => state.userReducer);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (success) {
+      notifySuccess(success);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [error, success]);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -36,9 +49,11 @@ const Orders = () => {
       }
     };
     getOrders();
-  }, []);
+  }, [error, success]);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="orders-wrapper">
       <div className="container">
         <div className="orders">
