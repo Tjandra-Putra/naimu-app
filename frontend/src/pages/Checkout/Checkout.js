@@ -110,6 +110,12 @@ const Checkout = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
+    // check if cart exists if not redirect to cart page
+    if (cart.length === 0) {
+      notifyError("Your cart is empty");
+      navigate("/cart");
+    }
+
     // get order info from local storage
     try {
       const orderInfoFromLocalStorage = JSON.parse(localStorage.getItem("orderInfo"));

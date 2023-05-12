@@ -132,6 +132,13 @@ const Payment = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
+    // check if orderInfo exists in local storage if not redirect to checkout page
+    if (!localStorage.getItem("orderInfo")) {
+      notifyError("Please complete checkout first");
+      navigate("/checkout");
+      return;
+    }
+
     // get from local storage
     const orderInfoFromLocalStorage = JSON.parse(localStorage.getItem("orderInfo")) || {};
     setOrderInfo(orderInfoFromLocalStorage);
