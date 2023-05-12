@@ -37,13 +37,12 @@ const Checkout = () => {
     return acc + item.product_price * item.product_quantity;
   }, 0);
 
-  const deliveryFee = subTotalPrice * 0.1;
+  const deliveryFee = 0;
+  const discountAmount = (subTotalPrice * promoCodePercentage) / 100;
 
   const totalPrice = promoCodePercentage
-    ? ((subTotalPrice + deliveryFee) * ((100 - promoCodePercentage) / 100)).toFixed(2)
+    ? (subTotalPrice + deliveryFee - discountAmount).toFixed(2)
     : (subTotalPrice + deliveryFee).toFixed(2);
-
-  const discountAmount = subTotalPrice - totalPrice;
 
   const handlePromoCode = async (e) => {
     e.preventDefault();
