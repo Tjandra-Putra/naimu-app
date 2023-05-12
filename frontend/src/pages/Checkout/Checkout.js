@@ -109,7 +109,29 @@ const Checkout = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+
+    // get order info from local storage
+    try {
+      const orderInfoFromLocalStorage = JSON.parse(localStorage.getItem("orderInfo"));
+
+      if (orderInfoFromLocalStorage) {
+        const { userInfo, billingInfo, amountInfo } = orderInfoFromLocalStorage;
+
+        setCountry(billingInfo.country || "");
+        setCity(billingInfo.city || "");
+        setAddress1(billingInfo.address1 || "");
+        setAddress2(billingInfo.address2 || "");
+        setPostalCode(billingInfo.postalCode || "");
+        setFullName(userInfo.fullName || "");
+        setEmail(userInfo.email || "");
+        setPhoneNumber(userInfo.phoneNumber || "");
+        setPromoCode(amountInfo.promoCode || null);
+        setPromoCodePercentage(amountInfo.promoCodePercentage || 0);
+      }
+    } catch (error) {
+      console.log("Error retrieving order info from local storage:", error);
+    }
+  }, [country, city, fullName, email, address1, address2, postalCode, phoneNumber, promoCode]);
 
   return (
     <div className="checkout-wrapper">
@@ -199,7 +221,7 @@ const Checkout = () => {
                   <div className="col">
                     <div className="form-floating my-3">
                       <select
-                        class="form-select"
+                        className="form-select"
                         id="country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -214,7 +236,7 @@ const Checkout = () => {
                           ))}
                       </select>
 
-                      <label for="country" class="form-label">
+                      <label htmlFor="country" className="form-label">
                         Country *
                       </label>
                     </div>
@@ -222,7 +244,7 @@ const Checkout = () => {
                   <div className="col">
                     <div className="form-floating my-3">
                       <select
-                        class="form-select"
+                        className="form-select"
                         id="city"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
@@ -273,7 +295,7 @@ const Checkout = () => {
                 </div>
 
                 <div className="saved-info">
-                  <p class="saved-info-text" onClick={() => setUserInfo(!userInfo)}>
+                  <p className="saved-info-text" onClick={() => setUserInfo(!userInfo)}>
                     Choose from saved info
                   </p>
                   {userInfo && (
@@ -281,9 +303,9 @@ const Checkout = () => {
                       {user &&
                         user.user.addresses.map((item, index) => (
                           <span key={index}>
-                            <div class="form-check form-check-inline">
+                            <div className="form-check form-check-inline">
                               <input
-                                class="form-check-input d-inline"
+                                className="form-check-input d-inline"
                                 type="radio"
                                 name="addressType"
                                 id={item.addressType}
@@ -296,7 +318,7 @@ const Checkout = () => {
                                     setPostalCode(item.postalCode);
                                 }}
                               />
-                              <label class="form-check-label" for={item.addressType}>
+                              <label className="form-check-label" htmlFor={item.addressType}>
                                 {item.addressType}
                               </label>
                             </div>
