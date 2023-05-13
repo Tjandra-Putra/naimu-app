@@ -11,11 +11,13 @@ import shoppingCartImage from "../../assets/images/shopping-cart.png";
 import "./Cart.css";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
+  const { user, error, success } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
 
-  const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cartReducer);
   const [productList, setProductList] = useState([]); // [state, setState]
   const [isLoading, setIsLoading] = useState(true);
@@ -256,7 +258,7 @@ const Cart = () => {
                 </div>
 
                 <div className="buttons my-3">
-                  {cart && cart.length > 0 ? (
+                  {cart && cart.length > 0 && user ? (
                     <div className="d-grid gap-2">
                       <Link to="/checkout" class="btn btn-dark btn-checkout btn-lg rounded-1">
                         Checkout
@@ -265,7 +267,7 @@ const Cart = () => {
                   ) : (
                     <div className="d-grid gap-2">
                       <button class="btn btn-dark btn-lg rounded-1" disabled>
-                        Checkout
+                        Checkout {user ? null : "(login required)"}
                       </button>
                     </div>
                   )}

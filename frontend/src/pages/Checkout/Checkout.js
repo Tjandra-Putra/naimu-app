@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Country, State } from "country-state-city";
@@ -10,12 +10,13 @@ import { server } from "../../server";
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
-  const { user } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
+  const { user, error, success } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
   const { cart } = useSelector((state) => state.cartReducer) ?? [];
 
   const [userInfo, setUserInfo] = useState(false); // for saved info display hidden and show
@@ -107,6 +108,17 @@ const Checkout = () => {
 
     navigate("/payment");
   };
+
+  useEffect(() => {
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (success) {
+      notifySuccess(success);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [error, success]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
