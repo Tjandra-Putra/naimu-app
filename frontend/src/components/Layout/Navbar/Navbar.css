@@ -93,8 +93,20 @@
   font-size: 0.7rem;
   text-decoration: none;
   font-weight: 700;
-  left: 35px;
+  left: 36px;
+
+  /* left: 35px; */
   background-color: #0071ae;
+  /* background-color: var(--ocean); */
+}
+
+.navbar-wrapper .favourite {
+  font-size: 0.7rem;
+  text-decoration: none;
+  font-weight: 700;
+  left: 35px;
+  color: #000000;
+  background-color: var(--cheese);
 }
 
 .navbar-wrapper .profile-img {

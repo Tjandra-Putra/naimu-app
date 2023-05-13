@@ -258,7 +258,7 @@ const Cart = () => {
                 <div className="buttons my-3">
                   {cart && cart.length > 0 ? (
                     <div className="d-grid gap-2">
-                      <Link to="/checkout" class="btn btn-dark btn-lg rounded-1">
+                      <Link to="/checkout" class="btn btn-dark btn-checkout btn-lg rounded-1">
                         Checkout
                       </Link>
                     </div>

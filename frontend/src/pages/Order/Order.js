@@ -287,7 +287,11 @@ const Order = () => {
                   <div class="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      class={`form-control ${
+                        order.paymentInfo && order.paymentInfo.status === "pending payment"
+                          ? "text-danger"
+                          : "text-success"
+                      }`}
                       id="floatingInput"
                       value={order.paymentInfo ? order.paymentInfo.status : "Loading..."}
                       disabled

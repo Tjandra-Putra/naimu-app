@@ -4,8 +4,68 @@
 :root {
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
+  --ocean: #013086;
+  --cheese: #ffc43a;
+  --cloud: #0070df;
+  --water: #d0f1fe;
 }
 
 body {
   font-family: var(--font-inter);
+}
+
+.btn-ocean {
+  background-color: var(--ocean);
+  color: #ffffff;
+  font-weight: 500;
+  border-radius: 50px !important;
+}
+
+.btn-ocean:hover {
+  background-color: var(--cloud);
+  color: #ffffff;
+}
+
+.btn-outline-ocean {
+  border: 2px solid var(--ocean);
+  color: var(--ocean);
+  font-weight: 500;
+  border-radius: 50px !important;
+}
+
+.btn-outline-ocean:hover {
+  border: 2px solid var(--cloud);
+  color: var(--cloud);
+}
+
+.btn-ocean {
+  background-color: var(--ocean);
+  color: #ffffff;
+  font-weight: 500;
+  border-radius: 50px !important;
+}
+
+.btn-ocean:hover {
+  background-color: var(--cloud);
+  color: #ffffff;
+}
+
+.btn-outline-ocean {
+  border: 2px solid var(--ocean);
+  color: var(--ocean);
+  font-weight: 500;
+  border-radius: 50px !important;
+}
+
+.btn-outline-ocean:hover {
+  border: 2px solid var(--cloud);
+  color: var(--cloud);
+}
+
+.btn {
+  font-weight: 500;
+}
+
+.btn-outline-dark {
+  border: 1.5px solid #000000;
 }

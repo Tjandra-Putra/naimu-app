@@ -167,8 +167,10 @@ const Navbar = () => {
                 </li>
               )}
               <li className="nav-item nav-link-size">
-                <Link className="nav-link" to="/favourite">
-                  <i className="fa-regular fa-heart fa-lg ps-1"></i>
+                <Link className="nav-link position-relative" to="/favourite">
+                  <i className="fa-regular fa-heart fa-lg"></i>
+
+                  <span className="position-absolute top-1 translate-middle badge rounded-pill favourite">0</span>
                 </Link>
               </li>
               <li className="nav-item nav-link-size">

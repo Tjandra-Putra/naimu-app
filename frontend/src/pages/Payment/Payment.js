@@ -2,9 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { FaInfoCircle } from "react-icons/fa";
+import { PaypalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 import "./Payment.css";
 import Loader from "../../components/Layout/Loader/Loader";
@@ -16,6 +17,7 @@ const Payment = () => {
   const [orderInfo, setOrderInfo] = useState({}); // for displaying order info
   const [orderInfoFormatted, setOrderInfoFormatted] = useState({}); // for creating order
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+  const [acknowledgement, setAcknowledgement] = useState(false); // for acknowledgement checkbox
 
   const stripe = useStripe();
   const elements = useElements();
@@ -36,26 +38,49 @@ const Payment = () => {
     amount: orderInfo?.amountInfo?.totalPrice ? Math.round(orderInfo.amountInfo.totalPrice * 100) : 0, // stripe requires amount in cents hence * 100
   };
 
+  const createOrder = async (order, config) => {
+    await axios.post(`${server}/order/create-order`, order, config).then((res) => {
+      if (res.data.success) {
+        notifySuccess("Order created successfully");
+
+        // get newly created order _id
+        const orderId = res.data.order._id;
+
+        navigate(`/orders/${orderId}`);
+
+        // remove cookies
+        localStorage.removeItem("orderInfo"); // remove from local storage
+        dispatch(emptyCart()); // remove from redux store persist state
+
+        // additional feature: send email to user about order confirmation
+      }
+    });
+  };
+
   // on change handler for selected payment method
   const paymentMethodChangeHandler = (e) => {
     setSelectedPaymentMethod(e.target.value);
+
+    if (e.target.value === "paypal") {
+      notifyError("Paypal payment is not available at the moment");
+      return;
+    }
+
     notifyInfo(`Payment method changed to ${e.target.value}`);
   };
 
-  const createOrder = async (data, actions) => {
-    //
-  };
-
-  const onAprove = (data, actions) => {
-    //
-  };
-
-  // for credit/debit card payment
+  // for stripe credit/debit card payment
   const paymentHandler = async (e) => {
     e.preventDefault();
 
+    if (!acknowledgement) {
+      notifyError("Please acknowledge the terms and conditions");
+      return;
+    }
+
     try {
       if (!stripe || !elements) {
+        notifyError("Stripe is not available at the moment");
         return;
       }
 
@@ -88,22 +113,24 @@ const Payment = () => {
           };
         }
 
-        await axios.post(`${server}/order/create-order`, orderInfoFormatted, config).then((res) => {
-          if (res.data.success) {
-            notifySuccess("Order created successfully");
+        createOrder(orderInfoFormatted, config);
 
-            // get newly created order _id
-            const orderId = res.data.order._id;
+        // await axios.post(`${server}/order/create-order`, orderInfoFormatted, config).then((res) => {
+        //   if (res.data.success) {
+        //     notifySuccess("Order created successfully");
 
-            navigate(`/orders/${orderId}`);
+        //     // get newly created order _id
+        //     const orderId = res.data.order._id;
 
-            // remove cookies
-            localStorage.removeItem("orderInfo"); // remove from local storage
-            dispatch(emptyCart()); // remove from redux store persist state
+        //     navigate(`/orders/${orderId}`);
 
-            // additional feature: send email to user about order confirmation
-          }
-        });
+        //     // remove cookies
+        //     localStorage.removeItem("orderInfo"); // remove from local storage
+        //     dispatch(emptyCart()); // remove from redux store persist state
+
+        //     // additional feature: send email to user about order confirmation
+        //   }
+        // });
       }
     } catch (error) {
       notifyError(error.response.data.message);
@@ -111,21 +138,77 @@ const Payment = () => {
   };
 
   // for paypal payment
-  const paypalPaymentHandler = async (paymentInfo) => {
-    // notifyError("Paypal payment is not available at the moment");
+  const paypalPaymentHandler = async (paypalInfo) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      orderInfoFormatted.paymentInfo = {
+        id: paypalInfo.payer_id,
+        status: "succeeded",
+        paymentMethod: "Paypal",
+      };
+
+      await axios.post(`${server}/order/create-order`, orderInfoFormatted, config).then((res) => {
+        if (res.data.success) {
+          notifySuccess("Order created successfully");
+
+          // get newly created order _id
+          const orderId = res.data.order._id;
+
+          navigate(`/orders/${orderId}`);
+
+          // remove cookies
+          localStorage.removeItem("orderInfo"); // remove from local storage
+          dispatch(emptyCart()); // remove from redux store persist state
+
+          // additional feature: send email to user about order confirmation
+        }
+      });
+    } catch (error) {
+      notifyError(error.response.data.message);
+    }
+  };
+
+  // for paypal payment
+  const onAprove = (data, actions) => {
+    return actions.order.capture().then((details) => {
+      const { payer } = details;
+
+      let paypalInfo = payer;
+
+      if (paypalInfo !== undefined) {
+        paypalPaymentHandler(paypalInfo);
+      }
+    });
   };
 
   // for cash on delivery payment
   const cashOnDeliveryPaymentHandler = async (e) => {
     e.preventDefault();
-  };
 
-  // place order button
-  const placeOrderHandler = () => {
-    if (!selectedPaymentMethod) {
-      notifyError("Please select a payment method");
+    if (!acknowledgement) {
+      notifyError("Please acknowledge the terms and conditions");
       return;
     }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    orderInfoFormatted.paymentInfo = {
+      // generate random id for cash on delivery payment
+      id: Math.floor(Math.random() * 1000000000000000000).toString(),
+      status: "pending payment",
+      paymentMethod: "Cash on Delivery",
+    };
+
+    createOrder(orderInfoFormatted, config);
   };
 
   useEffect(() => {
@@ -308,16 +391,17 @@ const Payment = () => {
                     data-bs-parent="#accordionFlushExample"
                   >
                     <div class="accordion-body">
-                      <div class="mb-3">
-                        <label for="email" class="form-label">
-                          Email address
-                        </label>
-                        <input
-                          type="email"
-                          class="form-control form-control-lg rounded-1 border-dark"
-                          id="email"
-                          placeholder="J. Smith"
-                        />
+                      <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-lg mb-4 rounded-1" type="submit" disabled>
+                          Pay Now
+                        </button>
+                        {/* <PaypalScriptProvider options={{ "client-id": "xxx" }}>
+                          <PayPalButtons
+                            style={{ layout: "horizontal" }}
+                            createOrder={(data, actions) => createOrder(data, actions)}
+                            onApprove={(data, actions) => onAprove(data, actions)}
+                          />
+                        </PaypalScriptProvider> */}
                       </div>
                       <p>
                         <strong>Notice:</strong> You will be redirected to PayPal, where you can pay and complete your
@@ -354,6 +438,13 @@ const Payment = () => {
                   >
                     <div class="accordion-body">
                       {/* reminder to pay with cash on delivery */}
+                      <form onSubmit={cashOnDeliveryPaymentHandler}>
+                        <div class="d-grid gap-2">
+                          <button class="btn btn-primary btn-lg mb-4 rounded-1" type="submit">
+                            Place Order
+                          </button>
+                        </div>
+                      </form>
                       <p>
                         <strong>Reminder:</strong> Please pay with cash on delivery.
                       </p>
@@ -364,7 +455,12 @@ const Payment = () => {
               {/* Acknowledgement checkbox */}
               <div className="acknowledgement mt-3">
                 <div class="form-check">
-                  <input class="form-check-input acknowledgement-checkbox" type="checkbox" value="" />
+                  <input
+                    class="form-check-input acknowledgement-checkbox"
+                    type="checkbox"
+                    value={acknowledgement}
+                    onClick={() => setAcknowledgement(!acknowledgement)}
+                  />
                   <label class="form-check-label">
                     I acknowledge that I have read and understood the Website Terms and Conditions, Delivery Policy and
                     NAIMU Privacy Policy (as may be updated from time to time), and hereby agree to be bound by such

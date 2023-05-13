@@ -98,8 +98,8 @@ const Product = () => {
             <Link to="/" className="breadcrumb-item text-muted">
               Home
             </Link>
-            <Link to="/" className="breadcrumb-item text-muted">
-              Adidas
+            <Link to={`/products?brand=${product.shop.name.toLowerCase()}`} className="breadcrumb-item text-muted">
+              {product.shop.name}
             </Link>
             <Link to="/products" className="breadcrumb-item text-muted">
               Browse
