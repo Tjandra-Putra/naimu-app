@@ -5,7 +5,7 @@ import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useEle
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { FaInfoCircle } from "react-icons/fa";
-import { PaypalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import Swal from "sweetalert2";
 
 import "./Payment.css";
@@ -18,7 +18,7 @@ const Payment = () => {
   const [orderInfo, setOrderInfo] = useState({}); // for displaying order info
   const [orderInfoFormatted, setOrderInfoFormatted] = useState({}); // for creating order
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
-  const [acknowledgement, setAcknowledgement] = useState(false); // for acknowledgement checkbox
+  const [acknowledgement, setAcknowledgement] = useState(true); // for acknowledgement checkbox
 
   const stripe = useStripe();
   const elements = useElements();
@@ -42,7 +42,7 @@ const Payment = () => {
       duration: 5000,
       icon: <FaInfoCircle size={25} color="grey" />,
     });
-  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   // This will set the paymentInfo.amount to 0 if totalPrice or amountInfo does not exist in the orderInfo object.
@@ -50,6 +50,7 @@ const Payment = () => {
     amount: orderInfo?.amountInfo?.totalPrice ? Math.round(orderInfo.amountInfo.totalPrice * 100) : 0, // stripe requires amount in cents hence * 100
   };
 
+  // this createOrder is for stripe and cash on delivery payment
   const createOrder = async (order, config) => {
     if (!acknowledgement) {
       notifyError("Please acknowledge the terms and conditions");
@@ -75,16 +76,16 @@ const Payment = () => {
     });
   };
 
-  // on change handler for selected payment method
+  // selected payment method notification
   const paymentMethodChangeHandler = (e) => {
     setSelectedPaymentMethod(e.target.value);
 
-    if (e.target.value === "paypal") {
-      notifyError("Paypal payment is not available at the moment");
-      return;
-    }
-
     notifyInfo(`Payment method changed to ${e.target.value}`);
+
+    // if (e.target.value === "paypal") {
+    //   notifyError("Paypal payment is not available at the moment");
+    //   return;
+    // }
   };
 
   // for stripe credit/debit card payment
@@ -127,23 +128,6 @@ const Payment = () => {
         }
 
         createOrder(orderInfoFormatted, config);
-
-        // await axios.post(`${server}/order/create-order`, orderInfoFormatted, config).then((res) => {
-        //   if (res.data.success) {
-        //     notifySuccess("Order created successfully");
-
-        //     // get newly created order _id
-        //     const orderId = res.data.order._id;
-
-        //     navigate(`/orders/${orderId}`);
-
-        //     // remove cookies
-        //     localStorage.removeItem("orderInfo"); // remove from local storage
-        //     dispatch(emptyCart()); // remove from redux store persist state
-
-        //     // additional feature: send email to user about order confirmation
-        //   }
-        // });
       }
     } catch (error) {
       notifyError(error.response.data.message);
@@ -152,6 +136,8 @@ const Payment = () => {
 
   // for paypal payment
   const paypalPaymentHandler = async (paypalInfo) => {
+    console.log("Acknowledgement: before createdOrder function is executed", acknowledgement); // add this line
+
     try {
       const config = {
         headers: {
@@ -165,29 +151,15 @@ const Payment = () => {
         paymentMethod: "Paypal",
       };
 
-      await axios.post(`${server}/order/create-order`, orderInfoFormatted, config).then((res) => {
-        if (res.data.success) {
-          notifySuccess("Order created successfully");
-
-          // get newly created order _id
-          const orderId = res.data.order._id;
-
-          navigate(`/orders/${orderId}`);
-
-          // remove cookies
-          localStorage.removeItem("orderInfo"); // remove from local storage
-          dispatch(emptyCart()); // remove from redux store persist state
-
-          // additional feature: send email to user about order confirmation
-        }
-      });
+      // database create order
+      createOrder(orderInfoFormatted, config);
     } catch (error) {
       notifyError(error.response.data.message);
     }
   };
 
-  // for paypal payment
-  const onAprove = (data, actions) => {
+  // for paypal payment required properties
+  const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
       const { payer } = details;
 
@@ -197,6 +169,37 @@ const Payment = () => {
         paypalPaymentHandler(paypalInfo);
       }
     });
+  };
+
+  // for paypal payment required properties
+  const createPayPalOrder = (data, actions) => {
+    // format the data to paypal's structure
+    const paypalData = {};
+
+    for (const key in orderInfoFormatted) {
+      // Check if the current key is "orderItems"
+      if (key === "orderItems") {
+        // If so, loop through each order item and add it to the paypalData object in the correct format
+        paypalData[key] = orderInfoFormatted[key].map((item) => ({
+          name: item.product_title,
+          quantity: item.product_quantity,
+          unit_amount: { currency_code: "USD", value: item.product_price },
+          tax: { currency_code: "USD", value: "0.00" },
+          category: "PHYSICAL_GOODS",
+        }));
+      } else if (key === "totalPrice") {
+        // If the key is "totalPrice", format the value as a number and add it to the paypalData object
+        paypalData["purchase_units"] = [
+          { amount: { currency_code: "USD", value: Number(orderInfoFormatted[key]).toFixed(2) } },
+        ];
+      } else {
+        // For all other keys, add the value to the paypalData object
+        paypalData[key] = orderInfoFormatted[key];
+      }
+    }
+
+    // Create the order
+    return actions.order.create(paypalData);
   };
 
   // for cash on delivery payment
@@ -263,9 +266,7 @@ const Payment = () => {
             <Link to="/payment" class="breadcrumb-item fw-medium">
               Payment
             </Link>
-            <Link to="/order-complete" class="breadcrumb-item text-muted">
-              Order Complete
-            </Link>
+            <Link className="breadcrumb-item text-muted">Order Complete</Link>
           </ol>
         </nav>
 
@@ -400,16 +401,21 @@ const Payment = () => {
                   >
                     <div class="accordion-body">
                       <div class="d-grid gap-2">
-                        <button class="btn btn-primary btn-lg mb-4 rounded-1" type="submit" disabled>
+                        {/* <button class="btn btn-primary btn-lg mb-4 rounded-1" type="submit" disabled>
                           Pay Now
-                        </button>
-                        {/* <PaypalScriptProvider options={{ "client-id": "xxx" }}>
+                        </button> */}
+                        <PayPalScriptProvider
+                          options={{
+                            "client-id":
+                              "AR8wWOjEPyaKlMPAuK2skg5Ve8YJfcvEjKjrJBu-C5iZhpubVmLdPktOcd-XGiy0AgdcoPe_u5jg23kG",
+                          }}
+                        >
                           <PayPalButtons
-                            style={{ layout: "horizontal" }}
-                            createOrder={(data, actions) => createOrder(data, actions)}
-                            onApprove={(data, actions) => onAprove(data, actions)}
+                            style={{ layout: "vertical" }}
+                            createOrder={(data, actions) => createPayPalOrder(data, actions)}
+                            onApprove={(data, actions) => onApprove(data, actions)}
                           />
-                        </PaypalScriptProvider> */}
+                        </PayPalScriptProvider>
                       </div>
                       <p>
                         <strong>Notice:</strong> You will be redirected to PayPal, where you can pay and complete your
@@ -467,6 +473,7 @@ const Payment = () => {
                     class="form-check-input acknowledgement-checkbox"
                     type="checkbox"
                     value={acknowledgement}
+                    checked={acknowledgement}
                     onClick={() => setAcknowledgement(!acknowledgement)}
                   />
                   <label class="form-check-label">

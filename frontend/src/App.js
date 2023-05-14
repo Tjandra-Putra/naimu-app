@@ -54,7 +54,7 @@ const App = () => {
         <Toaster />
         <PersistGate loading={<Loader />} persistor={persistor}>
           <Navbar />
-
+          {/* 
           {stripeApiKey && (
             <Elements stripe={loadStripe(stripeApiKey)}>
               <Routes>
@@ -68,9 +68,22 @@ const App = () => {
                 />
               </Routes>
             </Elements>
-          )}
+          )} */}
 
           <Routes>
+            {stripeApiKey && (
+              <Route
+                path="/payment"
+                element={
+                  <ProtectedRoute>
+                    <Elements stripe={loadStripe(stripeApiKey)}>
+                      <Payment />
+                    </Elements>
+                  </ProtectedRoute>
+                }
+              />
+            )}
+
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -101,7 +114,6 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            {/* <Route path="/payment" element={<Payment />} /> */}
             <Route
               path="/profile"
               element={

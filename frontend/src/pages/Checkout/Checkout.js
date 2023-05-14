@@ -168,9 +168,7 @@ const Checkout = () => {
             <Link to="/payment" className="breadcrumb-item text-muted">
               Payment
             </Link>
-            <Link to="/order-complete" className="breadcrumb-item text-muted">
-              Order Complete
-            </Link>
+            <Link className="breadcrumb-item text-muted">Order Complete</Link>
           </ol>
         </nav>
 
@@ -315,10 +313,10 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                {user && user.user.address ? (
+                {user && user.user.addresses ? (
                   <div className="saved-info">
                     <p className="saved-info-text" onClick={() => setUserInfo(!userInfo)}>
-                      Choose from saved info
+                      Choose from my saved addresses
                     </p>
                     {userInfo && (
                       <div>
