@@ -315,39 +315,41 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <div className="saved-info">
-                  <p className="saved-info-text" onClick={() => setUserInfo(!userInfo)}>
-                    Choose from saved info
-                  </p>
-                  {userInfo && (
-                    <div>
-                      {user &&
-                        user.user.addresses.map((item, index) => (
-                          <span key={index}>
-                            <div className="form-check form-check-inline">
-                              <input
-                                className="form-check-input d-inline"
-                                type="radio"
-                                name="addressType"
-                                id={item.addressType}
-                                value={item.addressType}
-                                onClick={() => {
-                                  setAddress1(item.address1) ||
-                                    setAddress2(item.address2) ||
-                                    setCity(item.city) ||
-                                    setCountry(item.country) ||
-                                    setPostalCode(item.postalCode);
-                                }}
-                              />
-                              <label className="form-check-label" htmlFor={item.addressType}>
-                                {item.addressType}
-                              </label>
-                            </div>
-                          </span>
-                        ))}
-                    </div>
-                  )}
-                </div>
+                {user && user.user.address ? (
+                  <div className="saved-info">
+                    <p className="saved-info-text" onClick={() => setUserInfo(!userInfo)}>
+                      Choose from saved info
+                    </p>
+                    {userInfo && (
+                      <div>
+                        {user &&
+                          user.user.addresses.map((item, index) => (
+                            <span key={index}>
+                              <div className="form-check form-check-inline">
+                                <input
+                                  className="form-check-input d-inline"
+                                  type="radio"
+                                  name="addressType"
+                                  id={item.addressType}
+                                  value={item.addressType}
+                                  onClick={() => {
+                                    setAddress1(item.address1) ||
+                                      setAddress2(item.address2) ||
+                                      setCity(item.city) ||
+                                      setCountry(item.country) ||
+                                      setPostalCode(item.postalCode);
+                                  }}
+                                />
+                                <label className="form-check-label" htmlFor={item.addressType}>
+                                  {item.addressType}
+                                </label>
+                              </div>
+                            </span>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                ) : null}
               </div>
             </div>
 

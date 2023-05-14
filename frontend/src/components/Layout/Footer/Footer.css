@@ -8,6 +8,7 @@
   text-transform: uppercase;
   font-weight: 600;
   color: #ffffff;
+  letter-spacing: 1px;
 }
 
 .footer-wrapper .brand {
@@ -31,11 +32,22 @@
 }
 
 .footer-wrapper .payment-card-img {
-  width: 30px;
-  height: 30px;
-  margin-right: 1rem;
-  background-color: #ffffff;
-  padding: 2px;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffffe5;
+  padding: 5px;
   border-radius: 5px;
+  object-fit: cover;
+}
+
+.footer-wrapper .payment-cards {
+  display: flex;
+  flex-direction: row;
   margin-top: 0.5rem;
+}
+
+.footer-wrapper .payment-cards .card-wrapper {
+  width: 50px;
+  height: 30px !important;
+  margin: 5px;
 }

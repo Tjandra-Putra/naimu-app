@@ -19,11 +19,11 @@ const ProductCard = ({
         <div className="card border-0" style={{ width: "18rem" }}>
           <div className="img-wrapper">
             <img src={productImageUrl} className="card-img-top" alt="..." />
-            <div className="favourite">
+            {/* <div className="favourite">
               <div className="icon">
                 <i className="fa-regular fa-heart fa-lg pe-2"></i>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="card-body">
             <div className="d-flex flex-row justify-content-between">
@@ -36,8 +36,12 @@ const ProductCard = ({
             <Rating />
 
             <div className="prices">
-              <span className="discounted-price">${productDiscountPrice}</span>
-              <span className="original-price">${productPrice}</span>
+              <span className="discounted-price">
+                {productPrice !== productDiscountPrice ? `$${productDiscountPrice}` : null}
+              </span>
+              <span className={productDiscountPrice !== productPrice ? "original-price discount" : "original-price"}>
+                ${productPrice}
+              </span>
             </div>
           </div>
         </div>

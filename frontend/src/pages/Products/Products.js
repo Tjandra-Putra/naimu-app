@@ -227,7 +227,9 @@ const Products = () => {
           <div className="col-md-9">
             <div className="result-flex d-flex flex-row justify-content-between">
               <div className="result-info">
-                <span>Showing {productList ? filteredProductList.length : null} results for "tops"</span>
+                <span>
+                  Showing {productList ? filteredProductList.length : null} results for "{filterTag.join(", ")}"
+                </span>
                 <span className="applied-filter mt-2">
                   Applied Filters:
                   {filterTag.map((tag, index) => (

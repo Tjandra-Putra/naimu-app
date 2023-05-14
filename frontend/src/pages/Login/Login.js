@@ -14,6 +14,7 @@ const Login = () => {
   const { isAuthenticated } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (isAuthenticated) navigate("/");
   }, []);
 

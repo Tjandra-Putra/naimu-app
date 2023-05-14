@@ -38,10 +38,16 @@ const Footer = () => {
           </div>
           <div className="col-md-2">
             <div className="heading">Payment Methods</div>
-            <div className="d-line">
-              <img src={visaCardImage} alt="" className="payment-card-img" />
-              <img src={googleCardImage} alt="" className="payment-card-img" />
-              <img src={paypalCardImage} alt="" className="payment-card-img" />
+            <div className="payment-cards">
+              <div className="card-wrapper">
+                <img src={visaCardImage} alt="" className="payment-card-img" />
+              </div>
+              <div className="card-wrapper">
+                <img src={googleCardImage} alt="" className="payment-card-img" />
+              </div>
+              <div className="card-wrapper">
+                <img src={paypalCardImage} alt="" className="payment-card-img" />
+              </div>
             </div>
           </div>
         </div>

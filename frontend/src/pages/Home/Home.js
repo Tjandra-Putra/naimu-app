@@ -163,9 +163,9 @@ const Home = () => {
       <div className="container">
         <section className="featured-products">
           <div className="d-flex flex-row justify-content-between">
-            <div className="featured-products-title">Shop our featured products</div>
+            <div className="featured-products-title">Best Sellers</div>
             <Link className="featured-products-title text-decoration-none text-dark" to="/products">
-              View all <i className="fas fa-arrow-right fa-lg ps-1"></i>
+              Discover more <i className="fas fa-arrow-right fa-lg ps-1"></i>
             </Link>
           </div>
           <div className="row">
@@ -274,7 +274,7 @@ const Home = () => {
 
       <section className="membership">
         <div className="title">BECOME A MEMBER & GET 15% OFF</div>
-        <Link className="btn btn-light btn-lg rounded-2 ms-3 btn-register" to="/register">
+        <Link className="btn btn-light btn-lg ms-3 btn-register rounded-1" to="/register">
           Sign Up For Free <i className="fas fa-arrow-right fa-lg ms-2"></i>
         </Link>
       </section>

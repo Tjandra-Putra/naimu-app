@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { FaInfoCircle } from "react-icons/fa";
 import { PaypalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import Swal from "sweetalert2";
 
 import "./Payment.css";
 import Loader from "../../components/Layout/Loader/Loader";
@@ -24,6 +25,17 @@ const Payment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // sweet alert component
+  const sweetAlertModal = (title, icon, text) => {
+    Swal.fire({
+      title: title,
+      icon: icon,
+      text: text,
+      confirmButtonColor: "#000000",
+      confirmButtonText: "Ok",
+    });
+  };
+
   // toast component
   const notifyInfo = (message) =>
     toast(message, {
@@ -39,9 +51,15 @@ const Payment = () => {
   };
 
   const createOrder = async (order, config) => {
+    if (!acknowledgement) {
+      notifyError("Please acknowledge the terms and conditions");
+      return;
+    }
+
     await axios.post(`${server}/order/create-order`, order, config).then((res) => {
       if (res.data.success) {
-        notifySuccess("Order created successfully");
+        // notifySuccess("Order created successfully");
+        sweetAlertModal("Thank You", "success", "Order created successfully!");
 
         // get newly created order _id
         const orderId = res.data.order._id;
@@ -72,11 +90,6 @@ const Payment = () => {
   // for stripe credit/debit card payment
   const paymentHandler = async (e) => {
     e.preventDefault();
-
-    if (!acknowledgement) {
-      notifyError("Please acknowledge the terms and conditions");
-      return;
-    }
 
     try {
       if (!stripe || !elements) {
@@ -189,11 +202,6 @@ const Payment = () => {
   // for cash on delivery payment
   const cashOnDeliveryPaymentHandler = async (e) => {
     e.preventDefault();
-
-    if (!acknowledgement) {
-      notifyError("Please acknowledge the terms and conditions");
-      return;
-    }
 
     const config = {
       headers: {

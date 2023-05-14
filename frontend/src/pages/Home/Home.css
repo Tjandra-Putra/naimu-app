@@ -49,14 +49,14 @@
 
 .home-wrapper .banner-content .title {
   font-size: 3rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 20px;
   line-height: 3.5rem;
 }
 
 .home-wrapper .banner-content .subtitle {
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 300;
   margin-bottom: 20px;
   line-height: 2rem;
   max-width: 40%;
@@ -72,9 +72,9 @@
 }
 .home-wrapper .featured-products .featured-products-title {
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .home-wrapper .the-essentials {
@@ -83,9 +83,9 @@
 
 .home-wrapper .the-essentials .the-essentials-title {
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .home-wrapper .the-essentials .img-wrapper {
@@ -133,7 +133,7 @@
 .home-wrapper .stories .title {
   text-transform: capitalize;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .home-wrapper .membership {
@@ -154,5 +154,5 @@
 
 .home-wrapper .membership .btn {
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }

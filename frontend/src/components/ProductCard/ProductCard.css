@@ -24,11 +24,14 @@
 }
 
 .productcard-wrapper .original-price {
+  padding-left: 5px;
+}
+
+.productcard-wrapper .discount {
   text-decoration: line-through;
   font-weight: 300;
   /* color: #0000008b; */
   color: #9e3500;
-  padding-left: 5px;
 }
 
 .productcard-wrapper .category {

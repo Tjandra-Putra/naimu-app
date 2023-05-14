@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 import axios from "axios";
 
 import "./Register.css";
@@ -13,6 +14,7 @@ const Register = () => {
   const { isAuthenticated } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (isAuthenticated) navigate("/");
   }, []);
 
@@ -27,6 +29,17 @@ const Register = () => {
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  // sweet alert component
+  const sweetAlertModal = (title, icon, text) => {
+    Swal.fire({
+      title: title,
+      icon: icon,
+      text: text,
+      confirmButtonColor: "#000000",
+      confirmButtonText: "Ok",
+    });
+  };
 
   const requiredFields = {
     fullName: "Please enter your full name",
@@ -76,7 +89,9 @@ const Register = () => {
     axios
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
-        notifySuccess(res.data.message);
+        // notifySuccess(res.data.message);
+
+        sweetAlertModal("Account Activation", "info", res.data.message);
 
         // set form fields to empty
         setFullname("");
@@ -87,9 +102,7 @@ const Register = () => {
         setAvatar("");
       })
       .catch((err) => {
-        console.log(err);
         notifyError(err.response.data.message);
-        console.log(err.response.data.message);
       });
   };
 
