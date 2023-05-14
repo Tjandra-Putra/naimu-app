@@ -112,7 +112,7 @@
 .payment-wrapper .acknowledgement-checkbox {
   border-color: #000000;
   border-width: 1.5px;
-  border-radius: 0px;
+  border-radius: 5px;
 }
 
 .payment-wrapper .discount {

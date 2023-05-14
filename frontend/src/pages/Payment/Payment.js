@@ -291,7 +291,7 @@ const Payment = () => {
                           onChange={paymentMethodChangeHandler}
                         />
                         <h5 class="form-check-label text-uppercase ms-2" for="paymentRadio">
-                          Credit/Debit Card
+                          Credit/Debit Card (Stripe Payment)
                         </h5>
                       </div>
                     </button>
