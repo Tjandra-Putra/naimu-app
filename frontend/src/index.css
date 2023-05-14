@@ -4,10 +4,12 @@
 :root {
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
+  --font-hanken-grotesk: "Hanken Grotesk", sans-serif;
   --ocean: #013086;
   --cheese: #ffc43a;
   --cloud: #0070df;
   --water: #d0f1fe;
+  --canvasColor: #f9f9f9;
 }
 
 body {

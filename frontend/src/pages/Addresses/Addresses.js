@@ -22,6 +22,8 @@ const Addresses = () => {
   const [addressType, setAddressType] = useState("");
   const { user, error, success } = useSelector((state) => state.userReducer);
 
+  console.log(user);
+
   const addressTypes = [
     {
       name: "Default",

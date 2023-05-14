@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Order.css";
 import Loader from "../../components/Layout/Loader/Loader";
 import { server } from "../../server";
+import Rating from "../../components/Rating/Rating";
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const Order = () => {
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,6 +120,80 @@ const Order = () => {
                           </div>
                         </td>
                         <td>${item.product_price}</td>
+                        <td>
+                          <div className="btn-review-wrapper">
+                            <div className="btn-review" data-bs-toggle="modal" data-bs-target={`#${item._id}`}>
+                              Review
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Review Modal */}
+                        <div class="modal fade review-modal" id={item._id} tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header border-0">
+                                <h1 class="modal-title fs-5 mx-auto">Write a Review</h1>
+                              </div>
+                              <div class="modal-body">
+                                <form action="">
+                                  <div className="row">
+                                    <div className="col-md-3">
+                                      <img src={item.product_image_url} alt="" className="img-fluid rounded-2" />
+                                    </div>
+                                    <div className="col-md-9">
+                                      <div className="product-details">
+                                        <div className="product-title">{item.product_title}</div>
+                                        <div className="product-id">Product ID: {item._id}</div>
+                                        <div className="product-store">{item.product_shop_name}</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="rating-box">
+                                    <label className="text-center text-dark">Your overall rating</label>
+                                    <Rating rating={0} />
+                                  </div>
+
+                                  <div class="mb-4">
+                                    <label for="title" class="form-label">
+                                      Set a title for your review
+                                    </label>
+                                    <input class="form-control" id="title" placeholder="Summarise review"></input>
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="comment" class="form-label">
+                                      What did you like or dislike?
+                                    </label>
+                                    <textarea class="form-control" id="comment" rows="3"></textarea>
+                                  </div>
+
+                                  <div className="row">
+                                    <div className="col-md-8">
+                                      <label htmlFor="recommend">Would you recommend the product?</label>
+                                    </div>
+                                    <div className="col-md-4">
+                                      <div className="form-check form-switch float-md-end">
+                                        <input
+                                          className="form-check-input"
+                                          type="checkbox"
+                                          role="switch"
+                                          id="recommend"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div className="d-grid mt-3">
+                                      <button className="btn btn-dark btn-lg" type="submit">
+                                        Submit review
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </tr>
                     ))}
                 </tbody>
@@ -317,7 +393,20 @@ const Order = () => {
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Order Date</div>
                   <div>
-                    <span>{order ? order.createdAt : ""}</span>
+                    <span>
+                      {order
+                        ? new Date(order.createdAt)
+                            .toLocaleString("en-US", {
+                              day: "numeric",
+                              month: "numeric",
+                              year: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                              hour12: true,
+                            })
+                            .replace(",", "")
+                        : ""}
+                    </span>
                   </div>
                 </div>
 

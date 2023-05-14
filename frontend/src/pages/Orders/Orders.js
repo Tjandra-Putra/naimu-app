@@ -82,7 +82,18 @@ const Orders = () => {
                           ? ordersList.map((order, index) => (
                               <tr key={index}>
                                 <td>{order._id}</td>
-                                <td>{order.createdAt}</td>
+                                <td>
+                                  {new Date(order.createdAt)
+                                    .toLocaleString("en-US", {
+                                      day: "numeric",
+                                      month: "numeric",
+                                      year: "numeric",
+                                      hour: "numeric",
+                                      minute: "numeric",
+                                      hour12: true,
+                                    })
+                                    .replace(",", "")}
+                                </td>
                                 <td>{order.orderStatus}</td>
                                 <td>{order.orderItems.length}</td>
                                 <td>${order.totalPrice}</td>

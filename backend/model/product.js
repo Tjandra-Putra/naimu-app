@@ -9,14 +9,38 @@ const productSchema = new mongoose.Schema({
   product_description: String,
   product_image_url: [
     {
-      public_id: String,
       url: String,
+    },
+  ],
+  product_reviews: [
+    {
+      user: {
+        type: Object,
+      },
+      rating: {
+        type: Number,
+      },
+      title: {
+        type: String,
+      },
+      comment: {
+        type: String,
+      },
+      recommend: {
+        type: Boolean,
+      },
+      productId: {
+        type: String,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now(),
+      },
     },
   ],
   shop: {
     name: String,
     shop_avatar: {
-      public_id: String,
       url: String,
     },
     ratings: Number,

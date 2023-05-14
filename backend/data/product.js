@@ -264,7 +264,7 @@ const productList = [
     product_category: "Shoes",
     product_title: "Nike Streakfly",
     product_description:
-      "Our lightest racing shoe, the Nike Streakfly is all about the speed you need to take on the competition in a mile, 5K or 10K race. Low profile with sleek details, it feels like it disappears on your foot to help you better connect with the road on the way to your personal best.",
+      "Our lightest racing shoe, the Nike Streakfly is all about the speed you need to take on the competition in a mile, 5K or 10K race. Low profile with sleek details, it feels like it disappears on your foot to help you better connect with the road on the way to your personal best.      ",
     product_image_url: [
       {
         public_id: "nike-streakfly-1",
