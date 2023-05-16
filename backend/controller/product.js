@@ -1,5 +1,6 @@
 const express = require("express");
 const Product = require("../model/product");
+const Order = require("../model/order");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const { validate } = require("../model/product");
 const { isAuthenticatedUser } = require("../middleware/auth");
@@ -30,7 +31,7 @@ router.put(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      const { user, rating, title, comment, recommend, productId } = req.body;
+      const { user, rating, title, comment, recommend, productId, orderId } = req.body;
 
       const product = await Product.findById(productId);
 
@@ -75,6 +76,12 @@ router.put(
       product.product_rating = average / product.product_reviews.length;
 
       await product.save();
+
+      await Order.findByIdAndUpdate(
+        orderId,
+        { $set: { "orderItems.$[item].isReviewed": true } },
+        { arrayFilters: [{ "item._id": productId }], new: true }
+      );
 
       res.status(200).json({
         success: true,

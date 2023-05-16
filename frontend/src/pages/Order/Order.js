@@ -18,13 +18,12 @@ const Order = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState([]);
   const [rating, setRating] = useState(0);
-
-  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
-  const notifyError = (message) => toast.error(message, { duration: 5000 });
-
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
   const [recommend, setRecommend] = useState(false);
+
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const reviewHandler = async (productId, e) => {
     e.preventDefault();
@@ -33,8 +32,6 @@ const Order = () => {
     if (!rating || !title || !comment || rating === 0) {
       return notifyError("Please fill in all fields");
     }
-
-    console.log(rating);
 
     await axios
       .put(
@@ -46,11 +43,18 @@ const Order = () => {
           comment,
           recommend,
           productId,
+          orderId: id,
         },
         { withCredentials: true }
       )
       .then((res) => {
         notifySuccess(res.data.message);
+
+        // reset state
+        setRating(0);
+        setTitle("");
+        setComment("");
+        setRecommend(false);
       })
       .catch((err) => {
         notifyError(err.response.data.message);
