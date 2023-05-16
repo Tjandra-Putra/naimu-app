@@ -197,7 +197,11 @@ const Product = () => {
                         <div className="d-flex flex-row justify-content-between">
                           <span className="me-2">Reviews</span>
                           <div className="accordion-item-review">
-                            <Rating showCount={true} />
+                            <Rating
+                              showCount={true}
+                              userRating={product.product_rating}
+                              totalRatings={product.product_reviews.length}
+                            />
                           </div>
                         </div>
                       </button>
@@ -211,21 +215,17 @@ const Product = () => {
                         <div className="row mb-4">
                           <div className="col">
                             <div className="review-sub-title">Total Reviews</div>
-                            <div className="review-title">10.0k</div>
+                            <div className="review-title">{product.product_reviews.length}</div>
                           </div>
                           <div className="col">
                             <div className="review-sub-title">Average Rating</div>
-                            <div className="review-title">4.0</div>
+                            <div className="review-title">{product.product_rating.toFixed(1)}</div>
                           </div>
                           <div className="col">
-                            <ProgressBar ratingCount={60} ratingIndex="5.0" color="bg-primary" />
-                            <ProgressBar ratingCount={10} ratingIndex="4.0" color="bg-primary" />
-                            <ProgressBar ratingCount={10} ratingIndex="3.0" color="bg-primary" />
-                            <ProgressBar ratingCount={15} ratingIndex="2.0" color="bg-primary" />
-                            <ProgressBar ratingCount={5} ratingIndex="1.0" color="bg-primary" />
+                            <ProgressBar ratingCount={60} productReviews={product.product_reviews} color="bg-primary" />
                           </div>
                         </div>
-                        <Reviews />
+                        <Reviews reviewsArray={product.product_reviews} />
                       </div>
                     </div>
                   </div>
@@ -270,7 +270,11 @@ const Product = () => {
                 <div className="d-flex flex-row justify-content-between">
                   <div className="product-shop-name">{product.shop.name}</div>
                   <div className="rating">
-                    <Rating showCount={true} />
+                    <Rating
+                      showCount={true}
+                      userRating={product.product_rating}
+                      totalRatings={product.product_reviews.length}
+                    />
                   </div>
                 </div>
               </div>
