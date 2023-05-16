@@ -29,9 +29,9 @@ const Reviews = (reviewsArray) => {
                         day: "numeric",
                         month: "numeric",
                         year: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                        hour12: true,
+                        // hour: "numeric",
+                        // minute: "numeric",
+                        // hour12: true,
                       })
                       .replace(",", "")
                   : ""}
