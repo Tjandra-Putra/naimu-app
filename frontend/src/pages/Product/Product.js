@@ -222,7 +222,7 @@ const Product = () => {
                             <div className="review-title">{product.product_rating.toFixed(1)}</div>
                           </div>
                           <div className="col">
-                            <ProgressBar ratingCount={60} productReviews={product.product_reviews} color="bg-primary" />
+                            <ProgressBar productReviews={product.product_reviews} color="bg-primary" />
                           </div>
                         </div>
                         <Reviews reviewsArray={product.product_reviews} />

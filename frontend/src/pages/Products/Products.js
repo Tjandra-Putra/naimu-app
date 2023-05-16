@@ -291,6 +291,7 @@ const Products = () => {
                           productSold={item.product_unit_sold}
                           productCategory={item.product_category}
                           productImageUrl={item.product_image_url[0].url}
+                          productRating={item.product_rating}
                         />
                       </div>
                     ))

@@ -12,6 +12,7 @@ const ProductCard = ({
   productStore,
   productSold,
   productId,
+  productRating,
 }) => {
   return (
     <div className="productcard-wrapper">
@@ -33,8 +34,7 @@ const ProductCard = ({
 
             <div className="title">{productTitle}</div>
 
-            <Rating />
-
+            <Rating showCount={false} userRating={productRating} />
             <div className="prices">
               <span className="discounted-price">
                 {productPrice !== productDiscountPrice ? `$${productDiscountPrice}` : null}
