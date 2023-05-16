@@ -28,6 +28,7 @@ const productSchema = new mongoose.Schema({
       },
       recommend: {
         type: Boolean,
+        default: false,
       },
       productId: {
         type: String,

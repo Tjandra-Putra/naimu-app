@@ -9,6 +9,7 @@ import "./Product.css";
 import Rating from "../../components/Rating/Rating";
 import Reviews from "../../components/Reviews/Reviews";
 import Loader from "../../components/Layout/Loader/Loader";
+import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 import { addToCart } from "../../redux/actions/cart";
 import { server } from "../../server";
@@ -206,7 +207,24 @@ const Product = () => {
                       className="accordion-collapse collapse"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div className="accordion-body">
+                      <div className="accordion-body review-box-info">
+                        <div className="row mb-4">
+                          <div className="col">
+                            <div className="review-sub-title">Total Reviews</div>
+                            <div className="review-title">10.0k</div>
+                          </div>
+                          <div className="col">
+                            <div className="review-sub-title">Average Rating</div>
+                            <div className="review-title">4.0</div>
+                          </div>
+                          <div className="col">
+                            <ProgressBar ratingCount={60} ratingIndex="5.0" color="bg-primary" />
+                            <ProgressBar ratingCount={10} ratingIndex="4.0" color="bg-primary" />
+                            <ProgressBar ratingCount={10} ratingIndex="3.0" color="bg-primary" />
+                            <ProgressBar ratingCount={15} ratingIndex="2.0" color="bg-primary" />
+                            <ProgressBar ratingCount={5} ratingIndex="1.0" color="bg-primary" />
+                          </div>
+                        </div>
                         <Reviews />
                       </div>
                     </div>

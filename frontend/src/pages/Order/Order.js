@@ -92,7 +92,8 @@ const Order = () => {
                     order.orderItems.map((item, index) => (
                       <tr key={index}>
                         <td className="product-img">
-                          <img src={item.product_image_url} alt="" className="img-fluid" />
+                          {/* require a product url tag name not id. if not it will have error because of different size product is actually different product */}
+                          <img src={item.product_image_url} alt="" className="img-fluid rounded-2" />
                         </td>
                         <td className="product-description">
                           <div className="d-flex flex-column">
@@ -131,7 +132,7 @@ const Order = () => {
                         {/* Review Modal */}
                         <div class="modal fade review-modal" id={item._id} tabindex="-1" aria-hidden="true">
                           <div class="modal-dialog">
-                            <div class="modal-content">
+                            <div class="modal-content p-3">
                               <div class="modal-header border-0">
                                 <h1 class="modal-title fs-5 mx-auto">Write a Review</h1>
                               </div>
@@ -184,7 +185,7 @@ const Order = () => {
                                     </div>
 
                                     <div className="d-grid mt-3">
-                                      <button className="btn btn-dark btn-lg" type="submit">
+                                      <button className="btn btn-dark btn-lg rounded-1" type="submit">
                                         Submit review
                                       </button>
                                     </div>

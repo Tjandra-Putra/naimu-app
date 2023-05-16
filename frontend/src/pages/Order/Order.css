@@ -162,6 +162,7 @@
 
 .order-wrapper .review-modal .form-check-input {
   border: 1.5px solid #000000;
+  cursor: pointer;
 }
 
 .order-wrapper .review-modal label {

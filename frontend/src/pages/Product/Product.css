@@ -175,3 +175,13 @@
   transform: scale(1.2);
   cursor: zoom-in;
 }
+
+.product-wrapper .review-sub-title {
+  font-weight: 500;
+}
+
+.product-wrapper .review-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
