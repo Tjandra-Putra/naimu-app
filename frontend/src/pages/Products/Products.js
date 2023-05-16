@@ -66,33 +66,35 @@ const Products = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(url.search);
 
-    const filteredProducts = productList.filter((product) => {
-      const category = searchParams.getAll("category");
-      const brand = searchParams.getAll("brand");
-      const price = searchParams.getAll("price");
+    const filteredProducts = productList
+      ? productList.filter((product) => {
+          const category = searchParams.getAll("category");
+          const brand = searchParams.getAll("brand");
+          const price = searchParams.getAll("price");
 
-      const combinedFilters = [...category, ...brand, ...price];
-      setFilterTag(combinedFilters);
+          const combinedFilters = [...category, ...brand, ...price];
+          setFilterTag(combinedFilters);
 
-      if (category.length && !category.includes(product.product_category.toLowerCase())) {
-        return false;
-      }
+          if (category.length && !category.includes(product.product_category.toLowerCase())) {
+            return false;
+          }
 
-      if (brand.length && !brand.includes(product.shop.name.toLowerCase())) {
-        return false;
-      }
+          if (brand.length && !brand.includes(product.shop.name.toLowerCase())) {
+            return false;
+          }
 
-      if (price.length) {
-        const productPrice = product.product_discount_price;
+          if (price.length) {
+            const productPrice = product.product_discount_price;
 
-        const [minPrice, maxPrice] = price[0].split(",");
-        if (productPrice < minPrice || productPrice > maxPrice) {
-          return false;
-        }
-      }
+            const [minPrice, maxPrice] = price[0].split(",");
+            if (productPrice < minPrice || productPrice > maxPrice) {
+              return false;
+            }
+          }
 
-      return true;
-    });
+          return true;
+        })
+      : [];
 
     setFilteredProductList(filteredProducts);
   }, [productList, url]);

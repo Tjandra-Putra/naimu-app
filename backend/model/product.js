@@ -3,7 +3,6 @@ const productList = require("../data/product");
 
 // define the schema
 const productSchema = new mongoose.Schema({
-  _id: String,
   product_category: String,
   product_title: String,
   product_description: String,

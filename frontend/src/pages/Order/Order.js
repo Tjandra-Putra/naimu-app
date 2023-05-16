@@ -7,19 +7,55 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Order.css";
 import Loader from "../../components/Layout/Loader/Loader";
 import { server } from "../../server";
-import Rating from "../../components/Rating/Rating";
 
 const Order = () => {
   const dispatch = useDispatch();
   const { error, success } = useSelector((state) => state.userReducer);
 
   const { id } = useParams();
+  const { user } = useSelector((state) => state.userReducer);
 
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState([]);
+  const [rating, setRating] = useState(0);
 
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  const [title, setTitle] = useState("");
+  const [comment, setComment] = useState("");
+  const [recommend, setRecommend] = useState(false);
+
+  const reviewHandler = async (productId, e) => {
+    e.preventDefault();
+
+    // validate empty fields
+    if (!rating || !title || !comment || rating === 0) {
+      return notifyError("Please fill in all fields");
+    }
+
+    console.log(rating);
+
+    await axios
+      .put(
+        `${server}/product/review-product`,
+        {
+          user,
+          rating,
+          title,
+          comment,
+          recommend,
+          productId,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        notifySuccess(res.data.message);
+      })
+      .catch((err) => {
+        notifyError(err.response.data.message);
+      });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -137,7 +173,7 @@ const Order = () => {
                                 <h1 class="modal-title fs-5 mx-auto">Write a Review</h1>
                               </div>
                               <div class="modal-body">
-                                <form action="">
+                                <form>
                                   <div className="row">
                                     <div className="col-md-3">
                                       <img src={item.product_image_url} alt="" className="img-fluid rounded-2" />
@@ -152,21 +188,49 @@ const Order = () => {
                                   </div>
                                   <div className="rating-box">
                                     <label className="text-center text-dark">Your overall rating</label>
-                                    <Rating rating={0} />
+                                    <div className="rating-input-wrapper">
+                                      {[1, 2, 3, 4, 5].map((index) =>
+                                        rating >= index ? (
+                                          <i
+                                            className="fa-solid fa-star rating-input"
+                                            key={index}
+                                            onClick={() => setRating(index)}
+                                          ></i>
+                                        ) : (
+                                          <i
+                                            className="fa-regular fa-star rating-input"
+                                            key={index}
+                                            onClick={() => setRating(index)}
+                                          ></i>
+                                        )
+                                      )}
+                                    </div>
                                   </div>
 
                                   <div class="mb-4">
                                     <label for="title" class="form-label">
                                       Set a title for your review
                                     </label>
-                                    <input class="form-control" id="title" placeholder="Summarise review"></input>
+                                    <input
+                                      class="form-control"
+                                      id="title"
+                                      placeholder="Summarise review"
+                                      value={title}
+                                      onChange={(e) => setTitle(e.target.value)}
+                                    ></input>
                                   </div>
 
                                   <div class="mb-3">
                                     <label for="comment" class="form-label">
                                       What did you like or dislike?
                                     </label>
-                                    <textarea class="form-control" id="comment" rows="3"></textarea>
+                                    <textarea
+                                      class="form-control"
+                                      id="comment"
+                                      rows="3"
+                                      value={comment}
+                                      onChange={(e) => setComment(e.target.value)}
+                                    ></textarea>
                                   </div>
 
                                   <div className="row">
@@ -180,12 +244,17 @@ const Order = () => {
                                           type="checkbox"
                                           role="switch"
                                           id="recommend"
+                                          value={recommend}
+                                          onChange={(e) => setRecommend(e.target.value)}
                                         />
                                       </div>
                                     </div>
 
                                     <div className="d-grid mt-3">
-                                      <button className="btn btn-dark btn-lg rounded-1" type="submit">
+                                      <button
+                                        className="btn btn-dark btn-lg rounded-1"
+                                        onClick={(e) => reviewHandler(item._id, e)}
+                                      >
                                         Submit review
                                       </button>
                                     </div>

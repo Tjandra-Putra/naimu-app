@@ -168,3 +168,9 @@
 .order-wrapper .review-modal label {
   font-weight: 500;
 }
+
+.order-wrapper .rating-input {
+  margin: 5px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
