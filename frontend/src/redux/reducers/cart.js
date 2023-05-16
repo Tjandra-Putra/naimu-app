@@ -70,6 +70,3 @@ export const cartReducer = createReducer(initialState, (builder) => {
       };
     });
 });
-
-console.log(" ======== CART STATE ======== ");
-console.log(initialState.cart);

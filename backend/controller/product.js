@@ -77,6 +77,7 @@ router.put(
 
       await product.save();
 
+      // when review is created we need to update and create the field in the Order model that the product has been reviewed with "isReviewed" field
       await Order.findByIdAndUpdate(
         orderId,
         { $set: { "orderItems.$[item].isReviewed": true } },

@@ -25,6 +25,41 @@ const Order = () => {
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
+  // init validation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (success) {
+      notifySuccess(success);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [success, error]);
+
+  // get all order by id
+  useEffect(() => {
+    try {
+      setIsLoading(true);
+      const getOrders = async () => {
+        const { data } = await axios.get(`${server}/order/get-order/${id}`);
+        setOrder(data.order);
+      };
+
+      getOrders();
+
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+
+      notifyError("Failed to get orders");
+    }
+
+    // order has to be in the dependency array because we need to update the order when the user submit a review
+  }, [id, order]);
+
   const reviewHandler = async (productId, e) => {
     e.preventDefault();
 
@@ -50,6 +85,10 @@ const Order = () => {
       .then((res) => {
         notifySuccess(res.data.message);
 
+        // update order without having to reload the page.
+        const { data } = axios.get(`${server}/order/get-order/${id}`);
+        setOrder(data.order);
+
         // reset state
         setRating(0);
         setTitle("");
@@ -60,37 +99,6 @@ const Order = () => {
         notifyError(err.response.data.message);
       });
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    if (error) {
-      notifyError(error);
-      dispatch({ type: "ClearErrors" });
-    }
-    if (success) {
-      notifySuccess(success);
-      dispatch({ type: "ClearSuccess" });
-    }
-  }, [success, error]);
-
-  useEffect(() => {
-    try {
-      setIsLoading(true);
-      const getOrders = async () => {
-        const { data } = await axios.get(`${server}/order/get-order/${id}`);
-        setOrder(data.order);
-      };
-
-      getOrders();
-
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-
-      notifyError("Failed to get orders");
-    }
-  }, [id]);
 
   return isLoading ? (
     <Loader />
@@ -162,11 +170,13 @@ const Order = () => {
                         </td>
                         <td>${item.product_price}</td>
                         <td>
-                          <div className="btn-review-wrapper">
-                            <div className="btn-review" data-bs-toggle="modal" data-bs-target={`#${item._id}`}>
-                              Review
+                          {item.isReviewed && item.isReviewed === true ? null : (
+                            <div className="btn-review-wrapper">
+                              <div className="btn-review" data-bs-toggle="modal" data-bs-target={`#${item._id}`}>
+                                Review
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </td>
 
                         {/* Review Modal */}
