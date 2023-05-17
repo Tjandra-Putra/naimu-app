@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const User = require("../model/user");
+const Product = require("../model/product");
 const ErrorHandler = require("../utils/errorHandler");
 const router = express.Router();
 const fs = require("fs");
@@ -308,6 +309,13 @@ router.put(
       const fileUrl = path.join(req.file.filename);
 
       const user = await User.findByIdAndUpdate(req.user.id, { avatar: fileUrl }, { new: true });
+
+      // update avatar in Product collection product_reviews.
+      // why? because the avatar in Product collection product_reviews is not updated when the user updates his/her avatar.
+      await Product.updateMany(
+        { "product_reviews.user._id": req.user.id },
+        { $set: { "product_reviews.$.user.avatar": fileUrl } }
+      );
 
       res.status(200).json({
         success: true,
