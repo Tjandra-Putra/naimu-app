@@ -54,21 +54,6 @@ const App = () => {
         <Toaster />
         <PersistGate loading={<Loader />} persistor={persistor}>
           <Navbar />
-          {/* 
-          {stripeApiKey && (
-            <Elements stripe={loadStripe(stripeApiKey)}>
-              <Routes>
-                <Route
-                  path="/payment"
-                  element={
-                    <ProtectedRoute>
-                      <Payment />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
-            </Elements>
-          )} */}
 
           <Routes>
             {stripeApiKey && (

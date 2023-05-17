@@ -38,6 +38,7 @@ const Orders = () => {
       setIsLoading(true);
       try {
         const { data } = await axios.get(`${server}/order/get-orders/${user.user._id}`);
+
         setOrdersList(data.orders);
 
         console.log("orders", data.orders);
@@ -46,6 +47,7 @@ const Orders = () => {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
+        notifyError(error.response.data.message);
         console.log(error);
       }
     };

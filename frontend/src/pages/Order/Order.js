@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Order.css";
 import Loader from "../../components/Layout/Loader/Loader";
 import { server } from "../../server";
+import NotFound from "../NotFound/NotFound";
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Order = () => {
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
   const [recommend, setRecommend] = useState(false);
+  const [orderNotFound, setOrderNotFound] = useState(false);
 
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
@@ -43,22 +45,31 @@ const Order = () => {
   useEffect(() => {
     try {
       setIsLoading(true);
-      const getOrders = async () => {
-        const { data } = await axios.get(`${server}/order/get-order/${id}`);
-        setOrder(data.order);
-      };
-
-      getOrders();
+      const getOrders = axios
+        .get(`${server}/order/get-order/${id}`)
+        .then((res) => {
+          setOrder(res.data.order);
+        })
+        .catch((err) => {
+          notifyError("Order not found");
+          setIsLoading(false);
+          setOrderNotFound(true);
+        });
 
       setIsLoading(false);
+
+      return () => getOrders;
     } catch (error) {
       setIsLoading(false);
-
-      notifyError("Failed to get orders");
+      setOrderNotFound(true);
     }
 
     // order has to be in the dependency array because we need to update the order when the user submit a review
   }, [id, order]);
+
+  if (orderNotFound) {
+    return <NotFound />;
+  }
 
   const reviewHandler = async (productId, e) => {
     e.preventDefault();
@@ -113,6 +124,7 @@ const Order = () => {
             <Link to="/checkout" class="breadcrumb-item text-dark fw-medium">
               Your Order: {id}
             </Link>
+            order not found {orderNotFound ? "yes" : "no"}
           </ol>
         </nav>
 
