@@ -48,22 +48,28 @@ We also prioritize the security of your platform and users. By incorporating JSO
 |   -----  |
 | <img width="1440" alt="image" src="https://github.com/Tjandra-Putra/naimu-app/assets/57522674/a9f1e485-fcb7-4311-9b31-2156c1f57620"> 
 
-|   Order Page  |
+|   Profile Page  |
 |   -----  |
-|  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/a91e8ef3-3793-43cb-8128-139f60afc758) |
 
-|   Order Page  |
+|   Orders Page  |
 |   -----  |
-|  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/af1fc910-a623-4597-9ee2-371d908eea2c) |
 
-|   Order Page  |
+|   Change Password Page  |
 |   -----  |
-|  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/b98f8d5c-de22-402f-88fb-39c1d2b29a5d) |
 
-|   Order Page  |
+|   Addresses Page  |
 |   -----  |
-|  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/b48a6d84-92f3-4d5c-b1a0-916950c3f622) |
 
-|   Order Page  |
+|   Products Page - Search Bar, CheckBoxes  |
 |   -----  |
-|  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/88e45bf4-ce53-498c-a1a4-c56980f62e22) |
+
+|   Not Found Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/3a09c8fa-6f34-45f0-b9a4-f6a61baf7529) |
+
+
