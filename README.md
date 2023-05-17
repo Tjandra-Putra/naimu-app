@@ -1,4 +1,4 @@
-# Introducing Naimu E-commerce:
+# Introducing Naimu E-commerce: (Images below)
 Welcome to Naimu E-commerce, an innovative and comprehensive enterprise application solution designed to revolutionize the world of online retail. Powered by the renowned MERN stack (MongoDB, Express.js, React.js, and Node.js), our platform offers an exceptional user experience with its visually stunning and scalable user interfaces, coupled with a robust and efficient backend.
 
 At Naimu E-commerce, we understand the importance of providing seamless and secure payment options. That's why our platform integrates popular payment gateways such as Stripe.js and PayPal, ensuring hassle-free transactions for your customers. With these trusted and widely-used payment solutions, you can offer your customers a variety of payment methods, guaranteeing a smooth and convenient shopping experience.
