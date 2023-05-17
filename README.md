@@ -1,13 +1,44 @@
-# Introducing Naimu E-commerce: Your Ultimate Enterprise Solution (MERN Technology)
-
-##
+# Introducing Naimu E-commerce:
 Welcome to Naimu E-commerce, an innovative and comprehensive enterprise application solution designed to revolutionize the world of online retail. Powered by the renowned MERN stack (MongoDB, Express.js, React.js, and Node.js), our platform offers an exceptional user experience with its visually stunning and scalable user interfaces, coupled with a robust and efficient backend.
 
 At Naimu E-commerce, we understand the importance of providing seamless and secure payment options. That's why our platform integrates popular payment gateways such as Stripe.js and PayPal, ensuring hassle-free transactions for your customers. With these trusted and widely-used payment solutions, you can offer your customers a variety of payment methods, guaranteeing a smooth and convenient shopping experience.
 
-We also prioritize the security of your platform and users. By incorporating JSON Web Tokens (JWT), we implement a secure authentication system that safeguards sensitive user information, allowing your customers to shop with confidence and trust.    
+We also prioritize the security of your platform and users. By incorporating JSON Web Tokens (JWT), we implement a secure authentication system that safeguards sensitive user information, allowing your customers to shop with confidence and trust. 
 
-#### User Interfaces
+## Installation and Setup
+### Frontend
+1. Navigate to the frontend directory: cd frontend
+2. Install the dependencies: `npm install`
+3. Start the development server: `npm start`
+
+### Backend
+1. Navigate to the backend directory: cd backend
+2. Install the dependencies: `npm install`
+3. Start the backend server: `npm run dev`
+
+### Environment Variables
+Before running the backend server, make sure to set up the environment variables in the backend/config/.env file. Below are the required environment variables:
+```
+PORT=8000
+NODE_ENV=development
+DB_URL=<Your MongoDB connection URL>
+JWT_SECRET_KEY=<Your JWT secret key>
+JWT_EXPIRES=7d
+ACTIVATION_TOKEN_SECRET=<Your activation token secret>
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_MAIL=<Your SMTP email>
+SMTP_PASSWORD=<Your SMTP password>
+STRIPE_SECRET_KEY=<Your Stripe secret key>
+STRIPE_API_KEY=<Your Stripe API key>
+
+```
+Please replace <...> with your actual values for the respective environment variables.
+
+## Usage
+Once the frontend and backend are set up and running, you can access the application through the provided URL. Make sure to create an account and explore the various e-commerce features available.
+
+## User Interfaces
 |   Landing Page  |
 |   -----  |
 | ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/9cb5435c-3de1-4f6e-ad68-01c1b11c4259) |
@@ -71,5 +102,4 @@ We also prioritize the security of your platform and users. By incorporating JSO
 |   Not Found Page  |
 |   -----  |
 | ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/3a09c8fa-6f34-45f0-b9a4-f6a61baf7529) |
-
 
