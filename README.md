@@ -38,6 +38,36 @@ Please replace <...> with your actual values for the respective environment vari
 ## Usage
 Once the frontend and backend are set up and running, you can access the application through the provided URL. Make sure to create an account and explore the various e-commerce features available.
 
+## Front-end Dependencies 
+| Number | Package Name                | Description                        |
+|--------|-----------------------------|------------------------------------|
+| 1      | @paypal/react-paypal-js     | PayPal integration for React       |
+| 2      | @reduxjs/toolkit            | Redux toolkit for state management |
+| 3      | @stripe/react-stripe-js     | Stripe integration for React       |
+| 4      | @testing-library/jest-dom   | Jest DOM utilities for testing     |
+| 5      | @testing-library/react      | React testing utilities            |
+| 6      | @testing-library/user-event | User event simulation for testing  |
+| 7      | axios                       | Promise-based HTTP client          |
+| 8      | country-state-city           | Library for working with locations |
+| 9      | mongoose                    | MongoDB object modeling for Node.js|
+| 10     | react                       | JavaScript library for building UIs|
+
+## Back-end Dependencies
+| Number | Package Name    | Description                                          |
+|--------|-----------------|------------------------------------------------------|
+| 1      | bcrypt          | Library for hashing and comparing passwords          |
+| 2      | cookie-parser   | Middleware for parsing cookies                        |
+| 3      | cors            | Middleware for enabling CORS in Express               |
+| 4      | dotenv          | Library for loading environment variables             |
+| 5      | express         | Fast, unopinionated, minimalist web framework for Node.js |
+| 6      | jsonwebtoken    | JSON Web Token implementation for authentication      |
+| 7      | mongoose        | MongoDB object modeling for Node.js                   |
+| 8      | multer          | Middleware for handling multipart/form-data           |
+| 9      | nodemailer      | Library for sending emails                            |
+| 10     | nodemon         | Tool for automatically restarting the server during development |
+| 11     | stripe          | Stripe API library for Node.js                        |
+
+
 ## User Interfaces
 |   Landing Page  |
 |   -----  |
