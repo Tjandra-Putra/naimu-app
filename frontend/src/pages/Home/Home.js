@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 import "./Home.css";
 import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
@@ -11,9 +12,22 @@ import arrowLeft from "../../assets/images/left-chevron.png";
 import arrowRight from "../../assets/images/chevron.png";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { productList } from "../../data/data";
+import { server } from "../../server";
 
 const Home = () => {
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get(`${server}/product/all-products`);
+      setProductList(data.products);
+    };
+
+    fetchProducts();
+
+    console.log(fetchProducts);
+  }, []);
+
   return (
     <div className="home-wrapper">
       <div id="carouselExampleIndicators" className="carousel slide">
