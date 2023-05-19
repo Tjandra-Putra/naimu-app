@@ -15,7 +15,7 @@
 
 body {
   font-family: var(--font-inter);
-  background-color: var(--canvasColor);
+  /* background-color: var(--canvasColor); */
 }
 
 .btn-outline-dark {
