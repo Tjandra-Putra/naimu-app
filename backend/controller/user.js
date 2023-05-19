@@ -312,10 +312,7 @@ router.put(
 
       // update avatar in Product collection product_reviews.
       // why? because the avatar in Product collection product_reviews is not updated when the user updates his/her avatar.
-      await Product.updateMany(
-        { "product_reviews.user._id": req.user.id },
-        { $set: { "product_reviews.$.user.avatar": fileUrl } }
-      );
+      await Product.updateMany({ "reviews.user._id": req.user.id }, { $set: { "reviews.$.user.avatar": fileUrl } });
 
       res.status(200).json({
         success: true,

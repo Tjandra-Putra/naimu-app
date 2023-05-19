@@ -152,34 +152,29 @@ const Order = () => {
                       <tr key={index}>
                         <td className="product-img">
                           {/* require a product url tag name not id. if not it will have error because of different size product is actually different product */}
-                          <img src={item.product_image_url} alt="" className="img-fluid rounded-2" />
+                          <img src={item.imageUrl} alt="" className="img-fluid rounded-2" />
                         </td>
                         <td className="product-description">
                           <div className="d-flex flex-column">
-                            <div className="product-title">{item.product_title}</div>
+                            <div className="product-title">{item.title}</div>
                             <div className="product-id">Product ID: {item._id}</div>
-                            <div className="product-store">{item.product_shop_name}</div>
+                            <div className="product-store">{item.shopName}</div>
                             <div className="d-flex flex-row">
                               <div className="product-size">
-                                <input
-                                  type="text"
-                                  className="form-control size-select"
-                                  value={item.product_size}
-                                  disabled
-                                />
+                                <input type="text" className="form-control size-select" value={item.size} disabled />
                               </div>
                               <div className="product-quantity ms-3">
                                 <input
                                   type="text"
                                   className="form-control size-select"
-                                  value={item.product_quantity}
+                                  value={item.quantity}
                                   disabled
                                 />
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td>${item.product_price}</td>
+                        <td>${item.price}</td>
                         <td>
                           {item.isReviewed && item.isReviewed === true ? null : (
                             <div className="btn-review-wrapper">
@@ -201,13 +196,13 @@ const Order = () => {
                                 <form>
                                   <div className="row">
                                     <div className="col-md-3">
-                                      <img src={item.product_image_url} alt="" className="img-fluid rounded-2" />
+                                      <img src={item.imageUrl} alt="" className="img-fluid rounded-2" />
                                     </div>
                                     <div className="col-md-9">
                                       <div className="product-details">
-                                        <div className="product-title">{item.product_title}</div>
+                                        <div className="product-title">{item.title}</div>
                                         <div className="product-id">Product ID: {item._id}</div>
-                                        <div className="product-store">{item.product_shop_name}</div>
+                                        <div className="product-store">{item.shopName}</div>
                                       </div>
                                     </div>
                                   </div>

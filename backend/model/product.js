@@ -3,15 +3,15 @@ const productList = require("../data/product");
 
 // define the schema
 const productSchema = new mongoose.Schema({
-  product_category: String,
-  product_title: String,
-  product_description: String,
-  product_image_url: [
+  category: String,
+  title: String,
+  description: String,
+  imageUrl: [
     {
       url: String,
     },
   ],
-  product_reviews: [
+  reviews: [
     {
       user: {
         type: Object,
@@ -40,16 +40,16 @@ const productSchema = new mongoose.Schema({
   ],
   shop: {
     name: String,
-    shop_avatar: {
+    avatar: {
       url: String,
     },
-    ratings: Number,
+    ratings: Number, // average ratings of all products belong to the shop
   },
-  product_price: Number,
-  product_discount_price: Number,
-  product_rating: Number,
-  product_unit_sold: Number,
-  quantity_in_stock: Number,
+  price: Number,
+  discountPrice: Number,
+  rating: Number,
+  unitSold: Number,
+  quantityInStock: Number,
 });
 
 Product = mongoose.model("Product", productSchema);

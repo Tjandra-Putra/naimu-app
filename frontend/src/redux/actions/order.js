@@ -1,5 +1,4 @@
 import axios from "axios";
-import { server } from "../../server";
 
 // get orders
 export const getOrders = () => async (dispatch) => {

@@ -1,11 +1,11 @@
 // product Data
 const productList = [
   {
-    product_category: "Pants",
-    product_title: "Adidas Rekive Woven Track Pants",
-    product_description:
+    category: "Pants",
+    title: "Adidas Rekive Woven Track Pants",
+    description:
       "Go full-on fresh, day after day. With a mix of angles and contrasting hues, these adidas track pants let you play around with style while keeping it classic, too. A smooth weave drapes perfectly and keeps its shape thanks to ribbed cuffs. Mesh lining puts comfort first, and front zip pockets (plus an open pocket in the back) invite you to bring along the essentials.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "test",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/adbb5ce2ecf142d7adbaaf6a01412450_9366/adidas_Rekive_Woven_Track_Pants_Grey_IC6006_21_model.jpg",
@@ -17,24 +17,23 @@ const productList = [
     ],
     shop: {
       name: "Adidas",
-      shop_avatar: {
-        public_id: "shop_avatar_adidas_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 139,
-    product_discount_price: 120,
-    product_rating: 4.5,
-    product_unit_sold: 35,
-    quantity_in_stock: 0,
+    price: 139,
+    discountPrice: 120,
+    rating: 0,
+    unitSold: 35,
+    quantityInStock: 0,
   },
   {
-    product_category: "Jacket",
-    product_title: "Adidas Rekive Woven Track Jacket",
-    product_description:
+    category: "Jacket",
+    title: "Adidas Rekive Woven Track Jacket",
+    description:
       "This adidas track jacket adds a touch of retro style to your everyday look with archive-inspired cut lines. Ripstop overlays meet our signature 3-Stripes and Trefoil logo for a modern take on heritage style. The loose fit and mesh lining create added comfort so you can head out looking and feeling great.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "adidas-rekive-woven-track-jacket-1",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/06391302db9147aaa2d6afa8009184cb_9366/adidas_Rekive_Woven_Track_Jacket_Grey_IC6004_21_model.jpg",
@@ -54,24 +53,23 @@ const productList = [
     ],
     shop: {
       name: "Adidas",
-      shop_avatar: {
-        public_id: "shop_avatar_adidas_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 149,
-    product_discount_price: 140,
-    product_rating: 4.7,
-    product_unit_sold: 203,
-    quantity_in_stock: 3,
+    price: 149,
+    discountPrice: 140,
+    rating: 0,
+    unitSold: 203,
+    quantityInStock: 3,
   },
   {
-    product_category: "Slides",
-    product_title: "Island Club Adilette Premium Slides",
-    product_description:
+    category: "Slides",
+    title: "Island Club Adilette Premium Slides",
+    description:
       "The Island Club collection conjures feelings of an endless summer. Poolside or not, everyday feels like a vacation in the playful yet chic collection that mixes pastel hues and vivid color-blocking with tonal head-to-toe 'fits. The collection is heavy on nostalgia and good vibes. \n Made with elevated materials, the Island Club Adilette Premium Slides are the perfect summertime companion. Go from laid-back settings to high-heat nights, thanks to the cork footbed and leather upper delivering a more refined look and feel. The bandage-style design hints at textural 3-Stripes, while a Trefoil logo near the heel adds a discreet sporty edge.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "island-club-adilette-premium-slides-1",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/06aaccf76fde4c35ae48afc700fc1548_9366/Island_Club_Adilette_Premium_Slides_Beige_GY2557_HM1.jpg",
@@ -99,24 +97,23 @@ const productList = [
     ],
     shop: {
       name: "Adidas",
-      shop_avatar: {
-        public_id: "shop_avatar_adidas_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 100,
-    product_discount_price: 90,
-    product_rating: 4.7,
-    product_unit_sold: 320,
-    quantity_in_stock: 3,
+    price: 100,
+    discountPrice: 90,
+    rating: 0,
+    unitSold: 320,
+    quantityInStock: 3,
   },
   {
-    product_category: "Shorts",
-    product_title: "X-city heat.rdy shorts",
-    product_description:
+    category: "Shorts",
+    title: "X-city heat.rdy shorts",
+    description:
       "When the heat haze shimmers above the street, run right through it in these adidas running shorts. HEAT.RDY tech keeps you going in hot conditions, and the lightweight build has a slim fit that doesn't get in the way of your stride. Pockets stash essentials like your key and gel so you can focus on your pace.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "x-city-heat-rdy-shorts-1",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/cb963f36178c49c884c5af7200c6a9ba_9366/X-City_HEAT.RDY_Shorts_Black_HN0789_21_model.jpg",
@@ -136,24 +133,23 @@ const productList = [
     ],
     shop: {
       name: "Adidas",
-      shop_avatar: {
-        public_id: "shop_avatar_adidas_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 79,
-    product_discount_price: 69,
-    product_rating: 4.7,
-    product_unit_sold: 320,
-    quantity_in_stock: 3,
+    price: 79,
+    discountPrice: 69,
+    rating: 0,
+    unitSold: 320,
+    quantityInStock: 3,
   },
   {
-    product_category: "T-shirts",
-    product_title: "Nike Sportswear",
-    product_description:
+    category: "T-shirts",
+    title: "Nike Sportswear",
+    description:
       "Drape yourself in comfortable, loose cotton. A patchwork bear graphic on the back celebrates the Nike logos of the past.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "nike-sportswear-1",
         url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f57c76d1-0aa3-4bd3-9a2a-3dda917abfa5/sportswear-t-shirt-8xf1GD.png",
@@ -173,25 +169,24 @@ const productList = [
     ],
     shop: {
       name: "Nike",
-      shop_avatar: {
-        public_id: "shop_avatar_nike_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 59,
-    product_discount_price: 49,
-    product_rating: 5,
-    product_unit_sold: 320,
-    quantity_in_stock: 3,
+    price: 59,
+    discountPrice: 49,
+    rating: 0,
+    unitSold: 320,
+    quantityInStock: 3,
   },
 
   {
-    product_category: "Sweatshirts",
-    product_title: "Adidas Basketball Crew Sweatshirt",
-    product_description:
+    category: "Sweatshirts",
+    title: "Adidas Basketball Crew Sweatshirt",
+    description:
       "This adidas track jacket adds a touch of retro style to your everyday look with archive-inspired cut lines. Ripstop overlays meet our signature 3-Stripes and Trefoil logo for a modern take on heritage style. The loose fit and mesh lining create added comfort so you can head out looking and feeling great.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "test",
         url: "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/1777da19a81f41ac87a3af6d0157688d_faec/adidas_Basketball_Crew_Sweatshirt_Grey_IA3435_HM1.jpg",
@@ -211,24 +206,23 @@ const productList = [
     ],
     shop: {
       name: "Adidas",
-      shop_avatar: {
-        public_id: "shop_avatar_adidas_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 79,
-    product_discount_price: 69,
-    product_rating: 4.7,
-    product_unit_sold: 320,
-    quantity_in_stock: 3,
+    price: 79,
+    discountPrice: 69,
+    rating: 0,
+    unitSold: 320,
+    quantityInStock: 3,
   },
   {
-    product_category: "Shoes",
-    product_title: "Nike Air Max 270",
-    product_description:
+    category: "Shoes",
+    title: "Nike Air Max 270",
+    description:
       "Nike's first lifestyle Air Max brings you style, comfort and big attitude in the Nike Air Max 270. The design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colours.",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "nike-air-max-270-1",
         url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/awjogtdnqxniqqk0wpgf/air-max-270-shoes-2V5C4p.png",
@@ -248,24 +242,23 @@ const productList = [
     ],
     shop: {
       name: "Nike",
-      shop_avatar: {
-        public_id: "shop_avatar_nike_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 229,
-    product_discount_price: 49,
-    product_rating: 5,
-    product_unit_sold: 320,
-    quantity_in_stock: 10,
+    price: 229,
+    discountPrice: 49,
+    rating: 0,
+    unitSold: 320,
+    quantityInStock: 10,
   },
   {
-    product_category: "Shoes",
-    product_title: "Nike Streakfly",
-    product_description:
+    category: "Shoes",
+    title: "Nike Streakfly",
+    description:
       "Our lightest racing shoe, the Nike Streakfly is all about the speed you need to take on the competition in a mile, 5K or 10K race. Low profile with sleek details, it feels like it disappears on your foot to help you better connect with the road on the way to your personal best.      ",
-    product_image_url: [
+    imageUrl: [
       {
         public_id: "nike-streakfly-1",
         url: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/01e6bdc4-645d-4626-84c6-c6dd96dfc921/streakfly-road-racing-shoes-V17qZm.png",
@@ -297,17 +290,16 @@ const productList = [
     ],
     shop: {
       name: "Nike",
-      shop_avatar: {
-        public_id: "shop_avatar_nike_1",
+      avatar: {
         url: "https://cdn-icons-png.flaticon.com/512/732/732160.png",
       },
-      ratings: 4.8,
+      ratings: 0,
     },
-    product_price: 149.9,
-    product_discount_price: 130,
-    product_rating: 5,
-    product_unit_sold: 320,
-    quantity_in_stock: 100,
+    price: 149.9,
+    discountPrice: 130,
+    rating: 0,
+    unitSold: 320,
+    quantityInStock: 100,
   },
 ];
 

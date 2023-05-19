@@ -181,9 +181,9 @@ const Payment = () => {
       if (key === "orderItems") {
         // If so, loop through each order item and add it to the paypalData object in the correct format
         paypalData[key] = orderInfoFormatted[key].map((item) => ({
-          name: item.product_title,
-          quantity: item.product_quantity,
-          unit_amount: { currency_code: "USD", value: item.product_price },
+          name: item.title,
+          quantity: item.quantity,
+          unit_amount: { currency_code: "USD", value: item.price },
           tax: { currency_code: "USD", value: "0.00" },
           category: "PHYSICAL_GOODS",
         }));
@@ -633,19 +633,19 @@ const Payment = () => {
                   {orderInfo.cartInfo.map((item, index) => (
                     <tr key={index}>
                       <td className="product-img">
-                        <img src={item.product_image_url} alt="" className="img-fluid" />
+                        <img src={item.imageUrl} alt="" className="img-fluid" />
                       </td>
                       <td className="product-description">
                         <div className="d-flex flex-column">
-                          <div className="product-title">{item.product_title}</div>
+                          <div className="product-title">{item.title}</div>
                           <div className="product-id">Product ID: {item._id}</div>
-                          <div className="product-store">{item.product_shop_name}</div>
+                          <div className="product-store">{item.shopName}</div>
                           <div className="d-flex flex-row">
                             <div className="product-size">
                               <input
                                 type="text"
                                 className="form-control size-select border-0"
-                                value={item.product_size}
+                                value={item.size}
                                 disabled
                               />
                             </div>
@@ -653,14 +653,14 @@ const Payment = () => {
                               <input
                                 type="text"
                                 className="form-control size-select border-0"
-                                value={item.product_quantity}
+                                value={item.quantity}
                                 disabled
                               />
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td>${item.product_price}</td>
+                      <td>${item.price}</td>
                     </tr>
                   ))}
                 </tbody>

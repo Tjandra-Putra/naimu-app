@@ -13,17 +13,17 @@ export const cartReducer = createReducer(initialState, (builder) => {
   builder
     .addCase("AddToCart", (state, action) => {
       const item = action.payload; // taken from actions. Which ever component dispatches the action, the payload will be the item.
-      const itemExist = state.cart.find((i) => i._id === item._id && i.product_size === item.product_size);
+      const itemExist = state.cart.find((i) => i._id === item._id && i.size === item.size);
 
       // update quantity if item already exists in cart
       if (itemExist) {
         return {
           ...state,
           cart: state.cart.map((i) => {
-            if (i._id === itemExist._id && i.product_size === itemExist.product_size) {
+            if (i._id === itemExist._id && i.size === itemExist.size) {
               return {
                 ...i,
-                product_quantity: i.product_quantity + 1,
+                quantity: i.quantity + 1,
               };
             } else {
               return i;
@@ -41,7 +41,7 @@ export const cartReducer = createReducer(initialState, (builder) => {
     .addCase("RemoveFromCart", (state, action) => {
       return {
         ...state,
-        cart: state.cart.filter((i) => i._id !== action.payload._id || i.product_size !== action.payload.product_size),
+        cart: state.cart.filter((i) => i._id !== action.payload._id || i.size !== action.payload.size),
       };
     })
 
@@ -49,11 +49,11 @@ export const cartReducer = createReducer(initialState, (builder) => {
       return {
         ...state,
         cart: state.cart.map((i) => {
-          if (i._id === action.payload._id && i.product_size === action.payload.product_size) {
+          if (i._id === action.payload._id && i.size === action.payload.size) {
             return {
               ...i,
-              product_size: action.payload.updatedProductSize ? action.payload.updatedProductSize : i.product_size,
-              product_quantity: action.payload.product_quantity ? action.payload.product_quantity : i.product_quantity,
+              size: action.payload.updatedProductSize ? action.payload.updatedProductSize : i.size,
+              quantity: action.payload.quantity ? action.payload.quantity : i.quantity,
             };
           } else {
             return i;

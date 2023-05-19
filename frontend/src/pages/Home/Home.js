@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./Home.css";
 import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
@@ -175,12 +176,12 @@ const Home = () => {
                     <ProductCard
                       productId={item._id}
                       productStore={item.shop.name}
-                      productTitle={item.product_title}
-                      productPrice={item.product_price}
-                      productDiscountPrice={item.product_discount_price}
-                      productSold={item.product_unit_sold}
-                      productCategory={item.product_category}
-                      productImageUrl={item.product_image_url[0].url}
+                      productTitle={item.title}
+                      productPrice={item.price}
+                      productDiscountPrice={item.discountPrice}
+                      productSold={item.unitSold}
+                      productCategory={item.category}
+                      productImageUrl={item.imageUrl[0].url}
                     />
                   </div>
                 ))

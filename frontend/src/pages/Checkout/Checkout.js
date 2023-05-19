@@ -35,7 +35,7 @@ const Checkout = () => {
 
   // sum of all product price
   const subTotalPrice = cart.reduce((acc, item) => {
-    return acc + item.product_price * item.product_quantity;
+    return acc + item.price * item.quantity;
   }, 0);
 
   const deliveryFee = 0;
@@ -373,19 +373,19 @@ const Checkout = () => {
                   {cart.map((item, index) => (
                     <tr key={index}>
                       <td className="product-img">
-                        <img src={item.product_image_url} alt="" className="img-fluid" />
+                        <img src={item.imageUrl} alt="" className="img-fluid" />
                       </td>
                       <td className="product-description">
                         <div className="d-flex flex-column">
-                          <div className="product-title">{item.product_title}</div>
+                          <div className="product-title">{item.title}</div>
                           <div className="product-id">Product ID: {item._id}</div>
-                          <div className="product-store">{item.product_shop_name}</div>
+                          <div className="product-store">{item.shopName}</div>
                           <div className="d-flex flex-row">
                             <div className="product-size">
                               <input
                                 type="text"
                                 className="form-control size-select border-0"
-                                value={item.product_size}
+                                value={item.size}
                                 disabled
                               />
                             </div>
@@ -393,14 +393,14 @@ const Checkout = () => {
                               <input
                                 type="text"
                                 className="form-control size-select border-0"
-                                value={item.product_quantity}
+                                value={item.quantity}
                                 disabled
                               />
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td>${item.product_price}</td>
+                      <td>${item.price}</td>
                     </tr>
                   ))}
                 </tbody>

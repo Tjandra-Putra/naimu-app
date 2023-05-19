@@ -68,16 +68,15 @@ const Product = () => {
     // if size is selected, add to cart
     const newCart = {
       _id: product._id,
-      product_title: product.product_title,
-      product_image_url: product.product_image_url[0].url,
-      product_price: product.product_discount_price,
-      product_size: availableSizes[selectedSize - 1].size,
-      product_quantity: 1,
-      product_shop_name: product.shop.name,
+      title: product.title,
+      imageUrl: product.imageUrl[0].url,
+      price: product.price,
+      size: availableSizes[selectedSize - 1].size,
+      quantity: 1,
+      shopName: product.shop.name,
     };
 
-    const itemExist =
-      cart && cart.find((item) => item._id === product._id && item.product_size === newCart.product_size);
+    const itemExist = cart && cart.find((item) => item._id === product._id && item.size === newCart.size);
     if (itemExist) {
       // if item in cart, update qty only
       dispatch(addToCart(newCart));
@@ -106,10 +105,10 @@ const Product = () => {
               Browse
             </Link>
             <li className="breadcrumb-item text-muted" aria-current="page">
-              {product.product_category}
+              {product.category}
             </li>
             <li className="breadcrumb-item" aria-current="page">
-              {product.product_title}
+              {product.title}
             </li>
           </ol>
         </nav>
@@ -120,7 +119,7 @@ const Product = () => {
               <div className="img-gallery row">
                 {/* product images */}
                 {product
-                  ? product.product_image_url.map((item, index) => (
+                  ? product.imageUrl.map((item, index) => (
                       <div className="col-md-6" key={index}>
                         <div className="product-img-container">
                           <img src={item.url} alt={item.url} className="img-fluid product-img" />
@@ -150,7 +149,7 @@ const Product = () => {
                       className="accordion-collapse collapse show"
                       data-bs-parent="#accordionFlushExample"
                     >
-                      <div className="accordion-body">{product.product_description}</div>
+                      <div className="accordion-body">{product.description}</div>
                     </div>
                   </div>
                   <div className="accordion-item">
@@ -199,8 +198,8 @@ const Product = () => {
                           <div className="accordion-item-review">
                             <Rating
                               showCount={true}
-                              userRating={product.product_rating}
-                              totalRatings={product.product_reviews.length}
+                              userRating={product.rating}
+                              totalRatings={product.reviews.length}
                             />
                           </div>
                         </div>
@@ -215,17 +214,17 @@ const Product = () => {
                         <div className="row mb-4">
                           <div className="col">
                             <div className="review-sub-title">Total Reviews</div>
-                            <div className="review-title">{product.product_reviews.length}</div>
+                            <div className="review-title">{product.reviews.length}</div>
                           </div>
                           <div className="col">
                             <div className="review-sub-title">Average Rating</div>
-                            <div className="review-title">{product.product_rating.toFixed(1)}</div>
+                            <div className="review-title">{product.rating.toFixed(1)}</div>
                           </div>
                           <div className="col">
-                            <ProgressBar productReviews={product.product_reviews} color="bg-primary" />
+                            <ProgressBar productReviews={product.reviews} color="bg-primary" />
                           </div>
                         </div>
-                        <Reviews reviewsArray={product.product_reviews} />
+                        <Reviews reviewsArray={product.reviews} />
                       </div>
                     </div>
                   </div>
@@ -243,7 +242,7 @@ const Product = () => {
                         <div className="d-flex flex-row justify-content-between">
                           <span className="me-2">Store Info</span>
                           <div className="accordion-item-review">
-                            <img src={product.shop.shop_avatar.url} alt="" className="store-img pe-2" />
+                            <img src={product.shop.avatar.url} alt="" className="store-img pe-2" />
                             <span>
                               {product.shop.name} ({product.shop.ratings})
                             </span>
@@ -270,29 +269,23 @@ const Product = () => {
                 <div className="d-flex flex-row justify-content-between">
                   <div className="product-shop-name">{product.shop.name}</div>
                   <div className="rating">
-                    <Rating
-                      showCount={true}
-                      userRating={product.product_rating}
-                      totalRatings={product.product_reviews.length}
-                    />
+                    <Rating showCount={true} userRating={product.rating} totalRatings={product.reviews.length} />
                   </div>
                 </div>
               </div>
 
-              <div className="product-title">{product.product_title}</div>
+              <div className="product-title">{product.title}</div>
 
               <div className="product-price">
-                <span className="discounted-price">SGD ${product.product_discount_price}</span>
-                <span className="original-price">SGD ${product.product_price}</span>
+                <span className="discounted-price">SGD ${product.discountPrice}</span>
+                <span className="original-price">SGD ${product.price}</span>
                 <span className="discount-tag">
-                  -
-                  {Math.round(((product.product_price - product.product_discount_price) / product.product_price) * 100)}
-                  %
+                  -{Math.round(((product.price - product.discountPrice) / product.price) * 100)}%
                 </span>
-                {product.quantity_in_stock < 10 && product.quantity_in_stock !== 0 ? (
-                  <span className="stock-status-low">only {product.quantity_in_stock} left</span>
+                {product.quantityInStock < 10 && product.quantityInStock !== 0 ? (
+                  <span className="stock-status-low">only {product.quantityInStock} left</span>
                 ) : null}
-                {product.quantity_in_stock === 0 ? <span className="stock-status-none">sold out</span> : null}
+                {product.quantityInStock === 0 ? <span className="stock-status-none">sold out</span> : null}
               </div>
 
               <div className="size-info d-flex flex-row justify-content-between">
@@ -318,7 +311,7 @@ const Product = () => {
               </div>
 
               <div className="d-grid gap-2 mt-3">
-                {product.quantity_in_stock > 0 ? (
+                {product.quantityInStock > 0 ? (
                   <button className="btn btn-dark btn-lg rounded-1" onClick={() => addToCartHandler()}>
                     Add to Cart
                   </button>

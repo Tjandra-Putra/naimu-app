@@ -39,7 +39,7 @@ router.put(
         return next(new ErrorHandler("Product not found", 404));
       }
 
-      const isReviewed = product.product_reviews.find((review) => review.user._id === req.user.id);
+      const isReviewed = product.reviews.find((review) => review.user._id === req.user.id);
 
       if (isReviewed) {
         // User has already submitted a review will updat existing review
@@ -49,7 +49,7 @@ router.put(
         });
       }
 
-      product.product_reviews.push({
+      product.reviews.push({
         user: {
           _id: req.user.id,
           fullName: req.user.fullName,
@@ -69,11 +69,11 @@ router.put(
 
       let average = 0;
 
-      product.product_reviews.forEach((review) => {
+      product.reviews.forEach((review) => {
         average += review.rating;
       });
 
-      product.product_rating = average / product.product_reviews.length;
+      product.rating = average / product.reviews.length;
 
       await product.save();
 

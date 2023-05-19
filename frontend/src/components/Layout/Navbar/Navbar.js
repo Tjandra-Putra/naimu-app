@@ -33,7 +33,7 @@ const Navbar = () => {
     setSearchTerm(term);
 
     const filteredProducts =
-      productList && productList.filter((product) => product.product_title.toLowerCase().includes(term.toLowerCase()));
+      productList && productList.filter((product) => product.title.toLowerCase().includes(term.toLowerCase()));
 
     setSearchResults(filteredProducts);
 
@@ -74,7 +74,7 @@ const Navbar = () => {
                 </Link>
                 <ul className="dropdown-menu">
                   {productList
-                    ? [...new Set(productList.map((item) => item.product_category))].map((category, index) => (
+                    ? [...new Set(productList.map((item) => item.category))].map((category, index) => (
                         <li key={index}>
                           <Link className="dropdown-item" to={`/products?category=${category.toLowerCase()}`}>
                             {category}
@@ -119,7 +119,6 @@ const Navbar = () => {
                       <div className="header">Products</div>
                       {searchResults &&
                         searchResults.map((result, index) => {
-                          const productTitle = result.product_title.replace(/\s+/g, "-");
                           return (
                             <Link
                               to={`/products/${result._id}`}
@@ -130,15 +129,15 @@ const Navbar = () => {
                               <div className="row py-2">
                                 <div className="col-md-4">
                                   <img
-                                    src={result.product_image_url[0].url}
-                                    alt={result.product_title}
+                                    src={result.imageUrl[0].url}
+                                    alt={result.title}
                                     className="img-fluid search-result-img"
                                   />
                                 </div>
                                 <div className="col-md-8">
-                                  <div className="search-result-item-title">{result.product_title}</div>
-                                  <div className="search-result-item-category">{result.product_category}</div>
-                                  <div className="search-result-item-price">${result.product_price}</div>
+                                  <div className="search-result-item-title">{result.title}</div>
+                                  <div className="search-result-item-category">{result.category}</div>
+                                  <div className="search-result-item-price">${result.price}</div>
                                 </div>
                               </div>
                             </Link>

@@ -75,7 +75,7 @@ const Products = () => {
           const combinedFilters = [...category, ...brand, ...price];
           setFilterTag(combinedFilters);
 
-          if (category.length && !category.includes(product.product_category.toLowerCase())) {
+          if (category.length && !category.includes(product.category.toLowerCase())) {
             return false;
           }
 
@@ -84,7 +84,7 @@ const Products = () => {
           }
 
           if (price.length) {
-            const productPrice = product.product_discount_price;
+            const productPrice = product.discountPrice;
 
             const [minPrice, maxPrice] = price[0].split(",");
             if (productPrice < minPrice || productPrice > maxPrice) {
@@ -134,7 +134,7 @@ const Products = () => {
                 <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
                     {productList
-                      ? [...new Set(productList.map((item) => item.product_category))].map((category, index) => (
+                      ? [...new Set(productList.map((item) => item.category))].map((category, index) => (
                           <li className="list-group-item mb-2" key={index}>
                             <input
                               className="form-check-input me-1"
@@ -285,13 +285,13 @@ const Products = () => {
                         <ProductCard
                           productId={item._id}
                           productStore={item.shop.name}
-                          productTitle={item.product_title}
-                          productPrice={item.product_price}
-                          productDiscountPrice={item.product_discount_price}
-                          productSold={item.product_unit_sold}
-                          productCategory={item.product_category}
-                          productImageUrl={item.product_image_url[0].url}
-                          productRating={item.product_rating}
+                          productTitle={item.title}
+                          productPrice={item.price}
+                          productDiscountPrice={item.discountPrice}
+                          productSold={item.unitSold}
+                          productCategory={item.category}
+                          productImageUrl={item.imageUrl[0].url}
+                          productRating={item.rating}
                         />
                       </div>
                     ))

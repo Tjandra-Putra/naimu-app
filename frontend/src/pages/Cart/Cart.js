@@ -36,15 +36,15 @@ const Cart = () => {
     fetchProducts();
   }, []);
 
-  const sizeChangeHandler = (event, _id, product_size) => {
+  const sizeChangeHandler = (event, _id, size) => {
     const updatedProductSize = event.target.value;
 
     // notify cannot update size if size already exists in cart
-    const itemExist = cart.find((i) => i._id === _id && i.product_size === updatedProductSize);
+    const itemExist = cart.find((i) => i._id === _id && i.size === updatedProductSize);
     if (itemExist) {
       notifyError("Cannot update size. Size already exists in cart.");
 
-      event.target.value = product_size;
+      event.target.value = size;
 
       return;
     }
@@ -52,7 +52,7 @@ const Cart = () => {
     dispatch(
       updateCart({
         _id: _id,
-        product_size: product_size,
+        size: size,
         updatedProductSize: updatedProductSize,
       })
     );
@@ -60,15 +60,15 @@ const Cart = () => {
     notifySuccess("Size updated.");
   };
 
-  const quantityChangeHandler = (event, _id, product_size, product_quantity) => {
+  const quantityChangeHandler = (event, _id, size, quantity) => {
     const updatedProductQuantity = event.target.value;
 
     // check if exceeds stock
     const product = productList.find((i) => i._id === _id);
-    if (updatedProductQuantity > product.quantity_in_stock) {
+    if (updatedProductQuantity > product.quantityInStock) {
       notifyError("Cannot update quantity. Quantity exceeds stock.");
 
-      event.target.value = product_quantity;
+      event.target.value = quantity;
 
       return;
     }
@@ -76,8 +76,8 @@ const Cart = () => {
     dispatch(
       updateCart({
         _id: _id,
-        product_size: product_size,
-        product_quantity: Number.parseInt(updatedProductQuantity),
+        size: size,
+        quantity: Number.parseInt(updatedProductQuantity),
       })
     );
 
@@ -88,7 +88,7 @@ const Cart = () => {
   let totalPrice = 0;
   if (cart) {
     totalPrice = cart.reduce((acc, item) => {
-      return acc + item.product_price * item.product_quantity;
+      return acc + item.price * item.quantity;
     }, 0);
   }
 
@@ -129,45 +129,43 @@ const Cart = () => {
                         <td className="product-action">
                           <div
                             className="btn-delete"
-                            onClick={() => dispatch(removeFromCart({ _id: item._id, product_size: item.product_size }))}
+                            onClick={() => dispatch(removeFromCart({ _id: item._id, size: item.size }))}
                           >
                             <i class="fas fa-times fa-lg"></i>
                           </div>
                         </td>
                         <td className="product-img">
                           <Link to={`/products/${item._id}`}>
-                            <img src={item.product_image_url} alt="" className="img-fluid" />
+                            <img src={item.imageUrl} alt="" className="img-fluid" />
                           </Link>
                         </td>
                         <td className="product-description">
                           <div className="d-flex flex-column">
-                            <div className="product-title">{item.product_title}</div>
+                            <div className="product-title">{item.title}</div>
                             <div className="product-id">Product ID: {item._id}</div>
-                            <div className="product-store">{item.product_shop_name}</div>
+                            <div className="product-store">{item.shopName}</div>
                             <div className="d-flex flex-row">
                               <div className="product-size">
                                 <select
                                   class="size-select form-select"
                                   aria-label="Default select example"
-                                  onChange={(event) =>
-                                    sizeChangeHandler(event, item._id, item.product_size, item.product_quantity)
-                                  }
+                                  onChange={(event) => sizeChangeHandler(event, item._id, item.size, item.quantity)}
                                 >
                                   <option disabled>Size</option>
                                   {/* select size according to cart */}
-                                  <option value="XS" selected={item.product_size === "XS"}>
+                                  <option value="XS" selected={item.size === "XS"}>
                                     XS
                                   </option>
-                                  <option value="S" selected={item.product_size === "S"}>
+                                  <option value="S" selected={item.size === "S"}>
                                     S
                                   </option>
-                                  <option value="M" selected={item.product_size === "M"}>
+                                  <option value="M" selected={item.size === "M"}>
                                     M
                                   </option>
-                                  <option value="L" selected={item.product_size === "L"}>
+                                  <option value="L" selected={item.size === "L"}>
                                     L
                                   </option>
-                                  <option value="XL" selected={item.product_size === "XL"}>
+                                  <option value="XL" selected={item.size === "XL"}>
                                     XL
                                   </option>
                                 </select>
@@ -176,39 +174,37 @@ const Cart = () => {
                                 <select
                                   class="size-select form-select"
                                   aria-label="Default select example"
-                                  onChange={(event) =>
-                                    quantityChangeHandler(event, item._id, item.product_size, item.product_quantity)
-                                  }
+                                  onChange={(event) => quantityChangeHandler(event, item._id, item.size, item.quantity)}
                                 >
                                   <option disabled>Quantity</option>
-                                  <option value="1" selected={item.product_quantity.toString() === "1"}>
+                                  <option value="1" selected={item.quantity.toString() === "1"}>
                                     1
                                   </option>
-                                  <option value="2" selected={item.product_quantity.toString() === "2"}>
+                                  <option value="2" selected={item.quantity.toString() === "2"}>
                                     2
                                   </option>
-                                  <option value="3" selected={item.product_quantity.toString() === "3"}>
+                                  <option value="3" selected={item.quantity.toString() === "3"}>
                                     3
                                   </option>
-                                  <option value="4" selected={item.product_quantity.toString() === "4"}>
+                                  <option value="4" selected={item.quantity.toString() === "4"}>
                                     4
                                   </option>
-                                  <option value="5" selected={item.product_quantity.toString() === "5"}>
+                                  <option value="5" selected={item.quantity.toString() === "5"}>
                                     5
                                   </option>
-                                  <option value="6" selected={item.product_quantity.toString() === "6"}>
+                                  <option value="6" selected={item.quantity.toString() === "6"}>
                                     6
                                   </option>
-                                  <option value="7" selected={item.product_quantity.toString() === "7"}>
+                                  <option value="7" selected={item.quantity.toString() === "7"}>
                                     7
                                   </option>
-                                  <option value="8" selected={item.product_quantity.toString() === "8"}>
+                                  <option value="8" selected={item.quantity.toString() === "8"}>
                                     8
                                   </option>
-                                  <option value="9" selected={item.product_quantity.toString() === "9"}>
+                                  <option value="9" selected={item.quantity.toString() === "9"}>
                                     9
                                   </option>
-                                  <option value="10" selected={item.product_quantity.toString() === "10"}>
+                                  <option value="10" selected={item.quantity.toString() === "10"}>
                                     10
                                   </option>
                                 </select>
@@ -216,7 +212,7 @@ const Cart = () => {
                             </div>
                           </div>
                         </td>
-                        <td>${item.product_price * item.product_quantity}</td>
+                        <td>${item.price * item.quantity}</td>
                       </tr>
                     </tbody>
                   </table>
