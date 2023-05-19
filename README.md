@@ -39,18 +39,29 @@ Please replace <...> with your actual values for the respective environment vari
 Once the frontend and backend are set up and running, you can access the application through the provided URL. Make sure to create an account and explore the various e-commerce features available.
 
 ## Front-end Dependencies 
-| Number | Package Name                | Description                        |
-|--------|-----------------------------|------------------------------------|
-| 1      | @paypal/react-paypal-js     | PayPal integration for React       |
-| 2      | @reduxjs/toolkit            | Redux toolkit for state management |
-| 3      | @stripe/react-stripe-js     | Stripe integration for React       |
-| 4      | @testing-library/jest-dom   | Jest DOM utilities for testing     |
-| 5      | @testing-library/react      | React testing utilities            |
-| 6      | @testing-library/user-event | User event simulation for testing  |
-| 7      | axios                       | Promise-based HTTP client          |
-| 8      | country-state-city           | Library for working with locations |
-| 9      | mongoose                    | MongoDB object modeling for Node.js|
-| 10     | react                       | JavaScript library for building UIs|
+| Number | Package Name                | Description                                        |
+| ------ | --------------------------- | -------------------------------------------------- |
+| 1      | @paypal/react-paypal-js     | PayPal integration for React                       |
+| 2      | @reduxjs/toolkit            | Redux state management toolkit                     |
+| 3      | @stripe/react-stripe-js     | Stripe integration for React                       |
+| 4      | axios                       | Promise-based HTTP client                          |
+| 5      | country-state-city           | Data for countries, states, and cities             |
+| 6      | mongoose                    | MongoDB object modeling for Node.js                |
+| 7      | react                       | JavaScript library for building user interfaces    |
+| 8      | react-dom                   | Entry point to the React DOM package               |
+| 9      | react-hook-form             | Forms validation and handling library for React     |
+| 10     | react-hot-toast             | Toast notifications for React                      |
+| 11     | react-icons                 | Icon library for React                             |
+| 12     | react-redux                 | Official Redux bindings for React                  |
+| 13     | react-router-dom            | Declarative routing for React                      |
+| 14     | react-scripts               | Configuration and scripts for Create React App      |
+| 15     | react-spinners              | Loading spinners for React                         |
+| 16     | redux                       | Predictable state container for JavaScript apps    |
+| 17     | redux-logger                | Redux middleware for logging actions and state     |
+| 18     | redux-persist               | Persist and rehydrate a Redux store                |
+| 19     | redux-thunk                 | Thunk middleware for Redux                         |
+| 20     | redux-toolkit               | Opinionated Redux setup                            |
+| 21     | sweetalert2                 | Customizable alert and popup library               |
 
 ## Back-end Dependencies
 | Number | Package Name    | Description                                          |
