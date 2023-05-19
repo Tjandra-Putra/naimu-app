@@ -52,6 +52,7 @@
   font-weight: 500;
   margin-bottom: 20px;
   line-height: 3.5rem;
+  font-family: var(--font-baskerville);
 }
 
 .home-wrapper .banner-content .subtitle {
@@ -75,6 +76,7 @@
   font-weight: 500;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  font-family: var(--font-baskerville);
 }
 
 .home-wrapper .the-essentials {
@@ -86,6 +88,7 @@
   font-weight: 500;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  font-family: var(--font-baskerville);
 }
 
 .home-wrapper .the-essentials .img-wrapper {
@@ -109,13 +112,15 @@
 }
 
 .home-wrapper .the-essentials .img-wrapper .title {
-  font-size: 2rem;
+  font-size: 1.7rem;
   color: white;
+  font-weight: 500;
 }
 
 .home-wrapper .the-essentials .img-wrapper .subtitle {
   font-size: 1rem;
   color: white;
+  letter-spacing: 1px;
 }
 
 .home-wrapper .the-essentials .img-wrapper .btn {
@@ -126,7 +131,6 @@
 
 .home-wrapper .stories {
   margin-top: 50px;
-  /* background-color: #fffde8; */
   padding: 30px;
 }
 
@@ -134,6 +138,7 @@
   text-transform: capitalize;
   font-size: 2rem;
   font-weight: 400;
+  font-family: var(--font-baskerville);
 }
 
 .home-wrapper .membership {
@@ -148,11 +153,12 @@
 .home-wrapper .membership .title {
   text-transform: uppercase;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 400;
   color: White;
 }
 
 .home-wrapper .membership .btn {
   text-transform: uppercase;
   font-weight: 600;
+  border-radius: 50px !important;
 }

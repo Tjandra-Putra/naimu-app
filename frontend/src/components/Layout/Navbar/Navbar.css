@@ -3,13 +3,20 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
   position: relative;
   z-index: 1000;
+  background-color: #ffffff;
 }
 
 .navbar-wrapper .navbar-brand {
   font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
+
 .navbar-wrapper .nav-link {
   border-radius: 5px !important;
+  text-transform: capitalize;
+  font-size: 14px;
+  color: #000000;
 }
 
 .navbar-wrapper .nav-link-size {
@@ -25,13 +32,17 @@
 
 .navbar-wrapper .search-icon {
   border-radius: 50px 0px 0px 50px !important;
-  background-color: #f5f4f4 !important;
+  background-color: #efefef !important;
+  /* background-color: #f5f4f4 !important; */
 }
 
 .navbar-wrapper .search-input {
-  background-color: #f5f4f4 !important;
+  background-color: #efefef !important;
+  /* background-color: #f5f4f4 !important; */
   border: none;
   border-radius: 0px 50px 50px 0px !important;
+  text-transform: capitalize;
+  font-size: 14px;
 }
 
 .navbar-wrapper .search-group {
@@ -94,10 +105,7 @@
   text-decoration: none;
   font-weight: 700;
   left: 36px;
-
-  /* left: 35px; */
   background-color: #0071ae;
-  /* background-color: var(--ocean); */
 }
 
 .navbar-wrapper .favourite {
@@ -110,8 +118,8 @@
 }
 
 .navbar-wrapper .profile-img {
-  width: 23px;
-  height: 23px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #6a6662;

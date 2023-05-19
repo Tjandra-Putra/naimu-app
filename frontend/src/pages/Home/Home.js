@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="home-wrapper">
       <div id="carouselExampleIndicators" className="carousel slide">
-        <div className="banner-arrow">
+        {/* <div className="banner-arrow">
           <div className="btn-group">
             <button
               className="btn btn-light bg-white active"
@@ -40,7 +40,7 @@ const Home = () => {
               </span>
             </button>
           </div>
-        </div>
+        </div> */}
         <div className="carousel-indicators">
           <button
             type="button"

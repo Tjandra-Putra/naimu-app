@@ -124,7 +124,6 @@ const Order = () => {
             <Link to="/checkout" class="breadcrumb-item text-dark fw-medium">
               Your Order: {id}
             </Link>
-            order not found {orderNotFound ? "yes" : "no"}
           </ol>
         </nav>
 
