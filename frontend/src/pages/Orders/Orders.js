@@ -20,6 +20,27 @@ const Orders = () => {
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [orderPerPage] = useState(3);
+
+  // pagination filter logic
+  const indexOfLastOrder = currentPage * orderPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - orderPerPage;
+  const currentOrder = ordersList.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  // pagination change page
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
+  };
+
+  // Generate the page numbers based on the number of order and order per page:
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(ordersList.length / orderPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -81,7 +102,7 @@ const Orders = () => {
                       </thead>
                       <tbody>
                         {ordersList
-                          ? ordersList.map((order, index) => (
+                          ? currentOrder.map((order, index) => (
                               <tr key={index}>
                                 <td>{order._id}</td>
                                 <td>
@@ -111,29 +132,23 @@ const Orders = () => {
                     </table>
 
                     <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center mt-3">
-                        <li class="page-item disabled">
-                          <a class="page-link text-dark">Previous</a>
+                      <ul className="pagination justify-content-center mt-1">
+                        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                          <button className="page-link text-dark" onClick={() => handlePageChange(currentPage - 1)}>
+                            Previous
+                          </button>
                         </li>
-                        <li class="page-item">
-                          <a class="page-link text-dark" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link text-dark" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link text-dark" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link text-dark" href="#">
+                        {pageNumbers.map((number) => (
+                          <li className={`page-item ${number === currentPage ? "active" : ""}`} key={number}>
+                            <button className="page-link" onClick={() => handlePageChange(number)}>
+                              {number}
+                            </button>
+                          </li>
+                        ))}
+                        <li className={`page-item ${currentPage === pageNumbers.length ? "disabled" : ""}`}>
+                          <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
                             Next
-                          </a>
+                          </button>
                         </li>
                       </ul>
                     </nav>
