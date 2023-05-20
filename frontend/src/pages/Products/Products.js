@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 import "./Products.css";
@@ -15,11 +15,16 @@ const Products = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState(new URL(window.location.href)); // set up URL state and onChange handler for checkboxes
   const [filterTag, setFilterTag] = useState([]); // badge component for applied filters
+  const [sortOption, setSortOption] = useState("");
 
-  const [availablePrices] = useState([
-    { id: 1, price: "20, 50" },
-    { id: 2, price: "51, 100" },
-  ]);
+  //  availablePrices array is not expected to change during the component's lifecycle, we can memoize it using the useMemo hook instead of recreating it on each render
+  const availablePrices = useMemo(
+    () => [
+      { id: 1, price: "20, 50" },
+      { id: 2, price: "51, 100" },
+    ],
+    []
+  );
 
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
@@ -72,9 +77,13 @@ const Products = () => {
           const brand = searchParams.getAll("brand");
           const price = searchParams.getAll("price");
 
-          const combinedFilters = [...category, ...brand, ...price];
+          // this is for the filter badge components display purposes
+          let combinedFilters = [...category, ...brand, ...price];
           setFilterTag(combinedFilters);
 
+          // main filter logic
+          // explanation: if the category array is not empty and the product's category is not included in the category array, return false
+          // why: if the category array is empty, it means that the user did not select any category, so we should not filter by category
           if (category.length && !category.includes(product.category.toLowerCase())) {
             return false;
           }
@@ -87,17 +96,32 @@ const Products = () => {
             const productPrice = product.discountPrice;
 
             const [minPrice, maxPrice] = price[0].split(",");
+            // explanation: if the product's price is not between the min and max price, return false
             if (productPrice < minPrice || productPrice > maxPrice) {
               return false;
             }
           }
-
+          // explanation; if the product passes all the above conditions, return true
           return true;
         })
       : [];
 
+    // Sort the filteredProducts based on the sortOption
+    if (sortOption === "asc") {
+      filteredProducts.sort((a, b) => a.discountPrice - b.discountPrice);
+    } else if (sortOption === "desc") {
+      filteredProducts.sort((a, b) => b.discountPrice - a.discountPrice);
+    } else if (sortOption === "popularity") {
+      filteredProducts.sort((a, b) => b.unitSold - a.unitSold);
+    }
+
+    // add the sort option to filterTag
+    if (sortOption) {
+      setFilterTag((prev) => [...prev, sortOption]);
+    }
+
     setFilteredProductList(filteredProducts);
-  }, [productList, url]);
+  }, [productList, url, sortOption]);
 
   return isLoading ? (
     <Loader />
@@ -246,31 +270,31 @@ const Products = () => {
               <div className="filter-btn d-inline">
                 {/* Sort by */}
                 <div className="dropdown-center d-inline ms-2">
-                  <Link
+                  <button
                     className="btn btn-light btn-sort dropdown-toggle"
-                    href="#"
-                    role="button"
+                    type="button"
+                    id="dropdownSort"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     Sort
-                  </Link>
+                  </button>
 
-                  <ul className="dropdown-menu">
+                  <ul className="dropdown-menu" aria-labelledby="dropdownSort">
                     <li>
-                      <a className="dropdown-item" href="#">
-                        Action
-                      </a>
+                      <button className="dropdown-item" onClick={() => setSortOption("asc")}>
+                        Price (Low to High)
+                      </button>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
-                        Another action
-                      </a>
+                      <button className="dropdown-item" onClick={() => setSortOption("desc")}>
+                        Price (High to Low)
+                      </button>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
-                        Something else here
-                      </a>
+                      <button className="dropdown-item" onClick={() => setSortOption("popularity")}>
+                        Popularity
+                      </button>
                     </li>
                   </ul>
                 </div>
