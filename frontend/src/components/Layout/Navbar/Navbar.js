@@ -154,27 +154,27 @@ const Navbar = () => {
                     <img
                       src={`http://localhost:8000/${user.user.avatar}`}
                       alt={user.user.avatar}
-                      className="img-fluid profile-img"
+                      className="img-fluid profile-img "
                     />
                   </Link>
                 </li>
               ) : (
                 <li>
                   <Link className="nav-link" to="/login">
-                    <i className="fa-regular fa-user fa-lg pe-1"></i>
+                    <i className="fa-regular fa-user fa-lg pe-1 nav-link-icon"></i>
                   </Link>
                 </li>
               )}
               <li className="nav-item nav-link-size">
                 <Link className="nav-link position-relative" to="/favourite">
-                  <i className="fa-regular fa-heart fa-lg"></i>
+                  <i className="fa-regular fa-heart fa-lg nav-link-icon"></i>
 
                   <span className="position-absolute top-1 translate-middle badge rounded-pill favourite">0</span>
                 </Link>
               </li>
               <li className="nav-item nav-link-size">
                 <Link className="nav-link position-relative" to="/cart">
-                  <i className="fas fa-shopping-cart ps-0"></i>
+                  <i className="fas fa-shopping-cart ps-0 nav-link-icon"></i>
                   <span className="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">
                     {cart.length}
                   </span>
