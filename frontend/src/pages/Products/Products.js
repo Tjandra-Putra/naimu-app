@@ -10,6 +10,7 @@ import { server } from "../../server";
 const Products = () => {
   const navigate = useNavigate();
 
+  // other states
   const [productList, setProductList] = useState([]);
   const [filteredProductList, setFilteredProductList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +26,27 @@ const Products = () => {
     ],
     []
   );
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(6);
+
+  // pagination filter logic
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProductList.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // pagination change page
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
+  };
+
+  // Generate the page numbers based on the number of products and products per page:
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredProductList.length / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
@@ -304,7 +326,7 @@ const Products = () => {
             <div className="product-listing mt-4">
               <div className="row">
                 {productList && productList.length > 0
-                  ? filteredProductList.map((item, index) => (
+                  ? currentProducts.map((item, index) => (
                       <div className="col-md-4" key={index}>
                         <ProductCard
                           productId={item._id}
@@ -324,29 +346,23 @@ const Products = () => {
             </div>
 
             <nav aria-label="Page navigation example">
-              <ul className="pagination justify-content-center mt-3">
-                <li className="page-item disabled">
-                  <a className="page-link text-dark">Previous</a>
+              <ul className="pagination justify-content-center mt-1">
+                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                  <button className="page-link text-dark" onClick={() => handlePageChange(currentPage - 1)}>
+                    Previous
+                  </button>
                 </li>
-                <li className="page-item">
-                  <a className="page-link text-dark" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link text-dark" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link text-dark" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link text-dark" href="#">
+                {pageNumbers.map((number) => (
+                  <li className={`page-item ${number === currentPage ? "active" : ""}`} key={number}>
+                    <button className="page-link" onClick={() => handlePageChange(number)}>
+                      {number}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === pageNumbers.length ? "disabled" : ""}`}>
+                  <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
                     Next
-                  </a>
+                  </button>
                 </li>
               </ul>
             </nav>
