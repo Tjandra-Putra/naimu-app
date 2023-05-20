@@ -54,12 +54,8 @@ router.put(
           _id: req.user.id,
           fullName: req.user.fullName,
           email: req.user.email,
-          phoneNumber: req.user.phoneNumber,
           role: req.user.role,
           avatar: req.user.avatar,
-          birthday: req.user.birthday,
-          createdAt: req.user.createdAt,
-          addresses: req.user.addresses,
         },
         rating,
         title,
@@ -80,7 +76,7 @@ router.put(
       // when review is created we need to update and create the field in the Order model that the product has been reviewed with "isReviewed" field
       await Order.findByIdAndUpdate(
         orderId,
-        { $set: { "orderItems.$[item].isReviewed": true } },
+        { $set: { "orderItems.$[item].isReviewed": true } }, // creating a new field
         { arrayFilters: [{ "item._id": productId }], new: true }
       );
 

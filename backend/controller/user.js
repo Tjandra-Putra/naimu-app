@@ -283,6 +283,19 @@ router.put(
       user.fullName = fullName;
       user.birthday = birthday;
 
+      // update other collections that have user information - Product collection productReviews: fullName, email, phoneNumber, birthday
+      await Product.updateMany(
+        { "reviews.user._id": req.user.id },
+        {
+          $set: {
+            "reviews.$.user.fullName": fullName,
+            "reviews.$.user.email": email,
+            "reviews.$.user.phoneNumber": phoneNumber,
+            "reviews.$.user.birthday": birthday,
+          },
+        }
+      );
+
       await user.save();
 
       res.status(200).json({
