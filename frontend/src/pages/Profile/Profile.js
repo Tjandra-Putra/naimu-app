@@ -19,11 +19,11 @@ const Profile = () => {
 
   const { user, error, success, loading } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
-  const [fullName, setFullName] = useState((user && user.user.fullName) || "");
-  const [email, setEmail] = useState((user && user.user.email) || "");
-  const [phoneNumber, setPhoneNumber] = useState((user && user.user.phoneNumber) || "");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState((user && new Date(user.user.birthday).toISOString().substring(0, 10)) || "");
+  const [birthday, setBirthday] = useState("");
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
@@ -38,6 +38,15 @@ const Profile = () => {
       dispatch({ type: "ClearSuccess" });
     }
   }, [success, error, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      setFullName(user.user.fullName || "");
+      setEmail(user.user.email || "");
+      setPhoneNumber(user.user.phoneNumber || "");
+      setBirthday(new Date(user.user.birthday).toISOString().substring(0, 10) || "");
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,9 +95,10 @@ const Profile = () => {
       });
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="profile-wrapper">
-      {loading && <Loader />}
       <div className="container">
         <div className="orders">
           <div className="row">
@@ -158,11 +168,11 @@ const Profile = () => {
                         </div>
 
                         {/* <div className="col-md-6 mb-4">
-                          <label htmlFor="postal-code" className="form-label">
-                            Postal Code
-                          </label>
-                          <input type="text" name="postal-code" id="postal-code" className="form-control" value={""} />
-                        </div> */}
+                      <label htmlFor="postal-code" className="form-label">
+                        Postal Code
+                      </label>
+                      <input type="text" name="postal-code" id="postal-code" className="form-control" value={""} />
+                    </div> */}
 
                         <div className="col-md-6 mb-4">
                           <label htmlFor="birthday" className="form-label">
@@ -178,19 +188,19 @@ const Profile = () => {
                           />
                         </div>
                         {/* 
-                        <div className="col-md-6 mb-4">
-                          <label htmlFor="address-one" className="form-label">
-                            Address 1
-                          </label>
-                          <input type="text" name="address-one" id="address-one" className="form-control" value={""} />
-                        </div>
+                    <div className="col-md-6 mb-4">
+                      <label htmlFor="address-one" className="form-label">
+                        Address 1
+                      </label>
+                      <input type="text" name="address-one" id="address-one" className="form-control" value={""} />
+                    </div>
 
-                        <div className="col-md-6 mb-4">
-                          <label htmlFor="country" className="form-label">
-                            Country
-                          </label>
-                          <input type="text" name="country" id="country" className="form-control" value={""} />
-                        </div> */}
+                    <div className="col-md-6 mb-4">
+                      <label htmlFor="country" className="form-label">
+                        Country
+                      </label>
+                      <input type="text" name="country" id="country" className="form-control" value={""} />
+                    </div> */}
 
                         <div className="col-md-6 mb-4">
                           <label htmlFor="password" className="form-label">

@@ -33,7 +33,8 @@ import {
   Addresses,
   PasswordChange,
   NotFound,
-} from "./routes/routes.js";
+  Favourite,
+} from "./routes/Routes.js";
 
 const App = () => {
   const [stripeApiKey, setStripeApiKey] = React.useState("");
@@ -131,7 +132,14 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-
+            <Route
+              path="/favourite"
+              element={
+                <ProtectedRoute>
+                  <Favourite />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/activate/:activation_token" element={<Activate />} />
 
             <Route path="*" element={<NotFound />} />

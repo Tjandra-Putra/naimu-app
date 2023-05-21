@@ -6,6 +6,7 @@ import { Country, State } from "country-state-city";
 import "./Addresses.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 import { updateAddress, deleteAddress } from "../../redux/actions/user";
+import Loader from "../../components/Layout/Loader/Loader";
 
 const Addresses = () => {
   // toast component
@@ -22,8 +23,6 @@ const Addresses = () => {
   const [addressType, setAddressType] = useState("");
   const { user, error, success } = useSelector((state) => state.userReducer);
 
-  console.log(user);
-
   const addressTypes = [
     {
       name: "Default",
@@ -39,19 +38,18 @@ const Addresses = () => {
   useEffect(() => {
     if (error) {
       notifyError(error);
-      //   console.log(error);
       dispatch({ type: "ClearErrors" });
     }
     if (success) {
       notifySuccess(success);
       dispatch({ type: "ClearSuccess" });
     }
-  }, [error, success]);
+  }, [error, success, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(country, city, address1, address2, postalCode, addressType);
-    if (addressType === "" || country === "" || city === "") {
+
+    if (addressType === "" || country === "") {
       notifyError("Please fill in all the required fields");
     } else {
       // dispatch update address
@@ -74,17 +72,6 @@ const Addresses = () => {
   return (
     <div className="addresses-wrapper">
       <div className="container">
-        {/* <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <Link to="/" class="breadcrumb-item">
-              Home
-            </Link>
-            <li class="breadcrumb-item active" aria-current="page">
-              Orders
-            </li>
-          </ol>
-        </nav> */}
-
         <div className="addresses">
           <div className="row">
             <div className="col-md-3">

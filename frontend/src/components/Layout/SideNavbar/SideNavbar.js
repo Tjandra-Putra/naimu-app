@@ -9,10 +9,8 @@ import { useEffect } from "react";
 const SideNavbar = ({ activeLink }) => {
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
-  const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // logout user
   const logoutHandler = () => {

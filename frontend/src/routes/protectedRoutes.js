@@ -1,27 +1,29 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
-  const dispatch = useDispatch();
-  const location = useLocation();
+  // toast component
 
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
+  const dispatch = useDispatch();
+
   const { loading, isAuthenticated, error } = useSelector((state) => state.userReducer);
 
-  if (!loading) {
-    if (!isAuthenticated) {
-      // error toast message is rendered by other components useEffect
-      return <Navigate to="/login" replace />;
+  if (!isAuthenticated && !loading) {
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
     }
-    // only once authenticated, will remove the error message only if the error message is "Login first to access this resource." if not it will have a bug that removes all error from other components
-    else {
-      if (error === "Login first to access this resource.") dispatch({ type: "ClearErrors" });
-    }
+
+    return <Navigate to="/login" replace />;
   }
 
-  // clear errors on the redux when user was trying to access a protected route
+  if (error === "Login first to access this resource.") {
+    dispatch({ type: "ClearErrors" });
+  }
 
   return children;
 };
