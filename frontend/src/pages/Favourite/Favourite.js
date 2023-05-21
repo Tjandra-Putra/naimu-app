@@ -1,9 +1,13 @@
 import "./Favourite.css";
 
 const Favourite = () => {
-  <div className="favourite-wrapper">
-    <div className="container">Favourite</div>
-  </div>;
+  return (
+    <div className="favourite-wrapper">
+      <div className="container">
+        <h1>Favourite</h1>
+      </div>
+    </div>
+  );
 };
 
 export default Favourite;

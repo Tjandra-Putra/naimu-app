@@ -1,8 +1,10 @@
 .orders-wrapper {
-  margin-top: 1.2rem;
-  margin-bottom: 1.2rem;
   height: 100%;
   min-height: calc(100vh - 70px);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .orders-wrapper .breadcrumb-item {
