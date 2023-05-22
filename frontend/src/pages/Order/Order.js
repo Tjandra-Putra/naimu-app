@@ -117,13 +117,11 @@ const Order = () => {
     <div className="order-wrapper">
       <div className="container">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <Link to="/orders" class="breadcrumb-item text-dark text-muted">
+          <ol className="breadcrumb">
+            <Link to="/orders" className="breadcrumb-item text-dark text-muted">
               Orders
             </Link>
-            <Link to="/checkout" class="breadcrumb-item text-dark fw-medium">
-              Your Order: {id}
-            </Link>
+            <Link className="breadcrumb-item text-dark fw-medium">Your Order: {id}</Link>
           </ol>
         </nav>
 
@@ -151,8 +149,9 @@ const Order = () => {
                     order.orderItems.map((item, index) => (
                       <tr key={index}>
                         <td className="product-img">
-                          {/* require a product url tag name not id. if not it will have error because of different size product is actually different product */}
-                          <img src={item.imageUrl} alt="" className="img-fluid rounded-2" />
+                          <Link to={`/products/${item._id}`}>
+                            <img src={item.imageUrl} alt="" className="img-fluid rounded-2" />
+                          </Link>
                         </td>
                         <td className="product-description">
                           <div className="d-flex flex-column">
@@ -186,13 +185,13 @@ const Order = () => {
                         </td>
 
                         {/* Review Modal */}
-                        <div class="modal fade review-modal" id={item._id} tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content p-3">
-                              <div class="modal-header border-0">
-                                <h1 class="modal-title fs-5 mx-auto">Write a Review</h1>
+                        <div className="modal fade review-modal" id={item._id} tabindex="-1" aria-hidden="true">
+                          <div className="modal-dialog">
+                            <div className="modal-content p-3">
+                              <div className="modal-header border-0">
+                                <h1 className="modal-title fs-5 mx-auto">Write a Review</h1>
                               </div>
-                              <div class="modal-body">
+                              <div className="modal-body">
                                 <form>
                                   <div className="row">
                                     <div className="col-md-3">
@@ -227,12 +226,12 @@ const Order = () => {
                                     </div>
                                   </div>
 
-                                  <div class="mb-4">
-                                    <label for="title" class="form-label">
+                                  <div className="mb-4">
+                                    <label for="title" className="form-label">
                                       Set a title for your review
                                     </label>
                                     <input
-                                      class="form-control"
+                                      className="form-control"
                                       id="title"
                                       placeholder="Summarise review"
                                       value={title}
@@ -240,12 +239,12 @@ const Order = () => {
                                     ></input>
                                   </div>
 
-                                  <div class="mb-3">
-                                    <label for="comment" class="form-label">
+                                  <div className="mb-3">
+                                    <label for="comment" className="form-label">
                                       What did you like or dislike?
                                     </label>
                                     <textarea
-                                      class="form-control"
+                                      className="form-control"
                                       id="comment"
                                       rows="3"
                                       value={comment}
@@ -295,10 +294,10 @@ const Order = () => {
 
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -309,10 +308,10 @@ const Order = () => {
                   </div>
                 </div>
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="name@example.com"
                       required
@@ -325,10 +324,10 @@ const Order = () => {
               </div>
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -339,10 +338,10 @@ const Order = () => {
                   </div>
                 </div>
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -355,10 +354,10 @@ const Order = () => {
               </div>
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -369,10 +368,10 @@ const Order = () => {
                   </div>
                 </div>
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -385,10 +384,10 @@ const Order = () => {
               </div>
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -399,10 +398,10 @@ const Order = () => {
                   </div>
                 </div>
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -420,10 +419,10 @@ const Order = () => {
 
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       placeholder="John Doe"
                       required
@@ -436,10 +435,10 @@ const Order = () => {
               </div>
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       id="floatingInput"
                       value={order.paymentInfo ? order.paymentInfo.id : "Loading..."}
                       disabled
@@ -450,10 +449,10 @@ const Order = () => {
               </div>
               <div className="row">
                 <div className="col">
-                  <div class="form-floating my-3">
+                  <div className="form-floating my-3">
                     <input
                       type="text"
-                      class={`form-control ${
+                      className={`form-control ${
                         order.paymentInfo && order.paymentInfo.status === "pending payment"
                           ? "text-danger"
                           : "text-success"
@@ -515,8 +514,8 @@ const Order = () => {
                   <div>${order ? order.totalPrice : ""}</div>
                 </div>
 
-                {/* <div class="input-promo form-floating my-3">
-                  <input type="text" class="form-control" id="floatingInput" disabled value="548dskfd" />
+                {/* <div className="input-promo form-floating my-3">
+                  <input type="text" className="form-control" id="floatingInput" disabled value="548dskfd" />
                   <label for="floatingInput">Promocode</label>
                 </div> */}
               </div>

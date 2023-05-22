@@ -215,6 +215,13 @@ const Profile = () => {
                             onChange={(e) => setPassword(e.target.value)}
                           />
                         </div>
+
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="userId" className="form-label">
+                            Unique Identification
+                          </label>
+                          <input type="text" className="form-control" value={user.user._id || ""} disabled />
+                        </div>
                       </div>
                       <button className="btn btn-save btn-success" type="submit">
                         Save Changes
