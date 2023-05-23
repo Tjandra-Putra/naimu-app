@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React, { memo } from "react";
@@ -9,11 +9,14 @@ import "./Favourite.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { server } from "../../server";
 import Loader from "../../components/Layout/Loader/Loader";
+import { getFavourite, removeFromFavourite } from "../../redux/actions/favourite";
 
 const Favourite = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userReducer);
-  const [favourites, setFavourites] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { favourites, error, success, loading } = useSelector((state) => state.favouriteReducer);
+
+  const [favouritesList, setFavouritesList] = useState([]);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
@@ -24,38 +27,28 @@ const Favourite = () => {
 
   // remove from favourite handler
   const removeFromFavouriteHandler = async (productId) => {
-    console.log("productId: ", productId);
-    try {
-      const { data } = await axios.put(`${server}/favourite/remove/${productId}`, {}, { withCredentials: true });
-
-      setFavourites(data.favourites);
-
-      notifySuccess("Removed from Favourite");
-    } catch (error) {
-      notifyError(error.response.data.message);
-    }
+    dispatch(removeFromFavourite(productId));
   };
 
   useEffect(() => {
-    // need to make sure cannot access other users's favourites
-    // fetch favourites from backend
+    if (error) {
+      notifyError(error);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (success) {
+      notifySuccess(success);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [error, success]);
 
-    const fetchFavourites = async () => {
-      try {
-        setLoading(true);
+  useEffect(() => {
+    // note: getting favourites by user id
+    dispatch(getFavourite(user));
+  }, []);
 
-        const { data } = await axios.get(`${server}/favourite/${user.user._id}`, { withCredentials: true });
-        setFavourites(data.favourites[0]);
-
-        setLoading(false);
-      } catch (error) {
-        console.log("Something went wrong");
-        notifyError(error.response.data.message);
-      }
-    };
-
-    fetchFavourites();
-  }, [user]);
+  useEffect(() => {
+    setFavouritesList(favourites);
+  }, [favourites]);
 
   return loading ? (
     <Loader />
@@ -69,17 +62,17 @@ const Favourite = () => {
                 Browse Products
               </Link>
               <li className="breadcrumb-item" aria-current="page">
-                My Wishlist ({favourites[0]?.favouriteItems.length} items)
+                My Wishlist ({favouritesList?.favouriteItems?.length} items)
               </li>
             </ol>
           </nav>
 
-          <div>Move All to Bag</div>
+          <div></div>
         </div>
 
         <div className="row">
-          {favourites.favouriteItems?.map((item, index) => (
-            <div className="col-md-3 mb-5" key={index}>
+          {favouritesList?.favouriteItems?.map((item, index) => (
+            <div className="col-md-3 mb-4" key={index}>
               <div className="card-wrapper">
                 <MemoizedProductCard
                   productId={item.productId}
@@ -92,10 +85,6 @@ const Favourite = () => {
                   productImageUrl={item.imageUrl}
                   productRating={item.rating}
                 />
-
-                <div className="d-grid gap-2">
-                  <div className="btn btn-outline-dark btn-lg rounded-1">Add to Cart</div>
-                </div>
 
                 <div className="remove-from-favourite" onClick={() => removeFromFavouriteHandler(item.productId)}>
                   <i className="fa-regular fa-trash-can"></i>
