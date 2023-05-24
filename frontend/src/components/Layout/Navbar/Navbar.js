@@ -86,8 +86,8 @@ const Navbar = () => {
                 </ul>
               </li>
               <li className="nav-item px-2">
-                <Link className="nav-link" to="/products">
-                  Best Selling
+                <Link className="nav-link" to="/products?sort=popularity">
+                  Featured
                 </Link>
               </li>
               <li className="nav-item px-2">
@@ -95,10 +95,19 @@ const Navbar = () => {
                   Products
                 </Link>
               </li>
-              <li className="nav-item px-2">
-                <Link className="nav-link" to="/products">
-                  Events
+              <li className="nav-item dropdown px-2">
+                <Link
+                  className="nav-link dropdown-toggle"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Help
                 </Link>
+                <ul className="dropdown-menu">
+                  <Link className="nav-link">Order Status</Link>
+                  <Link className="nav-link">Contact Us</Link>
+                </ul>
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">

@@ -48,6 +48,71 @@ const Products = () => {
     pageNumbers.push(i);
   }
 
+  // sort products by asc, desc and popularity
+  const handleSortChange = (option) => {
+    // update url params
+    const searchParams = new URLSearchParams(url.search);
+    searchParams.set("sort", option);
+
+    const newUrl = new URL(url);
+    newUrl.search = searchParams.toString();
+
+    setUrl(newUrl);
+
+    // update URL without reloading the page
+    navigate(`/products${newUrl.search}`, { replace: true });
+  };
+
+  // delete from search params handler
+  const handleDeleteFromSearchParams = (filterName) => {
+    const searchParams = new URLSearchParams(url.search);
+
+    if (filterName === "asc" || filterName === "desc" || filterName === "popularity") {
+      searchParams.delete("sort");
+
+      const newUrl = new URL(url);
+      newUrl.search = searchParams.toString();
+
+      setUrl(newUrl);
+
+      // update URL without reloading the page
+      navigate(`/products${newUrl.search}`, { replace: true });
+    } else {
+      // Create an array to store the new parameter entries
+      const newParams = [];
+
+      // Iterate over all entries in searchParams using the .entries() method
+      for (const [key, value] of searchParams.entries()) {
+        // Check if the key and value match the pair to be removed
+        if (key === "category" && value === filterName) {
+          continue; // Skip this key-value pair
+        }
+
+        if (key === "brand" && value === filterName) {
+          continue; // Skip this key-value pair
+        }
+
+        if (key === "price" && value === filterName) {
+          continue; // Skip this key-value pair
+        }
+
+        // Add the key-value pair to the newParams array
+        newParams.push([key, value]);
+      }
+
+      const newUrl = new URL(url);
+
+      // Set the new URL parameters using the newParams array
+      newUrl.search = new URLSearchParams(newParams).toString();
+
+      setUrl(newUrl);
+
+      // Update URL without reloading the page
+      navigate(`/products${newUrl.search}`, { replace: true });
+    }
+  };
+
+  // filter product by category, price, brand (shop name)
   const handleCheckboxChange = (e) => {
     const { name, value } = e.target;
 
@@ -67,8 +132,6 @@ const Products = () => {
     newUrl.search = searchParams.toString();
 
     setUrl(newUrl);
-
-    console.log("new url", newUrl.search);
 
     // update URL without reloading the page
     navigate(`/products${newUrl.search}`, { replace: true });
@@ -101,6 +164,7 @@ const Products = () => {
 
           // this is for the filter badge components display purposes
           let combinedFilters = [...category, ...brand, ...price];
+
           setFilterTag(combinedFilters);
 
           // main filter logic
@@ -128,13 +192,24 @@ const Products = () => {
         })
       : [];
 
-    // Sort the filteredProducts based on the sortOption
-    if (sortOption === "asc") {
-      filteredProducts.sort((a, b) => a.discountPrice - b.discountPrice);
-    } else if (sortOption === "desc") {
-      filteredProducts.sort((a, b) => b.discountPrice - a.discountPrice);
-    } else if (sortOption === "popularity") {
-      filteredProducts.sort((a, b) => b.unitSold - a.unitSold);
+    // check for sort parameter
+    if (searchParams.get("sort")) {
+      const sortOption = searchParams.get("sort");
+
+      // apply sorting based on sort option
+      if (sortOption === "popularity") {
+        filteredProducts.sort((a, b) => b.unitSold - a.unitSold);
+      }
+
+      if (sortOption === "asc") {
+        filteredProducts.sort((a, b) => a.discountPrice - b.discountPrice);
+      }
+
+      if (sortOption === "desc") {
+        filteredProducts.sort((a, b) => b.discountPrice - a.discountPrice);
+      }
+
+      setFilterTag((prev) => [...prev, sortOption]);
     }
 
     // add the sort option to filterTag
@@ -282,8 +357,12 @@ const Products = () => {
                   Applied Filters:
                   {filterTag.map((tag, index) => (
                     <span className="filter-badge" key={index}>
+                      <i
+                        className="fa-solid fa-xmark me-1 text-danger"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleDeleteFromSearchParams(tag)}
+                      ></i>
                       {tag}
-                      {/* <i className="fa-solid fa-xmark"></i> */}
                     </span>
                   ))}
                 </span>
@@ -304,17 +383,17 @@ const Products = () => {
 
                   <ul className="dropdown-menu" aria-labelledby="dropdownSort">
                     <li>
-                      <button className="dropdown-item" onClick={() => setSortOption("asc")}>
+                      <button className="dropdown-item" onClick={() => handleSortChange("asc")}>
                         Price (Low to High)
                       </button>
                     </li>
                     <li>
-                      <button className="dropdown-item" onClick={() => setSortOption("desc")}>
+                      <button className="dropdown-item" onClick={() => handleSortChange("desc")}>
                         Price (High to Low)
                       </button>
                     </li>
                     <li>
-                      <button className="dropdown-item" onClick={() => setSortOption("popularity")}>
+                      <button className="dropdown-item" onClick={() => handleSortChange("popularity")}>
                         Popularity
                       </button>
                     </li>

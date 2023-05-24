@@ -33,24 +33,24 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Orders
         </Link>
-        <Link to="/refunds" class={`list-group-item ${activeLink === "refunds" ? "active" : ""}`}>
+        {/* <Link to="/refunds" class={`list-group-item ${activeLink === "refunds" ? "active" : ""}`}>
           <span>
             <i class="fa fa-backspace me-3"></i>
           </span>
           Refunds
-        </Link>
-        <Link to="/inbox" class={`list-group-item ${activeLink === "inbox" ? "active" : ""}`}>
+        </Link> */}
+        {/* <Link to="/inbox" class={`list-group-item ${activeLink === "inbox" ? "active" : ""}`}>
           <span>
             <i class="far fa-comment-dots me-3"></i>
           </span>
           Inbox
-        </Link>
-        <Link to="/track-order" class={`list-group-item ${activeLink === "track-order" ? "active" : ""}`}>
+        </Link> */}
+        {/* <Link to="/track-order" class={`list-group-item ${activeLink === "track-order" ? "active" : ""}`}>
           <span>
             <i class="fas fa-location me-3"></i>
           </span>
           Track Order
-        </Link>
+        </Link> */}
         <Link to="/password-change" class={`list-group-item ${activeLink === "password-change" ? "active" : ""}`}>
           <span>
             <i class="fa-solid fa-lock me-3"></i>
