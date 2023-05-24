@@ -55,6 +55,11 @@ export const favouriteReducer = createReducer(initialState, (builder) => {
     state.errorFavourite = action.payload;
   });
 
+  // ============================= Empty Favourite =============================
+  builder.addCase("EmptyFavourite", (state, action) => {
+    state.favourites = [];
+  });
+
   // ============================= Clear Errors =============================
   builder.addCase("ClearErrors", (state, action) => {
     state.errorFavourite = null;

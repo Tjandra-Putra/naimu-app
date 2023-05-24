@@ -171,7 +171,7 @@ const Navbar = () => {
                   <i className="fa-regular fa-heart fa-lg nav-link-icon"></i>
 
                   <span className="position-absolute top-1 translate-middle badge rounded-pill favourite">
-                    {favourites?.favouriteItems?.length}
+                    {isAuthenticated && favourites ? favourites?.favouriteItems?.length : 0}
                   </span>
                 </Link>
               </li>

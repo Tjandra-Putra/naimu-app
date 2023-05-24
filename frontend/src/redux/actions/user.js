@@ -63,6 +63,8 @@ export const logout = () => async (dispatch) => {
     dispatch({
       type: "LogoutSuccess",
     });
+
+    dispatch({ type: "EmptyFavourite" });
   } catch (error) {
     dispatch({
       type: "LogoutFail",

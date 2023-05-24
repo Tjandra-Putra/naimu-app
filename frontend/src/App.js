@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { loadUser } from "./redux/actions/user.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { PersistGate } from "redux-persist/integration/react"; // import PersistGate
 import axios from "axios";
@@ -13,6 +13,7 @@ import { store, persistor } from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
 import ProtectedRoute from "./routes/protectedRoutes.js";
 import { server } from "./server.js";
+import { getFavourite } from "./redux/actions/favourite.js";
 
 import {
   Navbar,
@@ -37,7 +38,9 @@ import {
 } from "./routes/Routes.js";
 
 const App = () => {
+  const dispatch = useDispatch();
   const [stripeApiKey, setStripeApiKey] = React.useState("");
+  const { user, isAuthenticated } = useSelector((state) => state.userReducer);
 
   const getStripeApiKey = async () => {
     const { data } = await axios.get(`${server}/payment/stripe-api-key`);
@@ -47,7 +50,13 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser()); // syntax is typically used when you're dispatching an action from outside of a React component (e.g. from a Redux thunk/middleware).
     getStripeApiKey();
-  }, []);
+
+    if (isAuthenticated) {
+      dispatch(getFavourite(user));
+    }
+
+    // note: if there is a change in the state of isAuthenticated, then the useEffect will run again to dispatch getFavourites
+  }, [isAuthenticated]);
 
   return (
     <React.Fragment>
