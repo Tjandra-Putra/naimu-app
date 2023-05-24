@@ -22,6 +22,7 @@ const Product = () => {
   // redux state
   const { favourites, errorFavourite, successFavourite } = useSelector((state) => state.favouriteReducer);
   const { cart } = useSelector((state) => state.cartReducer);
+  const { isAuthenticated } = useSelector((state) => state.userReducer);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
@@ -43,7 +44,16 @@ const Product = () => {
 
   const favouriteButtonElement = () => {
     // render buttob component based on existence of item in favourites
-    const isFavouritedButton = favourites && favourites.favouriteItems.find((item) => item.productId === id);
+    const isFavouritedButton =
+      favourites && isAuthenticated && favourites.favouriteItems.find((item) => item.productId === id);
+
+    if (!isAuthenticated) {
+      return (
+        <button className="btn btn-outline-dark btn-lg rounded-1 mt-1" disabled>
+          Login to add to Wishlist
+        </button>
+      );
+    }
 
     if (!isFavouritedButton) {
       return (
