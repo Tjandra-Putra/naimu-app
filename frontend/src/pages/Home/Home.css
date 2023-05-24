@@ -133,6 +133,7 @@
 .home-wrapper .stories {
   margin-top: 50px;
   padding: 30px;
+  line-height: 2rem;
 }
 
 .home-wrapper .stories .title {
