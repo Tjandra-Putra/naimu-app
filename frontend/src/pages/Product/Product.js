@@ -13,18 +13,22 @@ import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 import { addToCart } from "../../redux/actions/cart";
 import { server } from "../../server";
+import { addToFavourites } from "../../redux/actions/favourite";
 
 const Product = () => {
+  // redux
+  const dispatch = useDispatch();
+
+  // redux state
+  const { favourites, errorFavourite, successFavourite } = useSelector((state) => state.favouriteReducer);
+  const { cart } = useSelector((state) => state.cartReducer);
+
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState(null);
-
-  // redux state
-  const { cart } = useSelector((state) => state.cartReducer);
-  const dispatch = useDispatch();
 
   // get product id from route parameter
   const { id } = useParams();
@@ -36,6 +40,37 @@ const Product = () => {
     { id: 4, size: "L" },
     { id: 5, size: "XL" },
   ]);
+
+  const favouriteButtonElement = () => {
+    // render buttob component based on existence of item in favourites
+    const isFavouritedButton = favourites && favourites.favouriteItems.find((item) => item.productId === id);
+
+    if (!isFavouritedButton) {
+      return (
+        <button className="btn btn-outline-dark btn-lg rounded-1 mt-1" onClick={() => addToFavouritesHandler(product)}>
+          Add to Wishlist
+        </button>
+      );
+    } else {
+      return (
+        <button className="btn btn-secondary btn-lg rounded-1 mt-1" disabled>
+          Added to Wishlist <i class="fa-solid fa-check ms-1"></i>
+        </button>
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (errorFavourite) {
+      notifyError(errorFavourite);
+      dispatch({ type: "ClearErrors" });
+    }
+
+    if (successFavourite) {
+      notifySuccess(successFavourite);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [errorFavourite, successFavourite]);
 
   // import product from backend
   useEffect(() => {
@@ -90,6 +125,22 @@ const Product = () => {
       dispatch(addToCart(newCart));
       notifySuccess("Item added to cart");
     }
+  };
+
+  const addToFavouritesHandler = (item) => {
+    console.log(item);
+    dispatch(
+      addToFavourites(
+        item._id,
+        item.shop.name,
+        item.price,
+        item.discountPrice,
+        item.title,
+        item.imageUrl[0].url,
+        item.unitSold,
+        item.rating
+      )
+    );
   };
 
   return isLoading ? (
@@ -321,9 +372,8 @@ const Product = () => {
                   </button>
                 ) : null}
 
-                <button className="btn btn-outline-dark btn-lg rounded-1 mt-1" type="button">
-                  Add to Wishlist
-                </button>
+                {/* if favourited, show added to wishlist */}
+                {favouriteButtonElement()}
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ import tagImage from "../../assets/images/tag.png";
 const Favourite = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userReducer);
-  const { favourites, loading } = useSelector((state) => state.favouriteReducer);
+  const { favourites, loading, errorFavourite, successFavourite } = useSelector((state) => state.favouriteReducer);
 
   const [favouritesList, setFavouritesList] = useState([]);
 
@@ -25,11 +25,20 @@ const Favourite = () => {
   // By memoizing the ProductCard component, it will only re-render if its props change, preventing unnecessary re-renders when other parts of the component tree update.
   const MemoizedProductCard = React.memo(ProductCard);
 
+  useEffect(() => {
+    if (errorFavourite) {
+      notifySuccess(errorFavourite);
+      dispatch({ type: "ClearErrors" });
+    }
+    if (successFavourite) {
+      notifySuccess(successFavourite);
+      dispatch({ type: "ClearSuccess" });
+    }
+  }, [errorFavourite, successFavourite]);
+
   // remove from favourite handler
   const removeFromFavouriteHandler = async (productId) => {
     dispatch(removeFromFavourite(productId));
-
-    notifySuccess("Removed from favourites");
   };
 
   useEffect(() => {
