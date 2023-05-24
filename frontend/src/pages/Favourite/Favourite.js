@@ -10,17 +10,17 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import { server } from "../../server";
 import Loader from "../../components/Layout/Loader/Loader";
 import { getFavourite, removeFromFavourite } from "../../redux/actions/favourite";
+import tagImage from "../../assets/images/tag.png";
 
 const Favourite = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userReducer);
-  const { favourites, error, success, loading } = useSelector((state) => state.favouriteReducer);
+  const { favourites, loading } = useSelector((state) => state.favouriteReducer);
 
   const [favouritesList, setFavouritesList] = useState([]);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
-  const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   // By memoizing the ProductCard component, it will only re-render if its props change, preventing unnecessary re-renders when other parts of the component tree update.
   const MemoizedProductCard = React.memo(ProductCard);
@@ -84,6 +84,17 @@ const Favourite = () => {
             </div>
           ))}
         </div>
+
+        {favouritesList?.favouriteItems?.length === 0 && (
+          <div className="favourite-empty">
+            <img src={tagImage} alt={tagImage} className="img-fluid favourite-icon" />
+            <div className="text">Your wishlist is empty</div>
+            <div className="sub-text">Add something to make me happy :)</div>
+            <Link to="/products" className="btn btn-browse">
+              Continue shopping
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
