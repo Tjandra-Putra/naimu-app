@@ -28,18 +28,20 @@ const Favourite = () => {
   // remove from favourite handler
   const removeFromFavouriteHandler = async (productId) => {
     dispatch(removeFromFavourite(productId));
+
+    notifySuccess("Removed from favourites");
   };
 
-  useEffect(() => {
-    if (error) {
-      notifyError(error);
-      dispatch({ type: "ClearErrors" });
-    }
-    if (success) {
-      notifySuccess(success);
-      dispatch({ type: "ClearSuccess" });
-    }
-  }, [error, success]);
+  // useEffect(() => {
+  //   if (error) {
+  //     notifyError(error);
+  //     dispatch({ type: "ClearErrors" });
+  //   }
+  //   if (success) {
+  //     notifySuccess(success);
+  //     dispatch({ type: "ClearSuccess" });
+  //   }
+  // }, [error, success]);
 
   useEffect(() => {
     // note: getting favourites by user id

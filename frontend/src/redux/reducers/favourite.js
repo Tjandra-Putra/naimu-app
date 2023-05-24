@@ -3,8 +3,8 @@ import { createReducer } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   favourites: [],
-  error: null,
-  success: null,
+  errorFavourite: null,
+  successFavourite: null,
 };
 
 export const favouriteReducer = createReducer(initialState, (builder) => {
@@ -20,7 +20,23 @@ export const favouriteReducer = createReducer(initialState, (builder) => {
 
   builder.addCase("GetFavouriteFail", (state, action) => {
     state.loading = false;
-    state.error = action.payload;
+    state.errorFavourite = action.payload;
+  });
+
+  // ============================= Add To Favourites =============================
+  builder.addCase("AddToFavouriteRequest", (state, action) => {
+    state.loading = true;
+  });
+
+  builder.addCase("AddToFavouriteSuccess", (state, action) => {
+    state.loading = false;
+    state.favourites = action.payload;
+    state.successFavourite = "Added to favourites";
+  });
+
+  builder.addCase("AddToFavouriteFail", (state, action) => {
+    state.loading = false;
+    state.errorFavourite = action.payload;
   });
 
   // ============================= Remove From Favourite =============================
@@ -31,21 +47,21 @@ export const favouriteReducer = createReducer(initialState, (builder) => {
   builder.addCase("RemoveFromFavouriteSuccess", (state, action) => {
     state.loading = false;
     state.favourites = action.payload;
-    state.success = "Removed from favourites";
+    state.successFavourite = "Removed from favourites";
   });
 
   builder.addCase("RemoveFromFavouriteFail", (state, action) => {
     state.loading = false;
-    state.error = action.payload;
+    state.errorFavourite = action.payload;
   });
 
   // ============================= Clear Errors =============================
   builder.addCase("ClearErrors", (state, action) => {
-    state.error = null;
+    state.errorFavourite = null;
   });
 
   // ============================= Clear Success =============================
   builder.addCase("ClearSuccess", (state, action) => {
-    state.success = null;
+    state.successFavourite = null;
   });
 });

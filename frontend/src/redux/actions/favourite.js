@@ -13,6 +13,23 @@ export const getFavourite = (user) => async (dispatch, getState) => {
   }
 };
 
+export const addToFavourites =
+  (productId, shopName, price, discountPrice, title, imageUrl, unitSold, rating) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: "AddToFavouriteRequest" });
+
+      const { data } = await axios.post(
+        `${server}/favourite/add-to-favourites`,
+        { productId, shopName, price, discountPrice, title, imageUrl, unitSold, rating },
+        { withCredentials: true }
+      );
+
+      dispatch({ type: "AddToFavouriteSuccess", payload: data.favourites });
+    } catch (error) {
+      dispatch({ type: "AddToFavouriteFail", payload: error.response.data.message });
+    }
+  };
+
 export const removeFromFavourite = (productId) => async (dispatch, getState) => {
   try {
     dispatch({ type: "RemoveFromFavouriteRequest" });

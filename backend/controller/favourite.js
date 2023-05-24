@@ -65,3 +65,58 @@ router.get(
     }
   })
 );
+
+// =============================== add to favourites ===============================
+router.post(
+  "/add-to-favourites",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const { productId, shopName, price, discountPrice, title, imageUrl, unitSold, rating } = req.body;
+
+      const favourites = await Favourite.findOne({ "user._id": req.user.id });
+
+      const item = {
+        productId,
+        shop: {
+          name: shopName,
+        },
+        price,
+        discountPrice,
+        title,
+        imageUrl,
+        unitSold,
+        rating,
+      };
+
+      if (favourites) {
+        const isProductExist = favourites.favouriteItems.find((i) => i.productId === productId);
+
+        if (isProductExist) {
+          return next(new ErrorHandler("Product already exist", 400));
+        }
+
+        favourites.favouriteItems.push(item);
+        await favourites.save();
+      }
+      // note: if favourites is not exist, create new favourites
+      else {
+        const favourite = await Favourite.create({
+          user: {
+            _id: req.user.id,
+            email: req.user.email,
+          },
+          favouriteItems: [item],
+        });
+        await favourite.save();
+      }
+
+      res.status(200).json({
+        success: true,
+        favourites,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);

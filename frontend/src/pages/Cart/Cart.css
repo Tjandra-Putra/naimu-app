@@ -141,3 +141,36 @@
 .cart-wrapper .form-select {
   border-color: #000000;
 }
+
+.cart-wrapper .favourite {
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  color: rgb(0, 113, 174);
+  cursor: pointer;
+  width: 150px;
+}
+
+.cart-wrapper .favourite::after {
+  content: "";
+  position: absolute;
+  bottom: 0.1em;
+  left: 0;
+  height: 2px;
+  width: 144px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0071ae 50%, rgba(0, 113, 174, 0.3) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.cart-wrapper .favourite:hover::after {
+  background-position: 0% 50%;
+}
+
+.cart-wrapper .favourite:hover {
+  font-weight: 500;
+}

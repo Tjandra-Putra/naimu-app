@@ -10,6 +10,7 @@ import { server } from "../../../server";
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
   const { cart } = useSelector((state) => state.cartReducer);
+  const { favourites } = useSelector((state) => state.favouriteReducer);
 
   const [isLoading, setIsLoading] = useState(false); // [state, setState
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -169,14 +170,16 @@ const Navbar = () => {
                 <Link className="nav-link position-relative" to="/favourite">
                   <i className="fa-regular fa-heart fa-lg nav-link-icon"></i>
 
-                  <span className="position-absolute top-1 translate-middle badge rounded-pill favourite">0</span>
+                  <span className="position-absolute top-1 translate-middle badge rounded-pill favourite">
+                    {favourites?.favouriteItems?.length}
+                  </span>
                 </Link>
               </li>
               <li className="nav-item nav-link-size">
                 <Link className="nav-link position-relative" to="/cart">
                   <i className="fas fa-shopping-cart ps-0 nav-link-icon"></i>
                   <span className="position-absolute top-1 translate-middle badge rounded-pill cart-quantity">
-                    {cart.length}
+                    {cart?.length}
                   </span>
                 </Link>
               </li>

@@ -66,6 +66,7 @@ const Product = () => {
     }
 
     // if size is selected, add to cart
+    // productId, shopName, price, discountPrice, title, imageUrl, unitSold, rating
     const newCart = {
       _id: product._id,
       title: product.title,
@@ -74,6 +75,9 @@ const Product = () => {
       size: availableSizes[selectedSize - 1].size,
       quantity: 1,
       shopName: product.shop.name,
+      discountPrice: product.discountPrice,
+      unitSold: product.unitSold,
+      rating: product.rating,
     };
 
     const itemExist = cart && cart.find((item) => item._id === product._id && item.size === newCart.size);
