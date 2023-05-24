@@ -150,7 +150,7 @@
   padding-bottom: 4px;
   color: rgb(0, 113, 174);
   cursor: pointer;
-  width: 150px;
+  width: 153px;
 }
 
 .cart-wrapper .favourite::after {
@@ -159,7 +159,7 @@
   bottom: 0.1em;
   left: 0;
   height: 2px;
-  width: 144px;
+  width: 150px;
   background-repeat: no-repeat;
   background-image: linear-gradient(to right, #0071ae 50%, rgba(0, 113, 174, 0.3) 50%);
   background-size: 200% 100%;
