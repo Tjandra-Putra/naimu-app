@@ -25,18 +25,26 @@
   font-size: 0.8rem;
   padding: 0.2rem 0.5rem;
   border-radius: 1rem;
+  font-family: var(--font-poppins);
   margin-right: 0.5rem;
-  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+  font-weight: 500;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
   margin-left: 0.6rem;
-  /* text-transform: capitalize; */
+  text-transform: capitalize;
   margin-bottom: 15px;
+  min-width: 5rem;
+  text-align: center;
+}
+
+.products-wrapper .filter-badge:hover {
+  cursor: pointer;
 }
 
 .products-wrapper .btn-sort {
   background-color: white;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
   font-size: 1rem;
+  min-width: 7rem;
 }
 
 .products-wrapper .product-listing .col-md-4 {

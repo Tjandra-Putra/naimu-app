@@ -63,6 +63,17 @@ const Products = () => {
     navigate(`/products${newUrl.search}`, { replace: true });
   };
 
+  // delete all search params handler
+  const handleDeleteAllSearchParams = () => {
+    const newUrl = new URL(url);
+    newUrl.search = "";
+
+    setUrl(newUrl);
+
+    // Update URL without reloading the page
+    navigate(`/products${newUrl.search}`, { replace: true });
+  };
+
   // delete from search params handler
   const handleDeleteFromSearchParams = (filterName) => {
     const searchParams = new URLSearchParams(url.search);
@@ -78,7 +89,7 @@ const Products = () => {
       // update URL without reloading the page
       navigate(`/products${newUrl.search}`, { replace: true });
     } else {
-      // Create an array to store the new parameter entries
+      // Create an array to store the new parameter entries: this only stores the key-value pairs that are not to be removed
       const newParams = [];
 
       // Iterate over all entries in searchParams using the .entries() method
@@ -350,21 +361,31 @@ const Products = () => {
           <div className="col-md-9">
             <div className="result-flex d-flex flex-row justify-content-between">
               <div className="result-info">
-                <span>
-                  Showing {productList ? filteredProductList.length : null} results for "{filterTag.join(", ")}"
+                <span className="text-capitalize">
+                  Showing {productList ? filteredProductList.length : null} results{" "}
+                  {filterTag?.length > 0 ? <span>for "{filterTag.join(", ")}"</span> : null}
                 </span>
                 <span className="applied-filter mt-2">
                   Applied Filters:
                   {filterTag.map((tag, index) => (
-                    <span className="filter-badge" key={index}>
-                      <i
-                        className="fa-solid fa-xmark me-1 text-danger"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleDeleteFromSearchParams(tag)}
-                      ></i>
+                    <span
+                      className="filter-badge text-capitalize"
+                      key={index}
+                      onClick={() => handleDeleteFromSearchParams(tag)}
+                    >
+                      <i className="fa-solid fa-xmark me-1 text-danger" style={{ cursor: "pointer" }}></i>
                       {tag}
                     </span>
                   ))}
+                  {filterTag?.length > 0 && (
+                    <span
+                      className="filter-badge bg-dark text-white fw-semibold"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleDeleteAllSearchParams()}
+                    >
+                      clear
+                    </span>
+                  )}
                 </span>
               </div>
 
