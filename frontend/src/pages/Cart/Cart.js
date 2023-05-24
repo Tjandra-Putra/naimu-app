@@ -246,7 +246,13 @@ const Cart = () => {
                                 </select>
                               </div>
                             </div>
-                            <div className="favourite" onClick={() => addToFavouritesHandler(item)}>
+                            <div
+                              className="favourite"
+                              onClick={() => {
+                                addToFavouritesHandler(item);
+                                dispatch(removeFromCart({ _id: item._id, size: item.size }));
+                              }}
+                            >
                               Move to Favourites
                             </div>
                           </div>
