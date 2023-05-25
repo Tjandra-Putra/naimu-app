@@ -500,7 +500,7 @@ const Order = () => {
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
-                  <div>Items x2</div>
+                  <div>Items x{order?.orderItems?.length}</div>
                   <div>${order ? order.totalPrice : ""}</div>
                 </div>
 
