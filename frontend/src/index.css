@@ -1,6 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap");
+
+@font-face {
+  font-family: "Gilroy";
+  font-weight: 800;
+  src: url("./assets/fonts/Gilroy-ExtraBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Gilroy";
+  font-weight: 300;
+  src: url("./assets/fonts/Gilroy-Light.otf") format("opentype");
+}
+
 :root {
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
@@ -15,6 +28,7 @@ body {
   /* font-family: var(--font-poppins); */
   /* font-family: var(--font-inter); */
   font-family: var(--font-hanken-grotesk);
+  /* font-family: "Gilroy", sans-serif; */
 }
 
 .btn-outline-dark {
