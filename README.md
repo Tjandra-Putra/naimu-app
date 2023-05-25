@@ -62,6 +62,7 @@ Once the frontend and backend are set up and running, you can access the applica
 | 19     | redux-thunk                 | Thunk middleware for Redux                         |
 | 20     | redux-toolkit               | Opinionated Redux setup                            |
 | 21     | sweetalert2                 | Customizable alert and popup library               |
+| 22     | react-glider                | Carousel
 
 ## Back-end Dependencies
 | Number | Package Name    | Description                                          |
