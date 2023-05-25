@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .addresses-wrapper .breadcrumb-item {

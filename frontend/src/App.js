@@ -44,6 +44,7 @@ import { AdminDashboard } from "./routes/AdminRoutes.js";
 
 const App = () => {
   const dispatch = useDispatch();
+
   const [stripeApiKey, setStripeApiKey] = React.useState("");
   const { user, isAuthenticated } = useSelector((state) => state.userReducer);
 
@@ -53,7 +54,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    store.dispatch(loadUser()); // syntax is typically used when you're dispatching an action from outside of a React component (e.g. from a Redux thunk/middleware).
+    dispatch(loadUser()); // syntax is typically used when you're dispatching an action from outside of a React component (e.g. from a Redux thunk/middleware).
     getStripeApiKey();
 
     if (isAuthenticated) {
@@ -69,7 +70,6 @@ const App = () => {
         <Toaster />
         <PersistGate loading={<Loader />} persistor={persistor}>
           <Navbar />
-
           <Routes>
             {stripeApiKey && (
               <Route
@@ -83,7 +83,6 @@ const App = () => {
                 }
               />
             )}
-
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -165,9 +164,9 @@ const App = () => {
                 </ProtectedAdminRoute>
               }
             />
-
             <Route path="*" element={<NotFound />} />
           </Routes>
+
           <Footer />
         </PersistGate>
       </BrowserRouter>

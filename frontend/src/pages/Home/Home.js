@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Glider from "react-glider";
+import "glider-js/glider.min.css";
 
 import "./Home.css";
 import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
-import bannerImage2 from "../../assets/images/marketing/pexels-danik-prihodko-15759583.jpeg";
 import bannerImage3 from "../../assets/images/marketing/pexels-godisable-jacob-982010.jpeg";
-import bannerVideo1 from "../../assets/videos/pexels-cottonbro-studio-3205917-1920x1080-25fps.mp4";
 import bannerVideo2 from "../../assets/videos/possibilities-are-born.mp4";
-import arrowLeft from "../../assets/images/left-chevron.png";
-import arrowRight from "../../assets/images/chevron.png";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { server } from "../../server";
@@ -82,7 +80,9 @@ const Home = () => {
           <div className="carousel-item active">
             <div className="banner-container">
               {/* <img src={bannerImage1} alt="banner" className="img-banner" /> */}
-              <video src={bannerVideo2} autoPlay muted loop className="video-banner"></video>
+              {/* <video src={bannerVideo2} autoPlay muted loop className="video-banner"></video> */}
+
+              <img src={bannerImage1} alt="banner" className="img-banner" />
 
               <div className="banner-content">
                 <div className="container">
@@ -175,35 +175,76 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container">
-        <section className="featured-products">
-          <div className="d-flex flex-row justify-content-between">
-            <div className="featured-products-title">Best Sellers</div>
-            <Link className="featured-products-title text-decoration-none text-dark" to="/products">
-              Discover more <i className="fas fa-arrow-right fa-lg ps-1"></i>
-            </Link>
-          </div>
-          <div className="row">
-            {productList && productList.length > 0
-              ? productList.slice(0, 4).map((item, index) => (
-                  <div className="col-md-3">
-                    <ProductCard
-                      productId={item._id}
-                      productStore={item.shop.name}
-                      productTitle={item.title}
-                      productPrice={item.price}
-                      productDiscountPrice={item.discountPrice}
-                      productSold={item.unitSold}
-                      productCategory={item.category}
-                      productImageUrl={item.imageUrl[0].url}
-                    />
-                  </div>
-                ))
-              : null}
-          </div>
-        </section>
+      <section className="featured-products">
+        <div className="container">
+          <div>
+            {/* <div className="d-flex flex-row justify-content-between">
+              <div className="featured-products-title">Best Sellers</div>
+              <Link className="featured-products-title text-decoration-none text-dark" to="/products">
+                Discover more <i className="fas fa-arrow-right fa-lg ps-1"></i>
+              </Link>
+            </div> */}
 
-        <section className="the-essentials">
+            <div className="row">
+              <div className="col-md-4">
+                <div className="featured-products-title">Best Seller Product</div>
+
+                <div className="featured-products-sub-title">
+                  Our Best Seller Product is meticulously crafted to provide an exceptional user experience. It boasts a
+                  sleek and modern design that effortlessly combines style and functionality.
+                </div>
+
+                <button className="btn btn-outline-dark btn-learn-more rounded-5 mt-3 text-uppercase">
+                  Learn More
+                </button>
+              </div>
+
+              <div className="col-md-8">
+                <div className="row">
+                  {/* https://react-glider.vercel.app/ */}
+                  <Glider
+                    className="glider-container"
+                    draggable
+                    hasDots
+                    // slidesToShow={3}
+                    responsive={[
+                      {
+                        breakpoint: 775,
+                        settings: {
+                          slidesToShow: 3,
+                          slidesToScroll: "auto",
+                          itemWidth: 150,
+                          duration: 0.25,
+                        },
+                      },
+                    ]}
+                  >
+                    {productList && productList.length > 0
+                      ? productList?.map((item, index) => (
+                          <div className="col-md-3 mx-3 mb-3">
+                            <ProductCard
+                              productId={item._id}
+                              productStore={item.shop.name}
+                              productTitle={item.title}
+                              productPrice={item.price}
+                              productDiscountPrice={item.discountPrice}
+                              productSold={item.unitSold}
+                              productCategory={item.category}
+                              productImageUrl={item.imageUrl[0].url}
+                            />
+                          </div>
+                        ))
+                      : null}
+                  </Glider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="the-essentials">
+        <div className="container">
           <div className="d-flex flex-row justify-content-between">
             <div className="the-essentials-title">The Essentials</div>
           </div>
@@ -239,14 +280,14 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       <section className="stories">
         <div className="container">
           <div className="row">
             <div className="col">
-              <div className="title">Express Yourself with Fashion</div>
+              <div className="title">Express Yourself &nbsp;with Fashion</div>
               <div className="description mt-3">
                 <p>
                   Fashion is not just about following trends or looking good. It's about expressing who you are and what
