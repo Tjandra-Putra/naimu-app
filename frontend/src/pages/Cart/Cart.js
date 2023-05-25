@@ -17,7 +17,7 @@ const Cart = () => {
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
-  const { user, error, success } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
+  const { user } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
   const { errorFavourite, successFavourite } = useSelector((state) => state.favouriteReducer);
 
   const { cart } = useSelector((state) => state.cartReducer);
@@ -25,14 +25,6 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (error) {
-      notifyError(error);
-      dispatch({ type: "ClearErrors" });
-    }
-    if (success) {
-      notifySuccess(success);
-      dispatch({ type: "ClearSuccess" });
-    }
     if (errorFavourite) {
       notifyError(errorFavourite);
       dispatch({ type: "ClearErrors" });
@@ -41,7 +33,7 @@ const Cart = () => {
       notifySuccess(successFavourite);
       dispatch({ type: "ClearSuccess" });
     }
-  }, [error, success, errorFavourite, successFavourite, dispatch]);
+  }, [errorFavourite, successFavourite, dispatch]);
 
   // import product from backend
   useEffect(() => {

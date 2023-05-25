@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
   // toast component
-
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const dispatch = useDispatch();

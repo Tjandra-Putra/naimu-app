@@ -4,9 +4,10 @@ import toast from "react-hot-toast";
 
 import "./SideNavbar.css";
 import { logout } from "../../../redux/actions/user";
-import { useEffect } from "react";
 
 const SideNavbar = ({ activeLink }) => {
+  const { user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
 
@@ -39,12 +40,12 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Refunds
         </Link> */}
-        {/* <Link to="/inbox" class={`list-group-item ${activeLink === "inbox" ? "active" : ""}`}>
+        <Link to="/inbox" class={`list-group-item ${activeLink === "inbox" ? "active" : ""}`}>
           <span>
             <i class="far fa-comment-dots me-3"></i>
           </span>
           Inbox
-        </Link> */}
+        </Link>
         {/* <Link to="/track-order" class={`list-group-item ${activeLink === "track-order" ? "active" : ""}`}>
           <span>
             <i class="fas fa-location me-3"></i>
@@ -63,6 +64,14 @@ const SideNavbar = ({ activeLink }) => {
           </span>
           Addresses
         </Link>
+        {user?.user?.role === "admin" && (
+          <Link to="/admin/dashboard" class={`list-group-item ${activeLink === "admin-dashboard" ? "active" : ""}`}>
+            <span>
+              <i class="fa-solid fa-user-shield me-3"></i>
+            </span>
+            Admin Dashboard
+          </Link>
+        )}
         <Link onClick={logoutHandler} class={`list-group-item ${activeLink === "logout" ? "active" : ""}`}>
           <span>
             <i class="fas fa-sign-out me-3"></i>

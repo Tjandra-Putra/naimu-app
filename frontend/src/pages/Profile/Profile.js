@@ -122,6 +122,14 @@ const Profile = () => {
                   </label>
                 </div>
 
+                {/* admin badge icon */}
+                {user.user.role === "admin" && (
+                  <div className="admin-badge">
+                    <span>admin</span>
+                    <i className="fas fa-crown ms-1"></i>
+                  </div>
+                )}
+
                 <div className="card-body-custom">
                   <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -167,13 +175,6 @@ const Profile = () => {
                           />
                         </div>
 
-                        {/* <div className="col-md-6 mb-4">
-                      <label htmlFor="postal-code" className="form-label">
-                        Postal Code
-                      </label>
-                      <input type="text" name="postal-code" id="postal-code" className="form-control" value={""} />
-                    </div> */}
-
                         <div className="col-md-6 mb-4">
                           <label htmlFor="birthday" className="form-label">
                             Birthday
@@ -187,20 +188,6 @@ const Profile = () => {
                             onChange={(e) => setBirthday(e.target.value)}
                           />
                         </div>
-                        {/* 
-                    <div className="col-md-6 mb-4">
-                      <label htmlFor="address-one" className="form-label">
-                        Address 1
-                      </label>
-                      <input type="text" name="address-one" id="address-one" className="form-control" value={""} />
-                    </div>
-
-                    <div className="col-md-6 mb-4">
-                      <label htmlFor="country" className="form-label">
-                        Country
-                      </label>
-                      <input type="text" name="country" id="country" className="form-control" value={""} />
-                    </div> */}
 
                         <div className="col-md-6 mb-4">
                           <label htmlFor="password" className="form-label">

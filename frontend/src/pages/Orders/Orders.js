@@ -58,7 +58,7 @@ const Orders = () => {
     const getOrders = async () => {
       setIsLoading(true);
       try {
-        const { data } = await axios.get(`${server}/order/get-orders/${user.user._id}`);
+        const { data } = await axios.get(`${server}/order/get-orders/${user.user._id}`, { withCredentials: true });
 
         setOrdersList(data.orders);
 

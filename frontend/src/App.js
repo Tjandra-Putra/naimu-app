@@ -11,10 +11,12 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import { store, persistor } from "./redux/store.js";
 import Loader from "./components/Layout/Loader/Loader.js";
-import ProtectedRoute from "./routes/protectedRoutes.js";
+import ProtectedRoute from "./routes/ProtectedRoute.js";
+import ProtectedAdminRoute from "./routes/ProtectedAdminRoute.js";
 import { server } from "./server.js";
 import { getFavourite } from "./redux/actions/favourite.js";
 
+// user routes
 import {
   Navbar,
   Home,
@@ -36,6 +38,9 @@ import {
   NotFound,
   Favourite,
 } from "./routes/Routes.js";
+
+// admin routes
+import { AdminDashboard } from "./routes/AdminRoutes.js";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -150,6 +155,16 @@ const App = () => {
               }
             />
             <Route path="/activate/:activation_token" element={<Activate />} />
+
+            {/* ===================================== Admin Routes ===================================== */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminDashboard />
+                </ProtectedAdminRoute>
+              }
+            />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

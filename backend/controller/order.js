@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncError = require("../middleware/catchAsyncError");
-const { isAuthenticatedUser } = require("../middleware/auth");
+const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const Order = require("../model/order");
 
 // =============================== create new order ===============================
@@ -32,6 +32,7 @@ router.post(
 // =============================== get all orders for a specific user ===============================
 router.get(
   "/get-orders/:userId",
+  isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
       const orders = await Order.find({ "user._id": req.params.userId }).sort({
