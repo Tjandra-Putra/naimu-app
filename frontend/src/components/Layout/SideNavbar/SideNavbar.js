@@ -141,7 +141,6 @@ const SideNavbar = ({ activeLink }) => {
               to={item.link}
               className={`list-group-item ${activeLink === item.activeLink ? "active" : ""}`}
               key={index}
-              style={{ transition: "max-height 0.3s ease-in-out", maxHeight: "100px", overflow: "hidden" }}
             >
               <span className="icon-wrapper">
                 <i className={`${item.icon} me-3`}></i>
@@ -160,7 +159,7 @@ const SideNavbar = ({ activeLink }) => {
         to={item.link}
         className={`list-group-item ${activeLink === item.activeLink ? "active" : ""}`}
         key={index}
-        onClick={item.name === "logout" ? logoutHandler : undefined}
+        onClick={item.name === "Logout" ? logoutHandler : undefined}
       >
         <span className="icon-wrapper">
           <i className={`${item.icon} me-3`}></i>

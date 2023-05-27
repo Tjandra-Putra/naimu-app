@@ -6,8 +6,10 @@
   flex-direction: row;
   align-items: center;
 
-  margin-top: 1.2rem;
-  margin-bottom: 1.2rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+
+  background-color: var(--canvasColor);
 }
 
 .admin-dashboard-wrapper .title {
@@ -20,4 +22,104 @@
   border: none;
   min-height: 36.4rem;
   padding: 2rem;
+  border-radius: 10px;
+}
+
+.admin-dashboard-wrapper .stats-box {
+  margin-top: 1rem;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  border-radius: 10px;
+  min-height: 12vh;
+  padding: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.admin-dashboard-wrapper .stats-box .header {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-dashboard-wrapper .stats-box .figure {
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-dashboard-wrapper .summary .stats-box .heading,
+.admin-dashboard-wrapper .summary .stats-box i {
+  font-size: 14px;
+  /* color: #5f6368; */
+  line-height: 1rem;
+}
+
+.admin-dashboard-wrapper .stats-box .heading {
+  font-weight: 500 !important;
+}
+
+.admin-dashboard-wrapper .icon-tag {
+  background-color: #00000014;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  padding: 1rem;
+  text-transform: capitalize;
+}
+
+.admin-dashboard-wrapper .avatar {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+
+.admin-dashboard-wrapper .name {
+  font-weight: 600;
+}
+
+.admin-dashboard-wrapper .date {
+  color: #5f6368;
+}
+
+.admin-dashboard-wrapper .user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1rem;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.admin-dashboard-wrapper .revenue .sales-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-dashboard-wrapper .revenue .sales {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin-dashboard-wrapper .revenue-box {
+  min-height: 23rem;
+}
+
+.admin-dashboard-wrapper .country-box {
+  min-height: 23rem;
+}
+
+.admin-dashboard-wrapper .brand-box {
+  min-height: 23rem;
 }
