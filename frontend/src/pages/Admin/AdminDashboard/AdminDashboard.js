@@ -85,7 +85,7 @@ const AdminDashboard = () => {
                 <div className="summary">
                   <div className="row">
                     <div className="col-md-3">
-                      <div className="stats-box">
+                      <div className="stats-box-main">
                         <div className="header">
                           <div className="heading">Total Revenues</div>
                           <i class="icon-tag fa-solid fa-dollar-sign"></i>
@@ -95,7 +95,7 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <div className="col-md-3">
-                      <div className="stats-box">
+                      <div className="stats-box-main">
                         <div className="header">
                           <div className="heading">Pending Orders</div>
                           <i class="icon-tag fa-solid fa-cart-shopping"></i>
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
                     </div>
 
                     <div className="col-md-3">
-                      <div className="stats-box">
+                      <div className="stats-box-main">
                         <div className="header">
                           <div className="heading">Total Customers</div>
                           <i class="icon-tag fa-solid fa-users"></i>
@@ -115,7 +115,7 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <div className="col-md-3">
-                      <div className="stats-box">
+                      <div className="stats-box-main">
                         <div className="header">
                           <div className="heading">Total Products</div>
                           <i class="icon-tag fa-solid fa-box-open"></i>
@@ -264,13 +264,42 @@ const AdminDashboard = () => {
                   <div className="row">
                     <div className="col-md-8">
                       <div className="stats-box brand-box">
-                        <div className="heading ">Top Brand</div>
+                        <div className="heading ">Unit Sold by Brand</div>
                         <BarChart text="Unit Sold" />
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="stats-box country-box">
-                        <div className="heading mb-3">Customer by Country</div> <Radar data={dataCountry} />
+                        <div className="heading ">Unit Sold Table</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="top-products">
+                  <div className="row">
+                    <div className="col-md-8">
+                      <div className="stats-box brand-box">
+                        <div className="heading ">Total Sales by Brand</div>
+                        <BarChart text="Unit Sold" />
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <div className="stats-box country-box">
+                        <div className="heading ">Brand Sales Table</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="top-products">
+                  <div className="row">
+                    <div className="col-md-8">
+                      <div className="stats-box country-box">
+                        <div className="heading mb-3">Customer by Country</div>
+                        <div className="chart-height d-flex justify-content-center" style={{ height: "20rem" }}>
+                          <Radar data={dataCountry} />
+                        </div>
                       </div>
                     </div>
                   </div>

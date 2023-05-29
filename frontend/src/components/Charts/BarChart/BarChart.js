@@ -1,7 +1,8 @@
 import { Chart as ChartJS, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-import { themeColors } from "./ThemeColors";
+import { themeColors } from "../ThemeColors";
+import { useEffect } from "react";
 
 ChartJS.register(PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
 
@@ -63,15 +64,7 @@ const BarChart = ({ dataApi, text }) => {
     },
   };
 
-  // Function to generate a random color
-  //   function getRandomColor() {
-  //     const letters = "0123456789ABCDEF";
-  //     let color = "#";
-  //     for (let i = 0; i < 6; i++) {
-  //       color += letters[Math.floor(Math.random() * 16)];
-  //     }
-  //     return color;
-  //   }
+  useEffect(() => {}, [dataApi]);
 
   return (
     <div className="bar-chart-wrapper">
