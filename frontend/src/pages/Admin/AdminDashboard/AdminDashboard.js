@@ -300,7 +300,12 @@ const AdminDashboard = () => {
                     <div className="col-md-8">
                       <div className="stats-box brand-box">
                         <div className="heading ">Unit Sold by Brand</div>
-                        <BarChart text="Unit Sold" selectedYear={selectedYear} dataApi={totalUnitSoldByBrand} />
+                        <BarChart
+                          text="Unit Sold By Brand"
+                          selectedYear={selectedYear}
+                          dataApi={totalUnitSoldByBrand}
+                          display="unitSoldByBrand"
+                        />
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -316,7 +321,12 @@ const AdminDashboard = () => {
                     <div className="col-md-8">
                       <div className="stats-box brand-box">
                         <div className="heading ">Total Sales by Brand</div>
-                        <BarChart text="Unit Sold" selectedYear={selectedYear} />
+                        <BarChart
+                          text="Total Sales By Brand"
+                          selectedYear={selectedYear}
+                          dataApi={totalUnitSoldByBrand}
+                          display="totalSalesByBrand"
+                        />
                       </div>
                     </div>
                     <div className="col-md-4">

@@ -5,9 +5,8 @@ import { themeColors } from "../ThemeColors";
 
 ChartJS.register(PointElement, BarElement, Title, Tooltip, Legend, Filler);
 
-const BarChart = ({ dataApi, text, selectedYear }) => {
+const BarChart = ({ dataApi, text, selectedYear, display }) => {
   const labels = ["January", "February", "March", "April", "May", "June", "July"];
-  let dataset = [];
 
   // get random color from themeColors object
   const getRandomColor = () => {
@@ -45,41 +44,79 @@ const BarChart = ({ dataApi, text, selectedYear }) => {
     datasets: [],
   };
 
-  const formatData = (dataApi) => {
-    const brands = {};
+  if (display === "unitSoldByBrand") {
+    const formatData = (dataApi) => {
+      const brands = {}; // unique brands
 
-    // iterate over dataApi
-    if (dataApi) {
-      dataApi.forEach((item) => {
-        const brand = item._id.brand;
-        const monthIndex = item._id.month - 1; // Adjust the month index
-        const totalQuantity = item.totalQuantity;
+      // iterate over dataApi
+      if (dataApi) {
+        dataApi.forEach((item) => {
+          const brand = item._id.brand;
+          const monthIndex = item._id.month - 1; // Adjust the month index
+          const totalQuantity = item.totalQuantity;
 
-        if (item._id.year === selectedYear) {
-          if (!brands[brand]) {
-            const color = getRandomColor();
+          if (item._id.year === selectedYear) {
+            if (!brands[brand]) {
+              const color = getRandomColor();
 
-            brands[brand] = {
-              label: brand,
-              data: Array.from({ length: 12 }, () => 0),
-              backgroundColor: color.backgroundColor,
-              borderColor: color.borderColor,
-              borderWidth: 1,
-            };
+              brands[brand] = {
+                label: brand,
+                data: Array.from({ length: 12 }, () => 0), // Initialize the array with zero values for each month [0, 0, ...]
+                backgroundColor: color.backgroundColor,
+                borderColor: color.borderColor,
+                borderWidth: 2,
+              };
+            }
+
+            brands[brand].data[monthIndex] = totalQuantity;
           }
+        });
 
-          brands[brand].data[monthIndex] = totalQuantity;
-        }
-      });
+        // Push the datasets to the data object
+        Object.values(brands).forEach((brandData) => {
+          data.datasets.push(brandData);
+        });
+      }
+    };
 
-      // Push the datasets to the data object
-      Object.values(brands).forEach((brandData) => {
-        data.datasets.push(brandData);
-      });
-    }
-  };
+    formatData(dataApi);
+  } else if (display === "totalSalesByBrand") {
+    const formatData = (dataApi) => {
+      const brands = {}; // unique brands
 
-  formatData(dataApi);
+      // iterate over dataApi
+      if (dataApi) {
+        dataApi.forEach((item) => {
+          const brand = item._id.brand;
+          const monthIndex = item._id.month - 1; // Adjust the month index
+          const totalPrice = item.totalPrice;
+
+          if (item._id.year === selectedYear) {
+            if (!brands[brand]) {
+              const color = getRandomColor();
+
+              brands[brand] = {
+                label: brand,
+                data: Array.from({ length: 12 }, () => 0), // Initialize the array with zero values for each month [0, 0, ...]
+                backgroundColor: color.backgroundColor,
+                borderColor: color.borderColor,
+                borderWidth: 2,
+              };
+            }
+
+            brands[brand].data[monthIndex] = totalPrice;
+          }
+        });
+
+        // Push the datasets to the data object
+        Object.values(brands).forEach((brandData) => {
+          data.datasets.push(brandData);
+        });
+      }
+    };
+
+    formatData(dataApi);
+  }
 
   return (
     <div className="bar-chart-wrapper">

@@ -73,6 +73,8 @@ const LineChart = ({ text, dataApi, selectedYear }) => {
         data: salesByMonth,
         borderColor: getRandomColor().borderColor,
         backgroundColor: getRandomColor().backgroundColor,
+        borderWidth: 2,
+        fill: true,
         lineTension: 0.2, // Adjust the line tension value for smoother curves
       });
     }

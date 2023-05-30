@@ -139,6 +139,8 @@ router.get(
               brand: "$orderItems.shopName",
             },
             totalQuantity: { $sum: "$orderItems.quantity" }, // Calculate total quantity
+            // total sales brand respective with quantity * price
+            totalPrice: { $sum: { $multiply: ["$orderItems.quantity", "$orderItems.price"] } },
           },
         },
       ]);
