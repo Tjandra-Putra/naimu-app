@@ -46,8 +46,6 @@ router.put(
   })
 );
 
-module.exports = router;
-
 // =============================== get all favourites ===============================
 router.get(
   "/all-favourites",
@@ -120,3 +118,5 @@ router.post(
     }
   })
 );
+
+module.exports = router;

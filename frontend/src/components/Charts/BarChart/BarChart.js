@@ -12,7 +12,6 @@ const BarChart = ({ dataApi, text }) => {
   // get random color from themeColors object
   const getRandomColor = () => {
     const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
-    console.log(randomColor);
     return randomColor;
   };
 

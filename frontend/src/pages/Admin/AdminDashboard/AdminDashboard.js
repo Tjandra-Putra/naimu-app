@@ -1,9 +1,28 @@
+import { useState } from "react";
+import axios from "axios";
+
 import "./AdminDashboard.css";
 import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
 import BarChart from "../../../components/Charts/BarChart/BarChart";
 import LineChart from "../../../components/Charts/LineChart/LineChart";
+import { server } from "../../../server";
 
 const AdminDashboard = () => {
+  const [totalRevenue, setTotalRevenue] = useState(0);
+
+  useState(() => {
+    const fetchTotalRevenue = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/sales`, { withCredentials: true });
+        setTotalRevenue(data.totalSales);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
+    fetchTotalRevenue();
+  }, []);
+
   return (
     <div className="admin-dashboard-wrapper">
       <div className="container">
@@ -24,7 +43,7 @@ const AdminDashboard = () => {
                           <i class="icon-tag fa-solid fa-dollar-sign"></i>
                         </div>
 
-                        <div className="figure">$10,450</div>
+                        <div className="figure">${totalRevenue}</div>
                       </div>
                     </div>
                     <div className="col-md-3">

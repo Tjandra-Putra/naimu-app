@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   });
 }
 
-// import routes from controller
+// user routes
 const user = require("./controller/user");
 const product = require("./controller/product");
 const promoCode = require("./controller/promoCode");
@@ -33,12 +33,17 @@ const payment = require("./controller/payment");
 const order = require("./controller/order");
 const favourite = require("./controller/favourite");
 
+// admin routes
+const dashboard = require("./controller/admin/dashboard");
+
+// routes
 app.use("/api/v1/user", user); // localhost:8000/api/v1/user/create-user
 app.use("/api/v1/product", product); // localhost:8000/api/v1/products
 app.use("/api/v1/promo-code", promoCode); // localhost:8000/api/v1/promo-code
 app.use("/api/v1/payment", payment); // localhost:8000/api/v1/payment
 app.use("/api/v1/order", order); // localhost:8000/api/v1/order
 app.use("/api/v1/favourite", favourite); // localhost:8000/api/v1/favourite
+app.use("/api/v1/admin/dashboard", dashboard); // localhost:8000/api/v1/admin/dashboard
 
 // app error handler
 app.use(ErrorHandler);
