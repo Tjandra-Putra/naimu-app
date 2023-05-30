@@ -1,22 +1,22 @@
 import { themeColors } from "../ThemeColors";
-import { useEffect } from "react";
 import {
   Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
   PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
-  Filler,
-  LineElement,
-  CategoryScale,
-  LinearScale,
 } from "chart.js";
-
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const LineChart = ({ text }) => {
+const LineChart = ({ text, dataApi }) => {
+  const [selectedYear, setSelectedYear] = useState(2023); // 2023 is the default value
+  const dataset = [];
   const labels = [
     "January",
     "February",
@@ -31,17 +31,53 @@ const LineChart = ({ text }) => {
     "November",
     "December",
   ];
-  const datasetArray = [];
 
   // get random color from themeColors object
   const getRandomColor = () => {
     const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
-    console.log(randomColor);
     return randomColor;
   };
 
-  // iterate over dataApi object and push data to datasetArray
-  const formatData = (dataApi) => {};
+  // multiple datasets
+  // const formatData = (dataApi) => {
+  //   if (dataApi) {
+  //     dataApi.forEach((item, index) => {
+  //       const monthIndex = item._id - 1; // _id represents the month (1 for January, 2 for February, etc.)
+  //       const totalSales = item.totalSales;
+
+  //       dataset.push({
+  //         label: `Dataset ${index + 1}`,
+  //         data: Array.from({ length: 12 }, (_, i) => (i === monthIndex ? totalSales : null)),
+  //         borderColor: getRandomColor().borderColor,
+  //         backgroundColor: getRandomColor().backgroundColor,
+  //       });
+  //     });
+  //   }
+  // };
+
+  // single dataset
+  const formatData = (dataApi) => {
+    if (dataApi) {
+      const salesByMonth = Array.from({ length: 12 }, () => null); // Initialize the array with null values
+      dataApi.forEach((item) => {
+        const monthIndex = item._id.month - 1; // Adjust the month index
+        const totalSales = item.totalSales;
+
+        if (item._id.year === selectedYear) {
+          salesByMonth[monthIndex] = totalSales;
+        }
+      });
+      dataset.push({
+        label: selectedYear,
+        data: salesByMonth,
+        borderColor: getRandomColor().borderColor,
+        backgroundColor: getRandomColor().backgroundColor,
+        lineTension: 0.2, // Adjust the line tension value for smoother curves
+      });
+    }
+  };
+
+  formatData(dataApi);
 
   const options = {
     responsive: true,
@@ -58,15 +94,10 @@ const LineChart = ({ text }) => {
 
   const data = {
     labels: labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 5],
-        borderColor: "rgb(0, 0, 132)",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-      },
-    ],
+    datasets: dataset,
   };
+
+  console.log("dataset: ", dataset);
 
   return (
     <div className="line-chart-wrapper">

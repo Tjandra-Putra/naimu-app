@@ -2,7 +2,6 @@ import { Chart as ChartJS, PointElement, BarElement, Title, Tooltip, Legend, Fil
 import { Bar } from "react-chartjs-2";
 
 import { themeColors } from "../ThemeColors";
-import { useEffect } from "react";
 
 ChartJS.register(PointElement, BarElement, Title, Tooltip, Legend, Filler);
 

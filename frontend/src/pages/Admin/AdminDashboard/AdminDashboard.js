@@ -10,6 +10,9 @@ import { server } from "../../../server";
 const AdminDashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [pendingOrders, setPendingOrders] = useState(0);
+  const [totalDelivered, setTotalDelivered] = useState(0); // total order delivered
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [monthlySales, setMonthlySales] = useState(0);
 
   useState(() => {
     const fetchTotalRevenue = async () => {
@@ -30,8 +33,40 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchTotalDelivered = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/customers`, { withCredentials: true });
+        setTotalDelivered(data.customers);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
+    const fetchTotalProducts = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/products`, { withCredentials: true });
+        setTotalProducts(data.products);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
+    const fetchMonthlySales = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/monthly-sales`, { withCredentials: true });
+        setMonthlySales(data.monthlySales);
+
+        console.log("monthly", data.monthlySales);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
     fetchTotalRevenue();
     fetchPendingOrders();
+    fetchTotalDelivered();
+    fetchTotalProducts();
+    fetchMonthlySales();
   }, []);
 
   return (
@@ -54,7 +89,7 @@ const AdminDashboard = () => {
                           <i class="icon-tag fa-solid fa-dollar-sign"></i>
                         </div>
 
-                        <div className="figure">${totalRevenue}</div>
+                        <div className="figure">{totalRevenue ? `$${totalRevenue}` : "Loading..."}</div>
                       </div>
                     </div>
                     <div className="col-md-3">
@@ -64,7 +99,7 @@ const AdminDashboard = () => {
                           <i class="icon-tag fa-solid fa-cart-shopping"></i>
                         </div>
 
-                        <div className="figure">{pendingOrders}</div>
+                        <div className="figure">{pendingOrders ? `$${pendingOrders}` : "Loading..."}</div>
                       </div>
                     </div>
 
@@ -74,7 +109,7 @@ const AdminDashboard = () => {
                           <div className="heading">Total Customers</div>
                           <i class="icon-tag fa-solid fa-users"></i>
                         </div>
-                        <div className="figure">5</div>
+                        <div className="figure">{totalDelivered ? `$${totalDelivered}` : "Loading..."}</div>
                       </div>
                     </div>
                     <div className="col-md-3">
@@ -83,7 +118,7 @@ const AdminDashboard = () => {
                           <div className="heading">Total Products</div>
                           <i class="icon-tag fa-solid fa-box-open"></i>
                         </div>
-                        <div className="figure">203</div>
+                        <div className="figure">{totalProducts ? `$${totalProducts}` : "Loading..."}</div>
                       </div>
                     </div>
                   </div>
@@ -95,7 +130,7 @@ const AdminDashboard = () => {
                       <div className="stats-box revenue-box">
                         <div className="heading">Monthly Revenue</div>
 
-                        <LineChart text="Monthly Revenue" />
+                        <LineChart text="Monthly Revenue" dataApi={monthlySales} />
                       </div>
                     </div>
                     <div className="col-md-4">
