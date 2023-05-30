@@ -37,28 +37,11 @@ const LineChart = ({ text, dataApi, selectedYear }) => {
     return randomColor;
   };
 
-  // multiple datasets
-  // const formatData = (dataApi) => {
-  //   if (dataApi) {
-  //     dataApi.forEach((item, index) => {
-  //       const monthIndex = item._id - 1; // _id represents the month (1 for January, 2 for February, etc.)
-  //       const totalSales = item.totalSales;
-
-  //       dataset.push({
-  //         label: `Dataset ${index + 1}`,
-  //         data: Array.from({ length: 12 }, (_, i) => (i === monthIndex ? totalSales : null)),
-  //         borderColor: getRandomColor().borderColor,
-  //         backgroundColor: getRandomColor().backgroundColor,
-  //       });
-  //     });
-  //   }
-  // };
-
   useEffect(() => {}, [selectedYear]);
   // single dataset
   const formatData = (dataApi) => {
     if (dataApi) {
-      const salesByMonth = Array.from({ length: 12 }, () => null); // Initialize the array with null values
+      const salesByMonth = Array.from({ length: 12 }, () => 0); // Initialize the array with null values
       dataApi.forEach((item) => {
         const monthIndex = item._id.month - 1; // Adjust the month index
         const totalSales = item.totalSales;

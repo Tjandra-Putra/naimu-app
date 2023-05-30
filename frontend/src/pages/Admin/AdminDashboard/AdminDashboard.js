@@ -126,7 +126,7 @@ const AdminDashboard = () => {
                           <i class="icon-tag fa-solid fa-cart-shopping"></i>
                         </div>
 
-                        <div className="figure">{pendingOrders ? `$${pendingOrders}` : "Loading..."}</div>
+                        <div className="figure">{pendingOrders ? `${pendingOrders}` : "Loading..."}</div>
                       </div>
                     </div>
 
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
                           <div className="heading">Total Customers</div>
                           <i class="icon-tag fa-solid fa-users"></i>
                         </div>
-                        <div className="figure">{totalDelivered ? `$${totalDelivered}` : "Loading..."}</div>
+                        <div className="figure">{totalDelivered ? `${totalDelivered}` : "Loading..."}</div>
                       </div>
                     </div>
                     <div className="col-md-3">
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                           <div className="heading">Total Products</div>
                           <i class="icon-tag fa-solid fa-box-open"></i>
                         </div>
-                        <div className="figure">{totalProducts ? `$${totalProducts}` : "Loading..."}</div>
+                        <div className="figure">{totalProducts ? `${totalProducts}` : "Loading..."}</div>
                       </div>
                     </div>
                   </div>
