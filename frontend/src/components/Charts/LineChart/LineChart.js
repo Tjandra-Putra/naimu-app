@@ -37,31 +37,6 @@ const LineChart = ({ text, dataApi, selectedYear }) => {
     return randomColor;
   };
 
-  useEffect(() => {}, [selectedYear]);
-  // single dataset
-  const formatData = (dataApi) => {
-    if (dataApi) {
-      const salesByMonth = Array.from({ length: 12 }, () => 0); // Initialize the array with null values
-      dataApi.forEach((item) => {
-        const monthIndex = item._id.month - 1; // Adjust the month index
-        const totalSales = item.totalSales;
-
-        if (item._id.year === selectedYear) {
-          salesByMonth[monthIndex] = totalSales;
-        }
-      });
-      dataset.push({
-        label: selectedYear,
-        data: salesByMonth,
-        borderColor: getRandomColor().borderColor,
-        backgroundColor: getRandomColor().backgroundColor,
-        lineTension: 0.2, // Adjust the line tension value for smoother curves
-      });
-    }
-  };
-
-  formatData(dataApi);
-
   const options = {
     responsive: true,
     plugins: {
@@ -80,7 +55,30 @@ const LineChart = ({ text, dataApi, selectedYear }) => {
     datasets: dataset,
   };
 
-  console.log("dataset: ", dataset);
+  // single dataset
+  const formatData = (dataApi) => {
+    if (dataApi) {
+      const salesByMonth = Array.from({ length: 12 }, () => 0); // Initialize the array with null values
+      dataApi.forEach((item) => {
+        const monthIndex = item._id.month - 1; // Adjust the month index
+        const totalSales = item.totalSales;
+
+        if (item._id.year === selectedYear) {
+          salesByMonth[monthIndex] = totalSales;
+        }
+      });
+
+      dataset.push({
+        label: selectedYear,
+        data: salesByMonth,
+        borderColor: getRandomColor().borderColor,
+        backgroundColor: getRandomColor().backgroundColor,
+        lineTension: 0.2, // Adjust the line tension value for smoother curves
+      });
+    }
+  };
+
+  formatData(dataApi);
 
   return (
     <div className="line-chart-wrapper">

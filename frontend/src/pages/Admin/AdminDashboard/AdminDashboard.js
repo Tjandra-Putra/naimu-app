@@ -14,6 +14,7 @@ const AdminDashboard = () => {
   const [totalProducts, setTotalProducts] = useState(0);
   const [monthlySales, setMonthlySales] = useState(0);
   const [selectedYear, setSelectedYear] = useState(2023);
+  const [totalUnitSoldByBrand, setTotalUnitSoldByBrand] = useState(0);
 
   // set year array memo
   const yearArr = [2020, 2021, 2022, 2023];
@@ -63,8 +64,15 @@ const AdminDashboard = () => {
       try {
         const { data } = await axios.get(`${server}/admin/dashboard/monthly-sales`, { withCredentials: true });
         setMonthlySales(data.monthlySales);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
 
-        console.log("monthly", data.monthlySales);
+    const fetchTotalUnitSoldByBrand = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/products-sold-by-brand`, { withCredentials: true });
+        setTotalUnitSoldByBrand(data.productsSoldByBrand);
       } catch (error) {
         console.log(error.response.data.message);
       }
@@ -75,6 +83,7 @@ const AdminDashboard = () => {
     fetchTotalDelivered();
     fetchTotalProducts();
     fetchMonthlySales();
+    fetchTotalUnitSoldByBrand();
   }, []);
 
   return (
@@ -291,7 +300,7 @@ const AdminDashboard = () => {
                     <div className="col-md-8">
                       <div className="stats-box brand-box">
                         <div className="heading ">Unit Sold by Brand</div>
-                        <BarChart text="Unit Sold" />
+                        <BarChart text="Unit Sold" selectedYear={selectedYear} dataApi={totalUnitSoldByBrand} />
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -307,7 +316,7 @@ const AdminDashboard = () => {
                     <div className="col-md-8">
                       <div className="stats-box brand-box">
                         <div className="heading ">Total Sales by Brand</div>
-                        <BarChart text="Unit Sold" />
+                        <BarChart text="Unit Sold" selectedYear={selectedYear} />
                       </div>
                     </div>
                     <div className="col-md-4">

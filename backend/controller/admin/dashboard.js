@@ -120,4 +120,37 @@ router.get(
   })
 );
 
+// =============================== get total unit product sold by brand, month and year from order ===============================
+router.get(
+  "/products-sold-by-brand",
+  isAuthenticatedUser,
+  isAdmin("admin"),
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const productsSoldByBrand = await Order.aggregate([
+        {
+          $unwind: "$orderItems", // Unwind the orderItems array
+        },
+        {
+          $group: {
+            _id: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+              brand: "$orderItems.shopName",
+            },
+            totalQuantity: { $sum: "$orderItems.quantity" }, // Calculate total quantity
+          },
+        },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        productsSoldByBrand,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 module.exports = router;
