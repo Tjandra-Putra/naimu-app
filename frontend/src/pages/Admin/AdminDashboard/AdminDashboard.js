@@ -6,6 +6,7 @@ import "./AdminDashboard.css";
 import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
 import BarChart from "../../../components/Charts/BarChart/BarChart";
 import LineChart from "../../../components/Charts/LineChart/LineChart";
+import RadarChart from "../../../components/Charts/PolarChart/PolarChart";
 import { server } from "../../../server";
 import userImage from "../../../assets/images/user.png";
 
@@ -18,6 +19,7 @@ const AdminDashboard = () => {
   const [selectedYear, setSelectedYear] = useState(2023);
   const [totalUnitSoldByBrand, setTotalUnitSoldByBrand] = useState(0);
   const [allOrders, setAllOrders] = useState(0); // [{}
+  const [usersByCountry, setUsersByCountry] = useState(0); // [{}
 
   // set year array memo
   const yearArr = [2020, 2021, 2022, 2023];
@@ -91,6 +93,16 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchUsesByCountry = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/users-by-country`, { withCredentials: true });
+        console.log(data.usersByCountry);
+        setUsersByCountry(data.usersByCountry);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
     fetchTotalRevenue();
     fetchPendingOrders();
     fetchTotalDelivered();
@@ -98,6 +110,7 @@ const AdminDashboard = () => {
     fetchMonthlySales();
     fetchTotalUnitSoldByBrand();
     fetchAllOrders();
+    fetchUsesByCountry();
   }, []);
 
   return (
@@ -266,8 +279,8 @@ const AdminDashboard = () => {
                     <div className="col-md-12">
                       <div className="stats-box country-box">
                         <div className="heading mb-3">Customer by Country</div>
-                        <div className="chart-height d-flex justify-content-center" style={{ height: "20rem" }}>
-                          {/* <Radar data={dataCountry} /> */}
+                        <div className="chart-height d-flex justify-content-center">
+                          <RadarChart dataApi={usersByCountry} text="Users by Country" />
                         </div>
                       </div>
                     </div>

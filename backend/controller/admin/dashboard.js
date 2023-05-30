@@ -3,8 +3,8 @@ const catchAsyncError = require("../../middleware/catchAsyncError");
 const { isAuthenticatedUser, isAdmin } = require("../../middleware/auth");
 const Order = require("../../model/order");
 const Product = require("../../model/product");
+const User = require("../../model/user");
 const ErrorHandler = require("../../utils/errorHandler");
-const mongoose = require("mongoose");
 const router = express.Router();
 
 // =============================== get total sales from total orders combined ===============================
@@ -148,6 +148,37 @@ router.get(
       res.status(200).json({
         success: true,
         productsSoldByBrand,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// =============================== get total user from each country respectively from user.addresses.country ===============================
+router.get(
+  "/users-by-country",
+  isAuthenticatedUser,
+  isAdmin("admin"),
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const usersByCountry = await User.aggregate([
+        {
+          $unwind: "$addresses", // Unwind the addresses array
+        },
+        {
+          $group: {
+            _id: {
+              country: "$addresses.country",
+            },
+            totalUsers: { $sum: 1 }, // Calculate total users
+          },
+        },
+      ]);
+
+      res.status(200).json({
+        success: true,
+        usersByCountry,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
