@@ -9,13 +9,12 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useState } from "react";
+import { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const LineChart = ({ text, dataApi }) => {
-  const [selectedYear, setSelectedYear] = useState(2023); // 2023 is the default value
+const LineChart = ({ text, dataApi, selectedYear }) => {
   const dataset = [];
   const labels = [
     "January",
@@ -55,6 +54,7 @@ const LineChart = ({ text, dataApi }) => {
   //   }
   // };
 
+  useEffect(() => {}, [selectedYear]);
   // single dataset
   const formatData = (dataApi) => {
     if (dataApi) {

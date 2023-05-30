@@ -13,6 +13,14 @@ const AdminDashboard = () => {
   const [totalDelivered, setTotalDelivered] = useState(0); // total order delivered
   const [totalProducts, setTotalProducts] = useState(0);
   const [monthlySales, setMonthlySales] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(2023);
+
+  // set year array memo
+  const yearArr = [2020, 2021, 2022, 2023];
+
+  const yearChangeHandler = (year) => {
+    setSelectedYear(Number(year));
+  };
 
   useState(() => {
     const fetchTotalRevenue = async () => {
@@ -79,7 +87,26 @@ const AdminDashboard = () => {
             </div>
             <div className="col-md-9">
               <div className="card">
-                <div className="title">Dashboard</div>
+                <div className="d-flex flex-row justify-content-between">
+                  <div className="title">Dashboard</div>
+
+                  <select
+                    class="form-select mb-3"
+                    aria-label="Default select example"
+                    style={{ width: "10rem" }}
+                    onChange={(e) => yearChangeHandler(e.target.value)}
+                  >
+                    <option>Filter by Year</option>
+
+                    {yearArr.map((year, index) => {
+                      return (
+                        <option value={year} selected={year === selectedYear ? true : false} key={index}>
+                          {year}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
                 <div className="summary">
                   <div className="row">
                     <div className="col-md-3">
@@ -130,7 +157,7 @@ const AdminDashboard = () => {
                       <div className="stats-box revenue-box">
                         <div className="heading">Monthly Revenue</div>
 
-                        <LineChart text="Monthly Revenue" dataApi={monthlySales} />
+                        <LineChart text="Monthly Revenue" dataApi={monthlySales} selectedYear={selectedYear} />
                       </div>
                     </div>
                     <div className="col-md-4">
