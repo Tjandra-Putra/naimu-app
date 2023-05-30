@@ -9,6 +9,7 @@ import { server } from "../../../server";
 
 const AdminDashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
+  const [pendingOrders, setPendingOrders] = useState(0);
 
   useState(() => {
     const fetchTotalRevenue = async () => {
@@ -20,7 +21,17 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchPendingOrders = async () => {
+      try {
+        const { data } = await axios.get(`${server}/admin/dashboard/pending-orders`, { withCredentials: true });
+        setPendingOrders(data.pendingOrders);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
     fetchTotalRevenue();
+    fetchPendingOrders();
   }, []);
 
   return (
@@ -53,7 +64,7 @@ const AdminDashboard = () => {
                           <i class="icon-tag fa-solid fa-cart-shopping"></i>
                         </div>
 
-                        <div className="figure">10</div>
+                        <div className="figure">{pendingOrders}</div>
                       </div>
                     </div>
 

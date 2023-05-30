@@ -58,4 +58,24 @@ router.get(
   })
 );
 
+// =============================== get total pending orders ===============================
+router.get(
+    "/pending-orders",
+    isAuthenticatedUser,
+    isAdmin("admin"),
+    catchAsyncError(async (req, res, next) => {
+        try {
+            const pendingOrders = await Order.find({ orderStatus: "Processing" }).countDocuments(); 
+
+            res.status(200).json({
+                success: true,
+                pendingOrders
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 500));
+        }
+    })
+)
+
+
 module.exports = router;
