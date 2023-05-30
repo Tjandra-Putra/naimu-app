@@ -134,10 +134,13 @@
 .admin-dashboard-wrapper .revenue .sales {
   font-size: 13px;
   font-weight: 600;
+  color: maroon;
 }
 
 .admin-dashboard-wrapper .revenue-box {
   min-height: 23rem;
+  height: 23rem;
+  overflow: auto;
 }
 
 .admin-dashboard-wrapper .country-box {
@@ -146,5 +149,4 @@
 
 .admin-dashboard-wrapper .brand-box {
   min-height: 23rem;
-  height: 23rem;
 }

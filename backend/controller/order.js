@@ -5,6 +5,24 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const Order = require("../model/order");
 
+// =============================== get all orders ===============================
+router.get(
+  "/all-orders",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const orders = await Order.find().sort({ createdAt: -1 });
+
+      res.status(200).json({
+        success: true,
+        orders,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 // =============================== create new order ===============================
 router.post(
   "/create-order",

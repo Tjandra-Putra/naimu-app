@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { formatDistanceToNow } from "date-fns";
 
 import "./AdminDashboard.css";
 import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
 import BarChart from "../../../components/Charts/BarChart/BarChart";
 import LineChart from "../../../components/Charts/LineChart/LineChart";
 import { server } from "../../../server";
+import userImage from "../../../assets/images/user.png";
 
 const AdminDashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
@@ -15,6 +17,7 @@ const AdminDashboard = () => {
   const [monthlySales, setMonthlySales] = useState(0);
   const [selectedYear, setSelectedYear] = useState(2023);
   const [totalUnitSoldByBrand, setTotalUnitSoldByBrand] = useState(0);
+  const [allOrders, setAllOrders] = useState(0); // [{}
 
   // set year array memo
   const yearArr = [2020, 2021, 2022, 2023];
@@ -78,12 +81,23 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchAllOrders = async () => {
+      try {
+        const { data } = await axios.get(`${server}/order/all-orders`, { withCredentials: true });
+        console.log(data.orders);
+        setAllOrders(data.orders);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+
     fetchTotalRevenue();
     fetchPendingOrders();
     fetchTotalDelivered();
     fetchTotalProducts();
     fetchMonthlySales();
     fetchTotalUnitSoldByBrand();
+    fetchAllOrders();
   }, []);
 
   return (
@@ -116,6 +130,18 @@ const AdminDashboard = () => {
                     })}
                   </select>
                 </div>
+
+                {selectedYear !== 2023 && (
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div className="filterd-by d-flex flex-row">
+                      <i class="icon-tag fa-solid fa-filter fa-sm"></i>
+                      <div className="mt-1 ms-2">Filtered by {selectedYear}</div>
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                )}
+
                 <div className="summary">
                   <div className="row">
                     <div className="col-md-3">
@@ -177,119 +203,27 @@ const AdminDashboard = () => {
                             View All <i class="fa-solid fa-chevron-right"></i>
                           </small>
                         </div>
-                        <div className="d-flex flex-row justify-content-between mt-3">
-                          <div className="avatar-info">
-                            <div className="sales-row">
-                              <img
-                                src="https://images.pexels.com/photos/2599510/pexels-photo-2599510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="avatar"
-                                className="img-fluid avatar"
-                              />
-                              <span className="user-info-wrapper ms-2">
-                                <div className="user-info">
-                                  <div className="name">David</div>
-                                  <div className="date">5 minutes ago</div>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="sales">+$89</div>
-                        </div>
+                        {allOrders &&
+                          allOrders.map((order, index) => {
+                            const timeAgo = formatDistanceToNow(new Date(order?.createdAt), { addSuffix: true });
 
-                        <div className="d-flex flex-row justify-content-between mt-3">
-                          <div className="avatar-info">
-                            <div className="sales-row">
-                              <img
-                                src="https://images.pexels.com/photos/2599510/pexels-photo-2599510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="avatar"
-                                className="img-fluid avatar"
-                              />
-                              <span className="user-info-wrapper ms-2">
-                                <div className="user-info">
-                                  <div className="name">David</div>
-                                  <div className="date">5 minutes ago</div>
+                            return (
+                              <div className="d-flex flex-row justify-content-between mt-3" key={index}>
+                                <div className="avatar-info">
+                                  <div className="sales-row">
+                                    <img src={userImage} alt="avatar" className="img-fluid avatar" />
+                                    <span className="user-info-wrapper ms-2">
+                                      <div className="user-info">
+                                        <div className="name">{order?.user?.fullName}</div>
+                                        <div className="date">{timeAgo}</div>
+                                      </div>
+                                    </span>
+                                  </div>
                                 </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="sales">+$89</div>
-                        </div>
-
-                        <div className="d-flex flex-row justify-content-between mt-3">
-                          <div className="avatar-info">
-                            <div className="sales-row">
-                              <img
-                                src="https://images.pexels.com/photos/2599510/pexels-photo-2599510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="avatar"
-                                className="img-fluid avatar"
-                              />
-                              <span className="user-info-wrapper ms-2">
-                                <div className="user-info">
-                                  <div className="name">David</div>
-                                  <div className="date">5 minutes ago</div>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="sales">+$89</div>
-                        </div>
-
-                        <div className="d-flex flex-row justify-content-between mt-3">
-                          <div className="avatar-info">
-                            <div className="sales-row">
-                              <img
-                                src="https://images.pexels.com/photos/2599510/pexels-photo-2599510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="avatar"
-                                className="img-fluid avatar"
-                              />
-                              <span className="user-info-wrapper ms-2">
-                                <div className="user-info">
-                                  <div className="name">David</div>
-                                  <div className="date">5 minutes ago</div>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="sales">+$89</div>
-                        </div>
-
-                        <div className="d-flex flex-row justify-content-between mt-3">
-                          <div className="avatar-info">
-                            <div className="sales-row">
-                              <img
-                                src="https://images.pexels.com/photos/2599510/pexels-photo-2599510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="avatar"
-                                className="img-fluid avatar"
-                              />
-                              <span className="user-info-wrapper ms-2">
-                                <div className="user-info">
-                                  <div className="name">David</div>
-                                  <div className="date">5 minutes ago</div>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="sales">+$89</div>
-                        </div>
-
-                        <div className="d-flex flex-row justify-content-between mt-3">
-                          <div className="avatar-info">
-                            <div className="sales-row">
-                              <img
-                                src="https://images.pexels.com/photos/2599510/pexels-photo-2599510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                alt="avatar"
-                                className="img-fluid avatar"
-                              />
-                              <span className="user-info-wrapper ms-2">
-                                <div className="user-info">
-                                  <div className="name">David</div>
-                                  <div className="date">5 minutes ago</div>
-                                </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="sales">+$89</div>
-                        </div>
+                                <div className="sales">+${order?.totalPrice.toFixed(2)}</div>
+                              </div>
+                            );
+                          })}
                       </div>
                     </div>
                   </div>
@@ -297,7 +231,7 @@ const AdminDashboard = () => {
 
                 <div className="top-products">
                   <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-12">
                       <div className="stats-box brand-box">
                         <div className="heading ">Unit Sold by Brand</div>
                         <BarChart
@@ -308,17 +242,12 @@ const AdminDashboard = () => {
                         />
                       </div>
                     </div>
-                    <div className="col-md-4">
-                      <div className="stats-box country-box">
-                        <div className="heading ">Unit Sold Table</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
                 <div className="top-products">
                   <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-12">
                       <div className="stats-box brand-box">
                         <div className="heading ">Total Sales by Brand</div>
                         <BarChart
@@ -329,17 +258,12 @@ const AdminDashboard = () => {
                         />
                       </div>
                     </div>
-                    <div className="col-md-4">
-                      <div className="stats-box country-box">
-                        <div className="heading ">Brand Sales Table</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
                 <div className="top-products">
                   <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-12">
                       <div className="stats-box country-box">
                         <div className="heading mb-3">Customer by Country</div>
                         <div className="chart-height d-flex justify-content-center" style={{ height: "20rem" }}>
