@@ -1,49 +1,23 @@
-import "./AdminDashboard.css";
-
+import { themeColors } from "../ThemeColors";
+import { useEffect } from "react";
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  RadialLinearScale,
   PointElement,
-  LineElement,
-  BarElement,
   Title,
   Tooltip,
   Legend,
   Filler,
+  LineElement,
+  CategoryScale,
+  LinearScale,
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
-export const optionsRevenue = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Revenue by Week",
-    },
-  },
-};
-
-export const dataRevenue = {
-  labels: [
+const LineChart = ({ text }) => {
+  const labels = [
     "January",
     "February",
     "March",
@@ -56,34 +30,47 @@ export const dataRevenue = {
     "October",
     "November",
     "December",
-  ],
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 5],
-      borderColor: "rgb(0, 0, 132)",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-    },
-  ],
-};
+  ];
+  const datasetArray = [];
 
-export const dataCountry = {
-  labels: ["America", "Europe", "Asia", "Africa", "Australia", "Antartica"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [2, 9, 3, 5, 2, 3],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 1,
-    },
-  ],
-};
+  // get random color from themeColors object
+  const getRandomColor = () => {
+    const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+    console.log(randomColor);
+    return randomColor;
+  };
 
-const LineChart = ({ data }) => {
+  // iterate over dataApi object and push data to datasetArray
+  const formatData = (dataApi) => {};
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: text,
+      },
+    },
+  };
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 5],
+        borderColor: "rgb(0, 0, 132)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+      },
+    ],
+  };
+
   return (
     <div className="line-chart-wrapper">
-      <Line data={data} />
+      <Line data={data} options={options} />
     </div>
   );
 };

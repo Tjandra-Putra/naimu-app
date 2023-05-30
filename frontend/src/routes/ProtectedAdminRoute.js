@@ -9,6 +9,7 @@ const ProtectedAdminRoute = ({ children }) => {
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   const { loading, isAuthenticated, user, error } = useSelector((state) => state.userReducer);
+
   if (!loading) {
     if (!isAuthenticated) {
       if (error) {
@@ -17,16 +18,14 @@ const ProtectedAdminRoute = ({ children }) => {
       }
 
       return <Navigate to="/login" replace />;
-    } else if (user.user.role !== "admin") {
-      if (error) {
-        notifyError("Admin resource. Access denied.");
-        dispatch({ type: "ClearErrors" });
-      }
-
-      return <Navigate to="/" replace />;
+    } else if (user?.user?.role !== "admin") {
+      notifyError("Admin resource. Access denied.");
+      return <Navigate to="/login" replace />;
     }
     return children;
   }
+
+  return null;
 };
 
 export default ProtectedAdminRoute;

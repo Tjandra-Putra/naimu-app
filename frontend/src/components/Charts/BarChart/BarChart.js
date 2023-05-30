@@ -1,14 +1,13 @@
-import { Chart as ChartJS, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler } from "chart.js";
+import { Chart as ChartJS, PointElement, BarElement, Title, Tooltip, Legend, Filler } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
 import { themeColors } from "../ThemeColors";
 import { useEffect } from "react";
 
-ChartJS.register(PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
+ChartJS.register(PointElement, BarElement, Title, Tooltip, Legend, Filler);
 
 const BarChart = ({ dataApi, text }) => {
-  const labelArray = [];
-  const datasetArray = [];
+  const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
   // get random color from themeColors object
   const getRandomColor = () => {
@@ -17,10 +16,10 @@ const BarChart = ({ dataApi, text }) => {
     return randomColor;
   };
 
-  const label = ["brand1", "brand2", "brand3", "brand4", "brand5", "brand6", "brand7", "brand8", "brand9", "brand10"];
+  const formatData = (dataApi) => {};
 
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: labels,
     datasets: [
       {
         label: "Brand1",
@@ -63,8 +62,6 @@ const BarChart = ({ dataApi, text }) => {
       },
     },
   };
-
-  useEffect(() => {}, [dataApi]);
 
   return (
     <div className="bar-chart-wrapper">

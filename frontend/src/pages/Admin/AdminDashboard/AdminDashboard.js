@@ -1,74 +1,7 @@
 import "./AdminDashboard.css";
 import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
-
 import BarChart from "../../../components/Charts/BarChart/BarChart";
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
-} from "chart.js";
-
-import { Line, Radar, Bar } from "react-chartjs-2";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
-
-export const optionsRevenue = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Revenue by Week",
-    },
-  },
-};
-
-export const dataRevenue = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      borderColor: "rgb(0, 0, 132)",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-    },
-  ],
-};
-
-export const dataCountry = {
-  labels: ["America", "Europe", "Asia", "Africa", "Australia", "Antartica"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [2, 9, 3, 5, 2, 3],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 1,
-    },
-  ],
-};
+import LineChart from "../../../components/Charts/LineChart/LineChart";
 
 const AdminDashboard = () => {
   return (
@@ -130,8 +63,9 @@ const AdminDashboard = () => {
                   <div className="row">
                     <div className="col-md-8">
                       <div className="stats-box revenue-box">
-                        <div className="heading">Revenue this week</div>
-                        <Line options={optionsRevenue} data={dataRevenue} />
+                        <div className="heading">Monthly Revenue</div>
+
+                        <LineChart text="Monthly Revenue" />
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -298,7 +232,7 @@ const AdminDashboard = () => {
                       <div className="stats-box country-box">
                         <div className="heading mb-3">Customer by Country</div>
                         <div className="chart-height d-flex justify-content-center" style={{ height: "20rem" }}>
-                          <Radar data={dataCountry} />
+                          {/* <Radar data={dataCountry} /> */}
                         </div>
                       </div>
                     </div>

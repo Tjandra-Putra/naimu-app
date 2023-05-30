@@ -9,7 +9,7 @@ const PromoCode = require("../model/promoCode");
 // =============================== create promo code ===============================
 router.post(
   "/create",
-  isAdmin,
+  isAdmin("admin"),
   catchAsyncError(async (req, res, next) => {
     const { code, discount, expiryDate } = req.body;
     const newPromoCode = {
