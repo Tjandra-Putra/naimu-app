@@ -19,6 +19,7 @@ const AdminProducts = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [productsList, setProductsList] = useState([]);
+  const [uniqueBrandImageUrl, setUniqueBrandImageUrl] = useState([]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,10 +77,14 @@ const AdminProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // setIsLoading(true);
+        setIsLoading(true);
 
         const { data } = await axios.get(`${server}/product/all-products`, { withCredentials: true });
         setProductsList(data.products);
+
+        // get unique shop.avatar.url and set state uniqueBrandImageUrl
+        const uniqueBrandImageUrl = [...new Set(data.products.map((product) => product.shop.avatar.url))];
+        setUniqueBrandImageUrl(uniqueBrandImageUrl);
 
         console.log(data.products);
 
@@ -234,6 +239,22 @@ const AdminProducts = () => {
                           <label for="brandImageUrl" class="form-label">
                             Brand Image Url
                           </label>
+
+                          <input
+                            list="brands"
+                            name="brands"
+                            class="form-control"
+                            id="brandImageUrl"
+                            placeholder="https://adidas.png"
+                            required
+                            {...register("brandImageUrl")}
+                          />
+                          <datalist id="brands">
+                            {uniqueBrandImageUrl.map((url) => (
+                              <option value={url} />
+                            ))}
+                          </datalist>
+                          {/* 
                           <input
                             type="text"
                             class="form-control"
@@ -241,7 +262,7 @@ const AdminProducts = () => {
                             placeholder="adidas.png"
                             required
                             {...register("brandImageUrl")}
-                          />
+                          /> */}
                         </div>
                         <div className="col">
                           <label for="quantityInStock" class="form-label">
