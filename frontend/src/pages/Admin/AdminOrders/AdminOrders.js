@@ -19,7 +19,7 @@ const Orders = () => {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [orderPerPage] = useState(3);
+  const [orderPerPage] = useState(4);
 
   // pagination filter logic
   const indexOfLastOrder = currentPage * orderPerPage;

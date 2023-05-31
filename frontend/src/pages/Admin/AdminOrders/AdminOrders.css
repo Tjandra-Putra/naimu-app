@@ -32,6 +32,7 @@
   border: none;
   min-height: 36.4rem;
   /* padding: 2rem; */
+  padding-bottom: 0.2rem;
 }
 
 .admin-orders-wrapper th {

@@ -28,8 +28,7 @@
 .orders-wrapper .card {
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
   border: none;
-  min-height: 36.4rem;
-  /* padding: 2rem; */
+  min-height: 34.5rem;
 }
 
 .orders-wrapper th {
