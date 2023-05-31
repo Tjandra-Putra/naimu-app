@@ -64,3 +64,18 @@
 .admin-orders-wrapper .admin-orders-empty .title {
   font-size: 1.2rem;
 }
+
+.admin-orders-wrapper .status-processing {
+  color: brown;
+  font-weight: 500;
+}
+
+.admin-orders-wrapper .status-shipped {
+  color: #2196f3;
+  font-weight: 500;
+}
+
+.admin-orders-wrapper .status-delivered {
+  color: #358838;
+  font-weight: 500;
+}

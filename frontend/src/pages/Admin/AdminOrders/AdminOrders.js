@@ -13,6 +13,19 @@ const Orders = () => {
   const [ordersList, setOrdersList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Processing":
+        return "status-processing"; // CSS class for Processing status
+      case "Shipped":
+        return "status-shipped"; // CSS class for Shipped status
+      case "Delivered":
+        return "status-delivered"; // CSS class for Delivered status
+      default:
+        return ""; // Default class (no specific color)
+    }
+  };
+
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
@@ -42,10 +55,12 @@ const Orders = () => {
     window.scrollTo(0, 0);
 
     const fetchOrders = async () => {
+      setIsLoading(true);
+
       const { data } = await axios.get(`${server}/admin/orders/all-orders`, { withCredentials: true });
       setOrdersList(data.orders);
 
-      console.log(data.orders);
+      setIsLoading(false);
     };
 
     fetchOrders();
@@ -93,7 +108,7 @@ const Orders = () => {
                                     })
                                     .replace(",", "")}
                                 </td>
-                                <td>{order.orderStatus}</td>
+                                <td className={getStatusColor(order.orderStatus)}>{order.orderStatus}</td>
                                 <td>{order.orderItems.length}</td>
                                 <td>${order.totalPrice}</td>
                                 <td>
