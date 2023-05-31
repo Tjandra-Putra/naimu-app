@@ -1,0 +1,180 @@
+:root {
+  --neutral-black: #212121;
+  --color-underline: #212121;
+  --custom-ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.admin-order-wrapper {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+.admin-order-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.admin-order-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.admin-order-wrapper .card {
+  padding: 2rem;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  min-height: 30rem;
+}
+
+.admin-order-wrapper .title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.admin-order-wrapper .summary {
+  position: sticky;
+  top: 25px;
+  z-index: 999;
+  height: 10px;
+}
+
+.admin-order-wrapper .summary .title {
+  margin-bottom: 40px;
+}
+
+.admin-order-wrapper .summary .summary-row {
+  margin-bottom: 10px;
+  line-height: 25px;
+}
+
+.admin-order-wrapper .summary-total {
+  font-weight: 600 !important;
+  line-height: 45px;
+  border-top: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.admin-order-wrapper .product-title {
+  font-weight: 500;
+}
+
+.admin-order-wrapper .product-id,
+.admin-order-wrapper .product-price {
+  color: #888787;
+}
+
+.admin-order-wrapper .size-select {
+  width: 115px;
+  margin-top: 8px;
+}
+
+.admin-order-wrapper .product-img img {
+  width: 122px;
+  height: 122px !important;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.admin-order-wrapper .product-store {
+  color: #9e3500;
+}
+
+.admin-order-wrapper .product-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 135px;
+}
+
+.admin-order-wrapper tbody td {
+  height: 170px;
+  padding-bottom: 25px;
+}
+
+.admin-order-wrapper .form-select {
+  /* border-color: #000000; */
+  border: none;
+  margin-top: 5px;
+}
+
+.admin-order-wrapper .message {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.admin-order-wrapper .btn-review-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.admin-order-wrapper .btn-review {
+  display: block;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  color: #212121;
+  cursor: pointer;
+}
+
+.admin-order-wrapper .btn-review::after {
+  content: "";
+  position: absolute;
+  bottom: -0.01em;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #212121 50%, rgba(33, 33, 33, 0.3) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.admin-order-wrapper .btn-review:hover::after {
+  background-position: 0% 50%;
+}
+
+.admin-order-wrapper .review-modal .row {
+  display: flex;
+  align-items: center;
+}
+
+.admin-order-wrapper .rating-box {
+  text-align: center;
+  border-top: 1.5px solid #000000;
+  border-bottom: 1.5px solid #000000;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.admin-order-wrapper .review-modal .form-control {
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+}
+
+.admin-order-wrapper .review-modal .form-check-input {
+  border: 1.5px solid #000000;
+  cursor: pointer;
+}
+
+.admin-order-wrapper .review-modal label {
+  font-weight: 500;
+}
+
+.admin-order-wrapper .rating-input {
+  margin: 5px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.admin-order-wrapper .status-dropdown {
+  cursor: pointer;
+}

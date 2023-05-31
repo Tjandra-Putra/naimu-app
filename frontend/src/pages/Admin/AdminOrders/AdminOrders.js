@@ -55,14 +55,18 @@ const Orders = () => {
     window.scrollTo(0, 0);
 
     const fetchOrders = async () => {
-      setIsLoading(true);
+      try {
+        setIsLoading(true);
 
-      const { data } = await axios.get(`${server}/admin/orders/all-orders`, { withCredentials: true });
-      setOrdersList(data.orders);
+        const { data } = await axios.get(`${server}/admin/orders/`, { withCredentials: true });
+        setOrdersList(data.orders);
 
-      setIsLoading(false);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.response.data.message);
+        setIsLoading(false);
+      }
     };
-
     fetchOrders();
   }, []);
 
@@ -112,7 +116,7 @@ const Orders = () => {
                                 <td>{order.orderItems.length}</td>
                                 <td>${order.totalPrice}</td>
                                 <td>
-                                  <Link to={`/orders/${order._id}`} className="text-decoration-none text-dark">
+                                  <Link to={`/admin/orders/${order._id}`} className="text-decoration-none text-dark">
                                     <i class="fas fa-arrow-right fa-lg"></i>
                                   </Link>
                                 </td>
