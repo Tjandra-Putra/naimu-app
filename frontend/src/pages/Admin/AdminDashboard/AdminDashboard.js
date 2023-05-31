@@ -133,7 +133,7 @@ const AdminDashboard = () => {
             <div className="col-md-9">
               <div className="card">
                 <div className="d-flex flex-row justify-content-between">
-                  <div className="title">Dashboard</div>
+                  <div className="title"><i class="fa-solid fa-bars-staggered"></i> Dashboard</div>
 
                   <select
                     class="form-select mb-3"

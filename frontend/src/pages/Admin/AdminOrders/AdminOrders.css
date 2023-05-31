@@ -65,17 +65,28 @@
   font-size: 1.2rem;
 }
 
-.admin-orders-wrapper .status-processing {
-  color: brown;
+.admin-orders-wrapper .status-badge {
+  border-radius: 15px;
+  min-width: 8rem;
+  height: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   font-weight: 500;
+}
+
+.admin-orders-wrapper .status-processing {
+  background-color: #e6c0ce;
+  color: #000000;
 }
 
 .admin-orders-wrapper .status-shipped {
-  color: #2068a2;
-  font-weight: 500;
+  background-color: #e4edfb;
+  color: #000000;
 }
 
 .admin-orders-wrapper .status-delivered {
-  color: #358838;
-  font-weight: 500;
+  background-color: #e1e7e9;
+  color: #000000;
 }

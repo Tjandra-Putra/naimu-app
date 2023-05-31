@@ -119,7 +119,17 @@ const Orders = () => {
                                     })
                                     .replace(",", "")}
                                 </td>
-                                <td className={getStatusColor(order.orderStatus)}>{order.orderStatus}</td>
+                                <td>
+                                  <div className={`status-badge ${getStatusColor(order.orderStatus)}`}>
+                                    <div>
+                                      <i
+                                        class="fa-solid fa-circle me-2"
+                                        style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                      ></i>
+                                    </div>
+                                    <div>{order.orderStatus}</div>
+                                  </div>
+                                </td>
                                 <td>{order.orderItems.length}</td>
                                 <td>${order.totalPrice}</td>
                                 <td>

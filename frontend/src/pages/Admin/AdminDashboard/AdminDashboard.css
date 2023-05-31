@@ -102,7 +102,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 10px;
   padding: 1rem;
   text-transform: capitalize;
 }
