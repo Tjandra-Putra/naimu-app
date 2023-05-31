@@ -1,7 +1,6 @@
 .side-navbar-wrapper {
   position: sticky !important;
   top: 25px;
-  z-index: 1000 !important;
   height: 100%;
 }
 
