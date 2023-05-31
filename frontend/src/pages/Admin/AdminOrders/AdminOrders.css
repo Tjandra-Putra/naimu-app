@@ -1,0 +1,65 @@
+.admin-orders-wrapper {
+  height: 100%;
+  min-height: calc(100vh - 70px);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+
+  background-color: var(--canvasColor);
+}
+
+.admin-orders-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.admin-orders-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.admin-orders-wrapper .title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.admin-orders-wrapper .card {
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  border: none;
+  min-height: 36.4rem;
+  /* padding: 2rem; */
+}
+
+.admin-orders-wrapper th {
+  padding: 1rem 2rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-orders-wrapper td {
+  padding: 2rem;
+  text-align: center;
+}
+
+.admin-orders-wrapper .table {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.admin-orders-wrapper .admin-orders-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(36.4rem);
+}
+
+.admin-orders-wrapper .admin-orders-empty .title {
+  font-size: 1.2rem;
+}

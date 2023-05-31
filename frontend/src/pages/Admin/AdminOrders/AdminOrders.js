@@ -1,20 +1,17 @@
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import axios from "axios";
 import React from "react";
 
-import "./Orders.css";
-import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
-import Loader from "../../components/Layout/Loader/Loader";
-import { server } from "../../server";
+import "./AdminOrders.css";
+import { server } from "../../../server";
+import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
+import Loader from "../../../components/Layout/Loader/Loader";
 
 const Orders = () => {
-  const dispatch = useDispatch();
   const [ordersList, setOrdersList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { user, error, success } = useSelector((state) => state.userReducer);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
@@ -44,43 +41,25 @@ const Orders = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (error) {
-      notifyError(error);
-      dispatch({ type: "ClearErrors" });
-    }
-    if (success) {
-      notifySuccess(success);
-      dispatch({ type: "ClearSuccess" });
-    }
-  }, [error, success]);
+    const fetchOrders = async () => {
+      const { data } = await axios.get(`${server}/admin/orders/all-orders`, { withCredentials: true });
+      setOrdersList(data.orders);
 
-  useEffect(() => {
-    const getOrders = async () => {
-      setIsLoading(true);
-      try {
-        const { data } = await axios.get(`${server}/order/get-orders/${user.user._id}`, { withCredentials: true });
-
-        setOrdersList(data.orders);
-
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        notifyError(error.response.data.message);
-        console.log(error);
-      }
+      console.log(data.orders);
     };
-    getOrders();
-  }, [error, success]);
+
+    fetchOrders();
+  }, []);
 
   return isLoading ? (
     <Loader />
   ) : (
-    <div className="orders-wrapper">
+    <div className="admin-orders-wrapper">
       <div className="container">
         <div className="orders">
           <div className="row">
             <div className="col-md-3">
-              <SideNavbar activeLink="orders" />
+              <SideNavbar activeLink="admin-orders" />
             </div>
             <div className="col-md-9">
               <div className="card">

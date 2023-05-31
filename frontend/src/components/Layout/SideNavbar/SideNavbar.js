@@ -9,7 +9,7 @@ import { logout } from "../../../redux/actions/user";
 const SideNavbar = ({ activeLink }) => {
   const { user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
   const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
@@ -45,12 +45,12 @@ const SideNavbar = ({ activeLink }) => {
       icon: "fa-solid fa-tags icon-size",
       activeLink: "admin-promocode",
     },
-    {
-      name: "Inboxes",
-      link: "/admin/inboxes",
-      icon: "far fa-comment-dots icon-size",
-      activeLink: "admin-inbox",
-    },
+    // {
+    //   name: "Inboxes",
+    //   link: "/admin/inboxes",
+    //   icon: "far fa-comment-dots icon-size",
+    //   activeLink: "admin-inbox",
+    // },
     {
       name: "Users",
       link: "/admin/users",
@@ -79,13 +79,12 @@ const SideNavbar = ({ activeLink }) => {
     //   icon: "fa fa-backspace icon-size",
     //   activeLink: "refunds",
     // },
-
-    {
-      name: "Inbox",
-      link: "/inbox",
-      icon: "far fa-comment-dots icon-size",
-      activeLink: "inbox",
-    },
+    // {
+    //   name: "Inbox",
+    //   link: "/inbox",
+    //   icon: "far fa-comment-dots icon-size",
+    //   activeLink: "inbox",
+    // },
     {
       name: "Change Password",
       link: "/password-change",
