@@ -82,11 +82,37 @@ const AdminProducts = () => {
         const { data } = await axios.get(`${server}/product/all-products`, { withCredentials: true });
         setProductsList(data.products);
 
-        // get unique shop.avatar.url and set state uniqueBrandImageUrl
-        const uniqueBrandImageUrl = [...new Set(data.products.map((product) => product.shop.avatar.url))];
-        setUniqueBrandImageUrl(uniqueBrandImageUrl);
+        // get unique shop.avatar.url and shop.name and set state uniqueBrandImageUrl
+        // const uniqueBrandData = data.products.reduce((acc, product) => {
+        //   const existingIndex = acc.findIndex(
+        //     (item) => item.avatarUrl === product.shop.avatar.url && item.name === product.shop.name
+        //   );
 
-        console.log(data.products);
+        //   if (existingIndex === -1) {
+        //     acc.push({
+        //       avatarUrl: product.shop.avatar.url,
+        //       name: product.shop.name,
+        //     });
+        //   }
+
+        //   return acc;
+        // }, []);
+
+        // OR
+        const uniqueBrandData = Array.from(
+          new Set(
+            data.products.map((product) =>
+              JSON.stringify({
+                avatarUrl: product.shop.avatar.url,
+                name: product.shop.name,
+              })
+            )
+          )
+        ).map((item) => JSON.parse(item));
+
+        setUniqueBrandImageUrl(uniqueBrandData);
+        console.log("=====");
+        console.log(uniqueBrandData);
 
         setIsLoading(false);
       } catch (error) {
@@ -250,8 +276,9 @@ const AdminProducts = () => {
                             {...register("brandImageUrl")}
                           />
                           <datalist id="brands">
-                            {uniqueBrandImageUrl.map((url) => (
-                              <option value={url} />
+                            {uniqueBrandImageUrl.map((data) => (
+                              // <option value={url} />
+                              <option value={data.avatarUrl}>{data.name}</option>
                             ))}
                           </datalist>
                           {/* 
