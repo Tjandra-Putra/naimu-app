@@ -1,6 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+
 import axios from "axios";
 import React from "react";
 
@@ -25,10 +25,6 @@ const Orders = () => {
         return ""; // Default class (no specific color)
     }
   };
-
-  // toast component
-  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
-  const notifyError = (message) => toast.error(message, { duration: 5000 });
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,6 +71,17 @@ const Orders = () => {
   ) : (
     <div className="admin-orders-wrapper">
       <div className="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <Link to="/admin/dashboard" class="breadcrumb-item">
+              Dashboard
+            </Link>
+            <li class="breadcrumb-item active" aria-current="page">
+              Orders
+            </li>
+          </ol>
+        </nav>
+
         <div className="orders">
           <div className="row">
             <div className="col-md-3">

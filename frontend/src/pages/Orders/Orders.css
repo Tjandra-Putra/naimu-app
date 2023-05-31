@@ -6,8 +6,9 @@
   flex-direction: row;
   align-items: center;
 
-  margin-top: 1.2rem;
-  margin-bottom: 1.2rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  background-color: var(--canvasColor);
 }
 
 .orders-wrapper .breadcrumb-item {

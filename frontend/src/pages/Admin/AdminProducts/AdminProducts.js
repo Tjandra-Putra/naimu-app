@@ -58,6 +58,17 @@ const AdminProducts = () => {
   ) : (
     <div className="admin-products-wrapper">
       <div className="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <Link to="/admin/dashboard" class="breadcrumb-item">
+              Dashboard
+            </Link>
+            <li class="breadcrumb-item active" aria-current="page">
+              Products
+            </li>
+          </ol>
+        </nav>
+
         <div className="orders">
           <div className="row">
             <div className="col-md-3">

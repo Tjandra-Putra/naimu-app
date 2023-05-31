@@ -12,6 +12,11 @@
   background-color: var(--canvasColor);
 }
 
+.admin-dashboard-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
 .admin-dashboard-wrapper .title {
   font-size: 1.5rem;
   font-weight: 500;

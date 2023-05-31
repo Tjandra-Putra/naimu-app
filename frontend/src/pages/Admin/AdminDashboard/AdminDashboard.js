@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
+import { Link } from "react-router-dom";
 
 import "./AdminDashboard.css";
 import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
@@ -116,6 +117,14 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard-wrapper">
       <div className="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <Link to="/admin/dashboard" class="breadcrumb-item">
+              Dashboard
+            </Link>
+          </ol>
+        </nav>
+
         <div className="orders">
           <div className="row">
             <div className="col-md-3 sticky">
