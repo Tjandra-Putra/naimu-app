@@ -36,7 +36,6 @@ const favourite = require("./controller/favourite");
 // admin routes
 const adminDashboard = require("./controller/admin/adminDashboard");
 const adminOrders = require("./controller/admin/adminOrders");
-const adminProducts = require("./controller/admin/adminProducts");
 
 // routes
 app.use("/api/v1/user", user); // localhost:8000/api/v1/user/create-user
@@ -49,7 +48,6 @@ app.use("/api/v1/favourite", favourite); // localhost:8000/api/v1/favourite
 // admin routes
 app.use("/api/v1/admin/dashboard", adminDashboard); // localhost:8000/api/v1/admin/dashboard
 app.use("/api/v1/admin/orders", adminOrders); // localhost:8000/api/v1/admin/orders
-app.use("/api/v1/admin/products", adminProducts); // localhost:8000/api/v1/admin/products
 
 // app error handler
 app.use(ErrorHandler);

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import "./AdminProducts.css";
 import { server } from "../../../server";
@@ -9,6 +11,12 @@ import SideNavbar from "../../../components/Layout/SideNavbar/SideNavbar";
 import Loader from "../../../components/Layout/Loader/Loader";
 
 const AdminProducts = () => {
+  // toast component
+  const notifySuccess = (message) => toast.success(message, { duration: 5000 });
+  const notifyError = (message) => toast.error(message, { duration: 5000 });
+
+  const { register, handleSubmit } = useForm();
+
   const [isLoading, setIsLoading] = useState(false);
   const [productsList, setProductsList] = useState([]);
 
@@ -20,6 +28,38 @@ const AdminProducts = () => {
   const indexOfLastOrder = currentPage * productsPerPage;
   const indexOfFirstOrder = indexOfLastOrder - productsPerPage;
   const currentProducts = productsList.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const onCreateProduct = async (data) => {
+    console.log(data);
+    // api call create product
+    if (data.discountedPrice > data.price) return notifyError("Discounted price cannot be greater than price");
+
+    try {
+      const { data: response } = await axios.post(
+        `${server}/product/create-product`,
+        {
+          title: data.title,
+          brand: data.brand,
+          category: data.category,
+          productImagesUrl: data.productImagesUrl,
+          price: data.price,
+          discountedPrice: data.discountedPrice === 0 ? data.price : data.discountedPrice,
+          brandImageUrl: data.brandImageUrl,
+          quantityInStock: data.quantityInStock,
+          description: data.description,
+        },
+        { withCredentials: true }
+      );
+
+      notifySuccess("Product created successfully");
+      console.log(response);
+
+      // refresh page
+      window.location.reload();
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
 
   // pagination change page
   const handlePageChange = (pageNumber) => {
@@ -58,16 +98,190 @@ const AdminProducts = () => {
   ) : (
     <div className="admin-products-wrapper">
       <div className="container">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <Link to="/admin/dashboard" class="breadcrumb-item">
-              Dashboard
-            </Link>
-            <li class="breadcrumb-item active" aria-current="page">
-              Products
-            </li>
-          </ol>
-        </nav>
+        <div className="d-flex flex-row justify-content-between">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <Link to="/admin/dashboard" class="breadcrumb-item">
+                Dashboard
+              </Link>
+              <li class="breadcrumb-item active" aria-current="page">
+                Products
+              </li>
+            </ol>
+          </nav>
+
+          <button
+            className="btn btn-dark rounded-5 create-product"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <i class="fa-solid fa-plus"></i> Add Product
+          </button>
+
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered  modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Add Product
+                  </h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form onSubmit={handleSubmit(onCreateProduct)}>
+                    <div class="mb-3">
+                      <div className="row">
+                        <div className="col">
+                          <label for="title" class="form-label">
+                            Title
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="title"
+                            placeholder="name"
+                            required
+                            {...register("title")}
+                          />
+                        </div>
+                        <div className="col">
+                          <label for="brand" class="form-label">
+                            Brand
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="brand"
+                            placeholder="shop name"
+                            required
+                            {...register("brand")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <div className="row">
+                        <div className="col">
+                          <label for="category" class="form-label">
+                            Category
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="category"
+                            placeholder="type"
+                            required
+                            {...register("category")}
+                          />
+                        </div>
+                        <div className="col">
+                          <label for="imageUrl" class="form-label">
+                            Product Image Url (comma separated)
+                          </label>
+                          <input
+                            type="url"
+                            class="form-control"
+                            id="imageUrl"
+                            placeholder="[pants.png, shirt.png]"
+                            required
+                            {...register("productImagesUrl")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <div className="row">
+                        <div className="col">
+                          <label for="price" class="form-label">
+                            Price
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="price"
+                            placeholder="$"
+                            required
+                            {...register("price")}
+                          />
+                        </div>
+                        <div className="col">
+                          <label for="discountedPrice" class="form-label">
+                            Discounted Price
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="discountedPrice"
+                            placeholder="Same as price if no discount"
+                            {...register("discountedPrice")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <div className="row">
+                        <div className="col">
+                          <label for="brandImageUrl" class="form-label">
+                            Brand Image Url
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="brandImageUrl"
+                            placeholder="adidas.png"
+                            required
+                            {...register("brandImageUrl")}
+                          />
+                        </div>
+                        <div className="col">
+                          <label for="quantityInStock" class="form-label">
+                            Quantity In Stock
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="quantityInStock"
+                            placeholder="0"
+                            required
+                            {...register("quantityInStock")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="description" class="form-label">
+                        Description
+                      </label>
+                      <textarea
+                        class="form-control"
+                        id="description"
+                        rows="3"
+                        placeholder="about"
+                        required
+                        {...register("description")}
+                      ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary float-end fw-semibold">
+                      Add Product
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="orders">
           <div className="row">

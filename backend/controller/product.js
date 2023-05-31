@@ -90,6 +90,64 @@ router.put(
   })
 );
 
+// =============================== create product ===============================
+router.post(
+  "/create-product",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const {
+        title,
+        brand,
+        category,
+        productImagesUrl,
+        price,
+        discountedPrice,
+        brandImageUrl,
+        quantityInStock,
+        description,
+      } = req.body;
+
+      console.log(req.body);
+
+      // get comma separated productImagesUrl and store into array of objects
+      const productImagesSplit = productImagesUrl.split(",");
+      const productImagesArray = [];
+
+      productImagesSplit.forEach((image) => {
+        productImagesArray.push({
+          url: image,
+        });
+      });
+
+      const product = await Product.create({
+        title,
+        shop: {
+          name: brand,
+          avatar: {
+            url: brandImageUrl,
+          },
+          ratings: 0,
+        },
+        category,
+        imageUrl: productImagesArray,
+        price,
+        discountPrice: discountedPrice,
+        quantityInStock,
+        description,
+      });
+
+      res.status(201).json({
+        success: true,
+        message: "Product created successfully",
+        product,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 // =============================== get single product ===============================
 router.get(
   "/:id",

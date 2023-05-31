@@ -43,13 +43,28 @@ const productSchema = new mongoose.Schema({
     avatar: {
       url: String,
     },
-    ratings: Number, // average ratings of all products belong to the shop
+    ratings: {
+      type: Number,
+      default: 0,
+    }, // average ratings of all products belong to the shop
   },
   price: Number,
-  discountPrice: Number,
-  rating: Number,
-  unitSold: Number,
-  quantityInStock: Number,
+  discountPrice: {
+    type: Number,
+    default: 0,
+  },
+  rating: {
+    type: Number,
+    default: 0,
+  },
+  unitSold: {
+    type: Number,
+    default: 0,
+  },
+  quantityInStock: {
+    type: Number,
+    default: 0,
+  },
 });
 
 Product = mongoose.model("Product", productSchema);
