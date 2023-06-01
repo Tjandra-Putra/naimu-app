@@ -41,3 +41,11 @@ body {
   z-index: 1000 !important;
   height: 100%;
 }
+
+.btn-primary {
+  background-color: #3162d5 !important;
+}
+
+.text-primary {
+  color: #3162d5 !important;
+}

@@ -140,25 +140,25 @@ const AdminProducts = () => {
           </nav>
 
           <button
-            className="btn btn-dark create-product"
+            className="btn btn-primary create-product"
             type="button"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#createProductModal"
           >
             <i class="fa-solid fa-plus"></i> Add Product
           </button>
 
           <div
             class="modal fade"
-            id="exampleModal"
+            id="createProductModal"
             tabindex="-1"
-            aria-labelledby="exampleModalLabel"
+            aria-labelledby="createProductModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-dialog-centered  modal-lg">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  <h1 class="modal-title fs-5" id="createProductModalLabel">
                     Add Product
                   </h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -279,15 +279,6 @@ const AdminProducts = () => {
                               <option value={data.avatarUrl}>{data.name}</option>
                             ))}
                           </datalist>
-                          {/* 
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="brandImageUrl"
-                            placeholder="adidas.png"
-                            required
-                            {...register("brandImageUrl")}
-                          /> */}
                         </div>
                         <div className="col">
                           <label for="quantityInStock" class="form-label">
@@ -338,49 +329,65 @@ const AdminProducts = () => {
               <div className="card">
                 {productsList.length > 0 ? (
                   <React.Fragment>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Thumbnail</th>
-                          <th scope="col">Title</th>
-                          <th scope="col">Brand</th>
-                          <th scope="col">Category</th>
-                          <th scope="col">Stock</th>
-                          <th scope="col">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {productsList
-                          ? currentProducts.map((product, index) => (
-                              <tr key={index}>
-                                <td>
-                                  <img src={product.imageUrl[0].url} alt={product.title} className="product-image" />
-                                </td>
-                                <td>
-                                  <div className="product-title">{product.title}</div>
-                                </td>
-                                <td>
-                                  <div className="product-brand">{product.shop.name}</div>
-                                </td>
-                                <td>
-                                  <div className="product-category">{product.category}</div>
-                                </td>
-                                <td>
-                                  <div className="product-stock">{product.quantityInStock}</div>
-                                </td>
-                                <td>
-                                  <Link
-                                    to={`/admin/products/${product._id}`}
-                                    className="text-decoration-none text-dark"
-                                  >
-                                    <i class="fas fa-arrow-right fa-lg"></i>
-                                  </Link>
-                                </td>
-                              </tr>
-                            ))
-                          : null}
-                      </tbody>
-                    </table>
+                    <div className="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Brand</th>
+                            <th scope="col">Category</th>
+                            {/* <th scope="col">Stock</th> */}
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {productsList
+                            ? currentProducts.map((product, index) => (
+                                <tr key={index}>
+                                  <td>
+                                    <img src={product.imageUrl[0].url} alt={product.title} className="product-image" />
+                                  </td>
+                                  <td>
+                                    <div className="product-status product-status-published">
+                                      <div>
+                                        <i
+                                          class="fa-solid fa-circle me-2"
+                                          style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                        ></i>
+                                      </div>
+                                      <div className="status">Published</div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div className="product-title">{product.title}</div>
+                                  </td>
+                                  <td>
+                                    <div className="product-brand">{product.shop.name}</div>
+                                  </td>
+                                  <td>
+                                    <div className="product-category">{product.category}</div>
+                                  </td>
+                                  {/* <td>
+                                    <div className="product-stock">{product.quantityInStock}</div>
+                                  </td> */}
+                                  <td>
+                                    <div className="action-buttons d-flex flex-row">
+                                      <div className="pe-3">
+                                        <i class="fa-regular fa-pen-to-square action-button text-primary"></i>
+                                      </div>
+                                      <div className="pe-3">
+                                        <i class="fa-regular fa-trash-can action-button text-danger"></i>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))
+                            : null}
+                        </tbody>
+                      </table>
+                    </div>
 
                     <nav aria-label="Page navigation example">
                       <ul className="pagination justify-content-center mt-1">

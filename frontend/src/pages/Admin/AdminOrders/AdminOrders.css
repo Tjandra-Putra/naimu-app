@@ -66,7 +66,8 @@
 }
 
 .admin-orders-wrapper .status-badge {
-  border-radius: 15px;
+  /* border-radius: 15px; */
+  border-radius: 5px;
   min-width: 8rem;
   height: 1.8rem;
   display: flex;
