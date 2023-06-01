@@ -170,6 +170,27 @@ router.get(
 );
 
 // =============================== delete product ===============================
+router.delete(
+  "/delete-product/:id",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const product = await Product.findById(req.params.id);
 
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      await Product.deleteOne({ _id: product._id });
+
+      res.status(200).json({
+        success: true,
+        message: "Product deleted successfully",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
 
 module.exports = router;

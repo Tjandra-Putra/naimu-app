@@ -4,6 +4,7 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 import "./AdminProducts.css";
 import { server } from "../../../server";
@@ -60,6 +61,46 @@ const AdminProducts = () => {
     }
   };
 
+  const onDeleteProduct = async (productId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d23457",
+      cancelButtonColor: "#7a6b78",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // api call delete product
+        try {
+          const { data: response } = await axios.delete(`${server}/product/delete-product/${productId}`, {
+            withCredentials: true,
+          });
+          // Remove the deleted product from the productsList state
+          setProductsList((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+          // notifySuccess(response.message);
+          Swal.fire("Deleted", response.message, "success");
+        } catch (error) {
+          Swal.fire("Error", error.response.data.message, "error");
+          // notifyError(error.response.data.message);
+        }
+      }
+    });
+
+    // // api call delete product
+    // try {
+    //   const { data: response } = await axios.delete(`${server}/product/delete-product/${productId}`, {
+    //     withCredentials: true,
+    //   });
+    //   // Remove the deleted product from the productsList state
+    //   setProductsList((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+    //   notifySuccess(response.message);
+    // } catch (error) {
+    //   notifyError(error.response.data.message);
+    // }
+  };
+
   // pagination change page
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -109,8 +150,6 @@ const AdminProducts = () => {
         ).map((item) => JSON.parse(item));
 
         setUniqueBrandImageUrl(uniqueBrandData);
-        console.log("=====");
-        console.log(uniqueBrandData);
 
         setIsLoading(false);
       } catch (error) {
@@ -378,7 +417,10 @@ const AdminProducts = () => {
                                         <i class="fa-regular fa-pen-to-square action-button text-primary"></i>
                                       </div>
                                       <div className="pe-3">
-                                        <i class="fa-regular fa-trash-can action-button text-danger"></i>
+                                        <i
+                                          class="fa-regular fa-trash-can action-button text-danger"
+                                          onClick={() => onDeleteProduct(product._id)}
+                                        ></i>
                                       </div>
                                     </div>
                                   </td>
