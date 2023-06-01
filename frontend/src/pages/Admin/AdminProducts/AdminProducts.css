@@ -50,17 +50,9 @@
 }
 
 .admin-products-wrapper .create-product {
-  margin-top: -4px;
-  color: #ffffff;
-  height: 100%;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  border-radius: 50px;
   font-weight: 500;
-  letter-spacing: 0.5px;
   text-transform: capitalize;
+  transform: translateY(-0.55rem);
 }
 
 .admin-products-wrapper .form-label {

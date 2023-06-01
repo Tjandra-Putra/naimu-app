@@ -15,7 +15,7 @@ const AdminProducts = () => {
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const [isLoading, setIsLoading] = useState(false);
   const [productsList, setProductsList] = useState([]);
@@ -52,13 +52,11 @@ const AdminProducts = () => {
         { withCredentials: true }
       );
 
-      notifySuccess("Product created successfully");
-      console.log(response);
+      notifySuccess(response.message);
 
-      // refresh page
-      window.location.reload();
+      reset();
     } catch (error) {
-      console.log(error.response.data.message);
+      notifyError(error.response.data.message);
     }
   };
 
@@ -142,7 +140,7 @@ const AdminProducts = () => {
           </nav>
 
           <button
-            className="btn btn-dark rounded-5 create-product"
+            className="btn btn-dark create-product"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
