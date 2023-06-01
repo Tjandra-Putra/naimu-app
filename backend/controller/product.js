@@ -193,4 +193,61 @@ router.delete(
   })
 );
 
+// =============================== update product ===============================
+router.put(
+  "/update-product/:id",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const {
+        title,
+        brand,
+        category,
+        productImagesUrl,
+        price,
+        discountedPrice,
+        brandImageUrl,
+        quantityInStock,
+        description,
+      } = req.body;
+
+      const product = await Product.findById(req.params.id);
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      // get comma separated productImagesUrl and store into array of objects
+      // const productImagesSplit = productImagesUrl.split(",");
+      // const productImagesArray = [];
+
+      // productImagesSplit.forEach((image) => {
+      //   productImagesArray.push({
+      //     url: image,
+      //   });
+      // });
+
+      product.title = title;
+      product.shop.name = brand;
+      product.category = category;
+      // product.imageUrl = productImagesArray;
+      product.price = price;
+      product.discountPrice = discountedPrice;
+      product.shop.avatar.url = brandImageUrl;
+      product.quantityInStock = quantityInStock;
+      product.description = description;
+
+      await product.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Product updated successfully",
+        product,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 module.exports = router;

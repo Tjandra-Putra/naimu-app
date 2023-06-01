@@ -16,8 +16,12 @@ const AdminProducts = () => {
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
 
-  const { register, handleSubmit, reset } = useForm();
+  // form state for create product
+  // const { register, handleSubmit, reset } = useForm();
+  const createProductForm = useForm();
+  const editProductForm = useForm();
 
+  // other states
   const [isLoading, setIsLoading] = useState(false);
   const [productsList, setProductsList] = useState([]);
   const [uniqueBrandImageUrl, setUniqueBrandImageUrl] = useState([]);
@@ -32,7 +36,6 @@ const AdminProducts = () => {
   const currentProducts = productsList.slice(indexOfFirstOrder, indexOfLastOrder);
 
   const onCreateProduct = async (data) => {
-    console.log(data);
     // api call create product
     if (data.discountedPrice > data.price) return notifyError("Discounted price cannot be greater than price");
 
@@ -53,9 +56,74 @@ const AdminProducts = () => {
         { withCredentials: true }
       );
 
+      // show updated add product in the state
+      setProductsList((prevProducts) => [...prevProducts, response.product]);
+
       notifySuccess(response.message);
 
-      reset();
+      createProductForm.reset();
+    } catch (error) {
+      notifyError(error.response.data.message);
+    }
+  };
+
+  // Edit Form Logic
+  const onEditProduct = async (data, productId) => {
+    const title = data[`title-${productId}`];
+    const brand = data[`brand-${productId}`];
+    const category = data[`category-${productId}`];
+    const productImageUrl = data[`imageUrl-${productId}`];
+    const price = parseFloat(data[`price-${productId}`]);
+    const discountedPrice = parseFloat(data[`discountedPrice-${productId}`]);
+    const brandImageUrl = data[`brandImageUrl-${productId}`];
+    const quantityInStock = data[`quantityInStock-${productId}`];
+    const description = data[`description-${productId}`];
+
+    // e.preventDefault();
+    // const formData = new FormData(e.target);
+    // const _id = formData.get("_id");
+    // const title = formData.get("title");
+    // const brand = formData.get("brand");
+    // const category = formData.get("category");
+    // const productImageUrl = formData.get("imageUrl");
+    // const price = parseFloat(formData.get("price"));
+    // const discountedPrice = parseFloat(formData.get("discountedPrice"));
+    // const brandImageUrl = formData.get("brandImageUrl");
+    // const quantityInStock = formData.get("quantityInStock");
+    // const description = formData.get("description");
+
+    // api call edit product
+    if (discountedPrice > price) {
+      notifyError("Discounted price cannot be greater than price");
+      return;
+    }
+    try {
+      const { data: response } = await axios.put(
+        `${server}/product/update-product/${productId}`,
+        {
+          title,
+          brand,
+          category,
+          productImageUrl,
+          price,
+          discountedPrice: discountedPrice === 0 ? price : discountedPrice,
+          brandImageUrl,
+          quantityInStock,
+          description,
+        },
+        { withCredentials: true }
+      );
+      // show updated add product in the state
+      setProductsList((prevProducts) =>
+        prevProducts.map((product) => {
+          if (product._id === productId) {
+            return response.product;
+          } else {
+            return product;
+          }
+        })
+      );
+      notifySuccess(response.message);
     } catch (error) {
       notifyError(error.response.data.message);
     }
@@ -87,18 +155,6 @@ const AdminProducts = () => {
         }
       }
     });
-
-    // // api call delete product
-    // try {
-    //   const { data: response } = await axios.delete(`${server}/product/delete-product/${productId}`, {
-    //     withCredentials: true,
-    //   });
-    //   // Remove the deleted product from the productsList state
-    //   setProductsList((prevProducts) => prevProducts.filter((product) => product._id !== productId));
-    //   notifySuccess(response.message);
-    // } catch (error) {
-    //   notifyError(error.response.data.message);
-    // }
   };
 
   // pagination change page
@@ -203,7 +259,7 @@ const AdminProducts = () => {
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form onSubmit={handleSubmit(onCreateProduct)}>
+                  <form onSubmit={createProductForm.handleSubmit(onCreateProduct)}>
                     <div class="mb-3">
                       <div className="row">
                         <div className="col">
@@ -216,7 +272,7 @@ const AdminProducts = () => {
                             id="title"
                             placeholder="name"
                             required
-                            {...register("title")}
+                            {...createProductForm.register("title")}
                           />
                         </div>
                         <div className="col">
@@ -229,7 +285,7 @@ const AdminProducts = () => {
                             id="brand"
                             placeholder="shop name"
                             required
-                            {...register("brand")}
+                            {...createProductForm.register("brand")}
                           />
                         </div>
                       </div>
@@ -247,21 +303,26 @@ const AdminProducts = () => {
                             id="category"
                             placeholder="type"
                             required
-                            {...register("category")}
+                            {...createProductForm.register("category")}
                           />
                         </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <div className="row">
                         <div className="col">
                           <label for="imageUrl" class="form-label">
                             Product Image Url (comma separated)
                           </label>
-                          <input
-                            type="url"
+                          <textarea
                             class="form-control"
                             id="imageUrl"
-                            placeholder="[pants.png, shirt.png]"
+                            rows="5"
+                            placeholder="pants.png, shirt.png"
                             required
-                            {...register("productImagesUrl")}
-                          />
+                            {...createProductForm.register("productImagesUrl")}
+                          ></textarea>
                         </div>
                       </div>
                     </div>
@@ -278,7 +339,7 @@ const AdminProducts = () => {
                             id="price"
                             placeholder="$"
                             required
-                            {...register("price")}
+                            {...createProductForm.register("price")}
                           />
                         </div>
                         <div className="col">
@@ -290,7 +351,8 @@ const AdminProducts = () => {
                             class="form-control"
                             id="discountedPrice"
                             placeholder="Same as price if no discount"
-                            {...register("discountedPrice")}
+                            required
+                            {...createProductForm.register("discountedPrice")}
                           />
                         </div>
                       </div>
@@ -310,7 +372,7 @@ const AdminProducts = () => {
                             id="brandImageUrl"
                             placeholder="https://adidas.png"
                             required
-                            {...register("brandImageUrl")}
+                            {...createProductForm.register("brandImageUrl")}
                           />
                           <datalist id="brands">
                             {uniqueBrandImageUrl.map((data) => (
@@ -324,12 +386,12 @@ const AdminProducts = () => {
                             Quantity In Stock
                           </label>
                           <input
-                            type="text"
+                            type="number"
                             class="form-control"
                             id="quantityInStock"
                             placeholder="0"
                             required
-                            {...register("quantityInStock")}
+                            {...createProductForm.register("quantityInStock")}
                           />
                         </div>
                       </div>
@@ -342,10 +404,10 @@ const AdminProducts = () => {
                       <textarea
                         class="form-control"
                         id="description"
-                        rows="3"
+                        rows="5"
                         placeholder="about"
                         required
-                        {...register("description")}
+                        {...createProductForm.register("description")}
                       ></textarea>
                     </div>
 
@@ -383,49 +445,258 @@ const AdminProducts = () => {
                         </thead>
                         <tbody>
                           {productsList
-                            ? currentProducts.map((product, index) => (
-                                <tr key={index}>
-                                  <td>
-                                    <img src={product.imageUrl[0].url} alt={product.title} className="product-image" />
-                                  </td>
-                                  <td>
-                                    <div className="product-status product-status-published">
-                                      <div>
-                                        <i
-                                          class="fa-solid fa-circle me-2"
-                                          style={{ fontSize: "7px", paddingBottom: "10px" }}
-                                        ></i>
+                            ? currentProducts.map((product, index) => {
+                                return (
+                                  <tr key={index}>
+                                    <td>
+                                      <img
+                                        src={product.imageUrl[0].url}
+                                        alt={product.title}
+                                        className="product-image"
+                                      />
+                                    </td>
+                                    <td>
+                                      <div className="product-status product-status-published">
+                                        <div>
+                                          <i
+                                            class="fa-solid fa-circle me-2"
+                                            style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                          ></i>
+                                        </div>
+                                        <div className="status">Published</div>
                                       </div>
-                                      <div className="status">Published</div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div className="product-title">{product.title}</div>
-                                  </td>
-                                  <td>
-                                    <div className="product-brand">{product.shop.name}</div>
-                                  </td>
-                                  <td>
-                                    <div className="product-category">{product.category}</div>
-                                  </td>
-                                  {/* <td>
+                                    </td>
+                                    <td>
+                                      <div className="product-title">{product.title}</div>
+                                    </td>
+                                    <td>
+                                      <div className="product-brand">{product.shop.name}</div>
+                                    </td>
+                                    <td>
+                                      <div className="product-category">{product.category}</div>
+                                    </td>
+                                    {/* <td>
                                     <div className="product-stock">{product.quantityInStock}</div>
                                   </td> */}
-                                  <td>
-                                    <div className="action-buttons d-flex flex-row">
-                                      <div className="pe-3">
-                                        <i class="fa-regular fa-pen-to-square action-button text-primary"></i>
+                                    <td>
+                                      <div className="action-buttons d-flex flex-row">
+                                        <div className="pe-3">
+                                          <i
+                                            class="fa-regular fa-pen-to-square action-button text-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target={`#editProductModal${product._id}`}
+                                          ></i>
+
+                                          <div
+                                            class="modal fade text-start"
+                                            id={`editProductModal${product._id}`}
+                                            tabindex="-1"
+                                            aria-labelledby={`editProductModalLabel${product._id}`}
+                                            aria-hidden="true"
+                                          >
+                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h1
+                                                    class="modal-title fs-5"
+                                                    id={`editProductModalLabel${product._id}`}
+                                                  >
+                                                    Edit Product
+                                                  </h1>
+                                                  <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                  ></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <form
+                                                    key={product._id}
+                                                    onSubmit={editProductForm.handleSubmit((data) =>
+                                                      onEditProduct(data, product._id)
+                                                    )}
+                                                  >
+                                                    <input
+                                                      type="hidden"
+                                                      {...editProductForm.register(`_id-${product._id}`)}
+                                                    />
+
+                                                    <div class="mb-3">
+                                                      <div className="row">
+                                                        <div className="col">
+                                                          <label for="title" class="form-label">
+                                                            Title
+                                                          </label>
+                                                          <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            {...editProductForm.register(`title-${product._id}`, {
+                                                              value: product.title,
+                                                            })}
+                                                          />
+                                                        </div>
+                                                        <div className="col">
+                                                          <label for="brand" class="form-label">
+                                                            Brand
+                                                          </label>
+                                                          <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            {...editProductForm.register(`brand-${product._id}`, {
+                                                              value: product.shop.name,
+                                                            })}
+                                                          />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                      <div className="row">
+                                                        <div className="col">
+                                                          <label for="category" class="form-label">
+                                                            Category
+                                                          </label>
+                                                          <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            {...editProductForm.register(`category-${product._id}`, {
+                                                              value: product.category,
+                                                            })}
+                                                          />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                      <div className="row">
+                                                        <div className="col">
+                                                          <label for="imageUrl" class="form-label">
+                                                            Product Image Url (comma separated)
+                                                          </label>
+                                                          <textarea
+                                                            class="form-control"
+                                                            id="imageUrl"
+                                                            rows="5"
+                                                            {...editProductForm.register(`imageUrl-${product._id}`, {
+                                                              value: product.imageUrl
+                                                                .map((image) => image.url)
+                                                                .join(",\n"),
+                                                            })}
+                                                            style={{ whiteSpace: "pre-line" }}
+                                                            name="imageUrl"
+                                                          ></textarea>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                      <div className="row">
+                                                        <div className="col">
+                                                          <label for="price" class="form-label">
+                                                            Price
+                                                          </label>
+                                                          <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            {...editProductForm.register(`price-${product._id}`, {
+                                                              value: product.price,
+                                                            })}
+                                                          />
+                                                        </div>
+                                                        <div className="col">
+                                                          <label for="discountedPrice" class="form-label">
+                                                            Discounted Price
+                                                          </label>
+                                                          <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            {...editProductForm.register(
+                                                              `discountedPrice-${product._id}`,
+                                                              {
+                                                                value: product.discountPrice,
+                                                              }
+                                                            )}
+                                                          />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                      <div className="row">
+                                                        <div className="col">
+                                                          <label for="brandImageUrl" class="form-label">
+                                                            Brand Image Url
+                                                          </label>
+
+                                                          <input
+                                                            list="brands"
+                                                            class="form-control"
+                                                            {...editProductForm.register(
+                                                              `brandImageUrl-${product._id}`,
+                                                              {
+                                                                value: product.shop.avatar.url,
+                                                              }
+                                                            )}
+                                                          />
+                                                          <datalist id="brands">
+                                                            {uniqueBrandImageUrl.map((data) => (
+                                                              <option value={data.avatarUrl}>{data.name}</option>
+                                                            ))}
+                                                          </datalist>
+                                                        </div>
+                                                        <div className="col">
+                                                          <label for="quantityInStock" class="form-label">
+                                                            Quantity In Stock
+                                                          </label>
+                                                          <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            {...editProductForm.register(
+                                                              `quantityInStock-${product._id}`,
+                                                              {
+                                                                value: product.quantityInStock,
+                                                              }
+                                                            )}
+                                                          />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                      <label for="description" class="form-label">
+                                                        Description
+                                                      </label>
+                                                      <textarea
+                                                        class="form-control"
+                                                        id="description"
+                                                        rows="5"
+                                                        {...editProductForm.register(`description-${product._id}`, {
+                                                          value: product.description,
+                                                        })}
+                                                      ></textarea>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary float-end fw-semibold">
+                                                      Save Changes
+                                                    </button>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="pe-3">
+                                          <i
+                                            class="fa-regular fa-trash-can action-button text-danger"
+                                            onClick={() => onDeleteProduct(product._id)}
+                                          ></i>
+                                        </div>
                                       </div>
-                                      <div className="pe-3">
-                                        <i
-                                          class="fa-regular fa-trash-can action-button text-danger"
-                                          onClick={() => onDeleteProduct(product._id)}
-                                        ></i>
-                                      </div>
-                                    </div>
-                                  </td>
-                                </tr>
-                              ))
+                                    </td>
+                                  </tr>
+                                );
+                              })
                             : null}
                         </tbody>
                       </table>
