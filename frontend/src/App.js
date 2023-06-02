@@ -40,7 +40,7 @@ import {
 } from "./routes/Routes.js";
 
 // admin routes
-import { AdminDashboard, AdminOrders, AdminOrder, AdminProducts } from "./routes/AdminRoutes.js";
+import { AdminDashboard, AdminOrders, AdminOrder, AdminProducts, AdminPromoCode } from "./routes/AdminRoutes.js";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -185,6 +185,14 @@ const App = () => {
               element={
                 <ProtectedAdminRoute>
                   <AdminProducts />
+                </ProtectedAdminRoute>
+              }
+            />
+            <Route
+              path="/admin/promo-codes"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminPromoCode />
                 </ProtectedAdminRoute>
               }
             />

@@ -1,0 +1,112 @@
+.admin-promo-code-wrapper {
+  height: 100%;
+  min-height: calc(100vh - 70px);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+
+  background-color: var(--canvasColor);
+}
+
+.admin-promo-code-wrapper .breadcrumb-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.admin-promo-code-wrapper .breadcrumb-item:first-child {
+  text-decoration: none;
+  color: #00000084;
+}
+
+.admin-promo-code-wrapper th {
+  padding: 1rem 2rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-promo-code-wrapper td {
+  padding: 2rem;
+  text-align: center;
+}
+
+.admin-promo-code-wrapper .product-image {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.admin-promo-code-wrapper .product-title {
+  font-weight: 500;
+}
+
+.admin-promo-code-wrapper .create-product {
+  font-weight: 500;
+  text-transform: capitalize;
+  transform: translateY(-0.55rem);
+}
+
+.admin-promo-code-wrapper .form-label {
+  font-weight: 500;
+}
+
+.admin-promo-code-wrapper .form-control {
+  border: 1.5px solid #000000;
+}
+
+.admin-promo-code-wrapper .table-container .form-check-input {
+  border: 1.5px solid #000000 !important;
+  margin-bottom: 4px;
+}
+
+.admin-promo-code-wrapper .action-button {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.admin-promo-code-wrapper .product-status {
+  border-radius: 5px;
+  min-width: 7rem;
+  height: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.admin-promo-code-wrapper .product-status-published {
+  background-color: #c5f0da;
+  color: #207e51;
+}
+
+.admin-promo-code-wrapper .product-status-draft {
+  background-color: #dfe2e6;
+  color: #32373f;
+}
+
+.admin-promo-code-wrapper .table-container .product-select-cb {
+  position: relative;
+  transform: translateY(250%);
+  border: 1.5px solid #000000;
+}
+
+.admin-promo-code-wrapper .table-container table {
+  border-color: transparent;
+}
+
+.admin-promo-code-wrapper .table-container {
+  height: 400px !important;
+  overflow: auto;
+}
+
+.admin-promo-code-wrapper .product-image {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+}

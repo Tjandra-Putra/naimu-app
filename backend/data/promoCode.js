@@ -4,15 +4,13 @@ const promoCodeList = [
     code: "PROMO10",
     discount: 10,
     expiryDate: "2021-12-31",
-    shopId: "715f71fa-f010-11ed-a05b-0242ac120003",
-    selectedProduct: "645a45ca23bcc184abd13b65",
+    selectedProduct: ["6479989eb0216fff26a5811c"],
   },
   {
     code: "PROMO20",
     discount: 20,
     expiryDate: "2021-12-31",
-    shopId: "715f71fa-f010-11ed-a05b-0242ac120003",
-    selectedProduct: "645a45ca23bcc184abd13b64",
+    selectedProduct: ["6479989eb0216fff26a58121"],
   },
 ];
 

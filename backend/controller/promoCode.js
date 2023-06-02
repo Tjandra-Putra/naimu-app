@@ -6,16 +6,37 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const PromoCode = require("../model/promoCode");
 
+// =============================== get all promocodes ===============================
+router.get(
+  "/all-promo-codes",
+  isAuthenticatedUser,
+  isAdmin("admin"),
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const promoCodes = await PromoCode.find();
+
+      res.status(200).json({
+        success: true,
+        promoCodes,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  })
+);
+
 // =============================== create promo code ===============================
 router.post(
   "/create",
+  isAuthenticatedUser,
   isAdmin("admin"),
   catchAsyncError(async (req, res, next) => {
-    const { code, discount, expiryDate } = req.body;
+    const { code, discount, expiryDate, selectedProduct } = req.body;
     const newPromoCode = {
       code,
       discount,
       expiryDate,
+      selectedProduct,
     };
 
     try {
@@ -29,6 +50,7 @@ router.post(
 
       res.status(201).json({
         success: true,
+        message: "Promo code created successfully",
         promoCode,
       });
     } catch (error) {

@@ -40,10 +40,10 @@ const SideNavbar = ({ activeLink }) => {
       activeLink: "admin-products",
     },
     {
-      name: "Promocodes",
-      link: "/admin/promocodes",
+      name: "Promo Codes",
+      link: "/admin/promo-codes",
       icon: "fa-solid fa-tags icon-size",
-      activeLink: "admin-promocode",
+      activeLink: "admin-promo-codes",
     },
     // {
     //   name: "Inboxes",

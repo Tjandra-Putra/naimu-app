@@ -11,12 +11,16 @@ const promoCodeSchema = new mongoose.Schema({
     type: Number, // 10% off
     required: true,
   },
-  shopId: {
-    type: String,
+  selectedProduct: {
+    type: Array,
+  },
+  expiryDate: {
+    type: Date,
     required: true,
   },
-  selectedProduct: {
-    type: String,
+  published: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,
