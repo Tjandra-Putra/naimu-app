@@ -3,7 +3,7 @@ const Product = require("../model/product");
 const Order = require("../model/order");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const { validate } = require("../model/product");
-const { isAuthenticatedUser } = require("../middleware/auth");
+const { isAuthenticatedUser, isAdmin } = require("../middleware/auth");
 const ErrorHandler = require("../utils/errorHandler");
 const mongoose = require("mongoose");
 const router = express.Router();
@@ -173,6 +173,7 @@ router.get(
 router.delete(
   "/delete-product/:id",
   isAuthenticatedUser,
+  isAdmin("admin"),
   catchAsyncError(async (req, res, next) => {
     try {
       const product = await Product.findById(req.params.id);
@@ -197,6 +198,7 @@ router.delete(
 router.put(
   "/update-product/:id",
   isAuthenticatedUser,
+  isAdmin("admin"),
   catchAsyncError(async (req, res, next) => {
     try {
       const {
@@ -254,6 +256,7 @@ router.put(
 router.put(
   "/publish-product/:id",
   isAuthenticatedUser,
+  isAdmin("admin"),
   catchAsyncError(async (req, res, next) => {
     let message = "";
 
