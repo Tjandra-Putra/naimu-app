@@ -24,7 +24,7 @@ const AdminProducts = () => {
   // other states
   const [isLoading, setIsLoading] = useState(false);
   const [productsList, setProductsList] = useState([]);
-  const [uniqueBrandImageUrl, setUniqueBrandImageUrl] = useState([]);
+  const [uniqueBrandData, setUniqueBrandData] = useState([]); // for datalist, includes brand.avatar.url and brand.name
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +34,31 @@ const AdminProducts = () => {
   const indexOfLastOrder = currentPage * productsPerPage;
   const indexOfFirstOrder = indexOfLastOrder - productsPerPage;
   const currentProducts = productsList.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const publishProduct = async (productId) => {
+    try {
+      const { data: response } = await axios.put(
+        `${server}/product/publish-product/${productId}`,
+        {},
+        { withCredentials: true }
+      );
+
+      // show updated add product in the state
+      setProductsList((prevProducts) =>
+        prevProducts.map((product) => {
+          if (product._id === productId) {
+            return response.product;
+          } else {
+            return product;
+          }
+        })
+      );
+
+      notifySuccess(response.message);
+    } catch (error) {
+      notifyError(error.response.data.message);
+    }
+  };
 
   const onCreateProduct = async (data) => {
     // api call create product
@@ -78,19 +103,6 @@ const AdminProducts = () => {
     const brandImageUrl = data[`brandImageUrl-${productId}`];
     const quantityInStock = data[`quantityInStock-${productId}`];
     const description = data[`description-${productId}`];
-
-    // e.preventDefault();
-    // const formData = new FormData(e.target);
-    // const _id = formData.get("_id");
-    // const title = formData.get("title");
-    // const brand = formData.get("brand");
-    // const category = formData.get("category");
-    // const productImageUrl = formData.get("imageUrl");
-    // const price = parseFloat(formData.get("price"));
-    // const discountedPrice = parseFloat(formData.get("discountedPrice"));
-    // const brandImageUrl = formData.get("brandImageUrl");
-    // const quantityInStock = formData.get("quantityInStock");
-    // const description = formData.get("description");
 
     // api call edit product
     if (discountedPrice > price) {
@@ -177,7 +189,7 @@ const AdminProducts = () => {
         const { data } = await axios.get(`${server}/product/all-products`, { withCredentials: true });
         setProductsList(data.products);
 
-        // get unique shop.avatar.url and shop.name and set state uniqueBrandImageUrl
+        // get unique shop.avatar.url and shop.name and set state uniqueBrandData
         // const uniqueBrandData = data.products.reduce((acc, product) => {
         //   const existingIndex = acc.findIndex(
         //     (item) => item.avatarUrl === product.shop.avatar.url && item.name === product.shop.name
@@ -205,7 +217,7 @@ const AdminProducts = () => {
           )
         ).map((item) => JSON.parse(item));
 
-        setUniqueBrandImageUrl(uniqueBrandData);
+        setUniqueBrandData(uniqueBrandData);
 
         setIsLoading(false);
       } catch (error) {
@@ -279,14 +291,30 @@ const AdminProducts = () => {
                           <label for="brand" class="form-label">
                             Brand
                           </label>
-                          <input
+                          {/* <input
                             type="text"
                             class="form-control"
                             id="brand"
                             placeholder="shop name"
                             required
                             {...createProductForm.register("brand")}
+                          /> */}
+
+                          <input
+                            list="brandsCreate"
+                            name="brandsCreate"
+                            class="form-control"
+                            id="brandsCreate"
+                            placeholder="shop name"
+                            required
+                            {...createProductForm.register("brand")}
                           />
+                          <datalist id="brandsCreate">
+                            {uniqueBrandData.map((data) => (
+                              // <option value={url} />
+                              <option value={data.name}>{data.name}</option>
+                            ))}
+                          </datalist>
                         </div>
                       </div>
                     </div>
@@ -375,7 +403,7 @@ const AdminProducts = () => {
                             {...createProductForm.register("brandImageUrl")}
                           />
                           <datalist id="brands">
-                            {uniqueBrandImageUrl.map((data) => (
+                            {uniqueBrandData.map((data) => (
                               // <option value={url} />
                               <option value={data.avatarUrl}>{data.name}</option>
                             ))}
@@ -456,15 +484,27 @@ const AdminProducts = () => {
                                       />
                                     </td>
                                     <td>
-                                      <div className="product-status product-status-published">
-                                        <div>
-                                          <i
-                                            class="fa-solid fa-circle me-2"
-                                            style={{ fontSize: "7px", paddingBottom: "10px" }}
-                                          ></i>
+                                      {product.published ? (
+                                        <div className="product-status product-status-published">
+                                          <div>
+                                            <i
+                                              class="fa-solid fa-circle me-2"
+                                              style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                            ></i>
+                                          </div>
+                                          <div className="status">Published</div>
                                         </div>
-                                        <div className="status">Published</div>
-                                      </div>
+                                      ) : (
+                                        <div className="product-status product-status-draft">
+                                          <div>
+                                            <i
+                                              class="fa-solid fa-circle me-2"
+                                              style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                            ></i>
+                                          </div>
+                                          <div className="status">Draft</div>
+                                        </div>
+                                      )}
                                     </td>
                                     <td>
                                       <div className="product-title">{product.title}</div>
@@ -640,7 +680,7 @@ const AdminProducts = () => {
                                                             )}
                                                           />
                                                           <datalist id="brands">
-                                                            {uniqueBrandImageUrl.map((data) => (
+                                                            {uniqueBrandData.map((data) => (
                                                               <option value={data.avatarUrl}>{data.name}</option>
                                                             ))}
                                                           </datalist>
@@ -691,6 +731,19 @@ const AdminProducts = () => {
                                             class="fa-regular fa-trash-can action-button text-danger"
                                             onClick={() => onDeleteProduct(product._id)}
                                           ></i>
+                                        </div>
+                                        <div className="pe-3">
+                                          {product.published ? (
+                                            <i
+                                              class="fa-regular fa-eye fa-lg action-button"
+                                              onClick={() => publishProduct(product._id)}
+                                            ></i>
+                                          ) : (
+                                            <i
+                                              class="fa-regular fa-eye-slash action-button"
+                                              onClick={() => publishProduct(product._id)}
+                                            ></i>
+                                          )}
                                         </div>
                                       </div>
                                     </td>

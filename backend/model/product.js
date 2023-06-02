@@ -65,6 +65,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  published: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 Product = mongoose.model("Product", productSchema);

@@ -155,7 +155,9 @@ const Products = () => {
 
       const { data } = await axios.get(`${server}/product/all-products`);
 
-      setProductList(data.products);
+      const filteredProducts = data.products.filter((item) => item.published); // Filter out products with item.published === false
+
+      setProductList(filteredProducts);
 
       setIsLoading(false);
     };

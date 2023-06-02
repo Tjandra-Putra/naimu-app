@@ -250,4 +250,41 @@ router.put(
   })
 );
 
+// =============================== make product published toggle ===============================
+router.put(
+  "/publish-product/:id",
+  isAuthenticatedUser,
+  catchAsyncError(async (req, res, next) => {
+    let message = "";
+
+    try {
+      const product = await Product.findById(req.params.id);
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      product.published = !product.published;
+
+      if (product.published) {
+        message = "Product published successfully";
+      }
+
+      if (!product.published) {
+        message = "Product unpublished successfully";
+      }
+
+      await product.save();
+
+      res.status(200).json({
+        success: true,
+        message: message,
+        product,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 module.exports = router;
