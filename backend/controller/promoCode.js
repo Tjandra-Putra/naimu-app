@@ -111,4 +111,47 @@ router.delete(
   })
 );
 
+// =============================== update promocode ===============================
+router.put(
+  "/:id",
+  isAuthenticatedUser,
+  isAdmin("admin"),
+  catchAsyncError(async (req, res, next) => {
+    const { code, discount, expiryDate, selectedProduct } = req.body;
+
+    // add productId property to selectedProduct array items
+    const processedSelectedProduct = selectedProduct.map((obj) => {
+      return { productId: obj.productId };
+    });
+
+    const newPromoCode = {
+      code,
+      discount,
+      expiryDate,
+      selectedProduct: processedSelectedProduct,
+    };
+
+    try {
+      const promoCode = await PromoCode.findById(req.params.id);
+
+      if (!promoCode) {
+        return next(new ErrorHandler("Promo code not found", 404));
+      }
+
+      await PromoCode.updateOne({ _id: promoCode._id }, newPromoCode);
+
+      // Retrieve the updated promo code after the update operation
+      const updatedPromoCode = await PromoCode.findById(req.params.id);
+
+      res.status(200).json({
+        success: true,
+        message: "Promo code updated successfully",
+        promoCode: updatedPromoCode,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  })
+);
+
 module.exports = router;

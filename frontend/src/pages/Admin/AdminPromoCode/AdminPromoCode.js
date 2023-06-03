@@ -25,8 +25,14 @@ const AdminPromoCode = () => {
   const [promoCodeList, setPromoCodeList] = useState([]);
   const [productsList, setProductsList] = useState([]);
   const [originalProductsList, setOriginalProductsList] = useState([]); // used for search products
+
+  // checkbox states for add promo code
   const [selectAllChecked, setSelectAllChecked] = useState(false); // select all checkbox
   const [selectedProductsCheckbox, setSelectedProductsCheckbox] = useState([]);
+
+  // checkbox states for edit promo code
+  const [selectAllCheckedEdit, setSelectAllCheckedEdit] = useState(false); // select all checkbox
+  const [selectedProductsCheckboxEdit, setSelectedProductsCheckboxEdit] = useState([]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +67,8 @@ const AdminPromoCode = () => {
     }
   };
 
-  // Function to handle the "Select All" checkbox
+  // ======================================  Add Promo Code ======================================
+  // Function to handle the "Select All" checkbox for add promo code
   const handleSelectAll = (e) => {
     const checked = e.target.checked;
     setSelectAllChecked(checked);
@@ -76,7 +83,7 @@ const AdminPromoCode = () => {
     }
   };
 
-  // Function to handle individual product checkboxes
+  // Function to handle individual product checkboxes for add promo code
   const handleSelectedProduct = (e) => {
     const productId = e.target.value;
     const checked = e.target.checked;
@@ -88,6 +95,48 @@ const AdminPromoCode = () => {
       // Remove the product ID from the selectedProductsCheckbox array
       setSelectedProductsCheckbox(selectedProductsCheckbox.filter((id) => id !== productId));
     }
+  };
+
+  // ======================================  Edit Promo Code ======================================
+  const handleSelectAllEdit = (e) => {
+    const checked = e.target.checked;
+    setSelectAllCheckedEdit(checked);
+
+    if (checked) {
+      // Add all product IDs to the selectedProductsCheckbox array
+      const allProductIds = productsList.map((product) => product._id);
+      setSelectedProductsCheckboxEdit(allProductIds);
+    } else {
+      // Clear the selectedProductsCheckbox array
+      setSelectedProductsCheckboxEdit([]);
+    }
+  };
+
+  // Function to handle individual product checkboxes for edit promo code
+  const handleSelectedProductEdit = (e, promoCodeId) => {
+    const productId = e.target.value;
+    const checked = e.target.checked;
+
+    // selectedProductsCheckboxEdit contains [{productId: "6479989eb0216fff26a5811c"}] format
+
+    // Create a copy of the selectedProductsCheckboxEdit array
+    const updatedSelectedProductsCheckbox = [...selectedProductsCheckboxEdit];
+
+    if (checked) {
+      // Add the product ID object to the updatedSelectedProductsCheckbox array if it doesn't already exist
+      if (!updatedSelectedProductsCheckbox.some((obj) => obj.productId === productId)) {
+        updatedSelectedProductsCheckbox.push({ productId });
+      }
+    } else {
+      // Remove the product ID object from the updatedSelectedProductsCheckbox array
+      const index = updatedSelectedProductsCheckbox.findIndex((obj) => obj.productId === productId);
+      if (index > -1) {
+        updatedSelectedProductsCheckbox.splice(index, 1);
+      }
+    }
+
+    // Update the selectedProductsCheckboxEdit state with the updated array
+    setSelectedProductsCheckboxEdit(updatedSelectedProductsCheckbox);
   };
 
   // delete promo code
@@ -139,10 +188,6 @@ const AdminPromoCode = () => {
     const selectedProduct = selectedProductsCheckbox;
 
     try {
-      setIsLoading(true);
-
-      console.log("selectedProduct", selectedProduct);
-
       const { data: response } = await axios.post(
         `${server}/promo-code/create`,
         { code, discount, expiryDate, selectedProduct },
@@ -159,76 +204,63 @@ const AdminPromoCode = () => {
       setSelectedProductsCheckbox([]);
 
       notifySuccess(response.message);
-
-      setIsLoading(false);
     } catch (error) {
       notifyError(error.response.data.message);
-      setIsLoading(false);
     }
   };
 
-  const onEditPromoCode = async (data) => {
+  const onEditPromoCode = async (data, promoCodeId) => {
+    const code = data[`promoCode-${promoCodeId}`];
+    const discount = data[`discount-${promoCodeId}`];
+    const expiryDate = data[`expiryDateTime-${promoCodeId}`];
+    const selectedProduct = selectedProductsCheckboxEdit;
+
     // minimum one product selected
-    if (selectedProductsCheckbox.length === 0) {
+    if (selectedProductsCheckboxEdit.length === 0) {
       notifyError("Please select at least one product");
       return;
     }
 
-    // no empty fields
-    if (data.promoCode === "" || data.discount === "" || data.expiryDateTime === "") {
+    // // no empty fields
+    if (code === "" || discount === "" || expiryDate === "") {
       notifyError("Please fill in all the fields");
       return;
     }
 
-    // check discount cannot be negative, more than 100% or contain special characters
-    if (data.discount < 0 || data.discount > 100 || !/^[0-9]+$/.test(data.discount)) {
+    // // check discount cannot be negative, more than 100% or contain special characters
+    if (discount < 0 || discount > 100 || !/^[0-9]+$/.test(discount)) {
       notifyError("Invalid discount");
       return;
     }
 
-    // check expiry date cannot be in the past
-    if (new Date(data.expiryDateTime) < new Date()) {
+    // // check expiry date cannot be in the past
+    if (new Date(expiryDate) < new Date()) {
       notifyError("Invalid expiry date");
       return;
     }
 
-    const code = data.promoCode;
-    const discount = data.discount;
-    const expiryDate = data.expiryDateTime;
-    const selectedProduct = selectedProductsCheckbox;
-
+    // main logic
     try {
-      setIsLoading(true);
-
       const { data: response } = await axios.put(
-        `${server}/promo-code/${promoCodeList[0]._id}`,
+        `${server}/promo-code/${promoCodeId}`,
         { code, discount, expiryDate, selectedProduct },
         { withCredentials: true }
       );
 
-      // update the promo code list
+      // update promoCodeList state
       const updatedPromoCodeList = promoCodeList.map((promoCode) => {
-        if (promoCode._id === response.promoCode._id) {
+        if (promoCode._id === promoCodeId) {
           return response.promoCode;
+        } else {
+          return promoCode;
         }
-        return promoCode;
       });
 
       setPromoCodeList(updatedPromoCodeList);
 
-      // clear the form
-      editPromoCodeForm.reset();
-
-      // unchecked all checkboxes
-      setSelectAllChecked(false);
-      setSelectedProductsCheckbox([]);
-
       notifySuccess(response.message);
-
-      setIsLoading(false);
     } catch (error) {
       notifyError(error.response.data.message);
-      setIsLoading(false);
     }
   };
 
@@ -295,7 +327,7 @@ const AdminPromoCode = () => {
           <div
             className="modal fade modal-lg"
             id={`createPromoCodeModal`}
-            tabindex="-1"
+            tabIndex={-1}
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
@@ -404,7 +436,6 @@ const AdminPromoCode = () => {
                               <th scope="col">Price</th>
                             </tr>
                           </thead>
-                          selected products:
                           <tbody>
                             {productsList
                               ? productsList?.map((product) => (
@@ -509,12 +540,15 @@ const AdminPromoCode = () => {
                                       className="fa-regular fa-pen-to-square action-button text-primary"
                                       data-bs-toggle="modal"
                                       data-bs-target={`#editPromoCodeModal${promoCode._id}`}
+                                      onClick={() => {
+                                        setSelectedProductsCheckboxEdit(promoCode.selectedProduct);
+                                      }}
                                     ></i>
 
                                     <div
                                       className="modal fade modal-lg"
                                       id={`editPromoCodeModal${promoCode._id}`}
-                                      tabindex="-1"
+                                      tabIndex={-1}
                                       aria-labelledby="exampleModalLabel"
                                       aria-hidden="true"
                                     >
@@ -526,7 +560,11 @@ const AdminPromoCode = () => {
                                             </h1>
                                           </div>
                                           <div className="modal-body">
-                                            <form onSubmit={editPromoCodeForm.handleSubmit(onEditPromoCode)}>
+                                            <form
+                                              onSubmit={editPromoCodeForm.handleSubmit((data) =>
+                                                onEditPromoCode(data, promoCode._id)
+                                              )}
+                                            >
                                               <input
                                                 type="hidden"
                                                 {...editPromoCodeForm.register(`_id-${promoCode._id}`)}
@@ -601,8 +639,7 @@ const AdminPromoCode = () => {
                                                   </label>
 
                                                   <div className="selected-products-count text-primary">
-                                                    {selectedProductsCheckbox.length > 0 &&
-                                                      `${selectedProductsCheckbox.length} product(s) selected`}
+                                                    {`${selectedProductsCheckboxEdit.length} product(s) selected`}
                                                   </div>
                                                 </div>
 
@@ -617,25 +654,19 @@ const AdminPromoCode = () => {
                                                 </div>
 
                                                 <div className="table-container">
-                                                  <ul>
-                                                    {promoCode.selectedProduct.map((product) => (
-                                                      <li>{product._id}</li>
-                                                    ))}
-                                                  </ul>
-
                                                   <table className="table ">
                                                     <thead>
                                                       <tr>
                                                         <th scope="col">
                                                           <div className="d-flex flex-row align-items-center">
                                                             {/* This checkbox checks all the products */}
-                                                            <input
+                                                            {/* <input
                                                               type="checkbox"
                                                               name={`cb-product-all-${promoCode._id}`}
                                                               className="form-check-input"
-                                                              checked={selectAllChecked}
-                                                              onChange={handleSelectAll}
-                                                            />
+                                                              checked={selectAllCheckedEdit}
+                                                              onChange={handleSelectAllEdit}
+                                                            /> */}
                                                           </div>
                                                         </th>
                                                         <th scope="col">Product</th>
@@ -653,11 +684,13 @@ const AdminPromoCode = () => {
                                                                   type="checkbox"
                                                                   name={`cb-product-${promoCode._id}`}
                                                                   className="product-select-cb form-check-input"
-                                                                  checked={selectedProductsCheckbox.includes(
-                                                                    product._id
-                                                                  )}
                                                                   value={product._id}
-                                                                  onChange={handleSelectedProduct}
+                                                                  onChange={(e) =>
+                                                                    handleSelectedProductEdit(e, promoCode._id)
+                                                                  }
+                                                                  checked={selectedProductsCheckboxEdit.some(
+                                                                    (obj) => obj.productId === product._id
+                                                                  )}
                                                                 />
                                                               </th>
                                                               <td>
