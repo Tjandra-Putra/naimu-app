@@ -18,8 +18,8 @@ const Login = () => {
     if (isAuthenticated) navigate("/");
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@example.com");
+  const [password, setPassword] = useState("password");
   const [visible, setVisible] = useState(false);
 
   // toast component
@@ -108,8 +108,8 @@ const Login = () => {
                     <input
                       className="form-check-input acknowledgement-checkbox"
                       type="checkbox"
-                      value=""
                       name="remember-me"
+                      checked={true}
                     />
                     <label className="form-check-label" for="flexCheckDefault">
                       Remember me
