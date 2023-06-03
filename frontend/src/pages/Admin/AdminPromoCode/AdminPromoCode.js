@@ -98,26 +98,31 @@ const AdminPromoCode = () => {
   };
 
   // ======================================  Edit Promo Code ======================================
+
+  // This checkbox checks all the products still fixing :C
+
   const handleSelectAllEdit = (e) => {
     const checked = e.target.checked;
     setSelectAllCheckedEdit(checked);
 
     if (checked) {
       // Add all product IDs to the selectedProductsCheckbox array
-      const allProductIds = productsList.map((product) => product._id);
-      setSelectedProductsCheckboxEdit(allProductIds);
+      const allProductIds = productsList?.map((product) => product._id);
+
+      // set state no mutation
+      setSelectedProductsCheckboxEdit([...allProductIds]);
     } else {
       // Clear the selectedProductsCheckbox array
       setSelectedProductsCheckboxEdit([]);
     }
+
+    console.log(selectedProductsCheckboxEdit);
   };
 
   // Function to handle individual product checkboxes for edit promo code
-  const handleSelectedProductEdit = (e, promoCodeId) => {
+  const handleSelectedProductEdit = (e) => {
     const productId = e.target.value;
     const checked = e.target.checked;
-
-    // selectedProductsCheckboxEdit contains [{productId: "6479989eb0216fff26a5811c"}] format
 
     // Create a copy of the selectedProductsCheckboxEdit array
     const updatedSelectedProductsCheckbox = [...selectedProductsCheckboxEdit];
@@ -620,13 +625,14 @@ const AdminPromoCode = () => {
                                                       id="promoCode"
                                                       placeholder="#NAIMU30"
                                                       {...editPromoCodeForm.register(
-                                                        `expiryDateTime-${promoCode._id}`,
-                                                        {
-                                                          value: promoCode.expiryDate
-                                                            ? new Date(promoCode.expiryDate).toISOString().slice(0, -8)
-                                                            : undefined,
-                                                        }
+                                                        `expiryDateTime-${promoCode._id}`
+                                                        // {
+                                                        //   value: promoCode.expiryDate
+                                                        //     ? new Date(promoCode.expiryDate).toISOString().slice(0, -8)
+                                                        //     : undefined,
+                                                        // }
                                                       )}
+                                                      required
                                                     />
                                                   </div>
                                                 </div>
@@ -659,7 +665,7 @@ const AdminPromoCode = () => {
                                                       <tr>
                                                         <th scope="col">
                                                           <div className="d-flex flex-row align-items-center">
-                                                            {/* This checkbox checks all the products */}
+                                                            {/* This checkbox checks all the products still fixing :C */}
                                                             {/* <input
                                                               type="checkbox"
                                                               name={`cb-product-all-${promoCode._id}`}
@@ -685,9 +691,7 @@ const AdminPromoCode = () => {
                                                                   name={`cb-product-${promoCode._id}`}
                                                                   className="product-select-cb form-check-input"
                                                                   value={product._id}
-                                                                  onChange={(e) =>
-                                                                    handleSelectedProductEdit(e, promoCode._id)
-                                                                  }
+                                                                  onChange={(e) => handleSelectedProductEdit(e)}
                                                                   checked={selectedProductsCheckboxEdit.some(
                                                                     (obj) => obj.productId === product._id
                                                                   )}
