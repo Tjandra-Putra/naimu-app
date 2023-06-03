@@ -76,6 +76,11 @@ router.get(
         return next(new ErrorHandler("Promo code not found", 404));
       }
 
+      // check if promocode is expired or is not published
+      if (promoCode[0].expiryDate < Date.now() || promoCode[0].published === false) {
+        return next(new ErrorHandler("Promo code is expired or is not published", 404));
+      }
+
       res.status(200).json({
         success: true,
         promoCode,
