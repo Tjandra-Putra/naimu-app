@@ -154,4 +154,33 @@ router.put(
   })
 );
 
+// =============================== published promocode ===============================
+router.put(
+  "/publish/:id",
+  isAuthenticatedUser,
+  isAdmin("admin"),
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const promoCode = await PromoCode.findById(req.params.id);
+
+      if (!promoCode) {
+        return next(new ErrorHandler("Promo code not found", 404));
+      }
+
+      await PromoCode.updateOne({ _id: promoCode._id }, { published: !promoCode.published });
+
+      // Retrieve the updated promo code after the update operation
+      const updatedPromoCode = await PromoCode.findById(req.params.id);
+
+      res.status(200).json({
+        success: true,
+        message: "Promo code updated successfully",
+        promoCode: updatedPromoCode,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  })
+);
+
 module.exports = router;

@@ -51,12 +51,12 @@ const SideNavbar = ({ activeLink }) => {
     //   icon: "far fa-comment-dots icon-size",
     //   activeLink: "admin-inbox",
     // },
-    {
-      name: "Users",
-      link: "/admin/users",
-      icon: "far fa-user-circle icon-size",
-      activeLink: "admin-inbox",
-    },
+    // {
+    //   name: "Users",
+    //   link: "/admin/users",
+    //   icon: "far fa-user-circle icon-size",
+    //   activeLink: "admin-inbox",
+    // },
   ];
 
   // userNavItems

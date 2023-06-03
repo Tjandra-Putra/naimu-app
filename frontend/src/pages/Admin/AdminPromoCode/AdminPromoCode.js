@@ -97,10 +97,35 @@ const AdminPromoCode = () => {
     }
   };
 
+  const publishPromoCode = async (id) => {
+    try {
+      const { data } = await axios.put(
+        `${server}/promo-code/publish/${id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      // update promoCodeList state
+      const updatedPromoCodeList = promoCodeList.map((promoCode) => {
+        if (promoCode._id === id) {
+          return data.promoCode;
+        } else {
+          return promoCode;
+        }
+      });
+
+      notifySuccess(data.message);
+      setPromoCodeList(updatedPromoCodeList);
+    } catch (error) {
+      notifyError(error.response.data.message);
+      console.log(error);
+    }
+  };
+
   // ======================================  Edit Promo Code ======================================
-
   // This checkbox checks all the products still fixing :C
-
   const handleSelectAllEdit = (e) => {
     const checked = e.target.checked;
     setSelectAllCheckedEdit(checked);
@@ -517,7 +542,29 @@ const AdminPromoCode = () => {
                               <td>
                                 <div className="fw-semibold">{promoCode.code}</div>
                               </td>
-                              <td>{promoCode.published ? <p>On - going</p> : <p>Draft</p>}</td>
+                              <td>
+                                {promoCode.published ? (
+                                  <div className="product-status product-status-published">
+                                    <div>
+                                      <i
+                                        class="fa-solid fa-circle me-2"
+                                        style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                      ></i>
+                                    </div>
+                                    <div className="status">Published</div>
+                                  </div>
+                                ) : (
+                                  <div className="product-status product-status-draft">
+                                    <div>
+                                      <i
+                                        class="fa-solid fa-circle me-2"
+                                        style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                      ></i>
+                                    </div>
+                                    <div className="status">Draft</div>
+                                  </div>
+                                )}
+                              </td>
                               <td>
                                 {promoCode
                                   ? new Date(promoCode.expiryDate)
@@ -740,7 +787,17 @@ const AdminPromoCode = () => {
                                     ></i>
                                   </div>
                                   <div className="pe-3">
-                                    <i className="fa-regular fa-eye fa-lg action-button"></i>
+                                    {promoCode.published ? (
+                                      <i
+                                        className="fa-regular fa-eye action-button text-dark"
+                                        onClick={() => publishPromoCode(promoCode._id)}
+                                      ></i>
+                                    ) : (
+                                      <i
+                                        className="fa-regular fa-eye-slash action-button text-dark"
+                                        onClick={() => publishPromoCode(promoCode._id)}
+                                      ></i>
+                                    )}
                                   </div>
                                 </div>
                               </td>
