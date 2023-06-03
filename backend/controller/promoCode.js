@@ -32,11 +32,17 @@ router.post(
   isAdmin("admin"),
   catchAsyncError(async (req, res, next) => {
     const { code, discount, expiryDate, selectedProduct } = req.body;
+
+    // add productId property to selectedProduct array items
+    processedSelectedProduct = selectedProduct.map((productId) => {
+      return { productId };
+    });
+
     const newPromoCode = {
       code,
       discount,
       expiryDate,
-      selectedProduct,
+      selectedProduct: processedSelectedProduct,
     };
 
     try {

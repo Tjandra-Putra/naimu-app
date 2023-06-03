@@ -14,6 +14,7 @@ import Loader from "../../../components/Layout/Loader/Loader";
 const AdminPromoCode = () => {
   // useForm
   const createPromoCodeForm = useForm();
+  const editPromoCodeForm = useForm();
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
@@ -140,6 +141,8 @@ const AdminPromoCode = () => {
     try {
       setIsLoading(true);
 
+      console.log("selectedProduct", selectedProduct);
+
       const { data: response } = await axios.post(
         `${server}/promo-code/create`,
         { code, discount, expiryDate, selectedProduct },
@@ -150,6 +153,71 @@ const AdminPromoCode = () => {
 
       // clear the form
       createPromoCodeForm.reset();
+
+      // unchecked all checkboxes
+      setSelectAllChecked(false);
+      setSelectedProductsCheckbox([]);
+
+      notifySuccess(response.message);
+
+      setIsLoading(false);
+    } catch (error) {
+      notifyError(error.response.data.message);
+      setIsLoading(false);
+    }
+  };
+
+  const onEditPromoCode = async (data) => {
+    // minimum one product selected
+    if (selectedProductsCheckbox.length === 0) {
+      notifyError("Please select at least one product");
+      return;
+    }
+
+    // no empty fields
+    if (data.promoCode === "" || data.discount === "" || data.expiryDateTime === "") {
+      notifyError("Please fill in all the fields");
+      return;
+    }
+
+    // check discount cannot be negative, more than 100% or contain special characters
+    if (data.discount < 0 || data.discount > 100 || !/^[0-9]+$/.test(data.discount)) {
+      notifyError("Invalid discount");
+      return;
+    }
+
+    // check expiry date cannot be in the past
+    if (new Date(data.expiryDateTime) < new Date()) {
+      notifyError("Invalid expiry date");
+      return;
+    }
+
+    const code = data.promoCode;
+    const discount = data.discount;
+    const expiryDate = data.expiryDateTime;
+    const selectedProduct = selectedProductsCheckbox;
+
+    try {
+      setIsLoading(true);
+
+      const { data: response } = await axios.put(
+        `${server}/promo-code/${promoCodeList[0]._id}`,
+        { code, discount, expiryDate, selectedProduct },
+        { withCredentials: true }
+      );
+
+      // update the promo code list
+      const updatedPromoCodeList = promoCodeList.map((promoCode) => {
+        if (promoCode._id === response.promoCode._id) {
+          return response.promoCode;
+        }
+        return promoCode;
+      });
+
+      setPromoCodeList(updatedPromoCodeList);
+
+      // clear the form
+      editPromoCodeForm.reset();
 
       // unchecked all checkboxes
       setSelectAllChecked(false);
@@ -227,7 +295,7 @@ const AdminPromoCode = () => {
           <div
             className="modal fade modal-lg"
             id={`createPromoCodeModal`}
-            tabIndex={-1}
+            tabindex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
@@ -238,7 +306,6 @@ const AdminPromoCode = () => {
                     Add Promo Code
                   </h1>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>{" "}
-                  {/* Add the close button */}
                 </div>
                 <div className="modal-body">
                   <form onSubmit={createPromoCodeForm.handleSubmit(onCreatePromoCode)}>
@@ -299,7 +366,10 @@ const AdminPromoCode = () => {
                           Select Products
                         </label>
 
-                        <div className="selected-products-count">{selectedProductsCheckbox.length} product seleced</div>
+                        <div className="selected-products-count text-primary">
+                          {selectedProductsCheckbox.length > 0 &&
+                            `${selectedProductsCheckbox.length} product(s) selected`}
+                        </div>
                       </div>
 
                       <div className="mb-3">
@@ -334,6 +404,7 @@ const AdminPromoCode = () => {
                               <th scope="col">Price</th>
                             </tr>
                           </thead>
+                          selected products:
                           <tbody>
                             {productsList
                               ? productsList?.map((product) => (
@@ -414,20 +485,21 @@ const AdminPromoCode = () => {
                               <td>
                                 {promoCode
                                   ? new Date(promoCode.expiryDate)
-                                      .toLocaleString("en-US", {
-                                        day: "numeric",
-                                        month: "numeric",
-                                        year: "numeric",
+                                      .toLocaleDateString("en-GB", {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        year: "2-digit",
                                         hour: "numeric",
                                         minute: "numeric",
                                         hour12: true,
                                       })
+                                      .replace(/\//g, "/")
                                       .replace(",", "")
                                   : ""}
                               </td>
                               <td>
                                 {/* check if promocode expired, if expired display expired, if not display on-going */}
-                                {new Date(promoCode.expiryDate) < new Date() ? <p>Expired</p> : <p>On - going</p>}
+                                {new Date(promoCode.expiryDate) < new Date() ? <p>Expired</p> : <p>On-going</p>}
                               </td>
                               <td>{promoCode.discount}%</td>
                               <td>
@@ -442,7 +514,7 @@ const AdminPromoCode = () => {
                                     <div
                                       className="modal fade modal-lg"
                                       id={`editPromoCodeModal${promoCode._id}`}
-                                      tabIndex={-1}
+                                      tabindex="-1"
                                       aria-labelledby="exampleModalLabel"
                                       aria-hidden="true"
                                     >
@@ -453,11 +525,172 @@ const AdminPromoCode = () => {
                                               Edit Promo Code
                                             </h1>
                                           </div>
-                                          <div className="modal-body">...</div>
-                                          <div className="modal-footer">
-                                            <button type="button" className="btn btn-primary">
-                                              Save changes
-                                            </button>
+                                          <div className="modal-body">
+                                            <form onSubmit={editPromoCodeForm.handleSubmit(onEditPromoCode)}>
+                                              <input
+                                                type="hidden"
+                                                {...editPromoCodeForm.register(`_id-${promoCode._id}`)}
+                                              />
+
+                                              <div className="mb-3">
+                                                <div className="row">
+                                                  <div className="col">
+                                                    <div className="d-flex flex-row justify-content-between">
+                                                      <label htmlFor="promoCode" className="form-label">
+                                                        Promo Code
+                                                      </label>
+                                                      <label htmlFor="">Random</label>
+                                                    </div>
+                                                    <input
+                                                      type="text"
+                                                      className="form-control"
+                                                      id="promoCode"
+                                                      placeholder="#NAIMU30"
+                                                      {...editPromoCodeForm.register(`promoCode-${promoCode._id}`, {
+                                                        value: promoCode.code,
+                                                      })}
+                                                    />
+                                                  </div>
+                                                  <div className="col">
+                                                    <label htmlFor="discount" className="form-label text-muted">
+                                                      Discount (%)
+                                                    </label>
+                                                    <input
+                                                      type="number"
+                                                      className="form-control"
+                                                      id="promoCode"
+                                                      placeholder="30"
+                                                      {...editPromoCodeForm.register(`discount-${promoCode._id}`, {
+                                                        value: promoCode.discount,
+                                                      })}
+                                                    />
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div className="mb-3">
+                                                <div className="row">
+                                                  <div className="col">
+                                                    <div className="d-flex flex-row justify-content-between">
+                                                      <label htmlFor="promoCode" className="form-label">
+                                                        Set Expiry Date
+                                                      </label>
+                                                    </div>
+                                                    <input
+                                                      type="datetime-local"
+                                                      className="form-control"
+                                                      id="promoCode"
+                                                      placeholder="#NAIMU30"
+                                                      {...editPromoCodeForm.register(
+                                                        `expiryDateTime-${promoCode._id}`,
+                                                        {
+                                                          value: promoCode.expiryDate
+                                                            ? new Date(promoCode.expiryDate).toISOString().slice(0, -8)
+                                                            : undefined,
+                                                        }
+                                                      )}
+                                                    />
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                              <div className="mb-3">
+                                                <div className="d-flex flex-row justify-content-between">
+                                                  <label htmlFor="products" className="form-label">
+                                                    Select Products
+                                                  </label>
+
+                                                  <div className="selected-products-count text-primary">
+                                                    {selectedProductsCheckbox.length > 0 &&
+                                                      `${selectedProductsCheckbox.length} product(s) selected`}
+                                                  </div>
+                                                </div>
+
+                                                <div className="mb-3">
+                                                  <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="products"
+                                                    placeholder="Search products"
+                                                    onChange={handleSearchProducts}
+                                                  />
+                                                </div>
+
+                                                <div className="table-container">
+                                                  <ul>
+                                                    {promoCode.selectedProduct.map((product) => (
+                                                      <li>{product._id}</li>
+                                                    ))}
+                                                  </ul>
+
+                                                  <table className="table ">
+                                                    <thead>
+                                                      <tr>
+                                                        <th scope="col">
+                                                          <div className="d-flex flex-row align-items-center">
+                                                            {/* This checkbox checks all the products */}
+                                                            <input
+                                                              type="checkbox"
+                                                              name={`cb-product-all-${promoCode._id}`}
+                                                              className="form-check-input"
+                                                              checked={selectAllChecked}
+                                                              onChange={handleSelectAll}
+                                                            />
+                                                          </div>
+                                                        </th>
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">Title</th>
+                                                        <th scope="col">Category</th>
+                                                        <th scope="col">Price</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      {productsList
+                                                        ? productsList?.map((product) => (
+                                                            <tr key={product._id}>
+                                                              <th scope="row">
+                                                                <input
+                                                                  type="checkbox"
+                                                                  name={`cb-product-${promoCode._id}`}
+                                                                  className="product-select-cb form-check-input"
+                                                                  checked={selectedProductsCheckbox.includes(
+                                                                    product._id
+                                                                  )}
+                                                                  value={product._id}
+                                                                  onChange={handleSelectedProduct}
+                                                                />
+                                                              </th>
+                                                              <td>
+                                                                <div className="product-image-wrapper">
+                                                                  <img
+                                                                    src={product.imageUrl[0].url}
+                                                                    alt={product.imageUrl[0].url}
+                                                                    className="product-image"
+                                                                  />
+                                                                </div>
+                                                              </td>
+                                                              <td>
+                                                                <div className="product-title">{product.title}</div>
+                                                              </td>
+                                                              <td>
+                                                                <div className="product-category">
+                                                                  {product.category}
+                                                                </div>
+                                                              </td>
+                                                              <td>
+                                                                <div className="product-price">${product.price}</div>
+                                                              </td>
+                                                            </tr>
+                                                          ))
+                                                        : []}
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+                                              </div>
+                                              <button type="submit" className="btn btn-primary float-end">
+                                                Save changes
+                                              </button>
+                                            </form>
                                           </div>
                                         </div>
                                       </div>

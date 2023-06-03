@@ -12,7 +12,14 @@ const promoCodeSchema = new mongoose.Schema({
     required: true,
   },
   selectedProduct: {
-    type: Array,
+    type: [
+      {
+        productId: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   expiryDate: {
     type: Date,
