@@ -23,6 +23,7 @@ const AdminPromoCode = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [promoCodeList, setPromoCodeList] = useState([]);
   const [productsList, setProductsList] = useState([]);
+  const [originalProductsList, setOriginalProductsList] = useState([]); // used for search products
   const [selectAllChecked, setSelectAllChecked] = useState(false); // select all checkbox
   const [selectedProductsCheckbox, setSelectedProductsCheckbox] = useState([]);
 
@@ -46,6 +47,18 @@ const AdminPromoCode = () => {
   for (let i = 1; i <= Math.ceil(promoCodeList.length / productsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  // handle search products
+  const handleSearchProducts = (e) => {
+    const searchQuery = e.target.value.toLowerCase();
+
+    if (searchQuery === "") {
+      setProductsList(originalProductsList); // Set the products list back to the original list
+    } else {
+      const filteredProducts = productsList.filter((product) => product.title.toLowerCase().includes(searchQuery));
+      setProductsList(filteredProducts);
+    }
+  };
 
   // Function to handle the "Select All" checkbox
   const handleSelectAll = (e) => {
@@ -76,12 +89,25 @@ const AdminPromoCode = () => {
     }
   };
 
+  // delete promo code
+  const onDeletePromoCode = async (id) => {
+    try {
+      setIsLoading(true);
+
+      const { data } = await axios.delete(`${server}/promo-code/${id}`, { withCredentials: true });
+      setPromoCodeList(promoCodeList.filter((promoCode) => promoCode._id !== id));
+
+      notifySuccess(data.message);
+
+      setIsLoading(false);
+    } catch (error) {
+      notifyError(error.response.data.message);
+      setIsLoading(false);
+    }
+  };
+
   // create promo code
   const onCreatePromoCode = async (data) => {
-    console.log("====");
-    console.log(data);
-    console.log(selectedProductsCheckbox);
-
     // minimum one product selected
     if (selectedProductsCheckbox.length === 0) {
       notifyError("Please select at least one product");
@@ -122,11 +148,19 @@ const AdminPromoCode = () => {
 
       setPromoCodeList([...promoCodeList, response.promoCode]);
 
+      // clear the form
+      createPromoCodeForm.reset();
+
+      // unchecked all checkboxes
+      setSelectAllChecked(false);
+      setSelectedProductsCheckbox([]);
+
       notifySuccess(response.message);
+
       setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
       notifyError(error.response.data.message);
+      setIsLoading(false);
     }
   };
 
@@ -137,8 +171,6 @@ const AdminPromoCode = () => {
 
         const { data } = await axios.get(`${server}/promo-code/all-promo-codes`, { withCredentials: true });
         setPromoCodeList(data.promoCodes);
-
-        console.log(data);
 
         setIsLoading(false);
       } catch (error) {
@@ -153,8 +185,7 @@ const AdminPromoCode = () => {
 
         const { data } = await axios.get(`${server}/product/all-products`, { withCredentials: true });
         setProductsList(data.products);
-
-        console.log(data);
+        setOriginalProductsList(data.products);
 
         setIsLoading(false);
       } catch (error) {
@@ -174,11 +205,11 @@ const AdminPromoCode = () => {
       <div className="container">
         <div className="d-flex flex-row justify-content-between">
           <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <Link to="/admin/dashboard" class="breadcrumb-item">
+            <ol className="breadcrumb">
+              <Link to="/admin/dashboard" className="breadcrumb-item">
                 Dashboard
               </Link>
-              <li class="breadcrumb-item active" aria-current="page">
+              <li className="breadcrumb-item active" aria-current="page">
                 Promo Codes
               </li>
             </ol>
@@ -190,50 +221,51 @@ const AdminPromoCode = () => {
             data-bs-toggle="modal"
             data-bs-target="#createPromoCodeModal"
           >
-            <i class="fa-solid fa-plus"></i> Add Promo Code
+            <i className="fa-solid fa-plus"></i> Add Promo Code
           </button>
 
           <div
-            class="modal fade modal-lg"
+            className="modal fade modal-lg"
             id={`createPromoCodeModal`}
-            tabindex="-1"
+            tabIndex={-1}
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">
                     Add Promo Code
                   </h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>{" "}
+                  {/* Add the close button */}
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <form onSubmit={createPromoCodeForm.handleSubmit(onCreatePromoCode)}>
                     <div className="mb-3">
                       <div className="row">
                         <div className="col">
                           <div className="d-flex flex-row justify-content-between">
-                            <label for="promoCode" class="form-label">
+                            <label htmlFor="promoCode" className="form-label">
                               Promo Code
                             </label>
                             <label htmlFor="">Random</label>
                           </div>
                           <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             id="promoCode"
                             placeholder="#NAIMU30"
                             {...createPromoCodeForm.register("promoCode")}
                           />
                         </div>
                         <div className="col">
-                          <label for="discount" class="form-label text-muted">
+                          <label htmlFor="discount" className="form-label text-muted">
                             Discount (%)
                           </label>
                           <input
                             type="number"
-                            class="form-control"
+                            className="form-control"
                             id="promoCode"
                             placeholder="30"
                             {...createPromoCodeForm.register("discount")}
@@ -246,13 +278,13 @@ const AdminPromoCode = () => {
                       <div className="row">
                         <div className="col">
                           <div className="d-flex flex-row justify-content-between">
-                            <label for="promoCode" class="form-label">
+                            <label htmlFor="promoCode" className="form-label">
                               Set Expiry Date
                             </label>
                           </div>
                           <input
                             type="datetime-local"
-                            class="form-control"
+                            className="form-control"
                             id="promoCode"
                             placeholder="#NAIMU30"
                             {...createPromoCodeForm.register("expiryDateTime")}
@@ -262,12 +294,26 @@ const AdminPromoCode = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label for="products" class="form-label">
-                        Select Products
-                      </label>
+                      <div className="d-flex flex-row justify-content-between">
+                        <label htmlFor="products" className="form-label">
+                          Select Products
+                        </label>
+
+                        <div className="selected-products-count">{selectedProductsCheckbox.length} product seleced</div>
+                      </div>
+
+                      <div className="mb-3">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="products"
+                          placeholder="Search products"
+                          onChange={handleSearchProducts}
+                        />
+                      </div>
 
                       <div className="table-container">
-                        <table class="table ">
+                        <table className="table ">
                           <thead>
                             <tr>
                               <th scope="col">
@@ -327,7 +373,7 @@ const AdminPromoCode = () => {
                         </table>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary float-end">
+                    <button type="submit" className="btn btn-primary float-end">
                       Save changes
                     </button>
                   </form>
@@ -347,7 +393,7 @@ const AdminPromoCode = () => {
                 {promoCodeList.length > 0 ? (
                   <React.Fragment>
                     <div className="table-responsive">
-                      <table class="table">
+                      <table className="table">
                         <thead>
                           <tr>
                             <th scope="col">Code</th>
@@ -379,40 +425,37 @@ const AdminPromoCode = () => {
                                       .replace(",", "")
                                   : ""}
                               </td>
-                              <td>On-going</td>
+                              <td>
+                                {/* check if promocode expired, if expired display expired, if not display on-going */}
+                                {new Date(promoCode.expiryDate) < new Date() ? <p>Expired</p> : <p>On - going</p>}
+                              </td>
                               <td>{promoCode.discount}%</td>
                               <td>
                                 <div className="action-buttons d-flex flex-row">
                                   <div className="pe-3">
                                     <i
-                                      class="fa-regular fa-pen-to-square action-button text-primary"
+                                      className="fa-regular fa-pen-to-square action-button text-primary"
                                       data-bs-toggle="modal"
                                       data-bs-target={`#editPromoCodeModal${promoCode._id}`}
                                     ></i>
 
                                     <div
-                                      class="modal fade modal-lg"
+                                      className="modal fade modal-lg"
                                       id={`editPromoCodeModal${promoCode._id}`}
-                                      tabindex="-1"
+                                      tabIndex={-1}
                                       aria-labelledby="exampleModalLabel"
                                       aria-hidden="true"
                                     >
-                                      <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                      <div className="modal-dialog modal-dialog-centered">
+                                        <div className="modal-content">
+                                          <div className="modal-header">
+                                            <h1 className="modal-title fs-5" id="exampleModalLabel">
                                               Edit Promo Code
                                             </h1>
-                                            <button
-                                              type="button"
-                                              class="btn-close"
-                                              data-bs-dismiss="modal"
-                                              aria-label="Close"
-                                            ></button>
                                           </div>
-                                          <div class="modal-body">...</div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">
+                                          <div className="modal-body">...</div>
+                                          <div className="modal-footer">
+                                            <button type="button" className="btn btn-primary">
                                               Save changes
                                             </button>
                                           </div>
@@ -421,10 +464,13 @@ const AdminPromoCode = () => {
                                     </div>
                                   </div>
                                   <div className="pe-3">
-                                    <i class="fa-regular fa-trash-can action-button text-danger"></i>
+                                    <i
+                                      className="fa-regular fa-trash-can action-button text-danger"
+                                      onClick={() => onDeletePromoCode(promoCode._id)}
+                                    ></i>
                                   </div>
                                   <div className="pe-3">
-                                    <i class="fa-regular fa-eye fa-lg action-button"></i>
+                                    <i className="fa-regular fa-eye fa-lg action-button"></i>
                                   </div>
                                 </div>
                               </td>

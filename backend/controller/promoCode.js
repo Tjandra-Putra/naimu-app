@@ -80,4 +80,29 @@ router.get(
   })
 );
 
+// =============================== delete promocode ===============================
+router.delete(
+  "/:id",
+  isAuthenticatedUser,
+  isAdmin("admin"),
+  catchAsyncError(async (req, res, next) => {
+    try {
+      const promoCode = await PromoCode.findById(req.params.id);
+
+      if (!promoCode) {
+        return next(new ErrorHandler("Promo code not found", 404));
+      }
+
+      await PromoCode.deleteOne({ _id: promoCode._id });
+
+      res.status(200).json({
+        success: true,
+        message: "Promo code deleted successfully",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  })
+);
+
 module.exports = router;

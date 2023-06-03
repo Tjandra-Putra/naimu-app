@@ -68,7 +68,7 @@ const App = () => {
     <React.Fragment>
       <BrowserRouter>
         <Toaster />
-        <PersistGate loading={<Loader />} persistor={persistor}>
+        <PersistGate persistor={persistor}>
           <Navbar />
           <Routes>
             {stripeApiKey && (
