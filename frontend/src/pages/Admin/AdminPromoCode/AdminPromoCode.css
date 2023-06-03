@@ -69,7 +69,7 @@
   font-size: 1.2rem;
 }
 
-.admin-promo-code-wrapper .product-status {
+.admin-promo-code-wrapper .promo-status {
   border-radius: 5px;
   min-width: 7rem;
   height: 1.8rem;
@@ -80,14 +80,24 @@
   font-weight: 500;
 }
 
-.admin-promo-code-wrapper .product-status-published {
+.admin-promo-code-wrapper .promo-status-published {
   background-color: #c5f0da;
   color: #207e51;
 }
 
-.admin-promo-code-wrapper .product-status-draft {
+.admin-promo-code-wrapper .promo-status-draft {
   background-color: #dfe2e6;
   color: #32373f;
+}
+
+.admin-promo-code-wrapper .promo-status-expired {
+    background-color: #f0cbc5;
+    color: #7e3920;
+}
+
+.admin-promo-code-wrapper .promo-status-on-going {
+    background-color: #c5dff0;
+    color: #20467e;
 }
 
 .admin-promo-code-wrapper .table-container .product-select-cb {

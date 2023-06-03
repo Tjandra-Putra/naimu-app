@@ -544,7 +544,7 @@ const AdminPromoCode = () => {
                               </td>
                               <td>
                                 {promoCode.published ? (
-                                  <div className="product-status product-status-published">
+                                  <div className="promo-status promo-status-published">
                                     <div>
                                       <i
                                         class="fa-solid fa-circle me-2"
@@ -554,7 +554,7 @@ const AdminPromoCode = () => {
                                     <div className="status">Published</div>
                                   </div>
                                 ) : (
-                                  <div className="product-status product-status-draft">
+                                  <div className="promo-status promo-status-draft">
                                     <div>
                                       <i
                                         class="fa-solid fa-circle me-2"
@@ -582,7 +582,30 @@ const AdminPromoCode = () => {
                               </td>
                               <td>
                                 {/* check if promocode expired, if expired display expired, if not display on-going */}
-                                {new Date(promoCode.expiryDate) < new Date() ? <p>Expired</p> : <p>On-going</p>}
+
+                                {new Date(promoCode.expiryDate) < new Date() ? (
+                                  <div className="promo-status promo-status-expired">
+                                    <div>
+                                      <i
+                                        class="fa-solid fa-circle me-2"
+                                        style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                      ></i>
+                                    </div>
+                                    <div className="status">Expired</div>
+                                  </div>
+                                ) : (
+                                  <p>
+                                    <div className="promo-status promo-status-on-going">
+                                      <div>
+                                        <i
+                                          class="fa-solid fa-circle me-2"
+                                          style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                        ></i>
+                                      </div>
+                                      <div className="status">On-going</div>
+                                    </div>
+                                  </p>
+                                )}
                               </td>
                               <td>{promoCode.discount}%</td>
                               <td>
