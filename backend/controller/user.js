@@ -175,12 +175,22 @@ router.post(
       }
 
       // note: SUCCESSFUL CASE
-      // res.status(201).json({
-      //   success: true,
-      //   message: "Login successful.",
-      // });
+      const token = user.getJwtToken();
 
-      sendToken(user, 201, res);
+      // options for cookie
+      const options = {
+        expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days
+        httpOnly: true,
+        secure: true, // only sent over a secure (HTTPS) connection
+      };
+
+      res.status(201).cookie("token", token, options).json({
+        success: true,
+        user,
+        token,
+      });
+
+      // sendToken(user, 201, res);
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
