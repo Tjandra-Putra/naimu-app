@@ -1,9 +1,12 @@
-# Introducing Naimu E-commerce: (Images below)
+# Introducing Naimu E-commerce: (Images below) Demo: https://naimu-app.vercel.app/
 Welcome to Naimu E-commerce, an innovative and comprehensive enterprise application solution powered by the renowned MERN stack (MongoDB, Express.js, React.js, and Node.js), our platform offers an exceptional user experience with its visually stunning and scalable user interfaces, coupled with a robust and efficient backend.
 
 At Naimu E-commerce, we understand the importance of providing seamless and secure payment options. That's why our platform integrates popular payment gateways such as Stripe.js and PayPal, ensuring hassle-free transactions for your customers. With these trusted and widely-used payment solutions, you can offer your customers a variety of payment methods, guaranteeing a smooth and convenient shopping experience.
 
-We also prioritize the security of your platform and users. By incorporating JSON Web Tokens (JWT), we implement a secure authentication system that safeguards sensitive user information, allowing your customers to shop with confidence and trust. 
+We also prioritize the security of your platform and users. By incorporating JSON Web Tokens (JWT), we implement a secure authentication system that safeguards sensitive user information, allowing your customers to shop with confidence and trust.
+
+Hosted Frontend and backend on Vercel.
+Hosted images on Cloudinary.
 
 ## Installation and Setup
 ### Frontend
@@ -31,6 +34,10 @@ SMTP_MAIL=<Your SMTP email>
 SMTP_PASSWORD=<Your SMTP password>
 STRIPE_SECRET_KEY=<Your Stripe secret key>
 STRIPE_API_KEY=<Your Stripe API key>
+CLOUDINARY_CLOUD_NAME=<Your Cloudinary Name>
+CLOUDINARY_API_KEY=<Your Cloudinary API Key>
+CLOUDINARY_API_SECRET=<Your Cloudinary API Key>
+
 
 ```
 Please replace <...> with your actual values for the respective environment variables.
