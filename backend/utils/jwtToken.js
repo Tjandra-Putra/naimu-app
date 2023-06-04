@@ -5,11 +5,8 @@ const sendToken = (user, statusCode, res) => {
   // options for cookie
   const options = {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days
-    domain: process.env.NODE_ENV !== "PRODUCTION" ? "localhost:3000" : "https://naimu-app.vercel.app", // Set the domain to match your frontend domain
-    secure: process.env.NODE_ENV !== "PRODUCTION" ? false : true, // Set the secure flag based on the environment
-    sameSite: "lax",
     httpOnly: true,
-    // domain: process.env.NODE_ENV !== "PRODUCTION" ? "localhost:3000" : "https://naimu-app.vercel.app", // Set the domain to match your frontend domain
+    domain: process.env.NODE_ENV !== "PRODUCTION" ? "http://localhost:3000" : "https://naimu-app.vercel.app", // Set the domain to match your frontend domain
   };
 
   res.status(statusCode).cookie("token", token, options).json({
