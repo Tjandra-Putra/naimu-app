@@ -81,6 +81,15 @@ router.get(
         return next(new ErrorHandler("Promo code is expired or is not published", 404));
       }
 
+      // if product not valid not  in selectedProduct array
+      // const product = promoCode[0].selectedProduct.find((obj) => {
+      //   return obj.productId === req.query.productId;
+      // });
+
+      // if (!product) {
+      //   return next(new ErrorHandler("Promo code is not valid for this product", 404));
+      // }
+
       res.status(200).json({
         success: true,
         promoCode,
