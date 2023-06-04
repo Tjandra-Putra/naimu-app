@@ -42,10 +42,10 @@ const Login = () => {
         notifySuccess("Login successful");
 
         // redirect to home page after 2 seconds
-        // setTimeout(() => {
-        //   navigate("/products");
-        //   window.location.reload();
-        // }, 2000);
+        setTimeout(() => {
+          navigate("/products");
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => {
         notifyError(err.response.data.message);
