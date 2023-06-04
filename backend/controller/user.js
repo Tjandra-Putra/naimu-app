@@ -43,6 +43,12 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
       return next(new ErrorHandler("User already exists", 400));
     }
 
+    // if filename is empty set default filename to default.png
+    if (!req.file) {
+      req.file = {};
+      req.file.filename = "default.png";
+    }
+
     // note: SUCCESSFUL CASE
     const fileName = req.file.filename;
     const fileUrl = path.join(fileName);

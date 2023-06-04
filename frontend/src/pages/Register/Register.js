@@ -47,7 +47,7 @@ const Register = () => {
     password: "Please enter your password",
     passwordConfirm: "Please confirm your password",
     birthday: "Please enter your birthday",
-    avatar: "Please upload your profile image",
+    // avatar: "Please upload your profile image",
   };
 
   const handleFileInputChange = (e) => {
