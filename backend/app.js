@@ -12,9 +12,9 @@ const corsOptions = {
   credentials: true,
 };
 
+app.use(cors(corsOptions)); //  important to ensure that the app.use(cors(corsOptions)) middleware is placed before your route handlers. This ensures that the CORS headers are added to the server's responses before the routes are processed.
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
 app.use("/", express.static("public/uploads"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" })); // extracts the body of an incoming HTTP request and makes it available in the req.body object of the subsequent handlers.
 
