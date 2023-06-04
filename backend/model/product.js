@@ -71,22 +71,22 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-Product = mongoose.model("Product", productSchema);
+// Product = mongoose.model("Product", productSchema);
 
-// check if any products exist
-Product.countDocuments().then((count) => {
-  if (count > 0) {
-    console.log("Products already exist in the database");
-    return;
-  }
-  // insert products to the database
-  Product.insertMany(productList)
-    .then(() => {
-      console.log("Products saved successfully!");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// // check if any products exist
+// Product.countDocuments().then((count) => {
+//   if (count > 0) {
+//     console.log("Products already exist in the database");
+//     return;
+//   }
+//   // insert products to the database
+//   Product.insertMany(productList)
+//     .then(() => {
+//       console.log("Products saved successfully!");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 module.exports = mongoose.model("Product", productSchema);

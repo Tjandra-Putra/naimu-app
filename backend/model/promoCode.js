@@ -35,22 +35,22 @@ const promoCodeSchema = new mongoose.Schema({
   },
 });
 
-PromoCode = mongoose.model("PromoCode", promoCodeSchema);
+// PromoCode = mongoose.model("PromoCode", promoCodeSchema);
 
-// check if any promo codes exist
-PromoCode.countDocuments().then((count) => {
-  if (count > 0) {
-    console.log("Promo codes already exist in the database");
-    return;
-  }
-  // insert promo codes to the database
-  PromoCode.insertMany(promoCodeList)
-    .then(() => {
-      console.log("Promo codes saved successfully!");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// // check if any promo codes exist
+// PromoCode.countDocuments().then((count) => {
+//   if (count > 0) {
+//     console.log("Promo codes already exist in the database");
+//     return;
+//   }
+//   // insert promo codes to the database
+//   PromoCode.insertMany(promoCodeList)
+//     .then(() => {
+//       console.log("Promo codes saved successfully!");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 module.exports = mongoose.model("PromoCode", promoCodeSchema);

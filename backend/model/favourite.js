@@ -19,22 +19,22 @@ const favouriteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-Favourite = mongoose.model("Favourite", favouriteSchema);
+// Favourite = mongoose.model("Favourite", favouriteSchema);
 
-// check if any products exist
-Favourite.countDocuments().then((count) => {
-  if (count > 0) {
-    console.log("Favourite already exist in the database");
-    return;
-  }
-  // insert products to the database
-  Favourite.insertMany(favouriteList)
-    .then(() => {
-      console.log("Favourite saved successfully!");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// // check if any products exist
+// Favourite.countDocuments().then((count) => {
+//   if (count > 0) {
+//     console.log("Favourite already exist in the database");
+//     return;
+//   }
+//   // insert products to the database
+//   Favourite.insertMany(favouriteList)
+//     .then(() => {
+//       console.log("Favourite saved successfully!");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 module.exports = mongoose.model("Favourite", favouriteSchema);
