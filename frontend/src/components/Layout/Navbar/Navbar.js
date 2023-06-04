@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "./Navbar.css";
 import Loader from "../Loader/Loader";
-import { server } from "../../../server";
+import { server, imagePath } from "../../../server";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
@@ -162,7 +162,7 @@ const Navbar = () => {
                 <li className="nav-item nav-link-size">
                   <Link className="nav-link" to="/profile">
                     <img
-                      src={`http://localhost:8000/${user.user.avatar}`}
+                      src={`${imagePath}/${user.user.avatar}`}
                       alt={user.user.avatar}
                       className="img-fluid profile-img "
                     />

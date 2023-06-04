@@ -63,7 +63,10 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
     };
 
     const activationToken = createActivationToken(user);
-    const activationUrl = `http://localhost:3000/activate/${activationToken}`;
+    const activationUrl =
+      process.env.NODE_ENV !== "PRODUCTION"
+        ? `http://localhost:3000/activate/${activationToken}`
+        : `https://naimu-app-nodejs.vercel.app/activate/${activationToken}`;
 
     try {
       await sendMail({

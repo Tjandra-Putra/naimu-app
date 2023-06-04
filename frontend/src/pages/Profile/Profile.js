@@ -8,7 +8,7 @@ import "./Profile.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 import { updateProfile } from "../../redux/actions/user";
 import Loader from "../../components/Layout/Loader/Loader";
-import { server } from "../../server";
+import { server, imagePath } from "../../server";
 
 const Profile = () => {
   // toast component
@@ -109,13 +109,13 @@ const Profile = () => {
               <div className="card">
                 <div className="title">Edit Profile</div>
 
-                {/* <img src={`http://localhost:8000/${avatar}`} alt={avatar} className="img-fluid profile-img" /> */}
+                {/* <img src={`${imagePath}/${avatar}`} alt={avatar} className="img-fluid profile-img" /> */}
 
                 <div className="profile-image-upload">
                   <input type="file" accept="image/*" id="profile-img-input" onChange={handleAvatarChange} hidden />
                   <label htmlFor="profile-img-input" className="profile-img-label">
                     <img
-                      src={`http://localhost:8000/${user.user.avatar}`}
+                      src={`${imagePath}/${user.user.avatar}`}
                       alt={user.user.avatar}
                       className="img-fluid profile-img"
                     />

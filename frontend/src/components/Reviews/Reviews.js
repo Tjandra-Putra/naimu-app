@@ -1,6 +1,7 @@
 import "./Reviews.css";
 
 import Rating from "../Rating/Rating";
+import { imagePath } from "../../server";
 
 const Reviews = (reviewsArray) => {
   return (
@@ -9,7 +10,7 @@ const Reviews = (reviewsArray) => {
         <div className="box" key={index}>
           <div className="d-flex flex-row">
             <div className="reviewer-image me-4">
-              <img src={`http://localhost:8000/${review.user.avatar}`} alt="" className="avatar" />
+              <img src={`${imagePath}/${review.user.avatar}`} alt="" className="avatar" />
             </div>
             <div className="reviewer-info w-100">
               <div className="d-flex flex-row justify-content-between">
