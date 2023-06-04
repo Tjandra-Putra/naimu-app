@@ -17,7 +17,7 @@ const Cart = () => {
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
   const notifyError = (message) => toast.error(message, { duration: 5000 });
-  const { user } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
+  const { user, isAuthenticated } = useSelector((state) => state.userReducer) ?? {}; // Using optional chaining operator and providing a default value as an empty object
   const { errorFavourite, successFavourite } = useSelector((state) => state.favouriteReducer);
 
   const { cart } = useSelector((state) => state.cartReducer);
@@ -291,7 +291,7 @@ const Cart = () => {
                 </div>
 
                 <div className="buttons my-3">
-                  {cart && cart.length > 0 && user ? (
+                  {cart && cart.length > 0 && isAuthenticated ? (
                     <div className="d-grid gap-2">
                       <Link to="/checkout" class="btn btn-dark btn-checkout btn-lg rounded-1">
                         Checkout
@@ -300,7 +300,7 @@ const Cart = () => {
                   ) : (
                     <div className="d-grid gap-2">
                       <button class="btn btn-dark btn-lg rounded-1" disabled>
-                        Checkout {user ? null : "(login required)"}
+                        Checkout {isAuthenticated ? null : "(login required)"}
                       </button>
                     </div>
                   )}
