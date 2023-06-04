@@ -161,11 +161,13 @@ const Navbar = () => {
               {isAuthenticated && user ? (
                 <li className="nav-item nav-link-size">
                   <Link className="nav-link" to="/profile">
-                    <img
+                    {/* <img
                       src={`${imagePath}/${user.user.avatar}`}
                       alt={user.user.avatar}
                       className="img-fluid profile-img "
-                    />
+                    /> */}
+
+                    <img src={user.user.avatar} alt={user.user.avatar} className="img-fluid profile-img " />
                   </Link>
                 </li>
               ) : (

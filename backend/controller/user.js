@@ -6,6 +6,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const router = express.Router();
 const fs = require("fs");
 const { upload } = require("../multer");
+const { uploadImage } = require("../cloudinary");
 const jwt = require("jsonwebtoken");
 const sendToken = require("../utils/jwtToken");
 const sendMail = require("../utils/sendMail");
@@ -51,15 +52,27 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
 
     // note: SUCCESSFUL CASE
     const fileName = req.file.filename;
-    const fileUrl = path.join(fileName);
+    const fileUrl = path.join(fileName); // for multer
 
-    // these properties have to follow the model
+    // these properties have to follow the model: for multer localhost
+    // const user = {
+    //   fullName: fullName,
+    //   email: email,
+    //   password: password,
+    //   birthday: birthday,
+    //   avatar: fileUrl,
+    // };
+
+    // save to cloudinary
+    const result = await uploadImage(req.file);
+
+    // these properties have to follow the model: for cloudinary production
     const user = {
       fullName: fullName,
       email: email,
       password: password,
       birthday: birthday,
-      avatar: fileUrl,
+      avatar: result.secure_url,
     };
 
     const activationToken = createActivationToken(user);
@@ -319,17 +332,22 @@ router.put(
   upload.single("avatarFile"),
   catchAsyncError(async (req, res, next) => {
     try {
-      const userExist = await User.findById(req.user.id);
-      const avatarPathExist = `public/uploads/${userExist.avatar}`;
+      // const userExist = await User.findById(req.user.id);
+      // const avatarPathExist = `public/uploads/${userExist.avatar}`;
+      // fs.unlinkSync(avatarPathExist);
+      // const fileUrl = path.join(req.file.filename);
+      // const user = await User.findByIdAndUpdate(req.user.id, { avatar: fileUrl }, { new: true });
 
-      fs.unlinkSync(avatarPathExist);
-      const fileUrl = path.join(req.file.filename);
-
-      const user = await User.findByIdAndUpdate(req.user.id, { avatar: fileUrl }, { new: true });
+      const result = await uploadImage(req.file);
+      const user = await User.findByIdAndUpdate(req.user.id, { avatar: result.secure_url }, { new: true });
+      console.log(result.secure_url);
 
       // update avatar in Product collection product_reviews.
       // why? because the avatar in Product collection product_reviews is not updated when the user updates his/her avatar.
-      await Product.updateMany({ "reviews.user._id": req.user.id }, { $set: { "reviews.$.user.avatar": fileUrl } });
+      await Product.updateMany(
+        { "reviews.user._id": req.user.id },
+        { $set: { "reviews.$.user.avatar": result.secure_url } }
+      );
 
       res.status(200).json({
         success: true,

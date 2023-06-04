@@ -109,16 +109,15 @@ const Profile = () => {
               <div className="card">
                 <div className="title">Edit Profile</div>
 
-                {/* <img src={`${imagePath}/${avatar}`} alt={avatar} className="img-fluid profile-img" /> */}
-
                 <div className="profile-image-upload">
                   <input type="file" accept="image/*" id="profile-img-input" onChange={handleAvatarChange} hidden />
                   <label htmlFor="profile-img-input" className="profile-img-label">
-                    <img
+                    {/* <img
                       src={`${imagePath}/${user.user.avatar}`}
                       alt={user.user.avatar}
                       className="img-fluid profile-img"
-                    />
+                    /> */}
+                    <img src={user.user.avatar} alt={user.user.avatar} className="img-fluid profile-img" />
                   </label>
                 </div>
 
