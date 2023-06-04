@@ -21,18 +21,18 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
-      const fileName = req.file.filename;
-      const filePath = `public/uploads/${fileName}`;
+      // const fileName = req.file.filename;
+      // const filePath = `public/uploads/${fileName}`;
 
       // note: fs.unlink is used to delete file
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.log(err);
-          res.status(500).json({
-            message: "Error deleting file",
-          });
-        }
-      });
+      // fs.unlink(filePath, (err) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.status(500).json({
+      //       message: "Error deleting file",
+      //     });
+      //   }
+      // });
 
       // note: return res is used to stop the code for frontend
       res.status(400).json({
@@ -45,14 +45,14 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
     }
 
     // if filename is empty set default filename to default.png
-    if (!req.file) {
-      req.file = {};
-      req.file.filename = "default.png";
-    }
+    // if (!req.file) {
+    //   req.file = {};
+    //   req.file.filename = "default.png";
+    // }
 
     // note: SUCCESSFUL CASE
-    const fileName = req.file.filename;
-    const fileUrl = path.join(fileName); // for multer
+    // const fileName = req.file.filename;
+    // const fileUrl = path.join(fileName); // for multer
 
     // these properties have to follow the model: for multer localhost
     // const user = {

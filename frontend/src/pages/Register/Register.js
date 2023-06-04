@@ -8,6 +8,7 @@ import "./Register.css";
 import profileImage from "../../assets/images/user.png";
 import { server } from "../../server";
 import { useSelector } from "react-redux";
+import Loader from "../../components/Layout/Loader/Loader";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ const Register = () => {
   const [visible, setVisible] = useState(false);
   const [birthday, setBirthday] = useState("");
   const [avatar, setAvatar] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // toast component
   const notifySuccess = (message) => toast.success(message, { duration: 5000 });
@@ -56,7 +59,7 @@ const Register = () => {
   };
 
   // submit form handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // validation
@@ -86,27 +89,47 @@ const Register = () => {
     newForm.append("password", password);
     newForm.append("birthday", birthday);
 
-    axios
-      .post(`${server}/user/create-user`, newForm, config)
-      .then((res) => {
-        // notifySuccess(res.data.message);
+    try {
+      setIsLoading(true);
+      const { data } = await axios.post(`${server}/user/create-user`, newForm, config);
+      setIsLoading(false);
 
-        sweetAlertModal("Account Activation", "info", res.data.message);
+      sweetAlertModal("Account Activation", "info", data.message);
 
-        // set form fields to empty
-        setFullname("");
-        setEmail("");
-        setPassword("");
-        setPasswordConfirm("");
-        setBirthday("");
-        setAvatar("");
-      })
-      .catch((err) => {
-        notifyError(err.response.data.message);
-      });
+      // set form fields to empty
+      setFullname("");
+      setEmail("");
+      setPassword("");
+      setPasswordConfirm("");
+      setBirthday("");
+      setAvatar("");
+    } catch (error) {
+      return notifyError(error.response.data.message);
+    }
+
+    // axios
+    //   .post(`${server}/user/create-user`, newForm, config)
+    //   .then((res) => {
+    //     // notifySuccess(res.data.message);
+
+    //     sweetAlertModal("Account Activation", "info", res.data.message);
+
+    //     // set form fields to empty
+    //     setFullname("");
+    //     setEmail("");
+    //     setPassword("");
+    //     setPasswordConfirm("");
+    //     setBirthday("");
+    //     setAvatar("");
+    //   })
+    //   .catch((err) => {
+    //     notifyError(err.response.data.message);
+    //   });
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="register-wrapper">
       <Toaster />
 
@@ -118,10 +141,10 @@ const Register = () => {
               <h2 className="title text-center">Become a member</h2>
 
               {/* <div className="policy">
-                <p className="text-center">
-                  By clicking on Sign in, you agree to our Terms of Use and our Privacy Policy
-                </p>
-              </div> */}
+              <p className="text-center">
+                By clicking on Sign in, you agree to our Terms of Use and our Privacy Policy
+              </p>
+            </div> */}
 
               <form className="form-wrapper mt-3" onSubmit={handleSubmit}>
                 <input

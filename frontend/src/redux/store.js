@@ -27,7 +27,7 @@ const middleware = [
     immutableCheck: true,
     serializableCheck: false,
   }),
-  // logger,
+  logger,
 ];
 
 const store = configureStore({
