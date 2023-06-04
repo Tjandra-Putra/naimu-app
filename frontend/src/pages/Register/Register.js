@@ -104,6 +104,7 @@ const Register = () => {
       setBirthday("");
       setAvatar("");
     } catch (error) {
+      setIsLoading(false);
       return notifyError(error.response.data.message);
     }
 
