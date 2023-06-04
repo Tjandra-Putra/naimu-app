@@ -8,7 +8,7 @@ const cors = require("cors");
 // allow requests from localhost:3000
 const corsOptions = {
   // multiple origin
-  origin: ["http://localhost:3000", "https://naimu-app.vercel.app/"],
+  origin: ["http://localhost:3000", "https://naimu-app.vercel.app"],
   credentials: true,
 };
 
