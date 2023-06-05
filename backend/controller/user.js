@@ -232,17 +232,19 @@ router.get(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      res.status(200).cookie("token", null, {
-        expires: new Date(Date.now()),
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-      });
-
-      // res.status(200).json({
-      //   success: true,
-      //   message: "Logged out.",
+      // res.cookie("token", null, {
+      //   expires: new Date(Date.now()),
+      //   httpOnly: true,
+      //   sameSite: "none",
+      //   secure: true,
       // });
+
+      res.clearCookie("token");
+
+      res.status(200).json({
+        success: true,
+        message: "Logged out.",
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
