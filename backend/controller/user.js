@@ -232,8 +232,11 @@ router.get(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      res.clearCookie("token");
-
+      res.clearCookie("token", {
+        domain: "naimu-app.vercel.app", // Replace with your actual domain
+        path: "/", // Replace with the path where the cookie was set
+        secure: true, // Set to true if your backend uses HTTPS
+      });
       // localhost
       // res.cookie("token", null, {
       //   expires: new Date(Date.now()),
