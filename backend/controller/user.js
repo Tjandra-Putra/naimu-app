@@ -239,15 +239,7 @@ router.get(
       //   secure: true,
       // });
 
-      res.cookie("token", null, {
-        path: "/",
-        secure: false,
-        httpOnly: false,
-        domain: "naimu-app.vercel.app",
-        sameSite: true,
-      });
-
-      // res.clearCookie('token').send();
+      res.clearCookie("token").send();
 
       res.status(200).json({
         success: true,
