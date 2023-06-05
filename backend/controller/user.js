@@ -234,6 +234,7 @@ router.get(
     try {
       res.clearCookie("token", {
         domain: "naimu-app-nodejs.vercel.app",
+        path: "/api/v1/user", // Set the path to "/api/v1/user" to match the original cookie
         httpOnly: true,
         secure: true,
         sameSite: "none",
