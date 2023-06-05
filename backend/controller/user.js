@@ -234,9 +234,9 @@ router.get(
     try {
       res.cookie("token", "", {
         expires: new Date(0),
-        domain: "naimu-app.vercel.app", // Replace with your actual domain
-        path: "/", // Set the path to "/"
-        secure: true, // Set to true if your backend uses HTTPS
+        domain: "naimu-app.vercel.app",
+        path: "/",
+        sameSite: "none",
       });
 
       // localhost
