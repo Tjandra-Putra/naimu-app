@@ -239,7 +239,7 @@ router.get(
       //   secure: true,
       // });
 
-      res.status(200).cookie("token", "", {
+      res.cookie("token", null, {
         path: "/",
         secure: false,
         httpOnly: false,
@@ -247,10 +247,10 @@ router.get(
         sameSite: true,
       });
 
-      // res.status(200).json({
-      //   success: true,
-      //   message: "Logged out.",
-      // });
+      res.status(200).json({
+        success: true,
+        message: "Logged out.",
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
