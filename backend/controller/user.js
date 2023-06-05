@@ -233,7 +233,7 @@ router.get(
   catchAsyncError(async (req, res, next) => {
     try {
       res.clearCookie("token", {
-        domain: "naimu-app.vercel.app",
+        domain: "naimu-app-nodejs.vercel.app",
         httpOnly: true,
         secure: true,
         sameSite: "none",
