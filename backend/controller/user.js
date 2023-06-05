@@ -243,9 +243,11 @@ router.get(
         path: "/",
         secure: false,
         httpOnly: false,
-        domain: "naimu-app-nodejs.vercel.app",
+        domain: "naimu-app.vercel.app",
         sameSite: true,
       });
+
+      // res.clearCookie('token').send();
 
       res.status(200).json({
         success: true,
