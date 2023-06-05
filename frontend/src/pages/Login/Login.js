@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+  const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -43,7 +43,9 @@ const Login = () => {
 
         // redirect to home page after 2 seconds
         setTimeout(() => {
-          navigate("/products");
+          if (user.user.role === "admin") navigate("/admin/dashboard");
+          else navigate("/");
+
           window.location.reload();
         }, 2000);
       })

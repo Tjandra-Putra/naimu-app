@@ -13,6 +13,7 @@ const sendMail = require("../utils/sendMail");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const { isAuthenticatedUser } = require("../middleware/auth");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 // =============================== send email confirmation before create ===============================
 router.post("/create-user", upload.single("avatarFile"), async (req, res, next) => {
@@ -231,9 +232,14 @@ router.get(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
+      const cookies = req.cookies;
+      console.log(cookies);
+
       res.cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
+        sameSite: "none",
+        secure: true, 
       });
 
       res.status(200).json({
