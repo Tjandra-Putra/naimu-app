@@ -18,7 +18,7 @@ const Login = () => {
     if (isAuthenticated) navigate("/");
   }, []);
 
-  const [email, setEmail] = useState("admin@example.com");
+  const [email, setEmail] = useState("user@example.com");
   const [password, setPassword] = useState("password");
   const [visible, setVisible] = useState(false);
 
