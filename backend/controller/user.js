@@ -22,19 +22,6 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
-      // const fileName = req.file.filename;
-      // const filePath = `public/uploads/${fileName}`;
-
-      // note: fs.unlink is used to delete file
-      // fs.unlink(filePath, (err) => {
-      //   if (err) {
-      //     console.log(err);
-      //     res.status(500).json({
-      //       message: "Error deleting file",
-      //     });
-      //   }
-      // });
-
       // note: return res is used to stop the code for frontend
       res.status(400).json({
         success: false,
@@ -44,25 +31,6 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
       // note: return next is used to stop the code for backend
       return next(new ErrorHandler("User already exists", 400));
     }
-
-    // if filename is empty set default filename to default.png
-    // if (!req.file) {
-    //   req.file = {};
-    //   req.file.filename = "default.png";
-    // }
-
-    // note: SUCCESSFUL CASE
-    // const fileName = req.file.filename;
-    // const fileUrl = path.join(fileName); // for multer
-
-    // these properties have to follow the model: for multer localhost
-    // const user = {
-    //   fullName: fullName,
-    //   email: email,
-    //   password: password,
-    //   birthday: birthday,
-    //   avatar: fileUrl,
-    // };
 
     // save to cloudinary
     const result = await uploadImage(req.file);
@@ -233,8 +201,7 @@ router.get(
   catchAsyncError(async (req, res, next) => {
     try {
       res.cookie("token", "", {
-        expires: new Date(0),
-        domain: "naimu-app.vercel.app",
+        expires: new Date(Date.now()),
         path: "/",
         sameSite: "none",
       });
@@ -339,18 +306,16 @@ router.put(
 // =============================== update user avatar ===============================
 router.put(
   "/update-avatar",
-  isAuthenticatedUser,
   upload.single("avatarFile"),
+  isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      // const userExist = await User.findById(req.user.id);
-      // const avatarPathExist = `public/uploads/${userExist.avatar}`;
-      // fs.unlinkSync(avatarPathExist);
-      // const fileUrl = path.join(req.file.filename);
-      // const user = await User.findByIdAndUpdate(req.user.id, { avatar: fileUrl }, { new: true });
+      const avatarFile = req.file;
 
-      const result = await uploadImage(req.file);
+      const result = await uploadImage(avatarFile);
+
       const user = await User.findByIdAndUpdate(req.user.id, { avatar: result.secure_url }, { new: true });
+
       console.log(result.secure_url);
 
       // update avatar in Product collection product_reviews.

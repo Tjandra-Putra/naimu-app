@@ -72,6 +72,8 @@ const Profile = () => {
     const file = e.target.files[0];
     setAvatar(file);
 
+    console.log(file.name);
+
     const formData = new FormData();
     formData.append("avatarFile", file);
 

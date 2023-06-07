@@ -7,11 +7,13 @@ import { server } from "../../server";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import Loader from "../../components/Layout/Loader/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,32 +31,58 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post(
+    try {
+      setIsLoading(true);
+      await axios.post(
         `${server}/user/login`,
         {
           email,
           password,
         },
         { withCredentials: true }
-      )
-      .then((res) => {
-        notifySuccess("Login successful");
+      );
 
-        // redirect to home page after 2 seconds
-        setTimeout(() => {
-          if (user.user.role === "admin") navigate("/admin/dashboard");
-          else navigate("/");
+      notifySuccess("Login successful");
 
-          window.location.reload();
-        }, 2000);
-      })
-      .catch((err) => {
-        notifyError(err.response.data.message);
-      });
+      // redirect to home page after 2 seconds
+      setTimeout(() => {
+        if (user?.user?.role === "admin") navigate("/admin/dashboard");
+        else navigate("/");
+
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      notifyError(error.response.data.message);
+    }
+
+    // await axios
+    //   .post(
+    //     `${server}/user/login`,
+    //     {
+    //       email,
+    //       password,
+    //     },
+    //     { withCredentials: true }
+    //   )
+    //   .then((res) => {
+    //     notifySuccess("Login successful");
+
+    //     // redirect to home page after 2 seconds
+    //     setTimeout(() => {
+    //       if (user.user.role === "admin") navigate("/admin/dashboard");
+    //       else navigate("/");
+
+    //       window.location.reload();
+    //     }, 2000);
+    //   })
+    //   .catch((err) => {
+    //     notifyError(err.response.data.message);
+    //   });
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="login-wrapper">
       <div className="container">
         <div className="row">
