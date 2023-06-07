@@ -49,7 +49,8 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    required: true,
+    default: "https://res.cloudinary.com/dyubbfe3e/image/upload/v1686124705/naimu-app/user_ansqg2.png",
+    required: false,
   },
   birthday: {
     type: Date,
