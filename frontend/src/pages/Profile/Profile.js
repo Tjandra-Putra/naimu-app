@@ -8,7 +8,7 @@ import "./Profile.css";
 import SideNavbar from "../../components/Layout/SideNavbar/SideNavbar";
 import { updateProfile } from "../../redux/actions/user";
 import Loader from "../../components/Layout/Loader/Loader";
-import { server, imagePath } from "../../server";
+import { server } from "../../server";
 
 const Profile = () => {
   // toast component
@@ -25,6 +25,7 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   const [birthday, setBirthday] = useState("");
   const [avatar, setAvatar] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (error) {
@@ -72,32 +73,57 @@ const Profile = () => {
     const file = e.target.files[0];
     setAvatar(file);
 
-    console.log(file.name);
-
     const formData = new FormData();
     formData.append("avatarFile", file);
 
-    await axios
-      .put(`${server}/user/update-avatar`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
         withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.success) {
-          // wait for 2 seconds, notify then reload
-          notifySuccess(res.data.message);
+      };
 
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
-      })
-      .catch((err) => {
-        notifyError(err.response.data.message);
-      });
+      setIsLoading(true);
+
+      const { data } = await axios.put(`${server}/user/update-avatar`, formData, config);
+
+      if (data.success) {
+        // wait for 2 seconds, notify then reload
+        notifySuccess(data.message);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      notifyError(error.response.data.message);
+    }
+
+    // await axios
+    //   .put(`${server}/user/update-avatar`, formData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       // wait for 2 seconds, notify then reload
+    //       notifySuccess(res.data.message);
+
+    //       setTimeout(() => {
+    //         window.location.reload();
+    //       }, 2000);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     notifyError(err.response.data.message);
+    //   });
   };
 
-  return loading ? (
+  return loading || isLoading ? (
     <Loader />
   ) : (
     <div className="profile-wrapper">
@@ -112,13 +138,15 @@ const Profile = () => {
                 <div className="title">Edit Profile</div>
 
                 <div className="profile-image-upload">
-                  <input type="file" accept="image/*" id="profile-img-input" onChange={handleAvatarChange} hidden />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="profile-img-input"
+                    onChange={handleAvatarChange}
+                    name="avatarFile"
+                    hidden
+                  />
                   <label htmlFor="profile-img-input" className="profile-img-label">
-                    {/* <img
-                      src={`${imagePath}/${user.user.avatar}`}
-                      alt={user.user.avatar}
-                      className="img-fluid profile-img"
-                    /> */}
                     <img src={user.user.avatar} alt={user.user.avatar} className="img-fluid profile-img" />
                   </label>
                 </div>

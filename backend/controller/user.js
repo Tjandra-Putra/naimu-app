@@ -4,38 +4,38 @@ const User = require("../model/user");
 const Product = require("../model/product");
 const ErrorHandler = require("../utils/errorHandler");
 const router = express.Router();
-const fs = require("fs");
 const { upload } = require("../multer");
-const { uploadImage } = require("../cloudinary");
 const jwt = require("jsonwebtoken");
 const sendToken = require("../utils/jwtToken");
 const sendMail = require("../utils/sendMail");
 const catchAsyncError = require("../middleware/catchAsyncError");
 const { isAuthenticatedUser } = require("../middleware/auth");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
+const cloudinary = require("cloudinary").v2; // Make sure to import cloudinary v2
 
 // =============================== send email confirmation before create ===============================
 router.post("/create-user", upload.single("avatarFile"), async (req, res, next) => {
   try {
-    const { fullName, email, password, birthday } = req.body; // coming from frontend, these propertieshave to follow client side
+    const { fullName, email, password, birthday } = req.body;
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
-      // note: return res is used to stop the code for frontend
       res.status(400).json({
         success: false,
         message: "User already exists",
       });
-
-      // note: return next is used to stop the code for backend
       return next(new ErrorHandler("User already exists", 400));
     }
 
-    // save to cloudinary
-    const result = await uploadImage(req.file);
+    // if user never set req.file, set default image from cloudinary "https://res.cloudinary.com/dyubbfe3e/image/upload/v1686124705/naimu-app/user_ansqg2.png"
+    if (!req.file) {
+      req.file = {
+        path: "https://res.cloudinary.com/dyubbfe3e/image/upload/v1686124705/naimu-app/user_ansqg2.png",
+      };
+    }
 
-    // these properties have to follow the model: for cloudinary production
+    const result = await cloudinary.uploader.upload(req.file.path, { folder: "avatars" });
+
     const user = {
       fullName: fullName,
       email: email,
@@ -46,7 +46,7 @@ router.post("/create-user", upload.single("avatarFile"), async (req, res, next) 
 
     const activationToken = createActivationToken(user);
     const activationUrl =
-      process.env.NODE_ENV !== "PRODUCTION"
+      process.env.NODE_ENV !== "production"
         ? `http://localhost:3000/activate/${activationToken}`
         : `https://naimu-app.vercel.app/activate/${activationToken}`;
 
@@ -302,7 +302,7 @@ router.put(
   })
 );
 
-// =============================== update user avatar ===============================
+// Update the route handler to use the upload middleware:
 router.put(
   "/update-avatar",
   upload.single("avatarFile"),
@@ -311,14 +311,17 @@ router.put(
     try {
       const avatarFile = req.file;
 
-      const result = await uploadImage(avatarFile);
+      console.log("Avatar File: ", req.file);
+
+      // Use the Cloudinary upload method to upload the avatar file
+      const result = await cloudinary.uploader.upload(avatarFile.path, { folder: "naimu-app" });
 
       const user = await User.findByIdAndUpdate(req.user.id, { avatar: result.secure_url }, { new: true });
 
       console.log(result.secure_url);
 
-      // update avatar in Product collection product_reviews.
-      // why? because the avatar in Product collection product_reviews is not updated when the user updates his/her avatar.
+      // Update avatar in the Product collection's product_reviews.
+      // Why? Because the avatar in the Product collection's product_reviews is not automatically updated when the user updates their avatar.
       await Product.updateMany(
         { "reviews.user._id": req.user.id },
         { $set: { "reviews.$.user.avatar": result.secure_url } }
@@ -334,7 +337,6 @@ router.put(
     }
   })
 );
-
 // =============================== update user address ===============================
 router.put(
   "/update-addresses",
