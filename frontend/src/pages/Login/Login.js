@@ -51,7 +51,10 @@ const Login = () => {
 
         window.location.reload();
       }, 2000);
+
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       notifyError(error.response.data.message);
     }
 
