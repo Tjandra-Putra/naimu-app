@@ -202,8 +202,7 @@ router.get(
     try {
       res.cookie("token", "", {
         expires: new Date(Date.now()),
-        path: "/",
-        sameSite: "none",
+        httpOnly: true,
       });
 
       // localhost
