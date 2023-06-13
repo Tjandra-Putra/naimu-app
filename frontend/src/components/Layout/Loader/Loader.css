@@ -7,10 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: rgba(0, 0, 0, 0.724); */
+  background-color: rgba(0, 0, 0, 0.511);
   /* background-color: #000000; */
-  background-color: #ffffff;
   z-index: 9999;
-  /* color: #ffffff; */
-  color: #000000;
 }
