@@ -14,6 +14,13 @@ const corsOptions = {
   credentials: true,
 };
 
+// Add a middleware to set the appropriate CORS headers
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://naimu-app.vercel.app");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 app.use(cors(corsOptions)); //  important to ensure that the app.use(cors(corsOptions)) middleware is placed before your route handlers. This ensures that the CORS headers are added to the server's responses before the routes are processed.
 app.use(express.json());
 app.use(cookieParser());
