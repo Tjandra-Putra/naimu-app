@@ -207,6 +207,8 @@ router.get(
         secure: process.env.NODE_ENV === "PRODUCTION",
         sameSite: "none", // Allows the cookie to be sent in cross-site requests
       });
+
+      res.status(200).json({ success: true });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
