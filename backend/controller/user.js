@@ -201,7 +201,7 @@ router.get(
   catchAsyncError(async (req, res, next) => {
     try {
       // localhost
-      res.cookie("token", null, {
+      res.cookie("token", "", {
         expires: new Date(Date.now()),
         httpOnly: true,
         secure: process.env.NODE_ENV === "PRODUCTION",
