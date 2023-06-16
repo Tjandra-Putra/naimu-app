@@ -7,8 +7,12 @@ const cors = require("cors");
 
 const corsOptions = {
   // Allows request from these origins
-  origin: ["http://localhost:3000", "https://naimu-app.vercel.app"],
+  origin: "*",
+  allowedHeaders: "Content-Type,Authorization",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: true,
   credentials: true,
+  // origin: ["http://localhost:3000", "https://naimu-app.vercel.app"],
 };
 
 app.use(cors(corsOptions)); //  important to ensure that the app.use(cors(corsOptions)) middleware is placed before your route handlers. This ensures that the CORS headers are added to the server's responses before the routes are processed.
