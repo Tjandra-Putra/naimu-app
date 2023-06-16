@@ -200,9 +200,12 @@ router.get(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      return res.clearCookie("token").status(200).json({
-        success: true,
-        message: "Logged out.",
+      // localhost
+      res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "PRODUCTION",
+        sameSite: "none", // Allows the cookie to be sent in cross-site requests
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
