@@ -200,11 +200,6 @@ router.get(
   isAuthenticatedUser,
   catchAsyncError(async (req, res, next) => {
     try {
-      res.cookie("token", "", {
-        expires: new Date(Date.now()),
-        httpOnly: true,
-      });
-
       // localhost
       // res.cookie("token", null, {
       //   expires: new Date(Date.now()),
@@ -212,8 +207,7 @@ router.get(
       //   sameSite: "none",
       //   secure: true,
       // });
-
-      res.status(200).json({
+      return res.clearCookie("token").status(200).json({
         success: true,
         message: "Logged out.",
       });
