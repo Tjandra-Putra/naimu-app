@@ -180,12 +180,12 @@ const Product = () => {
 
         <main>
           <div className="row">
-            <div className="left-wrapper col-md-8">
+            <div className="left-wrapper col-md-8 order-2 order-md-1">
               <div className="img-gallery row">
                 {/* product images */}
                 {product
                   ? product.imageUrl.map((item, index) => (
-                      <div className="col-md-6" key={index}>
+                      <div className="col-md-6 col-6" key={index}>
                         <div className="product-img-container">
                           <img src={item.url} alt={item.url} className="img-fluid product-img" />
                         </div>
@@ -277,15 +277,15 @@ const Product = () => {
                     >
                       <div className="accordion-body review-box-info">
                         <div className="row mb-4">
-                          <div className="col">
+                          <div className="col-md-4 col-12 total-reviews-wrapper">
                             <div className="review-sub-title">Total Reviews</div>
                             <div className="review-title">{product.reviews.length}</div>
                           </div>
-                          <div className="col">
+                          <div className="col-md-4 col-6">
                             <div className="review-sub-title">Average Rating</div>
                             <div className="review-title">{product.rating.toFixed(1)}</div>
                           </div>
-                          <div className="col">
+                          <div className="col-md-4 col-6">
                             <ProgressBar productReviews={product.reviews} color="bg-primary" />
                           </div>
                         </div>
@@ -329,7 +329,7 @@ const Product = () => {
               </div>
             </div>
             {/* ====== Right Side ====== */}
-            <div className="col-md-4 px-4 right-wrapper">
+            <div className="col-md-4 px-4 right-wrapper order-1 order-md-2">
               <div className="product-store-info">
                 <div className="d-flex flex-row justify-content-between">
                   <div className="product-shop-name">{product.shop.name}</div>

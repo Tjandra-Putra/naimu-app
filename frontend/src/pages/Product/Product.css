@@ -188,22 +188,35 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
-  .productcard-wrapper .card {
-    min-height: 270px !important;
-    box-shadow: none;
+
+  .product-wrapper .product-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+    line-height: 2.5rem;
   }
 
-  .productcard-wrapper .card-img-top {
-    height: 160px;
+  .product-wrapper .right-wrapper {
+    position: relative;
+    margin-bottom: 3rem;
   }
 
-  .productcard-wrapper .title,
-  .productcard-wrapper .category,
-  .productcard-wrapper .prices {
-    text-transform: capitalize !important;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.3rem;
-    margin-bottom: 0.5rem;
+  .product-wrapper input[type="radio"] + label {
+    display: inline-flex;
+    padding: 20px 12px;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    border: 1.5px solid #ddd;
+    height: 1rem;
+    width: 4rem;
+  }
+
+  .product-wrapper .accordion-item-review {
+    margin-right: 1.5rem;
+  }
+
+  .product-wrapper .total-reviews-wrapper {
+    text-align: center;
+    margin-bottom: 1rem;
   }
 }
