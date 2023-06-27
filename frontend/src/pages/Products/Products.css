@@ -54,3 +54,14 @@
 .products-wrapper .accordion-item {
   /* border-color: black; */
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .products-wrapper .result-flex {
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}

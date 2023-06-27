@@ -429,7 +429,7 @@ const Products = () => {
               <div className="row">
                 {productList && productList.length > 0
                   ? currentProducts.map((item, index) => (
-                      <div className="col-md-4" key={index}>
+                      <div className="col-md-4 col-6" key={index}>
                         <ProductCard
                           productId={item._id}
                           productStore={item.shop.name}
