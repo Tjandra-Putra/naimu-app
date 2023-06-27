@@ -8,6 +8,8 @@ import "./Home.css";
 import bannerImage1 from "../../assets/images/marketing/pexels-terje-sollie-298864.jpg";
 import bannerImage3 from "../../assets/images/marketing/pexels-godisable-jacob-982010.jpeg";
 import bannerVideo2 from "../../assets/videos/possibilities-are-born.mp4";
+import arrowLeft from "../../assets/images/left-chevron.png";
+import arrowRight from "../../assets/images/chevron.png";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { server } from "../../server";
@@ -29,7 +31,7 @@ const Home = () => {
   return (
     <div className="home-wrapper">
       <div id="carouselExampleIndicators" className="carousel slide">
-        {/* <div className="banner-arrow">
+        <div className="banner-arrow">
           <div className="btn-group">
             <button
               className="btn btn-light bg-white active"
@@ -37,8 +39,8 @@ const Home = () => {
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="prev"
             >
-              <span className="">
-                <img src={arrowLeft} alt="" style={{ width: "30px" }} />
+              <span>
+                <img src={arrowLeft} alt="" style={{ width: "30px" }} className="arrow-icon" />
               </span>
             </button>
 
@@ -48,12 +50,12 @@ const Home = () => {
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide="next"
             >
-              <span className="">
-                <img src={arrowRight} alt="" style={{ width: "30px" }} />
+              <span>
+                <img src={arrowRight} alt="" style={{ width: "30px" }} className="arrow-icon" />
               </span>
             </button>
           </div>
-        </div> */}
+        </div>
         <div className="carousel-indicators">
           <button
             type="button"
@@ -193,10 +195,11 @@ const Home = () => {
                   Our Best Seller Product is meticulously crafted to provide an exceptional user experience. It boasts a
                   sleek and modern design that effortlessly combines style and functionality.
                 </div>
-
-                <button className="btn btn-outline-dark btn-learn-more rounded-5 mt-3 text-uppercase">
-                  Learn More
-                </button>
+                <div className="btn-learn-more-wrapper">
+                  <button className="btn btn-outline-dark btn-learn-more rounded-5 mt-3 text-uppercase">
+                    Learn More
+                  </button>
+                </div>
               </div>
 
               <div className="col-md-8">
@@ -206,7 +209,6 @@ const Home = () => {
                     className="glider-container"
                     draggable
                     hasDots
-                    // slidesToShow={3}
                     responsive={[
                       {
                         breakpoint: 775,
@@ -221,7 +223,7 @@ const Home = () => {
                   >
                     {productList && productList.length > 0
                       ? productList?.map((item, index) => (
-                          <div className="col-md-3 mx-3 mb-3">
+                          <div className="col-md-3 mx-3 mb-3" key={index}>
                             <ProductCard
                               productId={item._id}
                               productStore={item.shop.name}
@@ -249,10 +251,9 @@ const Home = () => {
             <div className="the-essentials-title">The Essentials</div>
           </div>
           <div className="row">
-            <div className="col">
+            <div className="col-md-6 col-12">
               <div className="img-wrapper">
                 <img
-                  // src="https://static.nike.com/a/images/f_auto/dpr_2.0,cs_srgb/h_700,c_limit/d62ad2b8-9231-4fdb-9f4a-3ff76a34b26b/nike-just-do-it.png"
                   src="https://images.pexels.com/photos/1698359/pexels-photo-1698359.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt=""
                   className="img-fluid"
@@ -264,7 +265,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="col">
+            <div className="col-md-6 col-12">
               <div className="img-wrapper">
                 <img
                   src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=800"
@@ -286,7 +287,7 @@ const Home = () => {
       <section className="stories">
         <div className="container">
           <div className="row">
-            <div className="col">
+            <div className="col-md-6 col-xs-12 stories-container">
               <div className="title">Express Yourself &nbsp;with Fashion</div>
               <div className="description mt-3">
                 <p>
@@ -308,7 +309,7 @@ const Home = () => {
                 </p>
               </div>
             </div>
-            <div className="col">
+            <div className="col-md-6 col-xs-12 stories-container">
               <div className="title">Shop with confidence</div>
               <div className="description mt-3">
                 <p>

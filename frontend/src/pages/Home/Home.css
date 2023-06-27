@@ -198,3 +198,94 @@
   font-weight: 600;
   border-radius: 50px !important;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .home-wrapper .img-banner {
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 70px);
+    object-fit: cover;
+  }
+
+  .home-wrapper .banner-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 3vw;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .home-wrapper .banner-arrow .arrow-icon {
+    width: 1.3rem !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-wrapper .btn-group .btn-light {
+    width: 2.5rem;
+    height: 2rem;
+  }
+
+  .home-wrapper .banner-content .title {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+  }
+
+  .home-wrapper .banner-content .subtitle {
+    max-width: 100%;
+  }
+
+  .home-wrapper .featured-products .featured-products-title {
+    font-size: 1.8rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .home-wrapper .featured-products .featured-products-sub-title {
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .home-wrapper .featured-products .btn-learn-more-wrapper {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .home-wrapper .the-essentials {
+    margin: 0px;
+  }
+
+  .home-wrapper .the-essentials .the-essentials-title {
+    font-size: 1.8rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .home-wrapper .the-essentials .img-wrapper {
+    border-radius: 5px !important;
+    margin-bottom: 1rem;
+  }
+
+  .home-wrapper .stories {
+    margin: 0px;
+  }
+
+  .home-wrapper .stories-container {
+    margin-bottom: 1rem;
+  }
+
+  .home-wrapper .stories .title {
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    height: unset;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}
