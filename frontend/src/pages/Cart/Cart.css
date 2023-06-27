@@ -172,13 +172,10 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
-  .cart-wrapper {
-    margin-bottom: 50vh;
-    height: 100%;
-  }
 
   .cart-wrapper .summary {
-    position: relative !important; /* Remove the sticky positioning */
+    height: unset !important;
+    margin-top: 1rem;
   }
 
   .cart-wrapper .product-img img {
