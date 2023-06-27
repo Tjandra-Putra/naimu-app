@@ -118,3 +118,26 @@
 .payment-wrapper .discount {
   color: #9e3500;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+
+  .payment-wrapper .summary {
+    height: unset;
+  }
+
+  .payment-wrapper .card {
+    margin-top: 1rem !important;
+    max-height: 38rem;
+    overflow-y: scroll;
+  }
+
+  .payment-wrapper .product-img img {
+    min-width: 100px;
+    height: 100px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}
