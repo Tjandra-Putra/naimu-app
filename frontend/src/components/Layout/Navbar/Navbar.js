@@ -46,7 +46,7 @@ const Navbar = () => {
   ) : (
     <div className="navbar-wrapper">
       <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid">
+        <div className="container">
           <Link className="navbar-brand" to="/">
             Naimu.
           </Link>
@@ -173,7 +173,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               ) : (
-                <li>
+                <li className="nav-item nav-link-size">
                   <Link className="nav-link" to="/login">
                     <i className="fa-regular fa-user fa-lg pe-1 nav-link-icon"></i>
                   </Link>
