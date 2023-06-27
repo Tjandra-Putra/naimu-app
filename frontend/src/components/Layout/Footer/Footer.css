@@ -58,10 +58,18 @@
 @media (max-width: 767px) {
   /* Styles for mobile devices */
   .footer-wrapper .heading {
-    text-transform: uppercase;
-    font-weight: 400;
-    color: #ffffff;
-    letter-spacing: 1px;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+
+  .footer-wrapper .brand {
+    font-weight: 600;
+  }
+
+  .footer-wrapper .payment-cards {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5rem;
   }
 }
 
