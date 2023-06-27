@@ -143,116 +143,120 @@ const Cart = () => {
 
               {cart ? (
                 cart.map((item, index) => (
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr key={index}>
-                        <td className="product-action">
-                          <div
-                            className="btn-delete"
-                            onClick={() => dispatch(removeFromCart({ _id: item._id, size: item.size }))}
-                          >
-                            <i class="fas fa-times fa-lg"></i>
-                          </div>
-                        </td>
-                        <td className="product-img">
-                          <Link to={`/products/${item._id}`}>
-                            <img src={item.imageUrl} alt="" className="img-fluid" />
-                          </Link>
-                        </td>
-                        <td className="product-description">
-                          <div className="d-flex flex-column">
-                            <div className="product-title">{item.title}</div>
-                            <div className="product-id">Product ID: {item._id}</div>
-                            <div className="product-store">{item.shopName}</div>
-                            <div className="d-flex flex-row">
-                              <div className="product-size">
-                                <select
-                                  class="size-select form-select"
-                                  aria-label="Default select example"
-                                  onChange={(event) => sizeChangeHandler(event, item._id, item.size, item.quantity)}
-                                >
-                                  <option disabled>Size</option>
-                                  {/* select size according to cart */}
-                                  <option value="XS" selected={item.size === "XS"}>
-                                    XS
-                                  </option>
-                                  <option value="S" selected={item.size === "S"}>
-                                    S
-                                  </option>
-                                  <option value="M" selected={item.size === "M"}>
-                                    M
-                                  </option>
-                                  <option value="L" selected={item.size === "L"}>
-                                    L
-                                  </option>
-                                  <option value="XL" selected={item.size === "XL"}>
-                                    XL
-                                  </option>
-                                </select>
-                              </div>
-                              <div className="product-quantity ms-3">
-                                <select
-                                  class="size-select form-select"
-                                  aria-label="Default select example"
-                                  onChange={(event) => quantityChangeHandler(event, item._id, item.size, item.quantity)}
-                                >
-                                  <option disabled>Quantity</option>
-                                  <option value="1" selected={item.quantity.toString() === "1"}>
-                                    1
-                                  </option>
-                                  <option value="2" selected={item.quantity.toString() === "2"}>
-                                    2
-                                  </option>
-                                  <option value="3" selected={item.quantity.toString() === "3"}>
-                                    3
-                                  </option>
-                                  <option value="4" selected={item.quantity.toString() === "4"}>
-                                    4
-                                  </option>
-                                  <option value="5" selected={item.quantity.toString() === "5"}>
-                                    5
-                                  </option>
-                                  <option value="6" selected={item.quantity.toString() === "6"}>
-                                    6
-                                  </option>
-                                  <option value="7" selected={item.quantity.toString() === "7"}>
-                                    7
-                                  </option>
-                                  <option value="8" selected={item.quantity.toString() === "8"}>
-                                    8
-                                  </option>
-                                  <option value="9" selected={item.quantity.toString() === "9"}>
-                                    9
-                                  </option>
-                                  <option value="10" selected={item.quantity.toString() === "10"}>
-                                    10
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
+                  <div class="tablex">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr key={index}>
+                          <td className="product-action">
                             <div
-                              className="favourite"
-                              onClick={() => {
-                                addToFavouritesHandler(item);
-                                dispatch(removeFromCart({ _id: item._id, size: item.size }));
-                              }}
+                              className="btn-delete"
+                              onClick={() => dispatch(removeFromCart({ _id: item._id, size: item.size }))}
                             >
-                              Move to Favourites
+                              <i class="fas fa-times fa-lg"></i>
                             </div>
-                          </div>
-                        </td>
-                        <td>${item.price * item.quantity}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                          </td>
+                          <td className="product-img">
+                            <Link to={`/products/${item._id}`}>
+                              <img src={item.imageUrl} alt="" className="img-fluid product-img-mobile" />
+                            </Link>
+                          </td>
+                          <td className="product-description">
+                            <div className="d-flex flex-column">
+                              <div className="product-title">{item.title}</div>
+                              <div className="product-id">Product ID: {item._id}</div>
+                              <div className="product-store">{item.shopName}</div>
+                              <div className="d-flex flex-row">
+                                <div className="product-size">
+                                  <select
+                                    class="size-select form-select"
+                                    aria-label="Default select example"
+                                    onChange={(event) => sizeChangeHandler(event, item._id, item.size, item.quantity)}
+                                  >
+                                    <option disabled>Size</option>
+                                    {/* select size according to cart */}
+                                    <option value="XS" selected={item.size === "XS"}>
+                                      XS
+                                    </option>
+                                    <option value="S" selected={item.size === "S"}>
+                                      S
+                                    </option>
+                                    <option value="M" selected={item.size === "M"}>
+                                      M
+                                    </option>
+                                    <option value="L" selected={item.size === "L"}>
+                                      L
+                                    </option>
+                                    <option value="XL" selected={item.size === "XL"}>
+                                      XL
+                                    </option>
+                                  </select>
+                                </div>
+                                <div className="product-quantity ms-3">
+                                  <select
+                                    class="size-select form-select"
+                                    aria-label="Default select example"
+                                    onChange={(event) =>
+                                      quantityChangeHandler(event, item._id, item.size, item.quantity)
+                                    }
+                                  >
+                                    <option disabled>Quantity</option>
+                                    <option value="1" selected={item.quantity.toString() === "1"}>
+                                      1
+                                    </option>
+                                    <option value="2" selected={item.quantity.toString() === "2"}>
+                                      2
+                                    </option>
+                                    <option value="3" selected={item.quantity.toString() === "3"}>
+                                      3
+                                    </option>
+                                    <option value="4" selected={item.quantity.toString() === "4"}>
+                                      4
+                                    </option>
+                                    <option value="5" selected={item.quantity.toString() === "5"}>
+                                      5
+                                    </option>
+                                    <option value="6" selected={item.quantity.toString() === "6"}>
+                                      6
+                                    </option>
+                                    <option value="7" selected={item.quantity.toString() === "7"}>
+                                      7
+                                    </option>
+                                    <option value="8" selected={item.quantity.toString() === "8"}>
+                                      8
+                                    </option>
+                                    <option value="9" selected={item.quantity.toString() === "9"}>
+                                      9
+                                    </option>
+                                    <option value="10" selected={item.quantity.toString() === "10"}>
+                                      10
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div
+                                className="favourite"
+                                onClick={() => {
+                                  addToFavouritesHandler(item);
+                                  dispatch(removeFromCart({ _id: item._id, size: item.size }));
+                                }}
+                              >
+                                Move to Favourites
+                              </div>
+                            </div>
+                          </td>
+                          <td>${item.price * item.quantity}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 ))
               ) : (
                 <h2>Cart is empty.</h2>
