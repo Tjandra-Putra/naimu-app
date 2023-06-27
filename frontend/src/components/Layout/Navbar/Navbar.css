@@ -132,7 +132,7 @@
 @media (max-width: 767px) {
   /* Styles for mobile devices */
   .navbar-wrapper .navbar {
-    z-index: 999 !important;
+    z-index: 9999 !important;
   }
 
   .navbar-wrapper .navbar .nav-item {
