@@ -54,3 +54,17 @@
   height: 30px !important;
   margin: 5px;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .footer-wrapper .heading {
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}

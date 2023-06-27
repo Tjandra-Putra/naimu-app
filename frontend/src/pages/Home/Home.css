@@ -284,6 +284,28 @@
     line-height: 2.5rem;
     height: unset;
   }
+
+  .home-wrapper .membership {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .home-wrapper .membership .title {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .home-wrapper .membership .btn {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    width: 100%;
+    margin-left: 0px !important;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
