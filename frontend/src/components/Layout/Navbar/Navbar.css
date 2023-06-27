@@ -128,3 +128,79 @@
   object-fit: cover;
   border: 2px solid #6a6662;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .navbar-wrapper .navbar {
+    z-index: 999 !important;
+  }
+
+  .navbar-wrapper .navbar .nav-item {
+    padding: 0px !important;
+    margin: auto;
+  }
+
+  .navbar-wrapper .navbar-collapse {
+    background-color: #ffffff !important;
+    position: absolute;
+    left: 0;
+    width: 100.1%;
+    top: 8.4vh;
+  }
+
+  .navbar-wrapper .navbar .input-group-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar-wrapper .navbar .search-group {
+    width: 92vw !important;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .navbar-wrapper .header {
+    position: unset;
+    text-align: center;
+  }
+
+  .navbar-wrapper .search-group {
+    margin-top: 2.5px;
+  }
+
+  .navbar-wrapper .search-results {
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - 70px - 300px);
+    padding-top: 2rem;
+  }
+
+  .navbar-wrapper .result-container {
+    border-bottom: 1.5px solid #000000;
+
+    margin-bottom: 1rem;
+  }
+
+  .navbar-wrapper .search-result-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .navbar-wrapper .search-result-item-title {
+    color: #000000;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+
+  .navbar-wrapper .search-result-item-category {
+    color: #9e3500;
+  }
+
+  .navbar-wrapper .search-result-item-price {
+    color: #000000;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}

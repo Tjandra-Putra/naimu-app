@@ -46,7 +46,7 @@ const Navbar = () => {
   ) : (
     <div className="navbar-wrapper">
       <nav className="navbar navbar-expand-lg">
-        <div className="container">
+        <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             Naimu.
           </Link>
@@ -112,49 +112,51 @@ const Navbar = () => {
             </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item pe-4">
-                <div className="input-group search-group">
-                  <span className="input-group-text search-icon border-0" id="basic-addon1">
-                    <i className="fas fa-search fa-lg"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control search-input shadow-none"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                  />
+                <div className="input-group-wrapper">
+                  <div className="input-group search-group">
+                    <span className="input-group-text search-icon border-0" id="basic-addon1">
+                      <i className="fas fa-search fa-lg"></i>
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control search-input shadow-none"
+                      placeholder="Search"
+                      value={searchTerm}
+                      onChange={handleSearchChange}
+                    />
 
-                  {searchResults && searchResults.length > 0 ? (
-                    <div className="search-results">
-                      <div className="header">Products</div>
-                      {searchResults &&
-                        searchResults.map((result, index) => {
-                          return (
-                            <Link
-                              to={`/products/${result._id}`}
-                              key={index}
-                              className="text-decoration-none"
-                              onClick={() => setSearchResults([])}
-                            >
-                              <div className="row py-2">
-                                <div className="col-md-4">
-                                  <img
-                                    src={result.imageUrl[0].url}
-                                    alt={result.title}
-                                    className="img-fluid search-result-img"
-                                  />
+                    {searchResults && searchResults.length > 0 ? (
+                      <div className="search-results">
+                        <div className="header">Products</div>
+                        {searchResults &&
+                          searchResults.map((result, index) => {
+                            return (
+                              <Link
+                                to={`/products/${result._id}`}
+                                key={index}
+                                className="text-decoration-none"
+                                onClick={() => setSearchResults([])}
+                              >
+                                <div className="row py-2 result-container">
+                                  <div className="col-md-4">
+                                    <img
+                                      src={result.imageUrl[0].url}
+                                      alt={result.title}
+                                      className="img-fluid search-result-img"
+                                    />
+                                  </div>
+                                  <div className="col-md-8">
+                                    <div className="search-result-item-title">{result.title}</div>
+                                    <div className="search-result-item-category">{result.category}</div>
+                                    <div className="search-result-item-price">${result.price}</div>
+                                  </div>
                                 </div>
-                                <div className="col-md-8">
-                                  <div className="search-result-item-title">{result.title}</div>
-                                  <div className="search-result-item-category">{result.category}</div>
-                                  <div className="search-result-item-price">${result.price}</div>
-                                </div>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                    </div>
-                  ) : null}
+                              </Link>
+                            );
+                          })}
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </li>
 
