@@ -174,3 +174,30 @@
   font-size: 1.3rem;
   cursor: pointer;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .order-wrapper .message {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .order-wrapper .summary {
+    height: unset;
+  }
+
+  .order-wrapper .card {
+    margin-top: 1rem !important;
+    max-height: 38rem;
+    overflow-y: scroll;
+  }
+
+  .order-wrapper .product-img img {
+    min-width: 100px;
+    height: 100px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}
