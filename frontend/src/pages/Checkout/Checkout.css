@@ -137,6 +137,13 @@
 
   .checkout-wrapper .card {
     margin-top: 1rem !important;
+    max-height: 38rem;
+    overflow-y: scroll;
+  }
+
+  .checkout-wrapper .product-img img {
+    min-width: 100px;
+    height: 100px !important;
   }
 }
 
