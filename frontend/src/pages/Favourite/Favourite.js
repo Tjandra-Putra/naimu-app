@@ -72,7 +72,7 @@ const Favourite = () => {
 
         <div className="row">
           {favouritesList?.favouriteItems?.map((item, index) => (
-            <div className="col-md-3 mb-4" key={index}>
+            <div className="col-md-3 col-6 mb-4" key={index}>
               <div className="card-wrapper">
                 <MemoizedProductCard
                   productId={item.productId}
