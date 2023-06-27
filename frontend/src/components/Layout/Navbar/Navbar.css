@@ -153,10 +153,16 @@
     justify-content: center;
   }
 
-  .navbar-wrapper .navbar .search-group {
+  .navbar-wrapper .navbar .search-group,
+  .navbar-wrapper .navbar .dropdown-menu {
     width: 92vw !important;
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .navbar-nav .nav-link.active,
+  .navbar-nav .nav-link.show {
+    text-align: center;
   }
 
   .navbar-wrapper .header {

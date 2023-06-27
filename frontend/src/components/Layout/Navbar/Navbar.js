@@ -95,7 +95,7 @@ const Navbar = () => {
                   Products
                 </Link>
               </li>
-              <li className="nav-item dropdown px-2">
+              {/* <li className="nav-item dropdown px-2">
                 <Link
                   className="nav-link dropdown-toggle"
                   role="button"
@@ -108,7 +108,7 @@ const Navbar = () => {
                   <Link className="nav-link">Order Status</Link>
                   <Link className="nav-link">Contact Us</Link>
                 </ul>
-              </li>
+              </li> */}
             </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item pe-4">
