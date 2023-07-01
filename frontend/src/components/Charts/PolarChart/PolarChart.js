@@ -46,7 +46,7 @@ const RadarChart = ({ dataApi, text }) => {
 
   return (
     <div className="line-chart-wrapper">
-      <PolarArea data={data} options={options} style={{ width: "25rem" }} />
+      <PolarArea data={data} options={options} />
     </div>
   );
 };

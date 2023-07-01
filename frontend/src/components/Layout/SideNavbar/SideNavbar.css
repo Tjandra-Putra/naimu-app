@@ -36,3 +36,27 @@
 .side-navbar-wrapper .icon-wrapper i {
   width: 1rem !important;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .side-navbar-wrapper .mobile-hidden {
+    display: none;
+  }
+
+  .side-navbar-wrapper .list-group-item {
+    width: 15vw;
+    display: flex;
+    flex: row;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .side-navbar-wrapper .list-group-item .icon-wrapper i {
+    margin: 0 !important;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}

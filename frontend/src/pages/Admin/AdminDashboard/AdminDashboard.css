@@ -116,6 +116,11 @@
 
 .admin-dashboard-wrapper .name {
   font-weight: 600;
+  max-width: 7rem !important;
+  /* ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .admin-dashboard-wrapper .date {
@@ -154,4 +159,62 @@
 
 .admin-dashboard-wrapper .brand-box {
   min-height: 23rem;
+}
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .admin-dashboard-wrapper .card {
+    padding: 1rem;
+  }
+
+  .admin-dashboard-wrapper .filter-wrapper {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .admin-dashboard-wrapper .form-select {
+    width: 100% !important;
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+
+  .admin-dashboard-wrapper .heading {
+    font-size: 14px !important;
+  }
+
+  .admin-dashboard-wrapper .figure {
+    font-size: 20px !important;
+    font-weight: 600;
+  }
+
+  .admin-dashboard-wrapper .stats-box {
+    height: 100%;
+    min-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .admin-dashboard-wrapper .revenue .col-md-8 {
+    margin-bottom: 1rem;
+  }
+
+  .admin-dashboard-wrapper .revenue-box {
+    margin-top: 1rem;
+  }
+
+  .admin-dashboard-wrapper .stats-box-main {
+    margin-bottom: 0 !important;
+  }
+
+  .admin-dashboard-wrapper .mobile-recent-sales {
+    max-height: 30vh;
+  }
+
+  .admin-dashboard-wrapper .top-products {
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
 }

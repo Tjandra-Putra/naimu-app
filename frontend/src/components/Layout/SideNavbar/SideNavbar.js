@@ -132,7 +132,7 @@ const SideNavbar = ({ activeLink }) => {
               <span className="icon-wrapper">
                 <i className={`${firstItem.icon} me-3`}></i>
               </span>
-              <span>{firstItem.name}</span>
+              <span className="mobile-hidden">{firstItem.name}</span>
             </div>
             <div>
               {show ? <i className="fas fa-chevron-up ms-2"></i> : <i className="fas fa-chevron-down ms-2"></i>}
@@ -150,7 +150,7 @@ const SideNavbar = ({ activeLink }) => {
               <span className="icon-wrapper">
                 <i className={`${item.icon} me-3`}></i>
               </span>
-              {item.name}
+              <span className="mobile-hidden">{item.name}</span>
             </Link>
           ))}
       </>
@@ -169,7 +169,7 @@ const SideNavbar = ({ activeLink }) => {
         <span className="icon-wrapper">
           <i className={`${item.icon} me-3`}></i>
         </span>
-        {item.name}
+        <span className="mobile-hidden">{item.name}</span>
       </Link>
     ));
   }, [activeLink]);

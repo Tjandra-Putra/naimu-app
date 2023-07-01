@@ -130,10 +130,10 @@ const Profile = () => {
       <div className="container">
         <div className="orders">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-2">
               <SideNavbar activeLink="profile" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
                 <div className="title">Edit Profile</div>
 

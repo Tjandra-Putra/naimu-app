@@ -127,13 +127,15 @@ const AdminDashboard = () => {
 
         <div className="orders">
           <div className="row">
-            <div className="col-md-3 sticky">
+            <div className="col-md-3 col-2 sticky">
               <SideNavbar activeLink="admin-dashboard" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
-                <div className="d-flex flex-row justify-content-between">
-                  <div className="title"><i class="fa-solid fa-bars-staggered"></i> Dashboard</div>
+                <div className="filter-wrapper d-flex flex-row justify-content-between">
+                  <div className="title">
+                    <i class="fa-solid fa-bars-staggered"></i> Dashboard
+                  </div>
 
                   <select
                     class="form-select mb-3"
@@ -218,34 +220,35 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <div className="stats-box revenue-box">
+                      <div className="stats-box revenue-box mobile-recent-sales">
                         <div className="d-flex flex-row justify-content-between">
                           <div className="heading">Recent Sales</div>
                           <small className="view text-muted">
                             View All <i class="fa-solid fa-chevron-right"></i>
                           </small>
                         </div>
-                        {allOrders &&
-                          allOrders.map((order, index) => {
-                            const timeAgo = formatDistanceToNow(new Date(order?.createdAt), { addSuffix: true });
+                        {allOrders
+                          ? allOrders.map((order, index) => {
+                              const timeAgo = formatDistanceToNow(new Date(order?.createdAt), { addSuffix: true });
 
-                            return (
-                              <div className="d-flex flex-row justify-content-between mt-3" key={index}>
-                                <div className="avatar-info">
-                                  <div className="sales-row">
-                                    <img src={userImage} alt="avatar" className="img-fluid avatar" />
-                                    <span className="user-info-wrapper ms-2">
-                                      <div className="user-info">
-                                        <div className="name">{order?.user?.fullName}</div>
-                                        <div className="date">{timeAgo}</div>
-                                      </div>
-                                    </span>
+                              return (
+                                <div className="d-flex flex-row justify-content-between mt-3" key={index}>
+                                  <div className="avatar-info">
+                                    <div className="sales-row">
+                                      <img src={userImage} alt="avatar" className="img-fluid avatar" />
+                                      <span className="user-info-wrapper ms-2">
+                                        <div className="user-info">
+                                          <div className="name">{order?.user?.fullName}</div>
+                                          <div className="date">{timeAgo}</div>
+                                        </div>
+                                      </span>
+                                    </div>
                                   </div>
+                                  <div className="sales">+${order?.totalPrice.toFixed(2)}</div>
                                 </div>
-                                <div className="sales">+${order?.totalPrice.toFixed(2)}</div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })
+                          : "Loading..."}
                       </div>
                     </div>
                   </div>
