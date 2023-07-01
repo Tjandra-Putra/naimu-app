@@ -51,10 +51,10 @@ const PasswordChange = () => {
       <div className="container">
         <div className="password-change">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-2">
               <SideNavbar activeLink="password-change" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
                 <div className="title">Change Password</div>
 
