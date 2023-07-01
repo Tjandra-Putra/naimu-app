@@ -118,7 +118,7 @@ const Navbar = () => {
             <div className="mobile-avatar">
               {isAuthenticated && user ? (
                 <Link className="nav-link" to="/profile">
-                  <img src={user.user.avatar} alt={user.user.avatar} className="img-fluid profile-img " />
+                  <img src={user.user.avatar} alt={user.user.avatar} className="img-fluid profile-img" />
                 </Link>
               ) : (
                 <Link className="nav-link" to="/login">
