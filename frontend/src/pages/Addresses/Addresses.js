@@ -74,12 +74,12 @@ const Addresses = () => {
       <div className="container">
         <div className="addresses">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-2">
               <SideNavbar activeLink="addresses" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
-                <div className="d-flex flex-row justify-content-between mb-4">
+                <div className="d-flex flex-row justify-content-between mb-4 addresses-flex">
                   <div className="title">My Addresses</div>
                   <div className="btn-add btn btn-dark rounded-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa-solid fa-plus"></i> Add New

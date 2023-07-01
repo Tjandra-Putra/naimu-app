@@ -68,3 +68,19 @@
 .addresses-wrapper .addresses-empty .title {
   font-size: 1.2rem;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .addresses-wrapper .addresses-flex {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .addresses-wrapper .btn-add {
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}
