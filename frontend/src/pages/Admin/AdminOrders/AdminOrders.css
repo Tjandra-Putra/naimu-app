@@ -91,3 +91,21 @@
   background-color: #e1e7e9;
   color: #000000;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .admin-orders-wrapper .table {
+    width: 100%;
+    table-layout: unset;
+    word-wrap: break-word;
+  }
+
+  .admin-orders-wrapper .order-id {
+    /* wrap text */
+    max-width: 12rem !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}

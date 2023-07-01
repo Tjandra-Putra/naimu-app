@@ -84,64 +84,66 @@ const Orders = () => {
 
         <div className="orders">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-2">
               <SideNavbar activeLink="admin-orders" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
                 {ordersList.length > 0 ? (
                   <React.Fragment>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Order ID</th>
-                          <th scope="col">Date</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Quantity</th>
-                          <th scope="col">Total</th>
-                          <th scope="col"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {ordersList
-                          ? currentOrder.map((order, index) => (
-                              <tr key={index}>
-                                <td>{order._id}</td>
-                                <td>
-                                  {new Date(order.createdAt)
-                                    .toLocaleString("en-US", {
-                                      day: "numeric",
-                                      month: "numeric",
-                                      year: "numeric",
-                                      hour: "numeric",
-                                      minute: "numeric",
-                                      hour12: true,
-                                    })
-                                    .replace(",", "")}
-                                </td>
-                                <td>
-                                  <div className={`status-badge ${getStatusColor(order.orderStatus)}`}>
-                                    <div>
-                                      <i
-                                        class="fa-solid fa-circle me-2"
-                                        style={{ fontSize: "7px", paddingBottom: "10px" }}
-                                      ></i>
+                    <div className="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {ordersList
+                            ? currentOrder.map((order, index) => (
+                                <tr key={index}>
+                                  <td className="order-id">{order._id}</td>
+                                  <td>
+                                    {new Date(order.createdAt)
+                                      .toLocaleString("en-US", {
+                                        day: "numeric",
+                                        month: "numeric",
+                                        year: "numeric",
+                                        hour: "numeric",
+                                        minute: "numeric",
+                                        hour12: true,
+                                      })
+                                      .replace(",", "")}
+                                  </td>
+                                  <td>
+                                    <div className={`status-badge ${getStatusColor(order.orderStatus)}`}>
+                                      <div>
+                                        <i
+                                          class="fa-solid fa-circle me-2"
+                                          style={{ fontSize: "7px", paddingBottom: "10px" }}
+                                        ></i>
+                                      </div>
+                                      <div>{order.orderStatus}</div>
                                     </div>
-                                    <div>{order.orderStatus}</div>
-                                  </div>
-                                </td>
-                                <td>{order.orderItems.length}</td>
-                                <td>${order.totalPrice}</td>
-                                <td>
-                                  <Link to={`/admin/orders/${order._id}`} className="text-decoration-none text-dark">
-                                    <i class="fas fa-arrow-right fa-lg"></i>
-                                  </Link>
-                                </td>
-                              </tr>
-                            ))
-                          : null}
-                      </tbody>
-                    </table>
+                                  </td>
+                                  <td>{order.orderItems.length}</td>
+                                  <td>${order.totalPrice}</td>
+                                  <td>
+                                    <Link to={`/admin/orders/${order._id}`} className="text-decoration-none text-dark">
+                                      <i class="fas fa-arrow-right fa-lg"></i>
+                                    </Link>
+                                  </td>
+                                </tr>
+                              ))
+                            : null}
+                        </tbody>
+                      </table>
+                    </div>
 
                     <nav aria-label="Page navigation example">
                       <ul className="pagination justify-content-center mt-1">
