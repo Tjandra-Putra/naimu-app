@@ -451,10 +451,10 @@ const AdminProducts = () => {
 
         <div className="orders">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-2">
               <SideNavbar activeLink="admin-products" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
                 {productsList.length > 0 ? (
                   <React.Fragment>
@@ -506,7 +506,7 @@ const AdminProducts = () => {
                                         </div>
                                       )}
                                     </td>
-                                    <td>
+                                    <td className="product-title-wrapper">
                                       <div className="product-title">{product.title}</div>
                                     </td>
                                     <td>
