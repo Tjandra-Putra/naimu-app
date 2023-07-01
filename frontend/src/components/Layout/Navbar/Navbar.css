@@ -14,9 +14,10 @@
 
 .navbar-wrapper .nav-link {
   border-radius: 5px !important;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 14px;
   color: #000000;
+  font-weight: 600;
 }
 
 .navbar-wrapper .nav-link-icon {
@@ -31,7 +32,7 @@
 .navbar-wrapper .nav-link:hover {
   background-color: #dddddd6e;
   border-radius: 5px !important;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .navbar-wrapper .search-icon {
@@ -131,8 +132,65 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
+  .navbar-wrapper .mobile-navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 800;
+    width: 45vw;
+    justify-content: space-between;
+  }
+
+  .navbar-wrapper .mobile-navbar .search {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+
+  .navbar-wrapper .mobile-search-navbar {
+    height: 70px;
+    position: absolute;
+    top: 0;
+    z-index: 12;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background-color: #ffffff;
+  }
+
+  .navbar-wrapper .mobile-search-navbar .search-group {
+    width: 72vw;
+  }
+
+  .navbar-wrapper .mobile-search-navbar .close {
+    font-size: 1.8rem;
+    padding-top: 5px;
+  }
+
+  .navbar-wrapper .mobile-navbar .cart-quantity {
+    top: -3px;
+    left: 25px;
+    font-size: 10px;
+  }
+
+  .navbar-wrapper .mobile-navbar .favourite {
+    top: -3px;
+    left: 22px;
+    font-size: 10px;
+    font-weight: 800;
+  }
   .navbar-wrapper .navbar {
-    z-index: 9999 !important;
+    z-index: 10 !important;
+  }
+
+  .navbar-wrapper .navbar .navbar-toggler {
+    font-size: 1rem;
+    border: none;
+    filter: grayscale(100%);
+    padding: 0;
   }
 
   .navbar-wrapper .navbar .nav-item {
@@ -168,6 +226,7 @@
   .navbar-wrapper .header {
     position: unset;
     text-align: center;
+    transform: translateY(-1rem);
   }
 
   .navbar-wrapper .search-group {
@@ -177,13 +236,10 @@
   .navbar-wrapper .search-results {
     position: absolute;
     width: 100%;
-    height: calc(100vh - 70px - 300px);
-    padding-top: 2rem;
+    top: 4.5rem;
   }
 
   .navbar-wrapper .result-container {
-    border-bottom: 1.5px solid #000000;
-
     margin-bottom: 1rem;
   }
 
