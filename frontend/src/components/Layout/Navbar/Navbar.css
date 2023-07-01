@@ -132,6 +132,10 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
+  .navbar-wrapper .mobile-hidden {
+    display: none;
+  }
+
   .navbar-wrapper .mobile-navbar {
     display: flex;
     flex-direction: row;
@@ -159,7 +163,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
   }
 
   .navbar-wrapper .mobile-search-navbar .search-group {
@@ -200,11 +204,13 @@
   }
 
   .navbar-wrapper .navbar-collapse {
-    background-color: #ffffff !important;
+    /* background-color: #ffffff !important; */
     position: absolute;
     left: 0;
     width: 100.1%;
-    top: 8.4vh;
+    top: 100%;
+    border-top: 1px solid #ddd;
+    background: rgb(255, 255, 255);
   }
 
   .navbar-wrapper .navbar .input-group-wrapper {
@@ -237,7 +243,15 @@
   .navbar-wrapper .search-results {
     position: absolute;
     width: 100%;
-    top: 4.5rem;
+    top: 4.3rem;
+    border-radius: 0px !important;
+  }
+
+  .navbar-wrapper .dropdown-menu {
+    width: 100% !important;
+    border: none !important;
+    background-color: #ffffff !important;
+    text-align: center;
   }
 
   .navbar-wrapper .result-container {

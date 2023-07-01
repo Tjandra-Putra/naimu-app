@@ -176,6 +176,7 @@
   .cart-wrapper .summary {
     height: unset !important;
     margin-top: 1rem;
+    z-index: 0;
   }
 
   .cart-wrapper .product-img img {

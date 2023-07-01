@@ -189,7 +189,7 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav ms-auto mobile-hidden">
               <li className="nav-item pe-4">
                 <div className="input-group-wrapper">
                   <div className="input-group search-group">
