@@ -178,3 +178,20 @@
 .admin-order-wrapper .status-dropdown {
   cursor: pointer;
 }
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .admin-order-wrapper .card {
+    min-height: unset !important;
+  }
+
+  .admin-order-wrapper .summary {
+    height: unset;
+    margin-top: 1rem;
+    z-index: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}

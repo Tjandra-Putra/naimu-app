@@ -130,7 +130,9 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
-
+  .checkout-wrapper .card {
+    min-height: unset !important;
+  }
   .checkout-wrapper .summary {
     height: unset;
   }
