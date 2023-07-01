@@ -517,10 +517,10 @@ const AdminPromoCode = () => {
 
         <div className="orders">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 col-2">
               <SideNavbar activeLink="admin-promo-codes" />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 col-10">
               <div className="card">
                 {promoCodeList.length > 0 ? (
                   <React.Fragment>

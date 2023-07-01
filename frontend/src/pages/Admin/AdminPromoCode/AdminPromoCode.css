@@ -91,13 +91,13 @@
 }
 
 .admin-promo-code-wrapper .promo-status-expired {
-    background-color: #f0cbc5;
-    color: #7e3920;
+  background-color: #f0cbc5;
+  color: #7e3920;
 }
 
 .admin-promo-code-wrapper .promo-status-on-going {
-    background-color: #c5dff0;
-    color: #20467e;
+  background-color: #c5dff0;
+  color: #20467e;
 }
 
 .admin-promo-code-wrapper .table-container .product-select-cb {
@@ -119,4 +119,16 @@
   width: 5rem;
   height: 5rem;
   object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+  .admin-promo-code-wrapper .create-product {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
 }
