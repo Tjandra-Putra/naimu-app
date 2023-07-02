@@ -146,6 +146,14 @@
     justify-content: space-between;
   }
 
+  .navbar-wrapper .mobile-avatar {
+    margin-bottom: 2px;
+  }
+
+  .navbar-wrapper .mobile-search {
+    margin-bottom: 2px;
+  }
+
   .navbar-wrapper .mobile-navbar .search {
     font-size: 18px;
     margin-right: 1px;

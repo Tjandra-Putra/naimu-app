@@ -10,6 +10,25 @@ import { server } from "../../server";
 const Products = () => {
   const navigate = useNavigate();
 
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 767);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Call handleResize initially to set the initial viewport width
+    handleResize();
+
+    // Clean up the event listener when component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // other states
   const [productList, setProductList] = useState([]);
   const [filteredProductList, setFilteredProductList] = useState([]);
@@ -265,7 +284,11 @@ const Products = () => {
                     Category
                   </button>
                 </h2>
-                <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div
+                  id="collapseOne"
+                  className={`accordion-collapse collapse ${isMobileView ? "" : "show"}`}
+                  data-bs-parent="#accordionExample"
+                >
                   <div className="accordion-body">
                     {productList
                       ? [...new Set(productList.map((item) => item.category))].map((category, index) => (
@@ -301,7 +324,11 @@ const Products = () => {
                     Brands
                   </button>
                 </h2>
-                <div id="collapseTwo" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div
+                  id="collapseTwo"
+                  className={`accordion-collapse collapse ${isMobileView ? "" : "show"}`}
+                  data-bs-parent="#accordionExample"
+                >
                   <div className="accordion-body">
                     {productList
                       ? [...new Set(productList.map((item) => item.shop.name))].map((brand, index) => (
@@ -337,7 +364,11 @@ const Products = () => {
                     Price
                   </button>
                 </h2>
-                <div id="collapseThree" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div
+                  id="collapseThree"
+                  className={`accordion-collapse collapse ${isMobileView ? "" : "show"}`}
+                  data-bs-parent="#accordionExample"
+                >
                   <div className="accordion-body">
                     {availablePrices.map((price, index) => (
                       <li className="list-group-item mb-2" key={index}>

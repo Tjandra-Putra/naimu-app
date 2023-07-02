@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -11,12 +11,18 @@ const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer); // getting the user state from the Redux store
   const { cart } = useSelector((state) => state.cartReducer);
   const { favourites } = useSelector((state) => state.favouriteReducer);
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(false); // [state, setState
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
   const [productList, setProductList] = useState([]); // [state, setState]
   const [mobileSearch, setMobileSearch] = useState(false); // when clicked, show search bar on mobile
+
+  useEffect(() => {
+    const navbarCollapse = document.getElementById("navbarSupportedContent");
+    navbarCollapse.classList.remove("show");
+  }, [location]);
 
   // import product from backend
   useEffect(() => {

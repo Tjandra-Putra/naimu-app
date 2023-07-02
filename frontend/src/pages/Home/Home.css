@@ -201,6 +201,10 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
+  .home-wrapper .productcard-wrapper .card-img-top {
+    height: 300px !important;
+  }
+
   .home-wrapper .img-banner,
   .home-wrapper .video-banner {
     width: 100%;

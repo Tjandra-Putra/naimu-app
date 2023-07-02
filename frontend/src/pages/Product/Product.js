@@ -195,6 +195,41 @@ const Product = () => {
               </div>
 
               <div className="product-info">
+                <div className="action-button-show-mobile">
+                  <div className="size-info">
+                    <div className="select-size-label">Select Size:</div>
+                    <div className="size-chart">Size Chart</div>
+                  </div>
+                  <div className="select-size-container">
+                    <div className="select-size-options">
+                      {availableSizes.map(({ id, size }) => (
+                        <span>
+                          <input
+                            type="radio"
+                            id={id}
+                            name="size"
+                            value={size}
+                            checked={id === selectedSize}
+                            onChange={() => setSizeHandler(id)}
+                          />
+                          <label htmlFor={id}>{size}</label>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="d-grid gap-2 mt-3">
+                    {product.quantityInStock > 0 ? (
+                      <button className="btn btn-dark btn-lg rounded-1" onClick={() => addToCartHandler()}>
+                        Add to Cart
+                      </button>
+                    ) : null}
+
+                    {/* if favourited, show added to wishlist */}
+                    {favouriteButtonElement()}
+                  </div>
+                </div>
+
                 <div className="accordion accordion-flush" id="accordionFlushExample">
                   <div className="accordion-item">
                     <h2 className="accordion-header">
@@ -353,37 +388,39 @@ const Product = () => {
                 {product.quantityInStock === 0 ? <span className="stock-status-none">sold out</span> : null}
               </div>
 
-              <div className="size-info d-flex flex-row justify-content-between">
-                <div className="select-size-label">Select Size:</div>
-                <div className="size-chart">Size Chart</div>
-              </div>
-              <div className="select-size-container">
-                <div className="select-size-options">
-                  {availableSizes.map(({ id, size }) => (
-                    <span>
-                      <input
-                        type="radio"
-                        id={id}
-                        name="size"
-                        value={size}
-                        checked={id === selectedSize}
-                        onChange={() => setSizeHandler(id)}
-                      />
-                      <label htmlFor={id}>{size}</label>
-                    </span>
-                  ))}
+              <div className="action-button-hidden-mobile">
+                <div className="size-info d-flex flex-row justify-content-between">
+                  <div className="select-size-label">Select Size:</div>
+                  <div className="size-chart">Size Chart</div>
                 </div>
-              </div>
+                <div className="select-size-container">
+                  <div className="select-size-options">
+                    {availableSizes.map(({ id, size }) => (
+                      <span>
+                        <input
+                          type="radio"
+                          id={id}
+                          name="size"
+                          value={size}
+                          checked={id === selectedSize}
+                          onChange={() => setSizeHandler(id)}
+                        />
+                        <label htmlFor={id}>{size}</label>
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              <div className="d-grid gap-2 mt-3">
-                {product.quantityInStock > 0 ? (
-                  <button className="btn btn-dark btn-lg rounded-1" onClick={() => addToCartHandler()}>
-                    Add to Cart
-                  </button>
-                ) : null}
+                <div className="d-grid gap-2 mt-3">
+                  {product.quantityInStock > 0 ? (
+                    <button className="btn btn-dark btn-lg rounded-1" onClick={() => addToCartHandler()}>
+                      Add to Cart
+                    </button>
+                  ) : null}
 
-                {/* if favourited, show added to wishlist */}
-                {favouriteButtonElement()}
+                  {/* if favourited, show added to wishlist */}
+                  {favouriteButtonElement()}
+                </div>
               </div>
             </div>
           </div>

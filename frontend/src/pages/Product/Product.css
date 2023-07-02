@@ -134,6 +134,14 @@
 .product-wrapper .size-info {
   font-weight: 500;
   margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-wrapper .select-size-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .product-wrapper .left-wrapper {
@@ -187,6 +195,9 @@
 
 @media (max-width: 767px) {
   /* Styles for mobile devices */
+  .product-wrapper .action-button-hidden-mobile {
+    display: none; /* This default layout position is hidden */
+  }
 
   .product-wrapper .product-title {
     font-size: 24px;
@@ -217,5 +228,11 @@
   .product-wrapper .total-reviews-wrapper {
     text-align: center;
     margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-wrapper .action-button-show-mobile {
+    display: none; /* This new layout position is shown in mobile  */
   }
 }
