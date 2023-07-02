@@ -8,7 +8,14 @@ const Loader = () => {
     <div className="loader-wrapper">
       {/* set duration to loader */}
       {/* barloader size is 150 */}
-      <PropagateLoader loading={true} size={30} aria-label="Loading Spinner" data-testid="loader" color="#ffffff" />
+      <BarLoader
+        loading={true}
+        // size={30}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        color="#ffffff"
+        size={150}
+      />
     </div>
   );
 };
