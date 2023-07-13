@@ -9,7 +9,8 @@
 }
 
 .login-wrapper .title {
-  text-transform: uppercase;
+  text-transform: capitalize;
+  font-weight: 500;
 }
 
 .login-wrapper .login-input,

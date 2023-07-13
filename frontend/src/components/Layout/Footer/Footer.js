@@ -5,8 +5,9 @@ import googleCardImage from "../../../assets/images/google-pay.png";
 
 const Footer = () => {
   return (
-    <div className="footer-wrapper">
-      <div className="container">
+    <footer className="footer-wrapper">
+      <div className="footer-inner container">
+        <div className="line"></div>
         <div className="row">
           <div className="col-md-4">
             <div className="brand">NAIMU.</div>
@@ -40,19 +41,24 @@ const Footer = () => {
             <div className="heading">Payment Methods</div>
             <div className="payment-cards">
               <div className="card-wrapper">
-                <img src={visaCardImage} alt="" className="payment-card-img" />
+                {/* <img src={visaCardImage} alt="" className="payment-card-img" /> */}
+                <i class="fa-brands fa-cc-visa"></i>
               </div>
               <div className="card-wrapper">
-                <img src={googleCardImage} alt="" className="payment-card-img" />
+                {/* <img src={paypalCardImage} alt="" className="payment-card-img" /> */}
+                <i class="fa-brands fa-cc-paypal"></i>
               </div>
               <div className="card-wrapper">
-                <img src={paypalCardImage} alt="" className="payment-card-img" />
+                {/* <img src={googleCardImage} alt="" className="payment-card-img" /> */}
+                <i class="fa-brands fa-google-pay"></i>
               </div>
             </div>
           </div>
         </div>
+
+        <div className="copy-right">© 2023 Naimu. All rights reserved.</div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -34,7 +34,7 @@ const ProductCard = ({
 
             <div className="title">{productTitle}</div>
 
-            <Rating showCount={false} userRating={productRating} />
+            {/* <Rating showCount={false} userRating={productRating} /> */}
             <div className="prices">
               <span className="discounted-price">
                 {productPrice !== productDiscountPrice ? `$${productDiscountPrice}` : null}

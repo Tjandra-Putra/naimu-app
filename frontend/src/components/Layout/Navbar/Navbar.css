@@ -14,10 +14,12 @@
 
 .navbar-wrapper .nav-link {
   border-radius: 5px !important;
-  text-transform: uppercase;
-  font-size: 14px;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  /* color: rgba(107, 114, 128, 1); */
   color: #000000;
-  font-weight: 600;
 }
 
 .navbar-wrapper .nav-link-icon {
@@ -32,17 +34,21 @@
 .navbar-wrapper .nav-link:hover {
   background-color: #dddddd6e;
   border-radius: 5px !important;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .navbar-wrapper .search-icon {
   border-radius: 50px 0px 0px 50px !important;
-  background-color: #efefef !important;
-  /* background-color: #f5f4f4 !important; */
+  background-color: #efefefa0 !important;
+  border: none !important;
+  font-size: 0.7rem;
+  color: #00000098;
 }
 
 .navbar-wrapper .search-input {
-  background-color: #efefef !important;
+  border: none !important;
+  background-color: #efefefa0 !important;
+
   /* background-color: #f5f4f4 !important; */
   border: none;
   border-radius: 0px 50px 50px 0px !important;
@@ -123,8 +129,8 @@
 }
 
 .navbar-wrapper .profile-img {
-  width: 22px;
-  height: 22px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #6a6662;

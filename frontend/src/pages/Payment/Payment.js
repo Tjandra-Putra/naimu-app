@@ -674,7 +674,7 @@ const Payment = () => {
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Items x{orderInfo.cartInfo.length}</div>
-                  <div>${orderInfo.amountInfo.subTotalPrice}</div>
+                  <div>${orderInfo.amountInfo.subTotalPrice.toFixed(2)}</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">

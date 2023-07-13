@@ -49,7 +49,7 @@ const Product = () => {
 
     if (!isAuthenticated) {
       return (
-        <button className="btn btn-outline-dark btn-lg rounded-1 mt-1" disabled>
+        <button className="btn btn-outline-secondary btn-lg rounded-1 mt-1" disabled>
           Login to add to Wishlist
         </button>
       );

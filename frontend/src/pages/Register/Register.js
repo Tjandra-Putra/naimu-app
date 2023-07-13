@@ -139,7 +139,7 @@ const Register = () => {
           <div className="col-md-4"></div>
           <div className="col-md-4">
             <div className="register-form">
-              <h2 className="title text-center">Become a member</h2>
+              <h2 className="title text-center">Create Account</h2>
 
               {/* <div className="policy">
               <p className="text-center">

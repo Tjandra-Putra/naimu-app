@@ -414,7 +414,7 @@ const Checkout = () => {
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Items x{cart && cart.length}</div>
-                  <div>${subTotalPrice}</div>
+                  <div>${subTotalPrice.toFixed(2)}</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">

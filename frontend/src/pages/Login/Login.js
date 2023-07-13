@@ -92,7 +92,7 @@ const Login = () => {
           <div className="col-md-4"></div>
           <div className="col-md-4">
             <div className="login-form">
-              <h2 className="title text-center">My Account</h2>
+              <h2 className="title text-center">Sign In</h2>
 
               <div className="policy">
                 <p className="text-center">
@@ -157,7 +157,7 @@ const Login = () => {
 
                 <div className="buttons">
                   <div class="d-grid gap-2">
-                    <button class="btn btn-dark btn-lg rounded-1 login-button" type="submit">
+                    <button class="btn btn-dark btn-lg login-button" type="submit">
                       Sign In
                     </button>
                   </div>

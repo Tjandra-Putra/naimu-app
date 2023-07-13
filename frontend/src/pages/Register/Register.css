@@ -9,7 +9,7 @@
 }
 
 .register-wrapper .title {
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .register-wrapper .register-input,

@@ -112,7 +112,7 @@
   padding: 20px 12px;
   margin-top: 0.5rem;
   margin-right: 0.3rem;
-  border: 1.5px solid #ddd;
+  border: 1.5px solid #e7e7ef;
   height: 3rem;
   width: 4.6rem;
   text-align: center;
@@ -145,7 +145,8 @@
 }
 
 .product-wrapper .left-wrapper {
-  border: 1px solid #eceff1;
+  /* border: 1.5px solid #eceff1; */
+  border: 1.5px solid #eceff1d1;
 }
 
 .product-wrapper .accordion-header {

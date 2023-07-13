@@ -1,6 +1,8 @@
 .productcard-wrapper .card {
-  min-height: 470px !important;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  /* min-height: 470px !important; */
+  min-height: 450px !important;
+
+  /* box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px; */
 
   width: 100% !important;
 }

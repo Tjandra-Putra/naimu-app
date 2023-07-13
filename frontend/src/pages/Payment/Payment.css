@@ -30,7 +30,6 @@
 .payment-wrapper .summary {
   position: sticky;
   top: 25px;
-  z-index: 999;
   height: 10px;
 }
 

@@ -98,18 +98,23 @@ const Cart = () => {
   };
 
   const addToFavouritesHandler = (item) => {
-    dispatch(
-      addToFavourites(
-        item._id,
-        item.shopName,
-        item.price,
-        item.discountPrice,
-        item.title,
-        item.imageUrl,
-        item.unitSold,
-        item.rating
-      )
-    );
+    if (!isAuthenticated) {
+      notifyError("Please login to add to favourites.");
+      return;
+    } else {
+      dispatch(
+        addToFavourites(
+          item._id,
+          item.shopName,
+          item.price,
+          item.discountPrice,
+          item.title,
+          item.imageUrl,
+          item.unitSold,
+          item.rating
+        )
+      );
+    }
   };
 
   // compute total price
@@ -281,7 +286,7 @@ const Cart = () => {
 
                 <div className="summary-row d-flex flex-row justify-content-between">
                   <div>Items x{cart && cart.length}</div>
-                  <div>${totalPrice}</div>
+                  <div>${totalPrice.toFixed(2)}</div>
                 </div>
 
                 <div className="summary-row d-flex flex-row justify-content-between">
@@ -291,7 +296,7 @@ const Cart = () => {
 
                 <div className="summary-total d-flex flex-row justify-content-between">
                   <div>Total</div>
-                  <div>${totalPrice}</div>
+                  <div>${totalPrice.toFixed(2)}</div>
                 </div>
 
                 <div className="buttons my-3">

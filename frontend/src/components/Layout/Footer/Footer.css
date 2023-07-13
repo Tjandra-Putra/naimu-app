@@ -1,14 +1,19 @@
 .footer-wrapper {
-  padding: 2rem;
-  /* background-color: #eef1f3; */
-  background-color: #070606;
+  /* background-color: #070606; */
+  margin-top: 4rem;
+}
+
+.footer-wrapper .footer-inner {
+  border-top: 2px solid #f3f3f4;
+  padding: 3rem;
 }
 
 .footer-wrapper .heading {
-  text-transform: uppercase;
-  font-weight: 400;
-  color: #ffffff;
+  text-transform: capitalize;
+  font-weight: 500;
+  /* color: #ffffff; */
   letter-spacing: 1px;
+  line-height: 2.5rem;
 }
 
 .footer-wrapper .brand {
@@ -17,11 +22,12 @@
   text-transform: uppercase;
   font-weight: 500;
   font-size: 1.5rem;
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 
 .footer-wrapper .description {
-  color: #b9b9b9;
+  font-weight: 500;
+  color: #000000;
 }
 
 .footer-wrapper ul {
@@ -29,9 +35,16 @@
   padding-left: 0;
 }
 
+.footer-wrapper .copy-right {
+  color: #515968;
+}
+
 .footer-wrapper ul li {
-  margin-top: 0.5rem;
-  color: #b9b9b9;
+  /* color: #c7c9d0; */
+  line-height: 2.5rem;
+  font-weight: 400;
+  color: #515968;
+  cursor: pointer;
 }
 
 .footer-wrapper .payment-card-img {
@@ -50,9 +63,10 @@
 }
 
 .footer-wrapper .payment-cards .card-wrapper {
-  width: 50px;
-  height: 30px !important;
+  /* width: 40px;
+  height: 25px !important; */
   margin: 5px;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 767px) {
