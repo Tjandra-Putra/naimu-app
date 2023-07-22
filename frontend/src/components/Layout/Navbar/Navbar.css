@@ -136,7 +136,7 @@
   border: 2px solid #6a6662;
 }
 
-@media (max-width: 767px) {
+  @media (max-width: 767px) {
   /* Styles for mobile devices */
   .navbar-wrapper .mobile-hidden {
     display: none;
