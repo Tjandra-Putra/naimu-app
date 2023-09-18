@@ -153,3 +153,35 @@ Once the frontend and backend are set up and running, you can access the applica
 |   -----  |
 | ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/3a09c8fa-6f34-45f0-b9a4-f6a61baf7529) |
 
+## Admin Pages
+|   Admin Dashboard Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/19e35960-e808-472d-a775-0beddea8ceaf)|
+
+|   Admin Orders Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/12671010-8c3e-4158-ab38-2cba0ff35aea)|
+
+|   Admin Orders Detail Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/9e3c388e-b87d-4d50-b967-2db9df93e78b)|
+
+|   Admin Products Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/0388325c-706c-4a9c-83fb-3d5a77a4b59b)|
+
+|   Admin Add Products Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/2ed09295-fd47-451c-9aa3-193cc651962d)|
+
+|   Admin Promo Codes Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/d66a44e0-8faf-4e28-a938-72cdac70bd22)|
+
+|   Admin Add Promo Codes Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/4c499cb9-db8b-444d-8cb8-055e24500c20)|
+
+|   Admin Add Promo Codes Page  |
+|   -----  |
+| ![image](https://github.com/Tjandra-Putra/naimu-app/assets/57522674/4c499cb9-db8b-444d-8cb8-055e24500c20)|
