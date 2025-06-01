@@ -14,6 +14,7 @@ import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import { addToCart } from "../../redux/actions/cart";
 import { server } from "../../server";
 import { addToFavourites } from "../../redux/actions/favourite";
+import ProductNotFound from "../../assets/images/product_not_found.jpeg";
 
 const Product = () => {
   // redux
@@ -44,8 +45,7 @@ const Product = () => {
 
   const favouriteButtonElement = () => {
     // render buttob component based on existence of item in favourites
-    const isFavouritedButton =
-      favourites && isAuthenticated && favourites.favouriteItems.find((item) => item.productId === id);
+    const isFavouritedButton = favourites && isAuthenticated && favourites.favouriteItems.find((item) => item.productId === id);
 
     if (!isAuthenticated) {
       return (
@@ -139,18 +139,7 @@ const Product = () => {
 
   const addToFavouritesHandler = (item) => {
     console.log(item);
-    dispatch(
-      addToFavourites(
-        item._id,
-        item.shop.name,
-        item.price,
-        item.discountPrice,
-        item.title,
-        item.imageUrl[0].url,
-        item.unitSold,
-        item.rating
-      )
-    );
+    dispatch(addToFavourites(item._id, item.shop.name, item.price, item.discountPrice, item.title, item.imageUrl[0].url, item.unitSold, item.rating));
   };
 
   return isLoading ? (
@@ -187,7 +176,16 @@ const Product = () => {
                   ? product.imageUrl.map((item, index) => (
                       <div className="col-md-6 col-6" key={index}>
                         <div className="product-img-container">
-                          <img src={item.url} alt={item.url} className="img-fluid product-img" />
+                          {/* <img src={item.url} alt={item.url} className="img-fluid product-img" /> */}
+                          <img
+                            src={item.url}
+                            className="img-fluid product-img"
+                            alt={item.url}
+                            onError={(e) => {
+                              e.target.onerror = null; // prevent infinite loop if fallback also fails
+                              e.target.src = ProductNotFound;
+                            }}
+                          />
                         </div>
                       </div>
                     ))
@@ -204,14 +202,7 @@ const Product = () => {
                     <div className="select-size-options">
                       {availableSizes.map(({ id, size }) => (
                         <span>
-                          <input
-                            type="radio"
-                            id={id}
-                            name="size"
-                            value={size}
-                            checked={id === selectedSize}
-                            onChange={() => setSizeHandler(id)}
-                          />
+                          <input type="radio" id={id} name="size" value={size} checked={id === selectedSize} onChange={() => setSizeHandler(id)} />
                           <label htmlFor={id}>{size}</label>
                         </span>
                       ))}
@@ -244,11 +235,7 @@ const Product = () => {
                         Description
                       </button>
                     </h2>
-                    <div
-                      id="flush-collapseOne"
-                      className="accordion-collapse collapse show"
-                      data-bs-parent="#accordionFlushExample"
-                    >
+                    <div id="flush-collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">{product.description}</div>
                     </div>
                   </div>
@@ -266,11 +253,7 @@ const Product = () => {
                         Free Delivery and Returns
                       </button>
                     </h2>
-                    <div
-                      id="flush-collapseTwo"
-                      className="accordion-collapse collapse"
-                      data-bs-parent="#accordionFlushExample"
-                    >
+                    <div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">
                         <p>Your order of S$75 or more gets free standard delivery.</p>
                         <ul>
@@ -296,20 +279,12 @@ const Product = () => {
                         <div className="d-flex flex-row justify-content-between">
                           <span className="me-2">Reviews</span>
                           <div className="accordion-item-review">
-                            <Rating
-                              showCount={true}
-                              userRating={product.rating}
-                              totalRatings={product.reviews.length}
-                            />
+                            <Rating showCount={true} userRating={product.rating} totalRatings={product.reviews.length} />
                           </div>
                         </div>
                       </button>
                     </h2>
-                    <div
-                      id="flush-collapseThree"
-                      className="accordion-collapse collapse"
-                      data-bs-parent="#accordionFlushExample"
-                    >
+                    <div id="flush-collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body review-box-info">
                         <div className="row mb-4">
                           <div className="col-md-4 col-12 total-reviews-wrapper">
@@ -350,11 +325,7 @@ const Product = () => {
                         </div>
                       </button>
                     </h2>
-                    <div
-                      id="flush-collapseFour"
-                      className="accordion-collapse collapse"
-                      data-bs-parent="#accordionFlushExample"
-                    >
+                    <div id="flush-collapseFour" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div className="accordion-body">
                         <button className="btn btn-outline-dark">Send a message</button>
                       </div>
@@ -379,9 +350,7 @@ const Product = () => {
               <div className="product-price">
                 <span className="discounted-price">SGD ${product.discountPrice}</span>
                 <span className="original-price">SGD ${product.price}</span>
-                <span className="discount-tag">
-                  -{Math.round(((product.price - product.discountPrice) / product.price) * 100)}%
-                </span>
+                <span className="discount-tag">-{Math.round(((product.price - product.discountPrice) / product.price) * 100)}%</span>
                 {product.quantityInStock < 10 && product.quantityInStock !== 0 ? (
                   <span className="stock-status-low">only {product.quantityInStock} left</span>
                 ) : null}
@@ -397,14 +366,7 @@ const Product = () => {
                   <div className="select-size-options">
                     {availableSizes.map(({ id, size }) => (
                       <span>
-                        <input
-                          type="radio"
-                          id={id}
-                          name="size"
-                          value={size}
-                          checked={id === selectedSize}
-                          onChange={() => setSizeHandler(id)}
-                        />
+                        <input type="radio" id={id} name="size" value={size} checked={id === selectedSize} onChange={() => setSizeHandler(id)} />
                         <label htmlFor={id}>{size}</label>
                       </span>
                     ))}
